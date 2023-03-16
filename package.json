@@ -1,0 +1,35 @@
+{
+  "name": "ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupok",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupok.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupok/issues"
+  },
+  "homepage": "https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupok#readme",
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/prompt-sync": "^4.2.0",
+    "chai": "^4.3.7",
+    "eslint-config-prettier": "^8.7.0",
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.4",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^6.0.0",
+    "typedoc": "^0.23.27"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
