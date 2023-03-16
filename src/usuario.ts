@@ -1,0 +1,1 @@
+import { EntidadInterface } from "./entidadInterface";
