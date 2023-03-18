@@ -1,1 +1,1 @@
-import { EntidadInterface } from "./entidadInterface";
+import { EntidadInterface } from "./interfaces/entidadInterface";
