@@ -11,12 +11,7 @@ class Grupo implements EntidadInterface {
   };
   clasificacion: { id: number; km: number; desnivel: number }[];
   rutasFavoritas: number[];
-  historicoRutas: {
-    ruta: number;
-    distancia: number;
-    desnivel: number;
-    fecha: Date;
-  }[];
+  historicoRutas: { ruta: number; fecha: Date; }[];
 
   constructor(id: number, nombre: string, participantes: number[]) {
     this.id = id;
@@ -51,15 +46,10 @@ class Grupo implements EntidadInterface {
   getClasificacion(): { id: number; km: number; desnivel: number }[] {
     return this.clasificacion;
   }
-  getRutasFavoritas(): string[] {
+  getRutasFavoritas(): number[] {
     return this.rutasFavoritas;
   }
-  getHistoricoRutas(): {
-    ruta: string;
-    distancia: number;
-    desnivel: number;
-    fecha: Date;
-  }[] {
+  getHistoricoRutas(): { ruta: number; fecha: Date;}[] {
     return this.historicoRutas;
   }
   setID(id: number): void {
@@ -81,14 +71,10 @@ class Grupo implements EntidadInterface {
   setClasificacion(clasificacion: { id: number; km: number; desnivel: number }[]): void {
     this.clasificacion = clasificacion;
   }
-  setRutasFavoritas(rutasFavoritas: string[]): void {
+  setRutasFavoritas(rutasFavoritas: number[]): void {
     this.rutasFavoritas = rutasFavoritas;
   }
-  setHistoricoRutas(historicoRutas: {
-    ruta: string;
-    distancia: number;
-    desnivel: number;
-    fecha: Date;
+  setHistoricoRutas(historicoRutas: {ruta: number; fecha: Date;
   }[]): void {
     this.historicoRutas = historicoRutas;
   }
