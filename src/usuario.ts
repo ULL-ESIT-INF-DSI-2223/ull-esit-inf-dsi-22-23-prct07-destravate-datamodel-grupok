@@ -69,3 +69,53 @@ export class Usuario implements EntidadInterface {
   } {
     return this.estadisticas;
   }
+
+  getRutasFavoritas(): number[] {
+    return this.rutasFavoritas;
+  }
+
+  getRetosActivos(): number[] {
+    return this.retosActivos;
+  }
+
+  getHistoricoRutas(): { ruta: number; fecha: Date; }[] {
+    return this.historicoRutas;
+  }
+
+  // Métodos de modificación
+  setNombre(nombre: string): void {
+    this.nombre = nombre;
+  }
+
+  setActividades(actividades: string[]): void {
+    this.actividades = actividades;
+  }
+
+  setAmigosApp(amigosApp: number[]): void {
+    this.amigosApp = amigosApp;
+  }
+
+  setAmigosFrecuentes(amigosFrecuentes: number[]): void {
+    this.amigosFrecuentes = amigosFrecuentes;
+  }
+
+  setEstadisticas(estadisticas: {
+    semana: { km: number; desnivel: number };
+    mes: { km: number; desnivel: number };
+    anio: { km: number; desnivel: number };
+  }): void {
+    this.estadisticas = estadisticas;
+  }
+
+  setRutasFavoritas(rutasFavoritas: number[]): void {
+    this.rutasFavoritas = rutasFavoritas;
+  }
+
+  setRetosActivos(retosActivos: number[]): void {
+    this.retosActivos = retosActivos;
+  }
+
+  setHistoricoRutas(historicoRutas: { ruta: number; fecha: Date; }[]): void {
+    this.historicoRutas = historicoRutas;
+  }
+}
