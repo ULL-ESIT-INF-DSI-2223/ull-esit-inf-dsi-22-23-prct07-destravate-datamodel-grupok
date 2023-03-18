@@ -41,4 +41,31 @@ export class Usuario implements EntidadInterface {
     this.historicoRutas = historicoRutas;
   }
 
-  
+  // Métodos
+  getID(): number {
+    return this.id;
+  }
+
+  getNombre(): string {
+    return this.nombre;
+  }
+
+  getActividades(): string[] {
+    return this.actividades;
+  }
+
+  getAmigosApp(): number[] {
+    return this.amigosApp;
+  }
+
+  getAmigosFrecuentes(): number[] {
+    return this.amigosFrecuentes;
+  }
+
+  getEstadisticas(): {
+    semana: { km: number; desnivel: number };
+    mes: { km: number; desnivel: number };
+    anio: { km: number; desnivel: number };
+  } {
+    return this.estadisticas;
+  }
