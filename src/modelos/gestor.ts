@@ -42,6 +42,8 @@ export class Gestor {
         const usuario = new Usuario(respuesta.nombre, respuesta2.actividad);
         this.usuarios.registrarUsuario(usuario);
         console.log('Usuario registrado con éxito');
+        // Insertamos el usuario dentro de la colección
+        this.usuarios.insertUsuario(usuario);
         this.volverConsola();
       });
     });

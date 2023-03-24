@@ -44,4 +44,8 @@ export class ColeccionUsuario {
       console.log(usuario);
     }
   }
+
+  public insertUsuario(usuario: Usuario): void {
+    this.usuarios.set(usuario.getID(), usuario);
+  }
 }
