@@ -86,7 +86,7 @@ export class Gestor {
         if (usuarioAEliminar) {
           usuarios.delete(usuarioAEliminar.getID());
           console.log(`Usuario ${usuarioAEliminar.getNombre()} eliminado con éxito`);
-                                                                                           //////////////////////////// Eliminar también de usuario collection 
+                                                                                           //////////////////////////// Eliminar también usuario de collection 
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
         }
@@ -139,10 +139,6 @@ export class Gestor {
     });
   }
 }
-
-/// generamos un par de usuarios con parámetros Nombre y Actividad
-const usuario1 = new Usuario('Jaime', 'bicicleta');
-const usuario2 = new Usuario('Ramón', 'corredor');
 
 const gestor = new Gestor();
 gestor.consola();
