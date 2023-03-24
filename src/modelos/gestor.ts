@@ -14,6 +14,7 @@ export class Gestor {
 
   constructor() {
     this.usuarios = new ColeccionUsuario();
+                                                                            //////////////////// se debería generar la colección de usuarios aquí con los datos de cada uno
   }
 
   public getUsuarios() {
@@ -44,6 +45,7 @@ export class Gestor {
         console.log('Usuario registrado con éxito');
         // Insertamos el usuario dentro de la colección
         this.usuarios.insertUsuario(usuario);
+                                                                              ////////////////////////////// hay que poner que escriba en el fichero la información
         this.volverConsola();
       });
     });
@@ -84,6 +86,7 @@ export class Gestor {
         if (usuarioAEliminar) {
           usuarios.delete(usuarioAEliminar.getID());
           console.log(`Usuario ${usuarioAEliminar.getNombre()} eliminado con éxito`);
+                                                                                           //////////////////////////// Eliminar también de usuario collection 
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
         }

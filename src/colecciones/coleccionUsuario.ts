@@ -45,7 +45,16 @@ export class ColeccionUsuario {
     }
   }
 
+  /**
+   * Método que permite insertar un usuario en la colección de usuarios revisando
+   * previamente que el usuario no exista
+   * @param usuario 
+   */
   public insertUsuario(usuario: Usuario): void {
+    if (this.usuarios.has(usuario.getID())) {
+      console.log('El usuario ya existe');
+      return;
+    }
     this.usuarios.set(usuario.getID(), usuario);
   }
 }
