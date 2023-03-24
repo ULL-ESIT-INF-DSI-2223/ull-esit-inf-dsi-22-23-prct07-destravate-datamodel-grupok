@@ -12,7 +12,7 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
 
   constructor() {
     super();
-    const adapter = new FileSync<DatabaseSchema>('usuarios.json');
+    const adapter = new FileSync<DatabaseSchema>('../dataBase/usuarios.json');
     this.usuariosDatabase = lowdb(adapter);
     this.usuariosDatabase.defaults({ usuarios: [] }).write();
   }
