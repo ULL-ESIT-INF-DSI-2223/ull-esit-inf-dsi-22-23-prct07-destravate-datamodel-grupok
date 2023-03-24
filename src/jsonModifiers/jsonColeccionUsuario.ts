@@ -20,6 +20,7 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
       usuarios.push(usuario);
       this.usuariosDatabase.set('usuarios', usuarios).write();
     }
+    // Si no hay usuarios en la base de datos 
     else {
       this.usuariosDatabase.defaults({ usuarios: [usuario] }).write();
     }
