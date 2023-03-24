@@ -21,20 +21,16 @@ export class ColeccionUsuario {
    * el uso del id
    * @param usuarios 
    */
-  public setUsuarios(usuarios: Map<number, Usuario>): void {
-    for (const usuario of usuarios.values()) {
+  public setUsuarios(usuarios: Usuario[]): void {
+    usuarios.forEach(usuario => {
       if (!this.usuarios.has(usuario.getID())) {
         this.usuarios.set(usuario.getID(), usuario);
       }
-    }
+    });
   }
 
   public getUsuarios(): Map<number, Usuario> {
     return this.usuarios;
-  }
-
-  public registrarUsuario(usuario: Usuario): void {
-    this.usuarios.set(usuario.getID(), usuario);
   }
 
   public listarUsuarios(): void {
@@ -50,7 +46,7 @@ export class ColeccionUsuario {
    * previamente que el usuario no exista
    * @param usuario 
    */
-  public insertUsuario(usuario: Usuario): void {
+  public insertarUsuario(usuario: Usuario): void {
     if (this.usuarios.has(usuario.getID())) {
       console.log('El usuario ya existe insertar usuario');
       return;

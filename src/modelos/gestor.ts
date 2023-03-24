@@ -16,10 +16,8 @@ export class Gestor {
 
   constructor() {
     this.usuarios = new ColeccionUsuario();
-    let usuarios: Usuario[] = this.jsonColeccionUsuario.cargarUsuarios();
-    for (const usuario of usuarios) {
-      this.usuarios.registrarUsuario(usuario);
-    }
+    this.usuarios.setUsuarios(this.jsonColeccionUsuario.cargarUsuarios());
+    
                                                                             //////////////////// se debería generar la colección de usuarios aquí con los datos de cada uno pillando del fichero aquello
   }
 
@@ -53,10 +51,10 @@ export class Gestor {
           this.volverConsola();
           return;
         } 
-        this.usuarios.registrarUsuario(usuario);
+        this.usuarios.insertarUsuario(usuario);
         console.log('Usuario registrado con éxito');
         // Insertamos el usuario dentro de la colección
-        this.usuarios.insertUsuario(usuario);
+        this.usuarios.insertarUsuario(usuario);
         this.jsonColeccionUsuario.registrarUsuario(usuario);
         this.volverConsola();
       });
