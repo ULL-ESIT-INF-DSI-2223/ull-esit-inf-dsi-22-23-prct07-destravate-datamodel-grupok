@@ -7,7 +7,9 @@ import { Usuario } from './usuario';
  * grupo existente, Visualizar, crear y borrar grupos.
  */
 export class Gestor {
-  public usuarios: string[];
+  public usuarios: string[]; //////////////////////////////////////////////// Cambiar el string de usuarios
+  /// por un collection de Usuarios (hay que crear una clase ColeccionUsuario que 
+  ///contenga un map con key el id y de resto el objeto usuario)
 
   constructor(usuarios: string[]) {
     this.usuarios = usuarios;
@@ -37,8 +39,33 @@ export class Gestor {
     for (const usuario of this.usuarios) {
       console.log(usuario);
     }
-    // console.log(this.usuarios);
     this.volverConsola();
+  }
+
+  /**
+   * Elimina un usuario de la lista de usuarios con opción a cancelar
+   */
+  eliminarUsuario(): void {
+    inquirer.prompt({
+      type: 'list',
+      name: 'usuario',
+      message: 'Elige un usuario a eliminar',
+      choices: this.usuarios,
+    }).then((respuesta) => {
+      inquirer.prompt({
+        type: 'confirm',
+        name: 'confirmacion',
+        message: `¿Estás seguro de que quieres eliminar a ${respuesta.usuario}?`,
+      }).then((respuesta2) => {
+        if (respuesta2.confirmacion) {
+          this.usuarios = this.usuarios.filter((usuario) => usuario !== respuesta.usuario);
+          console.log('Usuario eliminado con éxito');
+        } else {
+          console.log('Operación cancelada');
+        }
+        this.volverConsola();
+      });
+    });
   }
 
   private volverConsola(): void {
@@ -51,7 +78,6 @@ export class Gestor {
       this.consola();
     });
   }
-
 
   public consola(): void {
     console.clear();
@@ -83,32 +109,6 @@ export class Gestor {
         default:
           break;
       }
-    });
-  }
-
-  /**
-   * Elimina un usuario de la lista de usuarios con opción a cancelar
-   */
-  eliminarUsuario(): void {
-    inquirer.prompt({
-      type: 'list',
-      name: 'usuario',
-      message: 'Elige un usuario a eliminar',
-      choices: this.usuarios,
-    }).then((respuesta) => {
-      inquirer.prompt({
-        type: 'confirm',
-        name: 'confirmacion',
-        message: `¿Estás seguro de que quieres eliminar a ${respuesta.usuario}?`,
-      }).then((respuesta2) => {
-        if (respuesta2.confirmacion) {
-          this.usuarios = this.usuarios.filter((usuario) => usuario !== respuesta.usuario);
-          console.log('Usuario eliminado con éxito');
-        } else {
-          console.log('Operación cancelada');
-        }
-        this.volverConsola();
-      });
     });
   }
 }
