@@ -46,11 +46,8 @@ export class Usuario implements EntidadInterface {
     if (nombre === '' || (actividades !== 'bicicleta' && actividades !== 'corredor')) {
       throw new Error('Nombre de usuario vacío o actividad no válida');
     }
-    console.log(contador_id);
     this.id = contador_id;
     contador_id++;
-    console.log(contador_id);
-
     this.nombre = nombre;
     this.actividades = [actividades];
   }
