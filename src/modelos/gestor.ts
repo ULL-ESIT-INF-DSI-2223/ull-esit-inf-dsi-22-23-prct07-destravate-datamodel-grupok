@@ -44,18 +44,6 @@ export class Gestor {
         this.volverConsola();
       });
     });
-    // console.clear();
-    // console.log('Registrando usuario...');
-    // inquirer.prompt({
-    //   type: 'input',
-    //   name: 'nombre',
-    //   message: 'Introduce tu nombre de usuario: ',
-    // }).then((respuesta) => {
-    //   this.usuarios.push(respuesta.nombre);
-    //   console.log('Usuario registrado con éxito');
-    //   this.volverConsola();
-    // });
-
   }
 
   public listarUsuarios(): void {
@@ -101,7 +89,6 @@ export class Gestor {
     });
   }
   
-
   private volverConsola(): void {
     inquirer.prompt({
       type: 'list',

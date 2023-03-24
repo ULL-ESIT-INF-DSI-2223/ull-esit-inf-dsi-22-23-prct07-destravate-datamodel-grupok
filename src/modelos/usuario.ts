@@ -42,6 +42,10 @@ export class Usuario implements EntidadInterface {
   //   this.historicoRutas = historicoRutas;
   // }
   constructor(nombre: string, actividades: Actividad) {
+    /// Comprobamos que el nombre no esté vacío y que la actividad sea válida
+    if (nombre === '' || (actividades !== 'bicicleta' && actividades !== 'corredor')) {
+      throw new Error('Nombre de usuario vacío o actividad no válida');
+    }
     this.id = Usuario.contador_id;
     Usuario.contador_id++;
     this.nombre = nombre;
