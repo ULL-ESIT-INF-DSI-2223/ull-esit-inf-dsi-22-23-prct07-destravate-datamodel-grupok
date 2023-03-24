@@ -1,5 +1,6 @@
 import inquirer from 'inquirer';
 import { Usuario } from './usuario';
+import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
 /**
  * Clase Gestor
  * Tiene que permitir añadir, borrar y modificar rutas, usuarios, grupos y retos, 
@@ -7,6 +8,8 @@ import { Usuario } from './usuario';
  * grupo existente, Visualizar, crear y borrar grupos.
  */
 export class Gestor {
+  // private usuarios: ColeccionUsuario;
+  // private rutas: ColeccionRutas;
   public usuarios: string[]; //////////////////////////////////////////////// Cambiar el string de usuarios
   /// por un collection de Usuarios (hay que crear una clase ColeccionUsuario que 
   ///contenga un map con key el id y de resto el objeto usuario)
