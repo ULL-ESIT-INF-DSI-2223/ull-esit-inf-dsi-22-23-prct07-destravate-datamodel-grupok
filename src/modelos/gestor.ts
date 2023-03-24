@@ -22,7 +22,8 @@ export class Gestor {
 
   /**
    * Método que permite crear usuarios y añadirlos a la colección de usuarios,
-   * esto lo hace preguntando el nombre del usuario y la actividad que realiza
+   * esto lo hace preguntando el nombre del usuario y la actividad que realiza, 
+   * así como asignar el id del usuario como key dentro del map
    */
   public registrarUsuario(): void {
     console.clear();
