@@ -1,26 +1,30 @@
-import {ColeccionUsuario} from '../colecciones/coleccionUsuario';
-import lowdb from 'lowdb';
+import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
+import lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 import { Usuario } from '../modelos/usuario';
 
+interface DatabaseSchema {
+  usuarios: Usuario[];
+}
+
 export class JsonColeccionUsuario extends ColeccionUsuario {
-  private usuariosDatabase: lowdb.LowdbSync<Usuario[]>;
+  private usuariosDatabase: LowdbSync<DatabaseSchema>;
 
   constructor() {
     super();
-    const adapter = new FileSync<Usuario[]>('usuarios.json');
+    const adapter = new FileSync<DatabaseSchema>('usuarios.json');
     this.usuariosDatabase = lowdb(adapter);
     this.usuariosDatabase.defaults({ usuarios: [] }).write();
   }
 
   public registrarUsuario(usuario: Usuario): void {
     super.registrarUsuario(usuario);
-    const usuarios = this.usuariosDatabase.get('usuarios').value();
+    const usuarios: Usuario[] = this.usuariosDatabase.get('usuarios').value();
     if (usuarios && usuarios.length > 0) {
       usuarios.push(usuario);
       this.usuariosDatabase.set('usuarios', usuarios).write();
     }
-    // Si no hay usuarios en la base de datos 
+    // Si no hay usuarios en la base de datos se crea un array con el usuario 
     else {
       this.usuariosDatabase.defaults({ usuarios: [usuario] }).write();
     }
