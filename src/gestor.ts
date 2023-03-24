@@ -1,6 +1,11 @@
 import inquirer from 'inquirer';
 import { Usuario } from './usuario';
-
+/**
+ * Clase Gestor
+ * Tiene que permitir añadir, borrar y modificar rutas, usuarios, grupos y retos, 
+ * así como Visualizar todas las rutas existentes dentro del sistema, Unirse a un 
+ * grupo existente, Visualizar, crear y borrar grupos.
+ */
 export class Gestor {
   public usuarios: string[];
 
@@ -25,14 +30,17 @@ export class Gestor {
       this.volverConsola();
     });
   }
-  
+
   public listarUsuarios(): void {
     console.clear();
     console.log('Listando usuarios...');
-    console.log(this.usuarios);
+    for (const usuario of this.usuarios) {
+      console.log(usuario);
+    }
+    // console.log(this.usuarios);
     this.volverConsola();
   }
-  
+
   private volverConsola(): void {
     inquirer.prompt({
       type: 'list',
@@ -43,8 +51,8 @@ export class Gestor {
       this.consola();
     });
   }
-  
-  
+
+
   public consola(): void {
     console.clear();
     console.log('Bienvenido a la consola de gestión');
@@ -55,6 +63,7 @@ export class Gestor {
       choices: [
         'Registrar usuario',
         'Listar usuarios',
+        'Eliminar usuario',
         'Salir',
       ],
     }).then((respuesta) => {
@@ -68,9 +77,38 @@ export class Gestor {
         case 'Salir':
           console.log('Hasta pronto');
           break;
+        case 'Eliminar usuario':
+          this.eliminarUsuario();
+          break;
         default:
           break;
       }
+    });
+  }
+
+  /**
+   * Elimina un usuario de la lista de usuarios con opción a cancelar
+   */
+  eliminarUsuario(): void {
+    inquirer.prompt({
+      type: 'list',
+      name: 'usuario',
+      message: 'Elige un usuario a eliminar',
+      choices: this.usuarios,
+    }).then((respuesta) => {
+      inquirer.prompt({
+        type: 'confirm',
+        name: 'confirmacion',
+        message: `¿Estás seguro de que quieres eliminar a ${respuesta.usuario}?`,
+      }).then((respuesta2) => {
+        if (respuesta2.confirmacion) {
+          this.usuarios = this.usuarios.filter((usuario) => usuario !== respuesta.usuario);
+          console.log('Usuario eliminado con éxito');
+        } else {
+          console.log('Operación cancelada');
+        }
+        this.volverConsola();
+      });
     });
   }
 }
