@@ -37,10 +37,8 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
     }
   }
   
-  public cargarUsuarios(): void {
+  public cargarUsuarios(): Usuario[] {
     const usuarios: Usuario[] = this.usuariosDatabase.get('usuarios').value();
-    for (const usuario of usuarios) {
-      super.registrarUsuario(usuario);
-    }
+    return usuarios;
   }
 }

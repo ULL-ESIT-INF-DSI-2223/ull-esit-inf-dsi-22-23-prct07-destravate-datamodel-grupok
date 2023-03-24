@@ -16,7 +16,10 @@ export class Gestor {
 
   constructor() {
     this.usuarios = new ColeccionUsuario();
-    this.jsonColeccionUsuario.cargarUsuarios();
+    let usuarios: Usuario[] = this.jsonColeccionUsuario.cargarUsuarios();
+    for (const usuario of usuarios) {
+      this.usuarios.registrarUsuario(usuario);
+    }
                                                                             //////////////////// se debería generar la colección de usuarios aquí con los datos de cada uno pillando del fichero aquello
   }
 
