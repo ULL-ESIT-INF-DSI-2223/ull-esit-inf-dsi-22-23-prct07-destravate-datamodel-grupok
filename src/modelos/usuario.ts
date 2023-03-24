@@ -1,45 +1,53 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
 
 export class Usuario implements EntidadInterface {
+  private static contador_id = 0;
   id: number;
   nombre: string;
   actividades: string[]; // deberia ser un array de actividades
-  amigosApp: number[];
-  amigosFrecuentes: number[];
+  amigosApp: number[] = [];
+  amigosFrecuentes: number[] = [];
   estadisticas: {
     semana: { km: number; desnivel: number };
     mes: { km: number; desnivel: number };
     anio: { km: number; desnivel: number };
-  };
-  rutasFavoritas: number[];
-  retosActivos: number[];
-  historicoRutas: { ruta: number; fecha: Date; }[];
+  } = { semana: { km: 0, desnivel: 0 }, mes: { km: 0, desnivel: 0 }, anio: { km: 0, desnivel: 0 } };
+  rutasFavoritas: number[] = [];
+  retosActivos: number[] = [];
+  historicoRutas: { ruta: number; fecha: Date; }[] = [];
 
-  constructor(
-    id: number,
-    nombre: string,
-    actividades: string[],
-    amigosApp: number[],
-    amigosFrecuentes: number[],
-    estadisticas: {
-      semana: { km: number; desnivel: number };
-      mes: { km: number; desnivel: number };
-      anio: { km: number; desnivel: number };
-    },
-    rutasFavoritas: number[],
-    retosActivos: number[],
-    historicoRutas: { ruta: number; fecha: Date; }[]
-  ) {
-    this.id = id;
+  // constructor(
+  //   id: number,
+  //   nombre: string,
+  //   actividades: string[],
+  //   amigosApp: number[],
+  //   amigosFrecuentes: number[],
+  //   estadisticas: {
+  //     semana: { km: number; desnivel: number };
+  //     mes: { km: number; desnivel: number };
+  //     anio: { km: number; desnivel: number };
+  //   },
+  //   rutasFavoritas: number[],
+  //   retosActivos: number[],
+  //   historicoRutas: { ruta: number; fecha: Date; }[]
+  // ) {
+  //   this.id = id;
+  //   this.nombre = nombre;
+  //   this.actividades = actividades;
+  //   this.amigosApp = amigosApp;
+  //   this.amigosFrecuentes = amigosFrecuentes;
+  //   this.estadisticas = estadisticas;
+  //   this.rutasFavoritas = rutasFavoritas;
+  //   this.retosActivos = retosActivos;
+  //   this.historicoRutas = historicoRutas;
+  // }
+  constructor(nombre: string, actividades: string[]) {
+    this.id = Usuario.contador_id;
+    Usuario.contador_id++;
     this.nombre = nombre;
     this.actividades = actividades;
-    this.amigosApp = amigosApp;
-    this.amigosFrecuentes = amigosFrecuentes;
-    this.estadisticas = estadisticas;
-    this.rutasFavoritas = rutasFavoritas;
-    this.retosActivos = retosActivos;
-    this.historicoRutas = historicoRutas;
   }
+
 
   // Métodos
   getID(): number {

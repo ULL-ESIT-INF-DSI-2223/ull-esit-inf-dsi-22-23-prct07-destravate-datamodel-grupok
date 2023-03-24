@@ -10,6 +10,19 @@ export class ColeccionUsuario {
     this.usuarios = new Map();
   }
 
+  /**
+   * Método setUsuarios, establece el valor de usuarios pero antes revisa si el usuario ya existe mediante 
+   * el uso del id
+   * @param usuarios 
+   */
+  public setUsuarios(usuarios: Map<number, Usuario>): void {
+    for (const usuario of usuarios.values()) {
+      if (!this.usuarios.has(usuario.getID())) {
+        this.usuarios.set(usuario.getID(), usuario);
+      }
+    }
+  }
+
   public getUsuarios(): Map<number, Usuario> {
     return this.usuarios;
   }

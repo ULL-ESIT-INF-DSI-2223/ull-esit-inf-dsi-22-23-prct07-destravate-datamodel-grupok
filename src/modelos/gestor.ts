@@ -8,17 +8,17 @@ import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
  * grupo existente, Visualizar, crear y borrar grupos.
  */
 export class Gestor {
-  // private usuarios: ColeccionUsuario;
+  private usuarios: ColeccionUsuario;
   // private rutas: ColeccionRutas;
-  public usuarios: string[]; //////////////////////////////////////////////// Cambiar el string de usuarios
+  // public usuarios: string[]; //////////////////////////////////////////////// Cambiar el string de usuarios
   /// por un collection de Usuarios (hay que crear una clase ColeccionUsuario que 
   ///contenga un map con key el id y de resto el objeto usuario)
 
-  constructor(usuarios: string[]) {
-    this.usuarios = usuarios;
+  constructor() {
+    this.usuarios = new ColeccionUsuario();
   }
 
-  public getUsuarios(): string[] {
+  public getUsuarios() {
     return this.usuarios;
   }
 
@@ -30,10 +30,22 @@ export class Gestor {
       name: 'nombre',
       message: 'Introduce tu nombre de usuario: ',
     }).then((respuesta) => {
-      this.usuarios.push(respuesta.nombre);
+      this.usuarios.registrarUsuario(new Usuario(respuesta.nombre));
       console.log('Usuario registrado con éxito');
       this.volverConsola();
     });
+    // console.clear();
+    // console.log('Registrando usuario...');
+    // inquirer.prompt({
+    //   type: 'input',
+    //   name: 'nombre',
+    //   message: 'Introduce tu nombre de usuario: ',
+    // }).then((respuesta) => {
+    //   this.usuarios.push(respuesta.nombre);
+    //   console.log('Usuario registrado con éxito');
+    //   this.volverConsola();
+    // });
+
   }
 
   public listarUsuarios(): void {
