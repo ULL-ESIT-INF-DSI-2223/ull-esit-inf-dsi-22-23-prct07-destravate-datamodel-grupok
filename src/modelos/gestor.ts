@@ -14,6 +14,7 @@ export class Gestor {
 
   constructor() {
     this.usuarios = new ColeccionUsuario();
+                                                                            //////////////////// se debería generar la colección de usuarios aquí con los datos de cada uno
   }
 
   public getUsuarios() {
@@ -22,7 +23,8 @@ export class Gestor {
 
   /**
    * Método que permite crear usuarios y añadirlos a la colección de usuarios,
-   * esto lo hace preguntando el nombre del usuario y la actividad que realiza
+   * esto lo hace preguntando el nombre del usuario y la actividad que realiza, 
+   * así como asignar el id del usuario como key dentro del map
    */
   public registrarUsuario(): void {
     console.clear();
@@ -41,6 +43,9 @@ export class Gestor {
         const usuario = new Usuario(respuesta.nombre, respuesta2.actividad);
         this.usuarios.registrarUsuario(usuario);
         console.log('Usuario registrado con éxito');
+        // Insertamos el usuario dentro de la colección
+        this.usuarios.insertUsuario(usuario);
+                                                                              ////////////////////////////// hay que poner que escriba en el fichero la información
         this.volverConsola();
       });
     });
@@ -81,6 +86,7 @@ export class Gestor {
         if (usuarioAEliminar) {
           usuarios.delete(usuarioAEliminar.getID());
           console.log(`Usuario ${usuarioAEliminar.getNombre()} eliminado con éxito`);
+                                                                                           //////////////////////////// Eliminar también usuario de collection 
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
         }
@@ -133,10 +139,6 @@ export class Gestor {
     });
   }
 }
-
-/// generamos un par de usuarios con parámetros Nombre y Actividad
-const usuario1 = new Usuario('Jaime', 'bicicleta');
-const usuario2 = new Usuario('Ramón', 'corredor');
 
 const gestor = new Gestor();
 gestor.consola();
