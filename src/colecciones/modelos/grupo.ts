@@ -1,4 +1,4 @@
-import { EntidadInterface } from "./interfaces/entidadInterface";
+import { EntidadInterface } from "../interfaces/entidadInterface";
 
 class Grupo implements EntidadInterface {
   id: number;

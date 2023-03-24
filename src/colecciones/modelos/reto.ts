@@ -1,4 +1,4 @@
-import { EntidadInterface } from "./interfaces/entidadInterface";
+import { EntidadInterface } from "../interfaces/entidadInterface";
 
 export class Reto implements EntidadInterface {
     id: number;
