@@ -16,6 +16,7 @@ export class Gestor {
 
   constructor() {
     this.usuarios = new ColeccionUsuario();
+    this.jsonColeccionUsuario.cargarUsuarios();
                                                                             //////////////////// se debería generar la colección de usuarios aquí con los datos de cada uno pillando del fichero aquello
   }
 

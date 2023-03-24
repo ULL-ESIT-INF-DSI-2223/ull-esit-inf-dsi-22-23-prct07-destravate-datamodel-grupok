@@ -35,5 +35,12 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
     else {
       this.usuariosDatabase.get('usuarios').push(usuario).write();
     }
-  }   
+  }
+  
+  public cargarUsuarios(): void {
+    const usuarios: Usuario[] = this.usuariosDatabase.get('usuarios').value();
+    for (const usuario of usuarios) {
+      super.registrarUsuario(usuario);
+    }
+  }
 }
