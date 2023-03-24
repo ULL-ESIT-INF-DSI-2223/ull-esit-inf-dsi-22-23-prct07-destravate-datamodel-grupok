@@ -1,6 +1,8 @@
 import inquirer from 'inquirer';
 import { Usuario } from './usuario';
 import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
+
+/// crea un tipo
 /**
  * Clase Gestor
  * Tiene que permitir añadir, borrar y modificar rutas, usuarios, grupos y retos, 
@@ -9,10 +11,6 @@ import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
  */
 export class Gestor {
   private usuarios: ColeccionUsuario;
-  // private rutas: ColeccionRutas;
-  // public usuarios: string[]; //////////////////////////////////////////////// Cambiar el string de usuarios
-  /// por un collection de Usuarios (hay que crear una clase ColeccionUsuario que 
-  ///contenga un map con key el id y de resto el objeto usuario)
 
   constructor() {
     this.usuarios = new ColeccionUsuario();
@@ -22,6 +20,10 @@ export class Gestor {
     return this.usuarios;
   }
 
+  /**
+   * Método que permite crear usuarios y añadirlos a la colección de usuarios,
+   * esto lo hace preguntando el nombre del usuario y la actividad que realiza
+   */
   public registrarUsuario(): void {
     console.clear();
     console.log('Registrando usuario...');
@@ -30,9 +32,17 @@ export class Gestor {
       name: 'nombre',
       message: 'Introduce tu nombre de usuario: ',
     }).then((respuesta) => {
-      this.usuarios.registrarUsuario(new Usuario(respuesta.nombre));
-      console.log('Usuario registrado con éxito');
-      this.volverConsola();
+      inquirer.prompt({
+        type: 'list',
+        name: 'actividad',
+        message: 'Elige una actividad: ',
+        choices: ['bicicleta', 'corredor'],
+      }).then((respuesta2) => {
+        const usuario = new Usuario(respuesta.nombre, respuesta2.actividad);
+        this.usuarios.registrarUsuario(usuario);
+        console.log('Usuario registrado con éxito');
+        this.volverConsola();
+      });
     });
     // console.clear();
     // console.log('Registrando usuario...');
@@ -60,28 +70,37 @@ export class Gestor {
   /**
    * Elimina un usuario de la lista de usuarios con opción a cancelar
    */
-  eliminarUsuario(): void {
+  public eliminarUsuario(): void {
+    console.clear();
+    console.log('Eliminando usuario...');
+  
+    // Obtener el listado de usuarios
+    const usuarios = this.usuarios.getUsuarios();
+    const opcionesUsuarios = Array.from(usuarios.values()).map((usuario) => usuario.getNombre());
+  
+    // Pedir al usuario que seleccione el usuario a eliminar
     inquirer.prompt({
       type: 'list',
       name: 'usuario',
-      message: 'Elige un usuario a eliminar',
-      choices: this.usuarios,
+      message: 'Selecciona el usuario que deseas eliminar:',
+      choices: opcionesUsuarios.concat('Cancelar'),
     }).then((respuesta) => {
-      inquirer.prompt({
-        type: 'confirm',
-        name: 'confirmacion',
-        message: `¿Estás seguro de que quieres eliminar a ${respuesta.usuario}?`,
-      }).then((respuesta2) => {
-        if (respuesta2.confirmacion) {
-          this.usuarios = this.usuarios.filter((usuario) => usuario !== respuesta.usuario);
-          console.log('Usuario eliminado con éxito');
+      if (respuesta.usuario === 'Cancelar') {
+        this.volverConsola();
+      } else {
+        // Buscar el usuario a eliminar por su nombre y eliminarlo
+        const usuarioAEliminar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
+        if (usuarioAEliminar) {
+          usuarios.delete(usuarioAEliminar.getID());
+          console.log(`Usuario ${usuarioAEliminar.getNombre()} eliminado con éxito`);
         } else {
-          console.log('Operación cancelada');
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
         }
         this.volverConsola();
-      });
+      }
     });
   }
+  
 
   private volverConsola(): void {
     inquirer.prompt({
@@ -128,6 +147,9 @@ export class Gestor {
   }
 }
 
-const usuarios: string[] = ['Pepe', 'Juan', 'Luis'];
-const gestor = new Gestor(usuarios);
+/// generamos un par de usuarios con parámetros Nombre y Actividad
+const usuario1 = new Usuario('Jaime', 'bicicleta');
+const usuario2 = new Usuario('Ramón', 'corredor');
+
+const gestor = new Gestor();
 gestor.consola();

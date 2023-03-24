@@ -1,5 +1,5 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
-
+type Actividad = 'bicicleta' | 'corredor';
 export class Usuario implements EntidadInterface {
   private static contador_id = 0;
   id: number;
@@ -41,15 +41,18 @@ export class Usuario implements EntidadInterface {
   //   this.retosActivos = retosActivos;
   //   this.historicoRutas = historicoRutas;
   // }
-  constructor(nombre: string, actividades: string[]) {
+  constructor(nombre: string, actividades: Actividad) {
     this.id = Usuario.contador_id;
     Usuario.contador_id++;
     this.nombre = nombre;
-    this.actividades = actividades;
+    this.actividades = [actividades];
   }
 
+  *[Symbol.iterator]() {
+    yield this.nombre;
+    yield* this.actividades;
+  }
 
-  // Métodos
   getID(): number {
     return this.id;
   }

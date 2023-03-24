@@ -1,5 +1,4 @@
 import { Usuario } from '../modelos/usuario';
-
 /**
  * 
  */
@@ -8,6 +7,13 @@ export class ColeccionUsuario {
 
   constructor() {
     this.usuarios = new Map();
+  }
+
+  /**
+   * Hacemos que la clase ColeccionUsuario sea iterable
+   */
+  [Symbol.iterator]() {
+    return this.usuarios.values();
   }
 
   /**
