@@ -1,7 +1,7 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
 type Actividad = 'bicicleta' | 'corredor';
+let contador_id = 0;
 export class Usuario implements EntidadInterface {
-  private static contador_id = 0;
   id: number;
   nombre: string;
   actividades: string[]; // deberia ser un array de actividades
@@ -46,8 +46,11 @@ export class Usuario implements EntidadInterface {
     if (nombre === '' || (actividades !== 'bicicleta' && actividades !== 'corredor')) {
       throw new Error('Nombre de usuario vacío o actividad no válida');
     }
-    this.id = Usuario.contador_id;
-    Usuario.contador_id++;
+    console.log(contador_id);
+    this.id = contador_id;
+    contador_id++;
+    console.log(contador_id);
+
     this.nombre = nombre;
     this.actividades = [actividades];
   }

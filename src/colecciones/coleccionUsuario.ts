@@ -52,7 +52,7 @@ export class ColeccionUsuario {
    */
   public insertUsuario(usuario: Usuario): void {
     if (this.usuarios.has(usuario.getID())) {
-      console.log('El usuario ya existe');
+      console.log('El usuario ya existe insertar usuario');
       return;
     }
     this.usuarios.set(usuario.getID(), usuario);

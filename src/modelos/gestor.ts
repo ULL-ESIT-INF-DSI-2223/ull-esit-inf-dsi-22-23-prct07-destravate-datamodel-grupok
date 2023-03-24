@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 import { Usuario } from './usuario';
 import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
+import { JsonColeccionUsuario } from '../jsonModifiers/jsonColeccionUsuario';
 
 /// crea un tipo
 /**
@@ -11,10 +12,11 @@ import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
  */
 export class Gestor {
   private usuarios: ColeccionUsuario;
+  jsonColeccionUsuario = new JsonColeccionUsuario();
 
   constructor() {
     this.usuarios = new ColeccionUsuario();
-                                                                            //////////////////// se debería generar la colección de usuarios aquí con los datos de cada uno
+                                                                            //////////////////// se debería generar la colección de usuarios aquí con los datos de cada uno pillando del fichero aquello
   }
 
   public getUsuarios() {
@@ -24,7 +26,7 @@ export class Gestor {
   /**
    * Método que permite crear usuarios y añadirlos a la colección de usuarios,
    * esto lo hace preguntando el nombre del usuario y la actividad que realiza, 
-   * así como asignar el id del usuario como key dentro del map
+   * así como asignar el id del usuario como key dentro del map de ColeccionUsuario
    */
   public registrarUsuario(): void {
     console.clear();
@@ -41,11 +43,17 @@ export class Gestor {
         choices: ['bicicleta', 'corredor'],
       }).then((respuesta2) => {
         const usuario = new Usuario(respuesta.nombre, respuesta2.actividad);
+        // Comprobamos que el usuario no esté creado ya
+        if (this.usuarios.getUsuarios().has(usuario.getID())) {
+          console.log('El usuario ya existe');
+          this.volverConsola();
+          return;
+        } 
         this.usuarios.registrarUsuario(usuario);
         console.log('Usuario registrado con éxito');
         // Insertamos el usuario dentro de la colección
         this.usuarios.insertUsuario(usuario);
-                                                                              ////////////////////////////// hay que poner que escriba en el fichero la información
+        this.jsonColeccionUsuario.registrarUsuario(usuario);
         this.volverConsola();
       });
     });

@@ -12,29 +12,28 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
 
   constructor() {
     super();
-    const adapter = new FileSync<DatabaseSchema>('../dataBase/usuarios.json');
+    const adapter = new FileSync<DatabaseSchema>('./dataBase/usuarios.json');
     this.usuariosDatabase = lowdb(adapter);
     this.usuariosDatabase.defaults({ usuarios: [] }).write();
   }
-
+  
+  /** 
+   * Método que permite registrar un usuario en la base de datos que comprueba 
+   * si el usuario ya existe de antemano
+   */
   public registrarUsuario(usuario: Usuario): void {
-    super.registrarUsuario(usuario);
-    const usuarios: Usuario[] = this.usuariosDatabase.get('usuarios').value();
-    usuarios.push(usuario);
-    this.usuariosDatabase.set('usuarios', usuarios).write();
-    // if (usuarios && usuarios.length > 0) {
-    //   usuarios.push(usuario);
-    //   this.usuariosDatabase.set('usuarios', usuarios).write();
-    // }
-  //   // Si no hay usuarios en la base de datos se crea un array con el usuario 
-  //   else {
-  //     this.usuariosDatabase.defaults({ usuarios: [usuario] }).write();
-  //   }
+    // super.registrarUsuario(usuario);
+    // const usuarios: Usuario[] = this.usuariosDatabase.get('usuarios').value();
+    // usuarios.push(usuario);
+    // this.usuariosDatabase.set('usuarios', usuarios).write();
+    if (this.usuariosDatabase.get('usuarios').find({ id: usuario.getID() }).value()) {
+      console.log('El usuario ya existe json');
+      /// Muesta la información del usuario que se quiere meter
+      console.log(usuario);
+      return;
+    }
+    else {
+      this.usuariosDatabase.get('usuarios').push(usuario).write();
+    }
   }   
 }
-
-const jsonColeccionUsuario = new JsonColeccionUsuario();
-const usuario1 = new Usuario('Pepe', 'bicicleta');
-// dasd
-jsonColeccionUsuario.registrarUsuario(usuario1);
-jsonColeccionUsuario.listarUsuarios();
