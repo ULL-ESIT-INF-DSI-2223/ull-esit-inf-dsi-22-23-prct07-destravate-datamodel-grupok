@@ -22,15 +22,7 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
    * si el usuario ya existe de antemano
    */
   public registrarUsuario(usuario: Usuario): void {
-    if (this.usuariosDatabase.get('usuarios').find({ id: usuario.getID() }).value()) {
-      console.log('El usuario ya existe json');
-      /// Muesta la información del usuario que se quiere meter
-      console.log(usuario);
-      return;
-    }
-    else {
-      this.usuariosDatabase.get('usuarios').push(usuario).write();
-    }
+    this.usuariosDatabase.get('usuarios').push(usuario).write();
   }
   
   public cargarUsuarios(): Usuario[] {
