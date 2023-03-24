@@ -20,13 +20,21 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   public registrarUsuario(usuario: Usuario): void {
     super.registrarUsuario(usuario);
     const usuarios: Usuario[] = this.usuariosDatabase.get('usuarios').value();
-    if (usuarios && usuarios.length > 0) {
-      usuarios.push(usuario);
-      this.usuariosDatabase.set('usuarios', usuarios).write();
-    }
-    // Si no hay usuarios en la base de datos se crea un array con el usuario 
-    else {
-      this.usuariosDatabase.defaults({ usuarios: [usuario] }).write();
-    }
-  }
+    usuarios.push(usuario);
+    this.usuariosDatabase.set('usuarios', usuarios).write();
+    // if (usuarios && usuarios.length > 0) {
+    //   usuarios.push(usuario);
+    //   this.usuariosDatabase.set('usuarios', usuarios).write();
+    // }
+  //   // Si no hay usuarios en la base de datos se crea un array con el usuario 
+  //   else {
+  //     this.usuariosDatabase.defaults({ usuarios: [usuario] }).write();
+  //   }
+  }   
 }
+
+const jsonColeccionUsuario = new JsonColeccionUsuario();
+const usuario1 = new Usuario('Pepe', 'bicicleta');
+// dasd
+jsonColeccionUsuario.registrarUsuario(usuario1);
+jsonColeccionUsuario.listarUsuarios();
