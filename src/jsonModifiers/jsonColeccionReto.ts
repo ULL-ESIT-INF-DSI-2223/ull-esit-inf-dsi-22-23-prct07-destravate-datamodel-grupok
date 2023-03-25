@@ -1,54 +1,48 @@
-import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
+import { Reto } from '../modelos/reto';
+import { ColeccionReto } from '../colecciones/coleccionReto';
 import lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
-import { Usuario } from '../modelos/usuario';
 
 interface DatabaseSchema {
-  usuarios: Usuario[];
+  retos: Reto[];
 }
 
-export class JsonColeccionUsuario extends ColeccionUsuario {
-  private usuariosDatabase: LowdbSync<DatabaseSchema>;
+export class JsonColeccionReto extends ColeccionReto {
+  private retosDatabase: LowdbSync<DatabaseSchema>;
 
   constructor() {
     super();
-    const adapter = new FileSync<DatabaseSchema>('./dataBase/usuarios.json');
-    this.usuariosDatabase = lowdb(adapter);
-    this.usuariosDatabase.defaults({ usuarios: [] }).write();
+    const adapter = new FileSync<DatabaseSchema>('./dataBase/reto.json');
+    this.retosDatabase = lowdb(adapter);
+    this.retosDatabase.defaults({ retos: [] }).write();
   }
   
   /** 
-   * Método que permite registrar un usuario en la base de datos que comprueba 
-   * si el usuario ya existe de antemano
+   * Método que permite registrar un reto en la base de datos que comprueba 
+   * si el reto ya existe de antemano
    */
-  public registrarUsuario(usuario: Usuario): void {
-    this.usuariosDatabase.get('usuarios').push(usuario).write();
+  public registrarReto(reto: Reto): void {
+    this.retosDatabase.get('retos').push(reto).write();
   }
   
-  public cargarUsuarios(): Usuario[] {
-    const usuarios_no_instancia: Usuario[] = this.usuariosDatabase.get('usuarios').value();
-    const usuarios: Usuario[] = [];
-    for (const usuario of usuarios_no_instancia) {
-      let usuarioAux = new Usuario(usuario.nombre, usuario.actividades);
-      usuarioAux.setAmigosApp(usuario.amigosApp);
-      usuarioAux.setAmigosFrecuentes(usuario.amigosFrecuentes);
-      usuarioAux.setEstadisticas(usuario.estadisticas);
-      usuarioAux.setRutasFavoritas(usuario.rutasFavoritas);
-      usuarioAux.setRetosActivos(usuario.retosActivos);
-      usuarioAux.setHistoricoRutas(usuario.historicoRutas);
-      usuarios.push(usuarioAux);
+  public cargarRetos(): Reto[] {
+    const retos_no_instancia: Reto[] = this.retosDatabase.get('retos').value();
+    const retos: Reto[] = [];
+    for (const reto of retos_no_instancia) {
+      let retoAux = new Reto(reto.id, reto.nombre, reto.rutas, reto.tipoActividad, reto.kmTotales);
+      retoAux.setUsuarios(reto.usuarios);
+      retos.push(retoAux);
     }
-    // Compruebamos si alguno de los usuarios es una instancia de usuario
-    for (const usuario of usuarios) {
-      if (!(usuario instanceof Usuario)) {
-        throw new Error('Usuario NO es instancia de Usuario');
+    // Compruebamos si alguno de los retos es una instancia de reto
+    for (const reto of retos) {
+      if (!(reto instanceof Reto)) {
+        throw new Error('reto NO es instancia de reto');
       }
     }
-
-    return usuarios;
+    return retos;
   }
 
-  public eliminarUsuario(usuario: Usuario): void {
-    this.usuariosDatabase.get('usuarios').remove({ nombre: usuario.getNombre() }).write();
+  public eliminarReto(reto: Reto): void {
+    this.retosDatabase.get('retos').remove({ nombre: reto.getNombre() }).write();
   }
 }
