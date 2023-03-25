@@ -318,10 +318,10 @@ export class Gestor {
                     throw new Error (`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
                     return (this.volver(() => this.gestionUsuarios()));
                   }
-                  // Lo escribimos en el fichero
-                  this.jsonColeccionUsuario.eraseAmigo(usuarioAModificar, idUsuarioBorrar);
                   // Borramos el usuario de la lista de amigos del usuario actual
                   usuarioAModificar.eraseAmigoApp(idUsuarioBorrar);
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.eraseAmigo(usuarioAModificar, idUsuarioBorrar);
                   return (this.volver(() => this.gestionUsuarios()));
                 });
               break;

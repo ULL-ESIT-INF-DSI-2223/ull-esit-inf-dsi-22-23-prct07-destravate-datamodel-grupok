@@ -5,9 +5,6 @@
       "nombre": "yanfris",
       "contraseña": "Dsi23*",
       "actividades": "bicicleta",
-      "amigosApp": [
-        2
-      ],
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
@@ -26,7 +23,7 @@
       "rutasFavoritas": [],
       "retosActivos": [],
       "historicoRutas": [],
-      "actividad": "corredor"
+      "amigosApp": []
     },
     {
       "id": 2,

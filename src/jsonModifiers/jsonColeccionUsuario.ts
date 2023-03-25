@@ -74,7 +74,10 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   }
 
   public eraseAmigo(usuario: Usuario, ID: number): void {
-    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('amigosApp').remove(ID).write();
+    // Borramos amigos app y lo volvemos a escribir
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).unset('amigosApp').write();
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).set('amigosApp', usuario.getAmigosApp()).write();
+
   }  
 
   public addRuta(usuario: Usuario, ruta: number): void {
