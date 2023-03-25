@@ -146,7 +146,6 @@ export class Gestor {
         'Listar usuarios',
         'Modificar usuarios',
         'Eliminar usuario',
-        'Salir',
         'Volver al menú anterior'
       ],
     }).then((respuesta) => {
@@ -210,12 +209,15 @@ export class Gestor {
           }).then((respuesta) => {
             switch (respuesta.opcion) {
               case 'Nombre de Usuario':
+                console.clear();
                 inquirer.prompt({
                   type: 'input',
                   name: 'nombre',
                   message: 'Introduce tu nombre de usuario: ',
                 }).then((respuesta2) => {
-                  usuarioAModificar.setNombre(respuesta2.nombre)
+                  this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
+                  this.jsonColeccionUsuario.modificarNombre(usuarioAModificar, respuesta2.nombre)
+                  this.gestionInfo();
                 });
                 break;
               case 'Actividad que realiza':
@@ -231,7 +233,7 @@ export class Gestor {
               default:
                 break;
             }
-            this.volver(() => this.consola());
+           
           });
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
