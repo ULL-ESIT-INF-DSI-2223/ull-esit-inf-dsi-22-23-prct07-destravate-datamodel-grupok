@@ -66,9 +66,18 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
    */
   public insertar(grupo: Grupo): void {
     if (this.grupos.has(grupo.getID())) {
-      console.log('El grupo que deseas añadir ya existe o existe un grupo con el mismo ID.');
+      console.log('Existe un grupo con el mismo ID.');
       return;
     }
+    
+    // comprobar que el nombre no existe
+    const nuevoNombre = grupo.getNombre();
+    for (const u of this.grupos.values()) {
+      if (u.getNombre() === nuevoNombre) {
+        throw new Error('El usuario con grupo ' + nuevoNombre + ' ya existe');
+      }
+    }
+    
     this.grupos.set(grupo.getID(), grupo);
   }
 
@@ -84,5 +93,36 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
       console.log("El grupo que deseas eliminar no existe.");
     }
   }
+
+  /**
+   * Método que permite modificar el nombre de un usuario
+   * @param grupo usuario a modificar
+   * @param nombre nuevo nombre
+   */
+  public modificarNombre( grupo: Grupo, nombre: string) {
+    this.grupos.get(grupo.getID())!.setNombre(nombre);
+  }
+
+  public modificarCreador( grupo: Grupo, creador: number) {
+    this.grupos.get(grupo.getID())!.setCreador(creador);
+  }
+
+  public addRuta( grupo: Grupo, ruta: number) {
+    this.grupos.get(grupo.getID())!.addRutaFavorita(ruta);
+  }
+
+  public eraseRuta( grupo: Grupo, ruta: number) {
+    this.grupos.get(grupo.getID())!.eraseRutaFavorita(ruta);
+  }
+
+  public addParticipante( grupo: Grupo, participante: number) {
+    this.grupos.get(grupo.getID())!.addParticipante(participante);
+  }
+
+  public eraseParticipante( grupo: Grupo, participante: number) {
+    this.grupos.get(grupo.getID())!.eraseParticipante(participante);
+  }
 }
+
+
 

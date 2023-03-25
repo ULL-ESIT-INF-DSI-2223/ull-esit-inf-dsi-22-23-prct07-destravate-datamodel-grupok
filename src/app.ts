@@ -550,10 +550,10 @@ export class Gestor {
     }).then((respuesta) => {
       switch (respuesta.opcion) {
         case 'Registrar grupo':
-          this.registrarUsuario();
+          this.registrarGrupo();
           break;
         case 'Listar grupos':
-          this.listarUsuarios();
+          this.listarGrupos();
           break;
         case 'Modificar grupos':
           this.modificarGrupo();
@@ -630,6 +630,96 @@ export class Gestor {
     });
   }
 
+<<<<<<< HEAD
+  private registrarGrupo(): void {
+    console.clear();
+    console.log('Registrando grupo...');
+    inquirer.prompt({
+      type: 'input',
+      name: 'nombre',
+      message: 'Introduce tu nombre de grupo: ',
+    }).then((respuesta) => {
+      inquirer.prompt({
+        type: 'input',
+        name: 'creador',
+        message: 'Introduce el id del creador del grupo: ',
+      }).then((respuesta2) => {
+        try {
+          let grupo = new Grupo(respuesta.nombre, respuesta2.creador);
+          // Insertamos el grupo en la colección de grupos
+          this.coleccionGrupos.insertar(grupo);
+          // Insertamos el grupo en el json
+          this.jsonColeccionGrupo.insertarGrupo(grupo);
+
+          console.log('Grupo registrado con éxito:', grupo);
+          this.volver(() => this.consola());
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            console.log('\x1b[31m%s\x1b[0m', 'Error al crear el grupo: ', error.message);
+          }
+          console.log('Introduce un nombre de grupo válido no vacío');
+          // pulsar enter para volver a introducir un nombre de grupo
+          inquirer.prompt({
+            type: 'input',
+            name: 'volver',
+            message: 'Pulsa enter para volver a introducir un nombre de grupo',
+          }).then(() => {
+            this.registrarGrupo();
+          });
+          return;
+        }
+      });
+    });
+  }  
+
+  private listarGrupos(): void {
+    console.clear();
+    console.log('Listando grupos...');
+    for (const grupos of this.coleccionGrupos) {
+      // console.log(usuario.getNombre());
+      console.log(grupos);
+    }
+    this.volver(() => this.gestionInfo());
+  }
+
+  /**
+   * Eliminar un usuario de la lista de usuarios con opción a cancelar
+   */
+  private eliminarGrupo(): void {
+    console.clear();
+    console.log('Eliminando usuario...');
+  
+    // Obtener el listado de usuarios
+    const usuarios = this.coleccionUsuarios.getUsuarios();
+  
+    // Pedir al usuario que seleccione el usuario a eliminar
+    inquirer.prompt({
+      type: 'list',
+      name: 'usuario',
+      message: 'Selecciona el usuario que deseas eliminar:',
+      choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.usuario === 'Cancelar') {
+        this.consola();
+      } else {
+        // Buscar el usuario a eliminar por su nombre y eliminarlo
+        const usuarioAEliminar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
+        if (usuarioAEliminar) {
+          // Lo eliminamos del json
+          this.jsonColeccionUsuario.eliminarUsuario(usuarioAEliminar);
+          // Lo eliminamos del map de usuarios
+          usuarios.delete(usuarioAEliminar.getID());
+          console.log(`Usuario ${usuarioAEliminar.getNombre()} eliminado con éxito`);
+
+        } else {
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+        }
+        this.volver(() => this.gestionInfo());
+      }
+    });
+  }
+  
+=======
   ///////////////////////////////////////
   ////////// Gestión de Rutas  //////////
   ///////////////////////////////////////
@@ -828,8 +918,33 @@ export class Gestor {
                   }
                 });
               case 'Modificar coordenadas de inicio':
-                // this.modificarCoordenadasInicioRuta(rutaAModificar);
-                break;
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'coordenadasInicio',
+                  message: 'Introduce las coordenadas de inicio: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
+                    this.coleccionRutas.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce un nombre de ruta nuevo');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver a introducir un ruta',
+                    }).then(() => {
+                      this.registrarRuta();
+                    });
+                    return;
+                  }
+                });
+              break;
               case 'Modificar coordenadas de fin':
                 // this.modificarCoordenadasFinRuta(rutaAModificar);
                 break;
@@ -964,6 +1079,7 @@ export class Gestor {
     });
   }
 
+>>>>>>> bef13609df101c20c3f27ea4e9a4f0a45e49eca6
 }
 
 
