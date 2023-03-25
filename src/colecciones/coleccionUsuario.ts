@@ -23,15 +23,18 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
    * el uso del id
    * @param usuarios 
    */
-  public setUsuarios(usuarios: Usuario[]): void {
+  public setUsuarios(usuarios: Map<number, Usuario>): void {
+    this.usuarios = usuarios;
+  }
+
+  public setUsuariosFromArray(usuarios: Usuario[]): void {
     for (const usuario of usuarios) {
       if (usuario instanceof Usuario && !this.usuarios.has(usuario.getID())) {
         console.log('Usuario insertado');
         this.usuarios.set(usuario.getID(), usuario);
       }
     }
-  }
-
+  }    
 
   public getUsuarios(): Map<number, Usuario> {
     return this.usuarios;
