@@ -134,6 +134,13 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     }
   }
 
+  public addRuta(ruta: Ruta) {
+    if (this.rutas.has(ruta.getID())) {
+      throw new Error("La ruta que deseas añadir ya existe.");
+    }
+    this.rutas.set(ruta.getID(), ruta);
+  }
+
   public modificarDificultadRuta(ruta: Ruta, dificultad: Dificultad) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setDificultad(dificultad);
