@@ -721,7 +721,8 @@ export class Gestor {
       this.coleccionRutas.addRuta(ruta);
 
       // Lo escribimos en el fichero
-      this.jsonColeccionRuta.addRuta(ruta);
+      this.jsonColeccionRuta.insertarRuta(ruta);
+
       console.log('Ruta registrada con éxito');
       this.volver(() => this.gestionRutas());
     });

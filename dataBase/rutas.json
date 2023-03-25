@@ -1,3 +1,28 @@
 {
-  "rutas": []
+  "rutas": [
+    {
+      "id": 1,
+      "nombre": "123",
+      "coordenadasInicio": "321",
+      "coordenadasFin": "123",
+      "longitud": "123",
+      "desnivel": "321",
+      "usuariosVisitantes": [],
+      "tipoActividad": "Ciclismo",
+      "dificultad": "Fácil",
+      "calificacion": 3
+    },
+    {
+      "id": 2,
+      "nombre": "pescado",
+      "coordenadasInicio": "543",
+      "coordenadasFin": "123",
+      "longitud": "90",
+      "desnivel": "100",
+      "usuariosVisitantes": [],
+      "tipoActividad": "Ciclismo",
+      "dificultad": "Difícil",
+      "calificacion": 1
+    }
+  ]
 }
