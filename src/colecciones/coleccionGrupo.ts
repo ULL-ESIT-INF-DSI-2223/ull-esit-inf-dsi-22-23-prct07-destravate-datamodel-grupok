@@ -32,6 +32,14 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
     this.grupos = grupos;
   }
 
+  public setGruposFromArray(grupos: Grupo[]): void {
+    for (const grupo of grupos) {
+      if (grupo instanceof Grupo && !this.grupos.has(grupo.getID())) {
+        this.grupos.set(grupo.getID(), grupo);
+      }
+    }
+  }
+
   public getGrupos(): Map<number, Grupo> {
     return this.grupos;
   }

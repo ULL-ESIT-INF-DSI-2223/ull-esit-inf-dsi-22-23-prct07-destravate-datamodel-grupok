@@ -20,6 +20,14 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     this.rutas = map;
   }
 
+  public setRutasFromArray(rutas: Ruta[]): void {
+    for (const ruta of rutas) {
+      if (ruta instanceof Ruta && !this.rutas.has(ruta.getID())) {
+        this.rutas.set(ruta.getID(), ruta);
+      }
+    }
+  }
+
   public getRutas(): Map<number, Ruta> {
     return this.rutas;
   }

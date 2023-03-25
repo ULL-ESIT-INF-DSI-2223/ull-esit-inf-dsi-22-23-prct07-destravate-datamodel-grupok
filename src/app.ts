@@ -39,9 +39,9 @@ export class Gestor {
     this.coleccionGrupos = new ColeccionGrupo();
     this.coleccionRetos = new ColeccionReto();
     this.coleccionUsuarios.setUsuarios(this.jsonColeccionUsuario.cargarUsuarios());
-    this.coleccionRetos.setRetos(this.jsonColeccionReto.cargarRetos());
-    this.coleccionRutas.setRutas(this.jsonColeccionRuta.cargarRutas());
-    this.coleccionGrupos.setGrupos(this.jsonColeccionGrupo.cargarGrupos());
+    this.coleccionRetos.setRetosFromArray(this.jsonColeccionReto.cargarRetos());
+    this.coleccionRutas.setRutasFromArray(this.jsonColeccionRuta.cargarRutas());
+    this.coleccionGrupos.setGruposFromArray(this.jsonColeccionGrupo.cargarGrupos());
     ////////////////////////////////////////////////////////////////////////////////////////// Falta poner los otros json
 
   }

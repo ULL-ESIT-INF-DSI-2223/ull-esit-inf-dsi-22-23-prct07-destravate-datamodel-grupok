@@ -19,6 +19,18 @@ export class ColeccionReto implements Coleccion<Reto> {
     this.retos = retos;
   }
 
+  /**
+   * Metodo setRetos, pasandole como parametro un array de retos, recorre el array y lo inserta en el map
+   * 
+   */
+  public setRetosFromArray(retos: Reto[]): void {
+    for (const reto of retos) {
+      if (reto instanceof Reto && !this.retos.has(reto.getID())) {
+        this.retos.set(reto.getID(), reto);
+      }
+    }
+  }
+
   public getRetos(): Map<number, Reto> {
     return this.retos;
   }
