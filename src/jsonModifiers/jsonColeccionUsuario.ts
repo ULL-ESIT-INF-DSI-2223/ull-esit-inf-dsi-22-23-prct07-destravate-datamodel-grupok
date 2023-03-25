@@ -21,7 +21,7 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
    * Método que permite registrar un usuario en la base de datos que comprueba 
    * si el usuario ya existe de antemano
    */
-  public registrarUsuario(usuario: Usuario): void {
+  public insertarUsuario(usuario: Usuario): void {
     this.usuariosDatabase.get('usuarios').push(usuario).write();
   }
   

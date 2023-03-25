@@ -62,7 +62,7 @@ export class Gestor {
         // Insertamos el usuario en la colección de usuarios
         this.usuarios.insertarUsuario(usuario);
         // Insertamos el usuario en el json
-        this.jsonColeccionUsuario.registrarUsuario(usuario);
+        this.jsonColeccionUsuario.insertarUsuario(usuario);
 
         console.log('Usuario registrado con éxito:', usuario);
         this.volverConsola();
