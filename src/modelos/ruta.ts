@@ -1,4 +1,8 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
+import { Actividad } from "../enums/actividadEnum";
+import { Dificultad } from "../enums/dificultadEnum";
+
+let contador_id = 0;
 
 export class Ruta implements EntidadInterface {
   id: number;
@@ -8,31 +12,29 @@ export class Ruta implements EntidadInterface {
   longitud: number;
   desnivel: number;
   usuariosVisitantes: number[];
-  tipoActividad: 'ciclismo' | 'running' // hacer un tipo de dato para esto
-  dificultad: 'facil' | 'media' | 'dificil' // hacer un tipo de dato para esto
+  tipoActividad: Actividad;
+  dificultad: Dificultad;
   calificacion: number;
   
   constructor(
-    id: number, 
     nombre: string, 
     coordenadasInicio: string, 
-    coordenadasFin: string, longitud: number, 
+    coordenadasFin: string, 
+    longitud: number, 
     desnivel: number, 
-    usuariosVisitantes: number[], 
-    tipoActividad: 'ciclismo' | 'running', 
-    dificultad: 'facil' | 'media' | 'dificil', 
-    calificacion: number) 
+    tipoActividad: Actividad,
+    dificultad: Dificultad) 
     {
-      this.id = id;
+      this.id = contador_id++;
       this.nombre = nombre;
       this.coordenadasInicio = coordenadasInicio;
       this.coordenadasFin = coordenadasFin;
       this.longitud = longitud;
       this.desnivel = desnivel;
-      this.usuariosVisitantes = usuariosVisitantes;
+      this.usuariosVisitantes = [];
       this.tipoActividad = tipoActividad;
       this.dificultad = dificultad;
-      this.calificacion = calificacion;
+      this.calificacion = 0;
     }    
 
   // Métodos
@@ -57,10 +59,10 @@ export class Ruta implements EntidadInterface {
   getUsuariosVisitantes(): number[] {
     return this.usuariosVisitantes;
   }
-  getTipoActividad(): 'ciclismo' | 'running' {
+  getTipoActividad(): Actividad {
     return this.tipoActividad;
   }
-  getDificultad(): 'facil' | 'media' | 'dificil' {
+  getDificultad(): Dificultad {
     return this.dificultad;
   }
   getCalificacion(): number {
@@ -87,10 +89,10 @@ export class Ruta implements EntidadInterface {
   setUsuariosVisitantes(usuariosVisitantes: number[]): void {
     this.usuariosVisitantes = usuariosVisitantes;
   }
-  setTipoActividad(tipoActividad: 'ciclismo' | 'running'): void {
+  setTipoActividad(tipoActividad: Actividad): void {
     this.tipoActividad = tipoActividad;
   }
-  setDificultad(dificultad: 'facil' | 'media' | 'dificil'): void {
+  setDificultad(dificultad: Dificultad): void {
     this.dificultad = dificultad;
   }
   setCalificacion(calificacion: number): void {

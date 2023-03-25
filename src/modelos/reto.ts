@@ -18,7 +18,7 @@ export class Reto implements EntidadInterface {
     }
   
     // Métodos para acceder a los atributos de la clase
-    public getId(): number {
+    public getID(): number {
       return this.id;
     }
   

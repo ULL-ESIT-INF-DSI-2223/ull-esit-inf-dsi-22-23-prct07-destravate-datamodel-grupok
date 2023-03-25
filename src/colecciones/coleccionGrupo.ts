@@ -1,5 +1,5 @@
 import {Grupo} from '../modelos/grupo';
-import { Coleccion } from '../interfaces/Coleccion';
+import { Coleccion } from '../interfaces/coleccion';
 
 export class ColeccionGrupo implements Coleccion<Grupo> {
   private grupos: Map<number, Grupo>;

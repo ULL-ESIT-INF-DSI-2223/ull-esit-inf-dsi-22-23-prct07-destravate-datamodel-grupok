@@ -1,5 +1,5 @@
 import { Ruta } from '../modelos/ruta';
-import { Coleccion } from '../interfaces/Coleccion';
+import { Coleccion } from '../interfaces/coleccion';
 
 export class ColeccionRuta implements Coleccion<Ruta>{
 
@@ -20,11 +20,15 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     this.rutas = map;
   }
 
+  public getRutas(): Map<number, Ruta> {
+    return this.rutas;
+  }
+
   /**
-   * Método addRutas, establece el valor de Rutas pero antes revisa si el usuario ya existe mediante 
-   * el uso del id
-   * @param rutas 
-   */
+  * Método addRutas, establece el valor de Rutas pero antes revisa si el usuario ya existe mediante 
+  * el uso del id
+  * @param rutas 
+  */
   public addRutas(rutas: Ruta[]): void {
     for (const ruta of rutas) {
       if (ruta instanceof Ruta && !this.rutas.has(ruta.getID())) {
@@ -32,10 +36,6 @@ export class ColeccionRuta implements Coleccion<Ruta>{
         this.rutas.set(ruta.getID(), ruta);
       }
     }
-  }
-
-  public getRutas(): Map<number, Ruta> {
-    return this.rutas;
   }
 
   public listar(): void {

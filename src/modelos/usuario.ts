@@ -1,6 +1,6 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
+import { Actividad } from "../enums/actividadEnum";
 
-type Actividad = 'bicicleta' | 'corredor';
 let contador_id = 0;
 
 export class Usuario implements EntidadInterface {
@@ -20,7 +20,7 @@ export class Usuario implements EntidadInterface {
   
   constructor(nombre: string, actividades: Actividad) {
     /// Comprobamos que el nombre no esté vacío y que la actividad sea válida
-    if (nombre === '' || (actividades !== 'bicicleta' && actividades !== 'corredor')) {
+    if (nombre === '') {
       throw new Error('Nombre de usuario vacío o actividad no válida');
     }
     contador_id++;
