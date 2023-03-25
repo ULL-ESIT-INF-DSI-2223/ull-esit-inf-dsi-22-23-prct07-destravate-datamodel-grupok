@@ -786,8 +786,7 @@ export class Gestor {
             message: 'Elige una opción: ',
             choices: [
               'Modificar nombre de ruta',
-              'Modificar coordenadas de inicio',
-              'Modificar coordenadas de fin',
+              'Modificar coordenadas de inicio y fin',
               'Modificar longitud',
               'Modificar desnivel',
               'Modificar tipo de actividad',
@@ -824,37 +823,25 @@ export class Gestor {
                     return;
                   }
                 });
-              case 'Modificar coordenadas de inicio':
+              case 'Modificar coordenadas de inicio y fin':
                 console.clear();
-                inquirer.prompt({
-                  type: 'input',
-                  name: 'coordenadasInicio',
-                  message: 'Introduce las coordenadas de inicio: ',
-                }).then((respuesta2) => {
-                  try {
-                    this.jsonColeccionRuta.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
-                    this.coleccionRutas.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
-                    this.gestionInfo();
-                  } catch (error: unknown) {
-                    if (error instanceof Error) {
-                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
-                    }
-                    console.log('Introduce un nombre de ruta nuevo');
-                    // pulsar enter para volver a introducir un nombre de Ruta
-                    inquirer.prompt({
-                      type: 'input',
-                      name: 'volver',
-                      message: 'Pulsa enter para volver a introducir un ruta',
-                    }).then(() => {
-                      this.registrarRuta();
-                    });
-                    return;
+                inquirer.prompt(
+                  {
+                    type: 'input',
+                    name: 'coordenadasInicio',
+                    message: 'Introduce las coordenadas de inicio: ',
+                  },
+                  {
+                    type: 'input',
+                    name: 'coordenadasFin',
+                    message: 'Introduce las coordenadas de fin: ',
                   }
+                ).then((respuesta2) => {
+                  this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
+                  this.jsonColeccionRuta.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
+                  this.gestionInfo();
                 });
               break;
-              case 'Modificar coordenadas de fin':
-                // this.modificarCoordenadasFinRuta(rutaAModificar);
-                break;
               case 'Modificar longitud':
                 // this.modificarLongitudRuta(rutaAModificar);
                 break;
