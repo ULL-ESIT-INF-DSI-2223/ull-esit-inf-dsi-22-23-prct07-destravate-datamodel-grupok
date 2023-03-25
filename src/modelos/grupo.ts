@@ -1,14 +1,11 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
+import { EstadisticasEntrenamiento } from "../interfaces/estadisticasEntrenamiento";
 
 export class Grupo implements EntidadInterface {
   id: number;
   nombre: string;
   participantes: number[];
-  entrenamiento: {
-    semana: { km: number; desnivel: number };
-    mes: { km: number; desnivel: number };
-    anio: { km: number; desnivel: number };
-  };
+  estadisticasEntrenamiento: EstadisticasEntrenamiento
   clasificacion: { id: number; km: number; desnivel: number }[];
   rutasFavoritas: number[];
   historicoRutas: { ruta: number; fecha: Date; }[];
@@ -17,7 +14,7 @@ export class Grupo implements EntidadInterface {
     this.id = id;
     this.nombre = nombre;
     this.participantes = participantes;
-    this.entrenamiento = {
+    this.estadisticasEntrenamiento = {
       semana: { km: 0, desnivel: 0 },
       mes: { km: 0, desnivel: 0 },
       anio: { km: 0, desnivel: 0 },
@@ -36,12 +33,12 @@ export class Grupo implements EntidadInterface {
   getParticipantes(): number[] {
     return this.participantes;
   }
-  getEntrenamiento(): {
+  getEstadisticasEntrenamiento(): {
     semana: { km: number; desnivel: number };
     mes: { km: number; desnivel: number };
     anio: { km: number; desnivel: number };
   } {
-    return this.entrenamiento;
+    return this.estadisticasEntrenamiento
   }
   getClasificacion(): { id: number; km: number; desnivel: number }[] {
     return this.clasificacion;
@@ -61,12 +58,12 @@ export class Grupo implements EntidadInterface {
   setParticipantes(participantes: number[]): void {
     this.participantes = participantes;
   }
-  setEntrenamiento( entrenamiento: {
+  setEstadisticasEntrenamiento( estadisticasEntrenamiento: {
     semana: { km: number; desnivel: number };
     mes: { km: number; desnivel: number };
     anio: { km: number; desnivel: number };
   }): void {
-    this.entrenamiento = entrenamiento;
+    this.estadisticasEntrenamiento = estadisticasEntrenamiento;
   }
   setClasificacion(clasificacion: { id: number; km: number; desnivel: number }[]): void {
     this.clasificacion = clasificacion;

@@ -11,10 +11,10 @@ export class Ruta implements EntidadInterface {
   coordenadasFin: string;
   longitud: number;
   desnivel: number;
-  usuariosVisitantes: number[];
+  usuariosVisitantes: number[] = [];
   tipoActividad: Actividad;
   dificultad: Dificultad;
-  calificacion: number;
+  calificacion: number = 0;
   
   constructor(
     nombre: string, 
@@ -31,10 +31,8 @@ export class Ruta implements EntidadInterface {
       this.coordenadasFin = coordenadasFin;
       this.longitud = longitud;
       this.desnivel = desnivel;
-      this.usuariosVisitantes = [];
       this.tipoActividad = tipoActividad;
       this.dificultad = dificultad;
-      this.calificacion = 0;
     }    
 
   // Métodos
