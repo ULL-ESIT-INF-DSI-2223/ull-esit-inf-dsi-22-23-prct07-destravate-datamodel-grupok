@@ -1,5 +1,6 @@
 import { Ruta } from '../modelos/ruta';
 import { Coleccion } from '../interfaces/Coleccion';
+
 export class ColeccionRuta implements Coleccion<Ruta>{
 
   private rutas: Map<number, Ruta>;
