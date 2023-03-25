@@ -21,13 +21,6 @@ export class ColeccionUsuario {
    * el uso del id
    * @param usuarios 
    */
-  // public setUsuarios(usuarios: Usuario[]): void {
-  //   usuarios.forEach(usuario => {
-  //     if (!this.usuarios.has(usuario.getID())) {
-  //       this.usuarios.set(usuario.getID(), usuario);
-  //     }
-  //   });
-  // }
   public setUsuarios(usuarios: Usuario[]): void {
     for (const usuario of usuarios) {
       if (usuario instanceof Usuario && !this.usuarios.has(usuario.getID())) {

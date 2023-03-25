@@ -15,32 +15,7 @@ export class Usuario implements EntidadInterface {
   rutasFavoritas: number[] = [];
   retosActivos: number[] = [];
   historicoRutas: { ruta: number; fecha: Date; }[] = [];
-
-  // constructor(
-  //   id: number,
-  //   nombre: string,
-  //   actividades: string[],
-  //   amigosApp: number[],
-  //   amigosFrecuentes: number[],
-  //   estadisticas: {
-  //     semana: { km: number; desnivel: number };
-  //     mes: { km: number; desnivel: number };
-  //     anio: { km: number; desnivel: number };
-  //   },
-  //   rutasFavoritas: number[],
-  //   retosActivos: number[],
-  //   historicoRutas: { ruta: number; fecha: Date; }[]
-  // ) {
-  //   this.id = id;
-  //   this.nombre = nombre;
-  //   this.actividades = actividades;
-  //   this.amigosApp = amigosApp;
-  //   this.amigosFrecuentes = amigosFrecuentes;
-  //   this.estadisticas = estadisticas;
-  //   this.rutasFavoritas = rutasFavoritas;
-  //   this.retosActivos = retosActivos;
-  //   this.historicoRutas = historicoRutas;
-  // }
+  
   constructor(nombre: string, actividades: Actividad) {
     /// Comprobamos que el nombre no esté vacío y que la actividad sea válida
     if (nombre === '' || (actividades !== 'bicicleta' && actividades !== 'corredor')) {
@@ -99,6 +74,9 @@ export class Usuario implements EntidadInterface {
 
   setID = (id: number): void => {
     this.id = id;
+    if ( id > contador_id ) {
+      contador_id = id = 1;
+    }
   }
   // Métodos de modificación
   setNombre(nombre: string): void {
