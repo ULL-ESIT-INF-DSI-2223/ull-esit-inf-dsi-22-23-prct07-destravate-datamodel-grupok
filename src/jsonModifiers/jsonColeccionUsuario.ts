@@ -49,4 +49,8 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
 
     return usuarios;
   }
+
+  public eliminarUsuario(usuario: Usuario): void {
+    this.usuariosDatabase.get('usuarios').remove({ nombre: usuario.getNombre() }).write();
+  }
 }
