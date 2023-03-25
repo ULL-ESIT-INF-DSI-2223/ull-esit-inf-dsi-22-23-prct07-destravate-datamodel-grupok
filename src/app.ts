@@ -261,9 +261,26 @@ export class Gestor {
                   name: 'nombre',
                   message: 'Introduce tu nombre de usuario: ',
                 }).then((respuesta2) => {
-                  this.jsonColeccionUsuario.modificarNombre(usuarioAModificar, respuesta2.nombre)
-                  this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
-                  this.gestionInfo();
+                  try {
+                    this.jsonColeccionUsuario.modificarNombre(usuarioAModificar, respuesta2.nombre)
+                    this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el usuario: ', error.message);
+                    }
+                    console.log('Introduce un nombre de usuario nuevo');
+                    // pulsar enter para volver a introducir un nombre de usuario
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver a introducir un usuario',
+                    }).then(() => {
+                      this.registrarUsuario();
+                    });
+                    return;
+                  }
+
                 });
               break;
               case 'Editar Actividad':
@@ -272,7 +289,7 @@ export class Gestor {
                   type: 'list',
                   name: 'actividad',
                   message: 'Elige una actividad: ',
-                  choices: ['bicicleta', 'corredor'],
+                  choices: ['cilismo', 'running'],
                 }).then((respuesta2) => {
                   this.gestionInfo();
                   this.jsonColeccionUsuario.modificarActividad(usuarioAModificar, respuesta2.actividad)
@@ -367,7 +384,7 @@ export class Gestor {
         type: 'list',
         name: 'actividad',
         message: 'Elige una actividad: ',
-        choices: ['bicicleta', 'corredor'],
+        choices: ['cilismo', 'running'],
       }).then((respuesta2) => {
         inquirer.prompt({
           type: 'input',
@@ -387,12 +404,12 @@ export class Gestor {
             if (error instanceof Error) {
               console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario: ', error.message);
             }
-            console.log('Introduce un nombre de usuario válido no vacío');
+            console.log('Introduce un nombre de usuario válido no vacío y/o contraseña válida');
             // pulsar enter para volver a introducir un nombre de usuario
             inquirer.prompt({
               type: 'input',
               name: 'volver',
-              message: 'Pulsa enter para volver a introducir un nombre de usuario',
+              message: 'Pulsa enter para volver a introducir un usuario',
             }).then(() => {
               this.registrarUsuario();
             });
@@ -611,6 +628,108 @@ export class Gestor {
       }
     });
   }
+
+    ///////////////////////////////////////
+  ////////// Gestión de Reto //////////
+  ///////////////////////////////////////
+
+  public gestionRetos(): void {
+    console.clear();
+    console.log('Bienvenido a gestión de Retos. ¿Qué desea hacer?');
+    inquirer.prompt({
+      type: 'list',
+      name: 'opcion',
+      message: 'Elige una opción: ',
+      choices: [
+        'Registrar reto',
+        'Listar retos',
+        'Modificar retos',
+        'Eliminar reto',
+        'Volver al menú anterior'
+      ],
+    }).then((respuesta) => {
+      switch (respuesta.opcion) {
+        case 'Registrar Reto':
+          this.registrarUsuario();
+          break;
+        case 'Listar Retos':
+          this.listarRetos();
+          break;
+        case 'Modificar Retos':
+          this.modificarReto();
+          break;
+        case 'Eliminar Retos':
+          this.eliminarReto(); 
+          break;
+        case 'Volver al menú anterior':
+          this.gestionInfo();
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  private modificarReto(): void {
+    console.clear();
+    // Obtener el listado de grupos
+    const grupos = this.coleccionGrupos.getGrupos();
+    // Pedir al usuario que seleccione el grupo a modificar
+    inquirer.prompt({
+      type: 'list',
+      name: 'grupo',
+      message: 'Selecciona el grupo que deseas modificar:',
+      choices: Array.from(grupos.values()).map((grupo) => grupo.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.grupo === 'Cancelar') {
+        this.gestionGrupos();
+      } else {
+        // Buscar el grupo a modificar por su nombre y modificarlo
+        const grupoAModificar = Array.from(grupos.values()).find((grupo) => grupo.getNombre() === respuesta.grupo);
+        if (grupoAModificar) {
+          console.clear();
+          console.log('¿Qué atributo desea modificar?');
+          inquirer.prompt({
+            type: 'list',
+            name: 'opcion',
+            message: 'Elige una opción: ',
+            choices: [
+              'Modificar Nombre de Usuario',
+              'Editar Actividad',
+              'Añadir Amigo',
+              'Borrar Amigo',
+              'Añadir Rutas Favoritas',
+              'Borrar Rutas Favoritas',
+              'Añadir Retos activos',
+              'Borrar Retos activos',
+              'Salir',
+            ],
+          }).then((respuesta) => {
+            switch (respuesta.opcion) {
+              case 'Modificar nombre de Usuario':
+                
+                break;
+              case 'Editar Actividad':
+                
+                break;
+              case 'Añadir Amigo':
+                
+                break;
+              case 'Borrar Amigo':
+                
+                break;
+              default:
+                break;
+            }
+          });
+        } else {
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+          this.volver(() => this.gestionUsuarios());
+        }
+      }
+    });
+  }
+
 }
 
 const gestor = new Gestor();
