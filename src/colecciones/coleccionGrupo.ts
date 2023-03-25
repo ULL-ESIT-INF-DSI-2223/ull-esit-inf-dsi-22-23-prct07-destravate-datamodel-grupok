@@ -15,23 +15,10 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
   }
 
   /**
-   * Hacemos que la clase ColeccionGrupo sea iterable
+   * Hace posible que la clase ColeccionGrupo sea iterable
    */
   [Symbol.iterator]() {
     return this.grupos.values();
-  }
-
-  /**
-   * Método add, establece el valor de grupos pero antes revisa si el grupo ya existe mediante
-   * el uso del id 
-   * @param grupos
-   */
-  public addGrupos(grupos: Grupo[]): void {
-    for (const grupo of grupos) {
-      if (grupo instanceof Grupo && !this.grupos.has(grupo.getID())) {
-        this.grupos.set(grupo.getID(), grupo);
-      }
-    }
   }
 
   /**
@@ -63,7 +50,7 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
   }
 
   /**
-   * Permite listar los grupos
+   * Método que permite listar los grupos
    */
   public listar(): void {
     console.clear();
@@ -74,11 +61,12 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
   }
 
   /**
-   * Método que permite insertar un grupo en la colección de grupos revisando
+   * Método que permite insertar un grupo
+   * @param grupo Grupo a añadir
    */
   public insertar(grupo: Grupo): void {
     if (this.grupos.has(grupo.getID())) {
-      console.log('El grupo ya existe');
+      console.log('El grupo que deseas añadir ya existe o existe un grupo con el mismo ID.');
       return;
     }
     this.grupos.set(grupo.getID(), grupo);
@@ -86,11 +74,14 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
 
   /**
    * Permite eliminar un grupo
-   * @param grupo 
+   * @param grupo Grupo a eliminar
    */
   public eliminar( grupo: Grupo ) {
     if (this.grupos.has(grupo.getID())) {
       this.grupos.delete(grupo.getID());
+    }
+    else {
+      console.log("El grupo que deseas eliminar no existe.");
     }
   }
 }

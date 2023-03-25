@@ -1,18 +1,22 @@
 import { Usuario } from '../modelos/usuario';
 import { Coleccion } from '../interfaces/coleccion';
 import { Actividad } from '../enums/actividadEnum';
+
 /**
- * 
+ * Clase que implemente Colección y la especifica para usuarios
  */
 export class ColeccionUsuario implements Coleccion<Usuario> {
   private usuarios: Map<number, Usuario>;
 
+  /**
+   * Constructor de la clase
+   */
   constructor() {
     this.usuarios = new Map();
   }
 
   /**
-   * Hacemos que la clase ColeccionUsuario sea iterable
+   * Hacem posible que la clase ColeccionUsuario sea iterable
    */
   [Symbol.iterator]() {
     return this.usuarios.values();
@@ -27,6 +31,10 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
     this.usuarios = usuarios;
   }
 
+  /**
+   * Setter de los usuarios (entrada en formato array)
+   * @param usuarios Users en formato array
+   */
   public setUsuariosFromArray(usuarios: Usuario[]): void {
     for (const usuario of usuarios) {
       if (usuario instanceof Usuario && !this.usuarios.has(usuario.getID())) {
@@ -36,10 +44,17 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
     }
   }    
 
+  /**
+   * Getter de la clase usuario
+   * @returns Map con los usuarios
+   */
   public getUsuarios(): Map<number, Usuario> {
     return this.usuarios;
   }
 
+  /**
+   * Método que permite listar los usuarios
+   */
   public listar(): void {
     console.clear();
     console.log('Listando usuarios...');
@@ -51,7 +66,7 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
   /**
    * Método que permite insertar un usuario en la colección de usuarios revisando
    * previamente que el usuario no exista
-   * @param usuario 
+   * @param usuario Usuario a insertar
    */
   public insertar(usuario: Usuario): void {
     if (this.usuarios.has(usuario.getID())) {
@@ -69,8 +84,18 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
     this.usuarios.set(usuario.getID(), usuario);
   }  
 
+  /**
+   * Método que permite eliminar usuarios
+   * @param usuario Usuario a eliminar
+   */
   public eliminar( usuario: Usuario) {
-    this.usuarios.delete(usuario.getID());
+    if (this.usuarios.has(usuario.getID())) {
+      this.usuarios.delete(usuario.getID());
+    }
+    else {
+      console.log("El grupo que deseas eliminar no existe.");
+    }
+    
   }
 
   /**
