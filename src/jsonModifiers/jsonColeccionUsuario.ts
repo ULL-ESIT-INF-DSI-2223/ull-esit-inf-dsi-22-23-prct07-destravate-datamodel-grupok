@@ -56,4 +56,6 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   public modificarNombre(usuario: Usuario, nombre: string): void {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).assign({ nombre: nombre }).write();
   }
+  
+  
 }

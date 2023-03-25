@@ -215,8 +215,8 @@ export class Gestor {
                   name: 'nombre',
                   message: 'Introduce tu nombre de usuario: ',
                 }).then((respuesta2) => {
-                  this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
                   this.jsonColeccionUsuario.modificarNombre(usuarioAModificar, respuesta2.nombre)
+                  this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
                   this.gestionInfo();
                 });
                 break;
