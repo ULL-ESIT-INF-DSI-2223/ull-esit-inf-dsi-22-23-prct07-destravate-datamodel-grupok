@@ -50,8 +50,10 @@ export class ColeccionUsuario {
    */
   public insertarUsuario(usuario: Usuario): void {
     if (this.usuarios.has(usuario.getID())) {
-      console.log('El usuario ya existe insertar usuario');
-      return;
+      /// Lanzamos un error que debería decir el id del usuario que ya existe
+      throw new Error('El usuario con id ' + usuario.getID() + ' ya existe');
+      // console.log('El usuario ya existe insertar usuario');
+      // return;
     }
     this.usuarios.set(usuario.getID(), usuario);
   }
