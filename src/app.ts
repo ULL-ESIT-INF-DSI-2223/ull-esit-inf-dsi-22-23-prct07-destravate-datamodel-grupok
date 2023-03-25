@@ -271,27 +271,43 @@ export class Gestor {
                   this.coleccionUsuarios.modificarActividad(usuarioAModificar, respuesta2.actividad)
                 });
                 break;
-              case 'Añadir Amigo':
-                console.clear();
-                inquirer.prompt({
-                  type: 'input',
-                  name: 'nombre',
-                  message: 'Introduce tu nombre del amigo a añadir: ',
-                }).then((respuesta2) => {
-                  // Buscamos el usuario con el nombre dado y lo guardamos como un objeto usuario
-                  const amigoAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.nombre);
-                  if ( amigoAAñadir === undefined ) {
-                    console.log('El usuario no existe');
-                    this.volver(() => this.gestionInfo());
-                    return;
-                  } else {
-                    // Obtenemos el id del usuario a añadir como amigo
-                    const idAmigoAAñadir = amigoAAñadir.getID();
-                    this.jsonColeccionUsuario.addAmigo(usuarioAModificar, idAmigoAAñadir);
-                    this.coleccionUsuarios.addAmigo(usuarioAModificar, idAmigoAAñadir);
-                    this.gestionInfo();
-                  }
-                });
+                case 'Añadir Amigo':
+                  console.clear();
+                  console.log('Añadiendo amigo...');
+                  // Obtener el listado de usuarios
+                  const usuarios = this.coleccionUsuarios.getUsuarios();
+                  // Pedir al usuario que seleccione el usuario a modificar
+                  inquirer.prompt({
+                    type: 'list',
+                    name: 'usuario',
+                    message: 'Selecciona el usuario al que deseas añadir un amigo:',
+                    choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
+                  }).then((respuesta) => {
+                    if (respuesta.usuario === 'Cancelar') {
+                      this.volver(() => this.gestionUsuarios());
+                    } else {
+                      // Buscar el usuario por su nombre
+                      const usuarioActual = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
+                      console.clear();
+                      inquirer.prompt({
+                        type: 'input',
+                        name: 'nombre',
+                        message: 'Introduce el nombre del amigo que deseas añadir: ',
+                      }).then((respuesta2) => {
+                        // Buscar el amigo por su nombre
+                        const amigo = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
+                        if (amigo) {
+                          // Añadir amigo al usuario actual
+                          usuarioActual.addAmigoApp(amigo.getID());
+                          console.log(`Amigo ${amigo.getNombre()} añadido al usuario ${usuarioActual.getNombre()}.`);
+                        } else {
+                          console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+                        }
+                        this.volver(() => this.gestionUsuarios());
+                      });
+                    }
+                  });
+                  break;
                 case 'Borrar Amigo':
                   console.clear();
                   inquirer.prompt({
