@@ -1,6 +1,7 @@
 import {Grupo} from '../modelos/grupo';
+import { Coleccion } from '../interfaces/Coleccion';
 
-export class ColeccionGrupo {
+export class ColeccionGrupo implements Coleccion<Grupo> {
   private grupos: Map<number, Grupo>;
 
   constructor() {
@@ -52,6 +53,12 @@ export class ColeccionGrupo {
       return;
     }
     this.grupos.set(grupo.getID(), grupo);
+  }
+
+  public eliminar( grupo: Grupo ) {
+    if (this.grupos.has(grupo.getID())) {
+      this.grupos.delete(grupo.getID());
+    }
   }
 }
 

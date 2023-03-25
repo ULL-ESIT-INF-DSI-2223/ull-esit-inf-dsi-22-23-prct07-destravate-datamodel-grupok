@@ -1,6 +1,6 @@
 import { Ruta } from '../modelos/ruta';
-
-export class ColeccionRutas {
+import { Coleccion } from '../interfaces/Coleccion';
+export class ColeccionRutas implements Coleccion<Ruta>{
 
   private rutas: Map<number, Ruta>;
 
@@ -51,11 +51,17 @@ export class ColeccionRutas {
    * previamente que la ruta no exista
    * @param ruta 
    */
-  public insertarRuta(ruta: Ruta): void {
+  public insertar(ruta: Ruta): void {
     if (this.rutas.has(ruta.getID())) {
       console.log('La ruta ya existe insertar ruta');
       return;
     }
     this.rutas.set(ruta.getID(), ruta);
+  }
+
+  public eliminar( ruta: Ruta) {
+    if (this.rutas.has(ruta.getID())) {
+      this.rutas.delete(ruta.getID());
+    }
   }
 }
