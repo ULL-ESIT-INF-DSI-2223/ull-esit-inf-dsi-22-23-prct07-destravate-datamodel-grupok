@@ -27,10 +27,16 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   
   public cargarUsuarios(): Usuario[] {
     const usuarios_no_instancia: Usuario[] = this.usuariosDatabase.get('usuarios').value();
-  
+                                                                                                    //////////////// HACER QUE TODOS LOS ATRIBUTOS SEAN IGUALES
     const usuarios: Usuario[] = [];
     for (const usuario of usuarios_no_instancia) {
       let usuarioAux = new Usuario(usuario.nombre, usuario.actividades);
+      usuarioAux.setAmigosApp(usuario.amigosApp);
+      usuarioAux.setAmigosFrecuentes(usuario.amigosFrecuentes);
+      usuarioAux.setEstadisticas(usuario.estadisticas);
+      usuarioAux.setRutasFavoritas(usuario.rutasFavoritas);
+      usuarioAux.setRetosActivos(usuario.retosActivos);
+      usuarioAux.setHistoricoRutas(usuario.historicoRutas);
       usuarios.push(usuarioAux);
     }
 

@@ -4,12 +4,12 @@
       "id": 0,
       "nombre": "Fer",
       "actividades": "bicicleta",
-      "amigosApp": [],
-      "amigosFrecuentes": [],
+      "amigosApp": ["PEDRO"],
+      "amigosFrecuentes": ["Pedro"],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 34,
+          "desnivel": 12345
         },
         "mes": {
           "km": 0,
@@ -20,7 +20,7 @@
           "desnivel": 0
         }
       },
-      "rutasFavoritas": [],
+      "rutasFavoritas": ["ruta1", "ruta2"],
       "retosActivos": [],
       "historicoRutas": []
     },
