@@ -56,6 +56,32 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   public modificarNombre(usuario: Usuario, nombre: string): void {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).assign({ nombre: nombre }).write();
   }
-  
-  
+
+  public modificarContraseña(usuario: Usuario, contraseña: string): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).assign({ contraseña: contraseña }).write();
+  }
+
+  public addAmigo(usuario: Usuario, amigo: number): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('amigosApp').push(amigo).write();
+  }
+
+  public eraseAmigo(usuario: Usuario, amigo: number): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('amigosApp').remove(amigo).write();
+  }
+
+  public addRuta(usuario: Usuario, ruta: number): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('rutasFavoritas').push(ruta).write();
+  }
+
+  public eraseRuta(usuario: Usuario, ruta: number): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('rutasFavoritas').remove(ruta).write();
+  }
+
+  public addRetosActivos(usuario: Usuario, reto: number): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('retosActivos').push(reto).write();
+  }
+
+  public eraseRetosActivos(usuario: Usuario, reto: number): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('retosActivos').remove(reto).write();
+  }
 }

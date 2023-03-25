@@ -1,6 +1,5 @@
 import { Usuario } from '../modelos/usuario';
 import { Coleccion } from '../interfaces/coleccion';
-
 /**
  * 
  */
@@ -71,5 +70,33 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
    */
   public modificarNombre( usuario: Usuario, nombre: string) {
     this.usuarios.get(usuario.getID())!.setNombre(nombre);
+  }
+
+  public modificarContraseña( usuario: Usuario, contraseña: string) {
+    this.usuarios.get(usuario.getID())!.setContraseña(contraseña);
+  }
+
+  public addAmigo( usuario: Usuario, amigo: number) {
+    this.usuarios.get(usuario.getID())!.addAmigoApp(amigo);
+  }
+
+  public eraseAmigo( usuario: Usuario, amigo: number) {
+    this.usuarios.get(usuario.getID())!.eraseAmigoApp(amigo);
+  }
+
+  public addRuta( usuario: Usuario, ruta: number) {
+    this.usuarios.get(usuario.getID())!.addRutaFavorita(ruta);
+  }
+
+  public eraseRuta( usuario: Usuario, ruta: number) {
+    this.usuarios.get(usuario.getID())!.eraseRutaFavorita(ruta);
+  }
+
+  public addRetosActivos( usuario: Usuario, reto: number) {
+    this.usuarios.get(usuario.getID())!.addRetosActivos(reto);
+  }
+
+  public eraseRetosActivos( usuario: Usuario, reto: number) {
+    this.usuarios.get(usuario.getID())!.eraseRetosActivos(reto);
   }
 }

@@ -92,6 +92,10 @@ export class Usuario implements EntidadInterface {
     this.nombre = nombre;
   }
 
+  setContraseña(contraseña: string): void {
+    this.contraseña = contraseña;
+  }
+
   setActividades(actividades: Actividad): void {
     this.actividades = actividades;
   }
@@ -122,6 +126,30 @@ export class Usuario implements EntidadInterface {
 
   setHistoricoRutas(historicoRutas: { ruta: number; fecha: Date; }[]): void {
     this.historicoRutas = historicoRutas;
+  }
+
+  addAmigoApp(idAmigo: number): void {
+    this.amigosApp.push(idAmigo);
+  }
+
+  eraseAmigoApp(idAmigo: number): void {
+    this.amigosApp = this.amigosApp.filter((id) => id !== idAmigo);
+  }
+
+  addRutaFavorita(idRuta: number): void {
+    this.rutasFavoritas.push(idRuta);
+  }
+
+  eraseRutaFavorita(idRuta: number): void {
+    this.rutasFavoritas = this.rutasFavoritas.filter((id) => id !== idRuta);
+  }
+
+  addRetosActivos(idReto: number): void {
+    this.retosActivos.push(idReto);
+  }
+
+  eraseRetosActivos(idReto: number): void {
+    this.retosActivos = this.retosActivos.filter((id) => id !== idReto);
   }
 
   /**
