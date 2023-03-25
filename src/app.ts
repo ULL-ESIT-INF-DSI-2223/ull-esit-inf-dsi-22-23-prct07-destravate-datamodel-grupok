@@ -274,42 +274,39 @@ export class Gestor {
                 case 'Añadir Amigo':
                   console.clear();
                   console.log('Añadiendo amigo...');
-                  // Obtener el listado de usuarios
-                  const usuarios = this.coleccionUsuarios.getUsuarios();
-                  // Pedir al usuario que seleccione el usuario a modificar
+                  console.clear();
                   inquirer.prompt({
-                    type: 'list',
-                    name: 'usuario',
-                    message: 'Selecciona el usuario al que deseas añadir un amigo:',
-                    choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
-                  }).then((respuesta) => {
-                    if (respuesta.usuario === 'Cancelar') {
-                      this.volver(() => this.gestionUsuarios());
-                    } else {
-                      // Buscar el usuario por su nombre
-                      const usuarioActual = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
-                      console.clear();
-                      inquirer.prompt({
-                        type: 'input',
-                        name: 'nombre',
-                        message: 'Introduce el nombre del amigo que deseas añadir: ',
-                      }).then((respuesta2) => {
-                        // Buscar el amigo por su nombre
-                        const amigo = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
-                        if (amigo) {
-                          // Añadir amigo al usuario actual
-                          if (usuarioActual == undefined || amigo == undefined) {
-                            throw new Error('Usuario o amigo no encontrado.');
-                            return;
-                          }
-                          usuarioActual.addAmigoApp(amigo.getID());
-                          console.log(`Amigo ${amigo.getNombre()} añadido al usuario ${usuarioActual.getNombre()}.`);
-                        } else {
-                          console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-                        }
-                        this.volver(() => this.gestionUsuarios());
-                      });
+                    type: 'input',
+                    name: 'nombre',
+                    message: 'Introduce el nombre del amigo que deseas añadir: ',
+                  }).then((respuesta2) => {
+
+                    // Obtener el listado de usuarios
+                    const usuarios = this.coleccionUsuarios.getUsuarios();
+                    // Comprobamos si el usuario está en la lista de usuarios
+                    if ( usuarios.has(respuesta2.nombre) ) {
+                      // listamos los usuarios
+                      console.log('Usuarios registrados:');
+                      usuarios.forEach((usuario) => console.log(usuario.getNombre()));
+
+                      console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+                      // this.volver(() => this.gestionUsuarios());
+                      return (this.volver(() => this.gestionUsuarios()));
                     }
+
+                    // Buscamos el amigo por su nombre dentro del map
+                    const nuevoAmigo = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
+                    // Comprobamos que exista el amigo
+                    if ( nuevoAmigo == undefined ) {
+                      console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+                      return (this.volver(() => this.gestionUsuarios()));
+                    }
+                    // Añadimos el amigo al usuario actual
+                    usuarioAModificar.addAmigoApp(nuevoAmigo.getID());
+                    // Lo escribimos en el fichero 
+                    this.jsonColeccionUsuario.addAmigo(usuarioAModificar, nuevoAmigo.getID());
+                    console.log(`Amigo ${nuevoAmigo.getNombre()} añadido al usuario ${usuarioAModificar.getNombre()}.`);
+                    this.volver(() => this.gestionUsuarios());
                   });
                   break;
                 case 'Borrar Amigo':
