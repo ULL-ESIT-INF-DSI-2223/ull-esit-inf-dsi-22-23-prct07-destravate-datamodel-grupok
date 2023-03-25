@@ -2,6 +2,7 @@ import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
 import lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 import { Usuario } from '../modelos/usuario';
+import { Actividad } from '../enums/actividadEnum';
 
 interface DatabaseSchema {
   usuarios: Usuario[];
@@ -65,8 +66,8 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).assign({ contraseña: contraseña }).write();
   }
 
-  public modificarActividad(usuario: Usuario, actividad: string): void {
-    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).assign({ actividad: actividad }).write();
+  public modificarActividad(usuario: Usuario, actividad: Actividad): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).assign({ actividades: actividad }).write();
   }
 
   public addAmigo(usuario: Usuario): void {

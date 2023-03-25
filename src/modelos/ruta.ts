@@ -1,14 +1,15 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
 import { Actividad } from "../enums/actividadEnum";
 import { Dificultad } from "../enums/dificultadEnum";
+import { Coordenadas } from "../interfaces/coordenadasInterface";
 
 let contador_id = 0;
 
 export class Ruta implements EntidadInterface {
   id: number;
   nombre: string;
-  coordenadasInicio: string;
-  coordenadasFin: string;
+  coordenadasInicio: Coordenadas;
+  coordenadasFin: Coordenadas;
   longitud: number;
   desnivel: number;
   usuariosVisitantes: number[] = [];
@@ -18,8 +19,8 @@ export class Ruta implements EntidadInterface {
   
   constructor(
     nombre: string, 
-    coordenadasInicio: string, 
-    coordenadasFin: string, 
+    coordenadasInicio: Coordenadas, 
+    coordenadasFin: Coordenadas, 
     longitud: number, 
     desnivel: number, 
     tipoActividad: Actividad,
@@ -42,10 +43,10 @@ export class Ruta implements EntidadInterface {
   getNombre(): string {
     return this.nombre;
   }
-  getCoordenadasInicio(): string {
+  getCoordenadasInicio(): Coordenadas {
     return this.coordenadasInicio;
   }
-  getCoordenadasFin(): string {
+  getCoordenadasFin(): Coordenadas {
     return this.coordenadasFin;
   }
   getLongitud(): number {
@@ -77,10 +78,10 @@ export class Ruta implements EntidadInterface {
   setNombre(nombre: string): void {
     this.nombre = nombre;
   }
-  setCoordenadasInicio(coordenadasInicio: string): void {
+  setCoordenadasInicio(coordenadasInicio: Coordenadas): void {
     this.coordenadasInicio = coordenadasInicio;
   }
-  setCoordenadasFin(coordenadasFin: string): void {
+  setCoordenadasFin(coordenadasFin: Coordenadas): void {
     this.coordenadasFin = coordenadasFin;
   }
   setLongitud(longitud: number): void {
@@ -102,7 +103,9 @@ export class Ruta implements EntidadInterface {
     this.calificacion = calificacion;
   }
 
-  modificarNombre(nombre: string): void {
-    this.nombre = nombre;
+  addUsuarioVisitante(idUsuario: number): void {
+    this.usuariosVisitantes.push(idUsuario);
   }
+
+
 }

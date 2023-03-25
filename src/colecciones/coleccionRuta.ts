@@ -1,5 +1,7 @@
 import { Ruta } from '../modelos/ruta';
 import { Coleccion } from '../interfaces/coleccion';
+import { Coordenadas } from '../interfaces/coordenadasInterface';
+import { Actividad } from '../enums/actividadEnum';
 
 /**
  * Clase que implemente Colección y la especifica para rutas
@@ -84,4 +86,52 @@ export class ColeccionRuta implements Coleccion<Ruta>{
       console.log("La ruta que deseas eliminar no existe.");
     }
   }
+
+  public modificarNombreRuta(ruta: Ruta, nombre: string) {
+    if (this.rutas.has(ruta.getID())) {
+      ruta.setNombre(nombre);
+    }
+    else {
+      throw new Error("La ruta que deseas modificar no existe.");
+    }
+  }
+
+  public modificarCoordenadasRuta(ruta: Ruta, coordenadasInicio: Coordenadas, coordenadasFin: Coordenadas) {
+    if (this.rutas.has(ruta.getID())) {
+      ruta.setCoordenadasInicio(coordenadasInicio);
+      ruta.setCoordenadasFin(coordenadasFin);
+    }
+    else {
+      throw new Error("La ruta que deseas modificar no existe.");
+    }
+  }
+
+  public modificarLongitudRuta(ruta: Ruta, longitud: number) {
+    if (this.rutas.has(ruta.getID())) {
+      ruta.setLongitud(longitud);
+    }
+    else {
+      throw new Error("La ruta que deseas modificar no existe.");
+    }
+  }
+
+  public modificarDesnivelRuta(ruta: Ruta, desnivel: number) {
+    if (this.rutas.has(ruta.getID())) {
+      ruta.setDesnivel(desnivel);
+    }
+    else {
+      throw new Error("La ruta que deseas modificar no existe.");
+    }
+  }
+
+  public modificarTipoActividadRuta(ruta: Ruta, tipoActividad: Actividad) {
+    if (this.rutas.has(ruta.getID())) {
+      ruta.setTipoActividad(tipoActividad);
+    }
+    else {
+      throw new Error("La ruta que deseas modificar no existe.");
+    }
+  }
+
+  
 }

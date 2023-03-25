@@ -4,7 +4,7 @@
       "id": 1,
       "nombre": "yanfris",
       "contraseña": "Dsi23*",
-      "actividades": "bicicleta",
+      "actividades": "corredor",
       "amigosApp": [
         2
       ],
@@ -25,8 +25,7 @@
       },
       "rutasFavoritas": [],
       "retosActivos": [],
-      "historicoRutas": [],
-      "actividad": "corredor"
+      "historicoRutas": []
     },
     {
       "id": 2,
