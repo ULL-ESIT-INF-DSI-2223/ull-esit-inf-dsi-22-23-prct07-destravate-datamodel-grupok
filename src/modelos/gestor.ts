@@ -27,7 +27,7 @@ export class Gestor {
    * esto lo hace preguntando el nombre del usuario y la actividad que realiza, 
    * así como asignar el id del usuario como key dentro del map de ColeccionUsuario
    */
-  public registrarUsuario(): void {
+  private registrarUsuario(): void {
     console.clear();
     console.log('Registrando usuario...');
     inquirer.prompt({
@@ -71,7 +71,7 @@ export class Gestor {
     });
   }  
 
-  public listarUsuarios(): void {
+  private listarUsuarios(): void {
     console.clear();
     console.log('Listando usuarios...');
     for (const usuario of this.usuarios) {
@@ -84,7 +84,7 @@ export class Gestor {
   /**
    * Eliminar un usuario de la lista de usuarios con opción a cancelar
    */
-  public eliminarUsuario(): void {
+  private eliminarUsuario(): void {
     console.clear();
     console.log('Eliminando usuario...');
   
