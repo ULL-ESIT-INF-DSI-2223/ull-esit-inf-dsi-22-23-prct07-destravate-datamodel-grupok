@@ -199,30 +199,44 @@ export class Gestor {
             name: 'opcion',
             message: 'Elige una opción: ',
             choices: [
-              'ID',
               'Nombre de Usuario',
               'Actividad que realiza',
               'Amigos en la aplicación',
               'Grupo de amigos',
-              'Estadísticas de entrenamiento',
               'Rutas Favoritas',
               'Retos activos',
-              'Histórico de Rutas',
               'Salir',
             ],
           }).then((respuesta) => {
             switch (respuesta.opcion) {
-              case 'Registrarse como usuario':
+              case 'Nombre de Usuario':
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'nombre',
+                  message: 'Introduce tu nombre de usuario: ',
+                }).then((respuesta2) => {
+                  usuarioAModificar.setNombre(respuesta2.nombre)
+                });
+                break;
+              case 'Actividad que realiza':
+                break;
+              case 'Amigos en la aplicación':
+                break;
+              case 'Grupo de amigos':
+                break;
+              case 'Rutas Favoritas':
+                  break;
+              case 'Retos activos':
                 break;
               default:
                 break;
             }
+            this.volver(() => this.consola());
           });
-      
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
+          this.volver(() => this.gestionUsuarios());
         }
-        this.volver(() => this.consola());
       }
     });
   }
@@ -275,7 +289,6 @@ export class Gestor {
           }
         });
       });
-
     });
   }  
 
