@@ -23,6 +23,35 @@
       },
       "rutasFavoritas": [],
       "retosActivos": [],
+<<<<<<< HEAD
+=======
+      "historicoRutas": [],
+      "actividad": "corredor"
+    },
+    {
+      "id": 2,
+      "nombre": "sergio",
+      "contraseña": "1Pr*",
+      "actividades": "bicicleta",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+>>>>>>> 0787c8a3bee1e2e6903cbda35a1f1d0a991ed33e
       "historicoRutas": []
     }
   ]
