@@ -298,6 +298,10 @@ export class Gestor {
                         const amigo = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
                         if (amigo) {
                           // Añadir amigo al usuario actual
+                          if (usuarioActual == undefined || amigo == undefined) {
+                            throw new Error('Usuario o amigo no encontrado.');
+                            return;
+                          }
                           usuarioActual.addAmigoApp(amigo.getID());
                           console.log(`Amigo ${amigo.getNombre()} añadido al usuario ${usuarioActual.getNombre()}.`);
                         } else {
