@@ -84,6 +84,8 @@ export class ColeccionReto implements Coleccion<Reto> {
       console.log("El reto que deseas eliminar no existe.");
     }
   }
+
+
 }
 
 

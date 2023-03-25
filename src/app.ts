@@ -42,8 +42,6 @@ export class Gestor {
     this.coleccionRetos.setRetosFromArray(this.jsonColeccionReto.cargarRetos());
     this.coleccionRutas.setRutasFromArray(this.jsonColeccionRuta.cargarRutas());
     this.coleccionGrupos.setGruposFromArray(this.jsonColeccionGrupo.cargarGrupos());
-    ////////////////////////////////////////////////////////////////////////////////////////// Falta poner los otros json
-
   }
 
   public getUsuarios() {
@@ -88,6 +86,9 @@ export class Gestor {
       callback(this);
     });
   }
+
+  ////////////////////////////////////////////////////////////////////////////// Poner eliminar, listar y blabla con funciones genéricas
+
 
   ////////////////////////////////////
   ////////// Menú Principal //////////
@@ -156,7 +157,7 @@ export class Gestor {
           this.gestionUsuarios();
           break;
         case 'Rutas':
-          this.gestionGrupos();
+          this.gestionRutas();
           break;
         case 'Grupos':
           this.gestionGrupos();
@@ -233,7 +234,6 @@ export class Gestor {
         if (usuarioAModificar) {
           console.clear();
           console.log('¿Qué atributo desea modificar?');
-
           inquirer.prompt({
             type: 'list',
             name: 'opcion',
@@ -261,9 +261,26 @@ export class Gestor {
                   name: 'nombre',
                   message: 'Introduce tu nombre de usuario: ',
                 }).then((respuesta2) => {
-                  this.jsonColeccionUsuario.modificarNombre(usuarioAModificar, respuesta2.nombre)
-                  this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
-                  this.gestionInfo();
+                  try {
+                    this.jsonColeccionUsuario.modificarNombre(usuarioAModificar, respuesta2.nombre)
+                    this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el usuario: ', error.message);
+                    }
+                    console.log('Introduce un nombre de usuario nuevo');
+                    // pulsar enter para volver a introducir un nombre de usuario
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver a introducir un usuario',
+                    }).then(() => {
+                      this.registrarUsuario();
+                    });
+                    return;
+                  }
+
                 });
               break;
               case 'Editar Actividad':
@@ -272,7 +289,7 @@ export class Gestor {
                   type: 'list',
                   name: 'actividad',
                   message: 'Elige una actividad: ',
-                  choices: ['bicicleta', 'corredor'],
+                  choices: ['cilismo', 'running'],
                 }).then((respuesta2) => {
                   this.gestionInfo();
                   this.jsonColeccionUsuario.modificarActividad(usuarioAModificar, respuesta2.actividad)
@@ -367,7 +384,7 @@ export class Gestor {
         type: 'list',
         name: 'actividad',
         message: 'Elige una actividad: ',
-        choices: ['bicicleta', 'corredor'],
+        choices: ['cilismo', 'running'],
       }).then((respuesta2) => {
         inquirer.prompt({
           type: 'input',
@@ -387,12 +404,12 @@ export class Gestor {
             if (error instanceof Error) {
               console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario: ', error.message);
             }
-            console.log('Introduce un nombre de usuario válido no vacío');
+            console.log('Introduce un nombre de usuario válido no vacío y/o contraseña válida');
             // pulsar enter para volver a introducir un nombre de usuario
             inquirer.prompt({
               type: 'input',
               name: 'volver',
-              message: 'Pulsa enter para volver a introducir un nombre de usuario',
+              message: 'Pulsa enter para volver a introducir un usuario',
             }).then(() => {
               this.registrarUsuario();
             });
@@ -612,6 +629,7 @@ export class Gestor {
     });
   }
 
+<<<<<<< HEAD
   private registrarGrupo(): void {
     console.clear();
     console.log('Registrando grupo...');
@@ -700,7 +718,368 @@ export class Gestor {
     });
   }
   
+=======
+  ///////////////////////////////////////
+  ////////// Gestión de Rutas  //////////
+  ///////////////////////////////////////
+
+  private gestionRutas(): void {
+    console.clear();
+    console.log('Bienvenido a gestión de rutas. ¿Qué desea hacer?');
+    inquirer.prompt({
+      type: 'list',
+      name: 'opcion',
+      message: 'Elige una opción: ',
+      choices: [
+        'Registrar ruta',
+        'Listar rutas',
+        'Modificar rutas',
+        'Eliminar ruta',
+        'Volver al menú anterior'
+      ],
+    }).then((respuesta) => {
+      switch (respuesta.opcion) {
+        case 'Registrar ruta':
+          this.registrarRuta();
+          break;
+        case 'Listar rutas':
+          this.listarRutas();
+          break;
+        case 'Modificar rutas':
+          this.modificarRuta();
+          break;
+        case 'Eliminar rutas':
+          // this.eliminarRuta();
+          break;
+        case 'Volver al menú anterior':
+          this.gestionInfo()
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  /**
+   * Registra una ruta en la aplicación
+   */
+  public registrarRuta(): void {
+    console.clear();
+    console.log('Bienvenido a la creación de rutas. Por favor, rellene los siguientes campos:');
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'nombre',
+        message: 'Nombre de la ruta: ',
+      },
+      {
+        type: 'input',
+        name: 'coordenadasInicio',
+        message: 'Coordenadas de inicio: ',
+      },
+      {
+        type: 'input',
+        name: 'coordenadasFin',
+        message: 'Coordenadas de fin: ',
+      },
+      {
+        type: 'input',
+        name: 'longitud',
+        message: 'Longitud de la ruta: ',
+      },
+      {
+        type: 'input',
+        name: 'desnivel',
+        message: 'Desnivel de la ruta: ',
+      },
+      {
+        type: 'list',
+        name: 'tipoActividad',
+        choices: [ 'Ciclismo', 'Running' ],
+      },
+      {
+        type: 'list',
+        name: 'dificultad',
+        choices: [ 'Fácil', 'Media', 'Difícil' ],
+      },
+    ]).then((respuesta: any) => {
+      try {
+        const ruta = new Ruta(
+          respuesta.nombre,
+          respuesta.coordenadasInicio,
+          respuesta.coordenadasFin,
+          respuesta.longitud,
+          respuesta.desnivel,
+          respuesta.tipoActividad,
+          respuesta.dificultad
+        );
+        // Lo añadimos a la colección de rutas
+        this.coleccionRutas.addRuta(ruta);
+  
+        // Lo escribimos en el fichero
+        this.jsonColeccionRuta.insertarRuta(ruta);
+  
+        console.log('Ruta registrada con éxito');
+        this.volver(() => this.gestionRutas());
+
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.log('\x1b[31m%s\x1b[0m', 'Error al registrar la ruta: ', error.message);
+        }
+        console.log('Introduce los datos de nuevo');
+        // pulsar enter para volver a introducir un nombre de usuario
+        inquirer.prompt({
+          type: 'input',
+          name: 'volver',
+          message: 'Pulsa enter para volver a introducir los datos',
+        }).then(() => {
+          this.registrarRuta();
+        });
+        return;
+      }
+    });
+  }
+
+  private listarRutas(): void {
+    console.clear();
+    console.log('Listado de rutas:');
+    const rutas = this.coleccionRutas.getRutas();
+    rutas.forEach((ruta) => {
+      // console.log(ruta.getNombre());
+      console.log(ruta);
+    });
+    this.volver(() => this.gestionRutas());
+  }
+
+  private modificarRuta(): void {
+    console.clear();
+    // Obtener el listado de rutas
+    const rutas = this.coleccionRutas.getRutas();
+    // Pedir al usuario que seleccione el ruta a modificar
+    inquirer.prompt({
+      type: 'list',
+      name: 'ruta',
+      message: 'Selecciona el ruta que deseas modificar:',
+      choices: Array.from(rutas.values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.ruta === 'Cancelar') {
+        this.gestionRutas();
+      } else {
+        // Buscar la ruta a modificar por su nombre y modificarlo
+        const rutaAModificar = Array.from(rutas.values()).find((ruta) => ruta.getNombre() === respuesta.ruta);
+        if (rutaAModificar) {
+          console.clear();
+          console.log('¿Qué atributo desea modificar?');
+          inquirer.prompt({
+            type: 'list',
+            name: 'opcion',
+            message: 'Elige una opción: ',
+            choices: [
+              'Modificar nombre de ruta',
+              'Modificar coordenadas de inicio',
+              'Modificar coordenadas de fin',
+              'Modificar longitud',
+              'Modificar desnivel',
+              'Modificar tipo de actividad',
+              'Modificar dificultad',
+              'Modificar calificación',
+              'Salir',
+            ],
+          }).then((respuesta) => {
+            switch (respuesta.opcion) {
+              case 'Modificar nombre de ruta':
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'nombre',
+                  message: 'Introduce tu nombre de ruta: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarNombreRuta(rutaAModificar, respuesta2.nombre)
+                    this.coleccionRutas.modificarNombreRuta(rutaAModificar, respuesta2.nombre)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce un nombre de ruta nuevo');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver a introducir un ruta',
+                    }).then(() => {
+                      this.registrarRuta();
+                    });
+                    return;
+                  }
+                });
+              case 'Modificar coordenadas de inicio':
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'coordenadasInicio',
+                  message: 'Introduce las coordenadas de inicio: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
+                    this.coleccionRutas.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce un nombre de ruta nuevo');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver a introducir un ruta',
+                    }).then(() => {
+                      this.registrarRuta();
+                    });
+                    return;
+                  }
+                });
+              break;
+              case 'Modificar coordenadas de fin':
+                // this.modificarCoordenadasFinRuta(rutaAModificar);
+                break;
+              case 'Modificar longitud':
+                // this.modificarLongitudRuta(rutaAModificar);
+                break;
+              case 'Modificar desnivel':
+                // this.modificarDesnivelRuta(rutaAModificar);
+                break;
+              case 'Modificar tipo de actividad':
+                // this.modificarTipoActividadRuta(rutaAModificar);
+                break;
+              case 'Modificar dificultad':
+                // this.modificarDificultadRuta(rutaAModificar);
+                break;
+              case 'Modificar calificación':
+                // this.modificarCalificacionRuta(rutaAModificar);
+                break;
+              case 'Salir':
+                this.gestionRutas();
+                break;
+              default:
+                break;
+            }
+          });
+        } else {
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+          this.volver(() => this.gestionUsuarios());
+        }
+      }
+    });
+  }
+
+    ///////////////////////////////////////
+  ////////// Gestión de Reto //////////
+  ///////////////////////////////////////
+
+  public gestionRetos(): void {
+    console.clear();
+    console.log('Bienvenido a gestión de Retos. ¿Qué desea hacer?');
+    inquirer.prompt({
+      type: 'list',
+      name: 'opcion',
+      message: 'Elige una opción: ',
+      choices: [
+        'Registrar reto',
+        'Listar retos',
+        'Modificar retos',
+        'Eliminar reto',
+        'Volver al menú anterior'
+      ],
+    }).then((respuesta) => {
+      switch (respuesta.opcion) {
+        case 'Registrar Reto':
+          this.registrarUsuario();
+          break;
+        case 'Listar Retos':
+          // //this.listarRetos();
+          break;
+        case 'Modificar Retos':
+          this.modificarReto();
+          break;
+        case 'Eliminar Retos':
+          // //this.eliminarReto(); 
+          break;
+        case 'Volver al menú anterior':
+          this.gestionInfo();
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  private modificarReto(): void {
+    console.clear();
+    // Obtener el listado de grupos
+    const grupos = this.coleccionGrupos.getGrupos();
+    // Pedir al usuario que seleccione el grupo a modificar
+    inquirer.prompt({
+      type: 'list',
+      name: 'grupo',
+      message: 'Selecciona el grupo que deseas modificar:',
+      choices: Array.from(grupos.values()).map((grupo) => grupo.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.grupo === 'Cancelar') {
+        this.gestionGrupos();
+      } else {
+        // Buscar el grupo a modificar por su nombre y modificarlo
+        const grupoAModificar = Array.from(grupos.values()).find((grupo) => grupo.getNombre() === respuesta.grupo);
+        if (grupoAModificar) {
+          console.clear();
+          console.log('¿Qué atributo desea modificar?');
+          inquirer.prompt({
+            type: 'list',
+            name: 'opcion',
+            message: 'Elige una opción: ',
+            choices: [
+              'Modificar Nombre de Usuario',
+              'Editar Actividad',
+              'Añadir Amigo',
+              'Borrar Amigo',
+              'Añadir Rutas Favoritas',
+              'Borrar Rutas Favoritas',
+              'Añadir Retos activos',
+              'Borrar Retos activos',
+              'Salir',
+            ],
+          }).then((respuesta) => {
+            switch (respuesta.opcion) {
+              case 'Modificar nombre de Usuario':
+                
+                break;
+              case 'Editar Actividad':
+                
+                break;
+              case 'Añadir Amigo':
+                
+                break;
+              case 'Borrar Amigo':
+                
+                break;
+              default:
+                break;
+            }
+          });
+        } else {
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+          this.volver(() => this.gestionUsuarios());
+        }
+      }
+    });
+  }
+
+>>>>>>> bef13609df101c20c3f27ea4e9a4f0a45e49eca6
 }
+
 
 const gestor = new Gestor();
 gestor.consola();
+  

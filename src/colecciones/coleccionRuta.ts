@@ -2,6 +2,7 @@ import { Ruta } from '../modelos/ruta';
 import { Coleccion } from '../interfaces/coleccion';
 import { Coordenadas } from '../interfaces/coordenadasInterface';
 import { Actividad } from '../enums/actividadEnum';
+import { Dificultad } from '../enums/dificultadEnum';
 
 /**
  * Clase que implemente Colección y la especifica para rutas
@@ -71,6 +72,13 @@ export class ColeccionRuta implements Coleccion<Ruta>{
       console.log('La ruta ya existe insertar ruta');
       return;
     }
+
+    const nuevoNombre = ruta.getNombre();
+    for (const u of this.rutas.values()) {
+      if (u.getNombre() === nuevoNombre) {
+        throw new Error('La ruta con nombre ' + nuevoNombre + ' ya existe');
+      }
+    }
     this.rutas.set(ruta.getID(), ruta);
   }
 
@@ -93,6 +101,13 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     }
     else {
       throw new Error("La ruta que deseas modificar no existe.");
+    }
+    // comprobar que el nuevo nombre no existe
+    const nuevoNombre = ruta.getNombre();
+    for (const u of this.rutas.values()) {
+      if (u.getNombre() === nuevoNombre) {
+        throw new Error('La ruta con nombre ' + nuevoNombre + ' ya existe');
+      }
     }
   }
 
@@ -133,5 +148,19 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     }
   }
 
-  
+  public addRuta(ruta: Ruta) {
+    if (this.rutas.has(ruta.getID())) {
+      throw new Error("La ruta que deseas añadir ya existe.");
+    }
+    this.rutas.set(ruta.getID(), ruta);
+  }
+
+  public modificarDificultadRuta(ruta: Ruta, dificultad: Dificultad) {
+    if (this.rutas.has(ruta.getID())) {
+      ruta.setDificultad(dificultad);
+    }
+    else {
+      throw new Error("La ruta que deseas modificar no existe.");
+    }
+  }
 }

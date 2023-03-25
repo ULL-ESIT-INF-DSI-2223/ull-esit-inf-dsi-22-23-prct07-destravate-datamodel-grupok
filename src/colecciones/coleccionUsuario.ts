@@ -38,7 +38,6 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
   public setUsuariosFromArray(usuarios: Usuario[]): void {
     for (const usuario of usuarios) {
       if (usuario instanceof Usuario && !this.usuarios.has(usuario.getID())) {
-        console.log('Usuario insertado');
         this.usuarios.set(usuario.getID(), usuario);
       }
     }
@@ -104,6 +103,13 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
    * @param nombre nuevo nombre
    */
   public modificarNombre( usuario: Usuario, nombre: string) {
+    // comprobar que el nombre no existe
+    const nuevoNombre = usuario.getNombre();
+    for (const u of this.usuarios.values()) {
+      if (u.getNombre() === nuevoNombre) {
+        throw new Error('El usuario con nombre ' + nuevoNombre + ' ya existe');
+      }
+    }
     this.usuarios.get(usuario.getID())!.setNombre(nombre);
   }
 
