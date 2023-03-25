@@ -192,8 +192,33 @@ export class Gestor {
         // Buscar el usuario a modificar por su nombre y modificarlo
         const usuarioAModificar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
         if (usuarioAModificar) {
-          
-
+          console.clear();
+          console.log('¿Qué atributo desea modificar?');
+          inquirer.prompt({
+            type: 'list',
+            name: 'opcion',
+            message: 'Elige una opción: ',
+            choices: [
+              'ID',
+              'Nombre de Usuario',
+              'Actividad que realiza',
+              'Amigos en la aplicación',
+              'Grupo de amigos',
+              'Estadísticas de entrenamiento',
+              'Rutas Favoritas',
+              'Retos activos',
+              'Histórico de Rutas',
+              'Salir',
+            ],
+          }).then((respuesta) => {
+            switch (respuesta.opcion) {
+              case 'Registrarse como usuario':
+                break;
+              default:
+                break;
+            }
+          });
+      
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
         }
@@ -221,28 +246,34 @@ export class Gestor {
         message: 'Elige una actividad: ',
         choices: ['bicicleta', 'corredor'],
       }).then((respuesta2) => {
-        try {
-          let usuario = new Usuario(respuesta.nombre, respuesta2.actividad);
-          // Insertamos el usuario en la colección de usuarios
-          this.coleccionUsuarios.insertar(usuario);
-          // Insertamos el usuario en el json
-          this.jsonColeccionUsuario.insertarUsuario(usuario);
+        inquirer.prompt({
+          type: 'input',
+          name: 'contraseña',
+          message: 'Introduce tu contraseña: '
+        }).then((respuesta3) => {
+          try {
+            let usuario = new Usuario(respuesta.nombre, respuesta3.contraseña, respuesta2.actividad);
+            // Insertamos el usuario en la colección de usuarios
+            this.coleccionUsuarios.insertar(usuario);
+            // Insertamos el usuario en el json
+            this.jsonColeccionUsuario.insertarUsuario(usuario);
 
-          console.log('Usuario registrado con éxito:', usuario);
-          this.volver(() => this.consola());
-        } catch (error) {
-          console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario');
-          console.log('Introduce un nombre de usuario válido no vacío');
-          // pulsar enter para volver a introducir un nombre de usuario
-          inquirer.prompt({
-            type: 'input',
-            name: 'volver',
-            message: 'Pulsa enter para volver a introducir un nombre de usuario',
-          }).then(() => {
-            this.registrarUsuario();
-          });
-          return;
-        }
+            console.log('Usuario registrado con éxito:', usuario);
+            this.volver(() => this.consola());
+          } catch (error) {
+            console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario');
+            console.log('Introduce un nombre de usuario válido no vacío');
+            // pulsar enter para volver a introducir un nombre de usuario
+            inquirer.prompt({
+              type: 'input',
+              name: 'volver',
+              message: 'Pulsa enter para volver a introducir un nombre de usuario',
+            }).then(() => {
+              this.registrarUsuario();
+            });
+            return;
+          }
+        });
       });
 
     });
