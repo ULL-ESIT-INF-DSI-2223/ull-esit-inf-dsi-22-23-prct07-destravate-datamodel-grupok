@@ -66,9 +66,14 @@ export class Ruta implements EntidadInterface {
   getCalificacion(): number {
     return this.calificacion;
   }
-  setID(id: number): void {
+
+  setID = (id: number): void => {
     this.id = id;
+    if ( id > contador_id ) {
+      contador_id = id = 1;
+    }
   }
+  
   setNombre(nombre: string): void {
     this.nombre = nombre;
   }

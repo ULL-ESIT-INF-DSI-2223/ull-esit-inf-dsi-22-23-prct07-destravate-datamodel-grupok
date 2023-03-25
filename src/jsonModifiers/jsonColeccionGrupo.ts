@@ -25,8 +25,12 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
     const grupos_no_instancia: Grupo[] = this.gruposDatabase.get('grupos').value();
     const grupos: Grupo[] = [];
     for (const grupo of grupos_no_instancia) {
-      let grupoAux = new Grupo(grupo.nombre, grupo.
+      let grupoAux = new Grupo(grupo.nombre, grupo.participantes);
       grupoAux.setID(grupo.getID());
+      grupoAux.setEstadisticasEntrenamiento(grupo.getEstadisticasEntrenamiento());
+      grupoAux.setClasificacion(grupo.getClasificacion());
+      grupoAux.setRutasFavoritas(grupo.getRutasFavoritas());
+      grupoAux.setHistoricoRutas(grupo.getHistoricoRutas());
       grupos.push(grupoAux);
     }
     // Compruebamos si alguno de los grupos es una instancia de grupo

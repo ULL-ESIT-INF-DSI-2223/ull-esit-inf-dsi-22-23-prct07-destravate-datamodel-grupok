@@ -1,27 +1,22 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
 import { EstadisticasEntrenamiento } from "../interfaces/estadisticasEntrenamiento";
 
+let contador_id = 0;
+const EMPTY_ESTADISTICAS_ENTRENAMIENTO: EstadisticasEntrenamiento = { semana: { km: 0, desnivel: 0 }, mes: { km: 0, desnivel: 0 }, anio: { km: 0, desnivel: 0 } };
+
 export class Grupo implements EntidadInterface {
   id: number;
   nombre: string;
   participantes: number[];
-  estadisticasEntrenamiento: EstadisticasEntrenamiento
-  clasificacion: { id: number; km: number; desnivel: number }[];
-  rutasFavoritas: number[];
-  historicoRutas: { ruta: number; fecha: Date; }[];
+  estadisticasEntrenamiento: EstadisticasEntrenamiento = EMPTY_ESTADISTICAS_ENTRENAMIENTO;
+  clasificacion: { id: number; km: number; desnivel: number }[] = [];
+  rutasFavoritas: number[] = [];
+  historicoRutas: { ruta: number; fecha: Date; }[] = [];
 
-  constructor(id: number, nombre: string, participantes: number[]) {
-    this.id = id;
+  constructor(nombre: string, participantes: number[]) {
+    this.id = contador_id++;
     this.nombre = nombre;
     this.participantes = participantes;
-    this.estadisticasEntrenamiento = {
-      semana: { km: 0, desnivel: 0 },
-      mes: { km: 0, desnivel: 0 },
-      anio: { km: 0, desnivel: 0 },
-    };
-    this.clasificacion = [];
-    this.rutasFavoritas = [];
-    this.historicoRutas = [];
   }
 
   getID(): number {
@@ -49,9 +44,14 @@ export class Grupo implements EntidadInterface {
   getHistoricoRutas(): { ruta: number; fecha: Date;}[] {
     return this.historicoRutas;
   }
-  setID(id: number): void {
+
+  setID = (id: number): void => {
     this.id = id;
+    if ( id > contador_id ) {
+      contador_id = id = 1;
+    }
   }
+
   setNombre(nombre: string): void {
     this.nombre = nombre;
   }

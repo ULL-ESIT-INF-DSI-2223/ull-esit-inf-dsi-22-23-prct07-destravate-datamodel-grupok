@@ -1,6 +1,8 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
 import { Actividad } from "../enums/actividadEnum";
 
+let contador_id = 0;
+
 export class Reto implements EntidadInterface {
     id: number;
     nombre: string;
@@ -9,8 +11,8 @@ export class Reto implements EntidadInterface {
     kmTotales: number;
     usuarios: number[] = [];
   
-    constructor(id: number, nombre: string, rutas: number[], tipoActividad: Actividad, kmTotales: number) {
-      this.id = id;
+    constructor(nombre: string, rutas: number[], tipoActividad: Actividad, kmTotales: number) {
+      this.id = contador_id++;
       this.nombre = nombre;
       this.rutas = rutas;
       this.tipoActividad = tipoActividad;
@@ -40,6 +42,13 @@ export class Reto implements EntidadInterface {
   
     public getUsuarios(): number[] {
       return this.usuarios;
+    }
+
+    setID = (id: number): void => {
+      this.id = id;
+      if ( id > contador_id ) {
+        contador_id = id = 1;
+      }
     }
   
     // Métodos para actualizar los atributos de la clase
