@@ -129,6 +129,10 @@ export class Usuario implements EntidadInterface {
   }
 
   addAmigoApp(idAmigo: number): void {
+    // Compruebamos si el id del amigo ya está en la lista
+    if (this.amigosApp.includes(idAmigo)) {
+      throw new Error('El amigo ya está en la lista de amigos');
+    }
     this.amigosApp.push(idAmigo);
   }
 
