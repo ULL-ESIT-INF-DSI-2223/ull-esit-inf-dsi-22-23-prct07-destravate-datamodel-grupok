@@ -65,6 +65,7 @@ export class Gestor {
     console.clear();
     console.log('Listando usuarios...');
     for (const usuario of this.usuarios) {
+      // console.log(usuario.getNombre());
       console.log(usuario);
     }
     this.volverConsola();

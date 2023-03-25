@@ -27,6 +27,7 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   
   public cargarUsuarios(): Usuario[] {
     const usuarios_no_instancia: Usuario[] = this.usuariosDatabase.get('usuarios').value();
+  
     const usuarios: Usuario[] = [];
     for (const usuario of usuarios_no_instancia) {
       let usuarioAux = new Usuario(usuario.nombre, usuario.actividades);
