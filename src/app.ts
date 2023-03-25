@@ -225,12 +225,11 @@ export class Gestor {
               case 'Editar Actividad':
                 console.clear();
                 inquirer.prompt({
-                  type: 'input',
-                  name: 'nombre',
-                  message: 'Introduce tu nombre de usuario: ',
+                  type: 'list',
+                  name: 'actividad',
+                  message: 'Elige una actividad: ',
+                  choices: ['bicicleta', 'corredor'],
                 }).then((respuesta2) => {
-                  this.jsonColeccionUsuario.modificarNombre(usuarioAModificar, respuesta2.nombre)
-                  this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
                   this.gestionInfo();
                 });
                 break;
