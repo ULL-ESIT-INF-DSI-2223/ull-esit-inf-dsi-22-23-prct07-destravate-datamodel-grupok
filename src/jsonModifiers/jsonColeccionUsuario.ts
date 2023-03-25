@@ -38,7 +38,6 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
       usuarioAux.setHistoricoRutas(usuario.historicoRutas);
       usuarios.push(usuarioAux);
     }
-
     // Compruebamos si alguno de los usuarios es una instancia de usuario
     for (const usuario of usuarios) {
       if (!(usuario instanceof Usuario)) {
