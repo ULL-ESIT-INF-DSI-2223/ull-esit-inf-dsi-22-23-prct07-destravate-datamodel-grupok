@@ -101,4 +101,8 @@ export class Ruta implements EntidadInterface {
   setCalificacion(calificacion: number): void {
     this.calificacion = calificacion;
   }
+
+  modificarNombre(nombre: string): void {
+    this.nombre = nombre;
+  }
 }
