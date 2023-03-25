@@ -365,12 +365,12 @@ export class Gestor {
             if (error instanceof Error) {
               console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario: ', error.message);
             }
-            console.log('Introduce un nombre de usuario válido no vacío');
+            console.log('\x1b[31m%s\x1b[0m', 'Introduce un nombre de usuario y/o contraseña válido no vacío');
             // pulsar enter para volver a introducir un nombre de usuario
             inquirer.prompt({
               type: 'input',
               name: 'volver',
-              message: 'Pulsa enter para volver a introducir un nombre de usuario',
+              message: 'Pulsa enter para volver a introducir un usuario',
             }).then(() => {
               this.registrarUsuario();
             });
