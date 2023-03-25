@@ -208,9 +208,9 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
     });
   }
 
-  public consola(): void {
+  public gestionUsuarios(): void {
     console.clear();
-    console.log('Bienvenido a la consola de gestión');
+    console.log('Bienvenido a gestión de usuarios. ¿Qué desea hacer?');
     inquirer.prompt({
       type: 'list',
       name: 'opcion',
@@ -234,6 +234,68 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
           break;
         case 'Eliminar usuario':
           this.eliminarUsuario();
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  public gestionInfo(): void {
+    console.clear();
+    console.log('Bienvenido a la consola de gestión de la base de datos. ¿Qué datos desea gestionar');
+    inquirer.prompt({
+      type: 'list',
+      name: 'opcion',
+      message: 'Elige una opción: ',
+      choices: [
+        'Usuario',
+        'Rutas',
+        'Grupos',
+        'Retos',
+      ],
+    }).then((respuesta) => {
+      switch (respuesta.opcion) {
+        case 'Usuario':
+          this.gestionUsuarios();
+          break;
+        case 'Rutas':
+          break;
+        case 'Grupos':
+          break;
+        case 'Retos':
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  public consola(): void {
+    console.clear();
+    console.log('Bienvenido a la consola del usuario. ¿Qué desea hacer?');
+    inquirer.prompt({
+      type: 'list',
+      name: 'opcion',
+      message: 'Elige una opción: ',
+      choices: [
+        'Registrarse como usuario',
+        'Log in',
+        'Gestión de la información',
+        'Salir',
+      ],
+    }).then((respuesta) => {
+      switch (respuesta.opcion) {
+        case 'Registrarse como usuario':
+          break;
+        case 'Log in':
+          this.listarUsuarios();
+          break;
+        case 'Gestión de la información':
+          this.gestionInfo();
+          break;
+        case 'Salir':
+          console.log('Hasta pronto');
           break;
         default:
           break;
