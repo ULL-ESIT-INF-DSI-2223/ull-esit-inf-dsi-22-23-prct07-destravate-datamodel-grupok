@@ -29,7 +29,7 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
     const usuarios_no_instancia: Usuario[] = this.usuariosDatabase.get('usuarios').value();
     const usuarios: Usuario[] = [];
     for (const usuario of usuarios_no_instancia) {
-      let usuarioAux = new Usuario(usuario.nombre, usuario.actividades);
+      let usuarioAux = new Usuario(usuario.nombre, usuario.contraseña, usuario.actividades);
       usuarioAux.setAmigosApp(usuario.amigosApp);
       usuarioAux.setAmigosFrecuentes(usuario.amigosFrecuentes);
       usuarioAux.setEstadisticas(usuario.estadisticas);

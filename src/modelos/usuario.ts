@@ -6,6 +6,7 @@ let contador_id = 0;
 export class Usuario implements EntidadInterface {
   id: number;
   nombre: string;
+  contraseña: string;
   actividades: Actividad; // deberia ser un array de actividades
   amigosApp: number[] = [];
   amigosFrecuentes: number[] = [];
@@ -18,14 +19,18 @@ export class Usuario implements EntidadInterface {
   retosActivos: number[] = [];
   historicoRutas: { ruta: number; fecha: Date; }[] = [];
   
-  constructor(nombre: string, actividades: Actividad) {
+  constructor(nombre: string, contraseña: string, actividades: Actividad) {
     /// Comprobamos que el nombre no esté vacío y que la actividad sea válida
     if (nombre === '') {
       throw new Error('Nombre de usuario vacío o actividad no válida');
     }
+    if (this.isValidPassword(contraseña) === false) {
+      throw new Error('Contraseña no válida');
+    }
     contador_id++;
     this.id = contador_id;
     this.nombre = nombre;
+    this.contraseña = contraseña;
     this.actividades = actividades;
   }
 
@@ -116,5 +121,28 @@ export class Usuario implements EntidadInterface {
 
   setHistoricoRutas(historicoRutas: { ruta: number; fecha: Date; }[]): void {
     this.historicoRutas = historicoRutas;
+  }
+
+  /**
+   * Validador de la contraseña
+   * @param contraseña Contraseña a validar
+   */
+  isValidPassword(password: string): boolean {
+    if(password.length < 4 || password.length > 30) {
+      return false;
+    }
+    if(password[0] === '_' || password[password.length - 1] === '_') {
+    return false;
+    }
+  
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[$,-,_,*]/.test(password);
+  
+    if (!hasUppercase || !hasLowercase || !hasNumber || !hasSpecial) {
+      return false;
+    }
+    return true;
   }
 }
