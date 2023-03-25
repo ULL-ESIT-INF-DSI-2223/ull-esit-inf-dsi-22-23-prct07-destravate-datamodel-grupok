@@ -306,14 +306,23 @@ export class Gestor {
               case 'Borrar Amigo':
                 console.clear();
                 inquirer.prompt({
-                  type: 'input',
+                  type: 'list',
                   name: 'nombre',
-                  message: 'Introduce tu nombre del amigo a borrar: ',
+                  choices: Array.from(usuarioAModificar.getAmigosApp().values()).map((id) => this.coleccionUsuarios.getUsuario(id).getNombre()).concat('Cancelar'),
                 }).then((respuesta2) => {
-                  // const amigoAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.nombre);
-                  // this.jsonColeccionUsuario.addAmigo(usuarioAModificar, respuesta2.nombre)
-                  // this.coleccionUsuarios.addAmigo(usuarioAModificar, respuesta2.nombre)
-                  // this.gestionInfo();
+                  // Obtenemos el id del usuario que queremos borrar 
+                  const idUsuarioBorrar = Array.from(usuarioAModificar.getAmigosApp().values()).find((id) => this.coleccionUsuarios.getUsuario(id).getNombre() === respuesta2.nombre);
+                  
+                  // Comprobamos que el usuario exista
+                  if ( idUsuarioBorrar == undefined ) {
+                    throw new Error (`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+                    return (this.volver(() => this.gestionUsuarios()));
+                  }
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.eraseAmigo(usuarioAModificar, idUsuarioBorrar);
+                  // Borramos el usuario de la lista de amigos del usuario actual
+                  usuarioAModificar.eraseAmigoApp(idUsuarioBorrar);
+                  return (this.volver(() => this.gestionUsuarios()));
                 });
               break;
               default:
