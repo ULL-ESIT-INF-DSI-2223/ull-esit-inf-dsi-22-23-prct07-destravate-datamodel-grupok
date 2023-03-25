@@ -209,7 +209,6 @@ export class Gestor {
 
   private modificarUsuario(): void {
     console.clear();
-    console.log('Eliminando usuario...');
     // Obtener el listado de usuarios
     const usuarios = this.coleccionUsuarios.getUsuarios();
     // Pedir al usuario que seleccione el usuario a modificar
@@ -220,7 +219,7 @@ export class Gestor {
       choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
       if (respuesta.usuario === 'Cancelar') {
-        this.volver(() => this.consola());
+        this.gestionUsuarios();
       } else {
         // Buscar el usuario a modificar por su nombre y modificarlo
         const usuarioAModificar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
@@ -410,7 +409,7 @@ export class Gestor {
       choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
       if (respuesta.usuario === 'Cancelar') {
-        this.volver(() => this.consola());
+        this.consola();
       } else {
         // Buscar el usuario a eliminar por su nombre y eliminarlo
         const usuarioAEliminar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
