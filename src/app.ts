@@ -234,7 +234,6 @@ export class Gestor {
         if (usuarioAModificar) {
           console.clear();
           console.log('¿Qué atributo desea modificar?');
-
           inquirer.prompt({
             type: 'list',
             name: 'opcion',
@@ -657,7 +656,7 @@ export class Gestor {
           this.listarRutas();
           break;
         case 'Modificar rutas':
-          // this.modificarruta();
+          this.modificarRuta();
           break;
         case 'Eliminar rutas':
           // this.eliminarRuta();
@@ -673,17 +672,6 @@ export class Gestor {
 
   /**
    * Registra una ruta en la aplicación
-   * Tenemos que rellenar los siguientes atributos dentro de la ruta
-   * id: number;
-   * nombre: string;
-   * coordenadasInicio: Coordenadas;
-   * coordenadasFin: Coordenadas;
-   * longitud: number;
-   * desnivel: number;
-   * usuariosVisitantes: number[] = [];
-   * tipoActividad: Actividad;
-   * dificultad: Dificultad;
-   * calificacion: number = 0;
    */
   public registrarRuta(): void {
     console.clear();
@@ -773,65 +761,104 @@ export class Gestor {
     this.volver(() => this.gestionRutas());
   }
 
-  // private modificarruta(): void {
-  //   console.clear();
-  //   // Obtener el listado de rutas
-  //   const rutas = this.coleccionrutas.getrutas();
-  //   // Pedir al usuario que seleccione el ruta a modificar
-  //   inquirer.prompt({
-  //     type: 'list',
-  //     name: 'ruta',
-  //     message: 'Selecciona el ruta que deseas modificar:',
-  //     choices: Array.from(rutas.values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
-  //   }).then((respuesta) => {
-  //     if (respuesta.ruta === 'Cancelar') {
-  //       this.gestionrutas();
-  //     } else {
-  //       // Buscar el ruta a modificar por su nombre y modificarlo
-  //       const rutaAModificar = Array.from(rutas.values()).find((ruta) => ruta.getNombre() === respuesta.ruta);
-  //       if (rutaAModificar) {
-  //         console.clear();
-  //         console.log('¿Qué atributo desea modificar?');
-  //         inquirer.prompt({
-  //           type: 'list',
-  //           name: 'opcion',
-  //           message: 'Elige una opción: ',
-  //           choices: [
-  //             'Modificar Nombre de Usuario',
-  //             'Editar Actividad',
-  //             'Añadir Amigo',
-  //             'Borrar Amigo',
-  //             'Añadir Rutas Favoritas',
-  //             'Borrar Rutas Favoritas',
-  //             'Añadir Retos activos',
-  //             'Borrar Retos activos',
-  //             'Salir',
-  //           ],
-  //         }).then((respuesta) => {
-  //           switch (respuesta.opcion) {
-  //             case 'Modificar nombre de Usuario':
-                
-  //               break;
-  //             case 'Editar Actividad':
-                
-  //               break;
-  //             case 'Añadir Amigo':
-                
-  //               break;
-  //             case 'Borrar Amigo':
-                
-  //               break;
-  //             default:
-  //               break;
-  //           }
-  //         });
-  //       } else {
-  //         console.log(`No se encontró el usuario ${respuesta.usuario}`);
-  //         this.volver(() => this.gestionUsuarios());
-  //       }
-  //     }
-  //   });
-  // }
+  private modificarRuta(): void {
+    console.clear();
+    // Obtener el listado de rutas
+    const rutas = this.coleccionRutas.getRutas();
+    // Pedir al usuario que seleccione el ruta a modificar
+    inquirer.prompt({
+      type: 'list',
+      name: 'ruta',
+      message: 'Selecciona el ruta que deseas modificar:',
+      choices: Array.from(rutas.values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.ruta === 'Cancelar') {
+        this.gestionRutas();
+      } else {
+        // Buscar la ruta a modificar por su nombre y modificarlo
+        const rutaAModificar = Array.from(rutas.values()).find((ruta) => ruta.getNombre() === respuesta.ruta);
+        if (rutaAModificar) {
+          console.clear();
+          console.log('¿Qué atributo desea modificar?');
+          inquirer.prompt({
+            type: 'list',
+            name: 'opcion',
+            message: 'Elige una opción: ',
+            choices: [
+              'Modificar nombre de ruta',
+              'Modificar coordenadas de inicio',
+              'Modificar coordenadas de fin',
+              'Modificar longitud',
+              'Modificar desnivel',
+              'Modificar tipo de actividad',
+              'Modificar dificultad',
+              'Modificar calificación',
+              'Salir',
+            ],
+          }).then((respuesta) => {
+            switch (respuesta.opcion) {
+              case 'Modificar nombre de ruta':
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'nombre',
+                  message: 'Introduce tu nombre de ruta: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarNombreRuta(rutaAModificar, respuesta2.nombre)
+                    this.coleccionRutas.modificarNombreRuta(rutaAModificar, respuesta2.nombre)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce un nombre de ruta nuevo');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver a introducir un ruta',
+                    }).then(() => {
+                      this.registrarRuta();
+                    });
+                    return;
+                  }
+                });
+              case 'Modificar coordenadas de inicio':
+                // this.modificarCoordenadasInicioRuta(rutaAModificar);
+                break;
+              case 'Modificar coordenadas de fin':
+                // this.modificarCoordenadasFinRuta(rutaAModificar);
+                break;
+              case 'Modificar longitud':
+                // this.modificarLongitudRuta(rutaAModificar);
+                break;
+              case 'Modificar desnivel':
+                // this.modificarDesnivelRuta(rutaAModificar);
+                break;
+              case 'Modificar tipo de actividad':
+                // this.modificarTipoActividadRuta(rutaAModificar);
+                break;
+              case 'Modificar dificultad':
+                // this.modificarDificultadRuta(rutaAModificar);
+                break;
+              case 'Modificar calificación':
+                // this.modificarCalificacionRuta(rutaAModificar);
+                break;
+              case 'Salir':
+                this.gestionRutas();
+                break;
+              default:
+                break;
+            }
+          });
+        } else {
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+          this.volver(() => this.gestionUsuarios());
+        }
+      }
+    });
+  }
 
     ///////////////////////////////////////
   ////////// Gestión de Reto //////////
@@ -857,13 +884,13 @@ export class Gestor {
           this.registrarUsuario();
           break;
         case 'Listar Retos':
-          //this.listarRetos();
+          // //this.listarRetos();
           break;
         case 'Modificar Retos':
           this.modificarReto();
           break;
         case 'Eliminar Retos':
-          //this.eliminarReto(); 
+          // //this.eliminarReto(); 
           break;
         case 'Volver al menú anterior':
           this.gestionInfo();
