@@ -41,22 +41,29 @@ export class Gestor {
         message: 'Elige una actividad: ',
         choices: ['bicicleta', 'corredor'],
       }).then((respuesta2) => {
-        let usuario;
-        try {
-          usuario = new Usuario(respuesta.nombre, respuesta2.actividad);
-        } catch (error) {
-          console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario');
-          console.log('Introduce un nombre de usuario válido no vacío');
-          // pulsar enter para volver a introducir un nombre de usuario
-          inquirer.prompt({
-            type: 'input',
-            name: 'volver',
-            message: 'Pulsa enter para volver a introducir un nombre de usuario',
-          }).then(() => {
-            this.registrarUsuario();
-          });
-          return;
-        }
+        // let usuario;
+        // try {
+        //   usuario = new Usuario(respuesta.nombre, respuesta2.actividad);
+        // } catch (error) {
+        //   console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario');
+        //   console.log('Introduce un nombre de usuario válido no vacío');
+        //   // pulsar enter para volver a introducir un nombre de usuario
+        //   inquirer.prompt({
+        //     type: 'input',
+        //     name: 'volver',
+        //     message: 'Pulsa enter para volver a introducir un nombre de usuario',
+        //   }).then(() => {
+        //     this.registrarUsuario();
+        //   });
+        //   return;
+        // }
+        let usuario = new Usuario(respuesta.nombre, respuesta2.actividad);
+
+        // Insertamos el usuario en la colección de usuarios
+        this.usuarios.insertarUsuario(usuario);
+        // Insertamos el usuario en el json
+        this.jsonColeccionUsuario.registrarUsuario(usuario);
+
         console.log('Usuario registrado con éxito:', usuario);
         this.volverConsola();
       });

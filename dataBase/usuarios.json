@@ -2,18 +2,14 @@
   "usuarios": [
     {
       "id": 0,
-      "nombre": "Fer",
+      "nombre": "fer",
       "actividades": "bicicleta",
-      "amigosApp": [
-        "PEDRO"
-      ],
-      "amigosFrecuentes": [
-        "Pedro"
-      ],
+      "amigosApp": [],
+      "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 34,
-          "desnivel": 12345
+          "km": 0,
+          "desnivel": 0
         },
         "mes": {
           "km": 0,
@@ -24,16 +20,13 @@
           "desnivel": 0
         }
       },
-      "rutasFavoritas": [
-        "ruta1",
-        "ruta2"
-      ],
+      "rutasFavoritas": [],
       "retosActivos": [],
       "historicoRutas": []
     },
     {
-      "id": 4,
-      "nombre": "pedro",
+      "id": 2,
+      "nombre": "yanfri",
       "actividades": "bicicleta",
       "amigosApp": [],
       "amigosFrecuentes": [],
