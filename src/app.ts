@@ -138,7 +138,7 @@ export class Gestor {
    */
   public gestionInfo(): void {
     console.clear();
-    console.log('Bienvenido a la consola de gestión de la base de datos. ¿Qué datos desea gestionar');
+    console.log('Bienvenido a la consola de gestión de la base de datos. ¿Qué datos desea gestionar?');
     inquirer.prompt({
       type: 'list',
       name: 'opcion',
@@ -156,10 +156,13 @@ export class Gestor {
           this.gestionUsuarios();
           break;
         case 'Rutas':
+          this.gestionGrupos();
           break;
         case 'Grupos':
+          this.gestionGrupos();
           break;
         case 'Retos':
+          this.gestionGrupos();
           break;
         case 'Volver al menú anterior':
           this.consola()
@@ -169,6 +172,10 @@ export class Gestor {
       }
     });
   }
+
+  /////////////////////////////////////////
+  ////////// Gestión de Usuarios //////////
+  /////////////////////////////////////////
 
   public gestionUsuarios(): void {
     console.clear();
@@ -209,7 +216,6 @@ export class Gestor {
 
   private modificarUsuario(): void {
     console.clear();
-    console.log('Eliminando usuario...');
     // Obtener el listado de usuarios
     const usuarios = this.coleccionUsuarios.getUsuarios();
     // Pedir al usuario que seleccione el usuario a modificar
@@ -220,7 +226,7 @@ export class Gestor {
       choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
       if (respuesta.usuario === 'Cancelar') {
-        this.volver(() => this.consola());
+        this.gestionUsuarios();
       } else {
         // Buscar el usuario a modificar por su nombre y modificarlo
         const usuarioAModificar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
@@ -307,14 +313,23 @@ export class Gestor {
               case 'Borrar Amigo':
                 console.clear();
                 inquirer.prompt({
-                  type: 'input',
+                  type: 'list',
                   name: 'nombre',
-                  message: 'Introduce tu nombre del amigo a borrar: ',
+                  choices: Array.from(usuarioAModificar.getAmigosApp().values()).map((id) => this.coleccionUsuarios.getUsuario(id).getNombre()).concat('Cancelar'),
                 }).then((respuesta2) => {
-                  // const amigoAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.nombre);
-                  // this.jsonColeccionUsuario.addAmigo(usuarioAModificar, respuesta2.nombre)
-                  // this.coleccionUsuarios.addAmigo(usuarioAModificar, respuesta2.nombre)
-                  // this.gestionInfo();
+                  // Obtenemos el id del usuario que queremos borrar 
+                  const idUsuarioBorrar = Array.from(usuarioAModificar.getAmigosApp().values()).find((id) => this.coleccionUsuarios.getUsuario(id).getNombre() === respuesta2.nombre);
+                  
+                  // Comprobamos que el usuario exista
+                  if ( idUsuarioBorrar == undefined ) {
+                    throw new Error (`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+                    return (this.volver(() => this.gestionUsuarios()));
+                  }
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.eraseAmigo(usuarioAModificar, idUsuarioBorrar);
+                  // Borramos el usuario de la lista de amigos del usuario actual
+                  usuarioAModificar.eraseAmigoApp(idUsuarioBorrar);
+                  return (this.volver(() => this.gestionUsuarios()));
                 });
               break;
               default:
@@ -328,6 +343,8 @@ export class Gestor {
       }
     });
   }
+
+  
 
   /**
    * Método que permite crear usuarios y añadirlos a la colección de usuarios,
@@ -366,12 +383,12 @@ export class Gestor {
             if (error instanceof Error) {
               console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario: ', error.message);
             }
-            console.log('\x1b[31m%s\x1b[0m', 'Introduce un nombre de usuario y/o contraseña válido no vacío');
+            console.log('Introduce un nombre de usuario válido no vacío');
             // pulsar enter para volver a introducir un nombre de usuario
             inquirer.prompt({
               type: 'input',
               name: 'volver',
-              message: 'Pulsa enter para volver a introducir un usuario',
+              message: 'Pulsa enter para volver a introducir un nombre de usuario',
             }).then(() => {
               this.registrarUsuario();
             });
@@ -410,7 +427,7 @@ export class Gestor {
       choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
       if (respuesta.usuario === 'Cancelar') {
-        this.volver(() => this.consola());
+        this.consola();
       } else {
         // Buscar el usuario a eliminar por su nombre y eliminarlo
         const usuarioAEliminar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
@@ -488,6 +505,107 @@ export class Gestor {
   //     this.volverConsola();
   //   }
   // });
+  }
+
+  ///////////////////////////////////////
+  ////////// Gestión de Grupos //////////
+  ///////////////////////////////////////
+
+  public gestionGrupos(): void {
+    console.clear();
+    console.log('Bienvenido a gestión de grupos. ¿Qué desea hacer?');
+    inquirer.prompt({
+      type: 'list',
+      name: 'opcion',
+      message: 'Elige una opción: ',
+      choices: [
+        'Registrar grupo',
+        'Listar grupos',
+        'Modificar grupos',
+        'Eliminar grupo',
+        'Volver al menú anterior'
+      ],
+    }).then((respuesta) => {
+      switch (respuesta.opcion) {
+        case 'Registrar grupo':
+          this.registrarUsuario();
+          break;
+        case 'Listar grupos':
+          this.listarUsuarios();
+          break;
+        case 'Modificar grupos':
+          this.modificarGrupo();
+          break;
+        case 'Eliminar grupos':
+          this.eliminarUsuario();
+          break;
+        case 'Volver al menú anterior':
+          this.gestionInfo()
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  private modificarGrupo(): void {
+    console.clear();
+    // Obtener el listado de grupos
+    const grupos = this.coleccionGrupos.getGrupos();
+    // Pedir al usuario que seleccione el grupo a modificar
+    inquirer.prompt({
+      type: 'list',
+      name: 'grupo',
+      message: 'Selecciona el grupo que deseas modificar:',
+      choices: Array.from(grupos.values()).map((grupo) => grupo.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.grupo === 'Cancelar') {
+        this.gestionGrupos();
+      } else {
+        // Buscar el grupo a modificar por su nombre y modificarlo
+        const grupoAModificar = Array.from(grupos.values()).find((grupo) => grupo.getNombre() === respuesta.grupo);
+        if (grupoAModificar) {
+          console.clear();
+          console.log('¿Qué atributo desea modificar?');
+          inquirer.prompt({
+            type: 'list',
+            name: 'opcion',
+            message: 'Elige una opción: ',
+            choices: [
+              'Modificar Nombre de Usuario',
+              'Editar Actividad',
+              'Añadir Amigo',
+              'Borrar Amigo',
+              'Añadir Rutas Favoritas',
+              'Borrar Rutas Favoritas',
+              'Añadir Retos activos',
+              'Borrar Retos activos',
+              'Salir',
+            ],
+          }).then((respuesta) => {
+            switch (respuesta.opcion) {
+              case 'Modificar nombre de Usuario':
+                
+                break;
+              case 'Editar Actividad':
+                
+                break;
+              case 'Añadir Amigo':
+                
+                break;
+              case 'Borrar Amigo':
+                
+                break;
+              default:
+                break;
+            }
+          });
+        } else {
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+          this.volver(() => this.gestionUsuarios());
+        }
+      }
+    });
   }
 }
 

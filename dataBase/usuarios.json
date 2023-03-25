@@ -32,7 +32,9 @@
       "nombre": "sergio",
       "contraseña": "1Pr*",
       "actividades": "bicicleta",
-      "amigosApp": [],
+      "amigosApp": [
+        1
+      ],
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
