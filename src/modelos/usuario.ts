@@ -44,6 +44,10 @@ export class Usuario implements EntidadInterface {
     return this.nombre;
   }
 
+  getContraseña(): string {
+    return this.contraseña;
+  }
+
   getActividades(): Actividad {
     return this.actividades;
   }
