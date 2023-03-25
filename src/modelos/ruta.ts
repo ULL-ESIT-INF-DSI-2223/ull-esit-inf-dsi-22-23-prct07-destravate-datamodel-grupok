@@ -106,10 +106,10 @@ export class Ruta implements EntidadInterface {
   setCalificacion(calificacion: number): void {
     this.calificacion = calificacion;
   }
-
   addUsuarioVisitante(idUsuario: number): void {
     this.usuariosVisitantes.push(idUsuario);
   }
 
+  
 
 }
