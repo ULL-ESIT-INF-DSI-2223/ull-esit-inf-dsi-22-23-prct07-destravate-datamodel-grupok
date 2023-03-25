@@ -26,7 +26,8 @@ export class Ruta implements EntidadInterface {
     tipoActividad: Actividad,
     dificultad: Dificultad) 
     {
-      this.id = contador_id++;
+      contador_id++;
+      this.id = contador_id;
       this.nombre = nombre;
       this.coordenadasInicio = coordenadasInicio;
       this.coordenadasFin = coordenadasFin;
@@ -34,6 +35,9 @@ export class Ruta implements EntidadInterface {
       this.desnivel = desnivel;
       this.tipoActividad = tipoActividad;
       this.dificultad = dificultad;
+
+      // Ponemos una calificación aleatoria entre 0 y 5
+      this.calificacion = Math.floor(Math.random() * 6);
     }    
 
   // Métodos

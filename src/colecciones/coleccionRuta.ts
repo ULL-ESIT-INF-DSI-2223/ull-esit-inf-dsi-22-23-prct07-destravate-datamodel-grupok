@@ -133,5 +133,10 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     }
   }
 
-  
+  public addRuta(ruta: Ruta) {
+    if (this.rutas.has(ruta.getID())) {
+      throw new Error("La ruta que deseas añadir ya existe.");
+    }
+    this.rutas.set(ruta.getID(), ruta);
+  }
 }
