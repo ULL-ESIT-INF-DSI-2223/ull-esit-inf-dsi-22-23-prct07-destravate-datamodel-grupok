@@ -90,14 +90,13 @@ export class Gestor {
   
     // Obtener el listado de usuarios
     const usuarios = this.usuarios.getUsuarios();
-    const opcionesUsuarios = Array.from(usuarios.values()).map((usuario) => usuario.getNombre());
   
     // Pedir al usuario que seleccione el usuario a eliminar
     inquirer.prompt({
       type: 'list',
       name: 'usuario',
       message: 'Selecciona el usuario que deseas eliminar:',
-      choices: opcionesUsuarios.concat('Cancelar'),
+      choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
       if (respuesta.usuario === 'Cancelar') {
         this.volverConsola();
