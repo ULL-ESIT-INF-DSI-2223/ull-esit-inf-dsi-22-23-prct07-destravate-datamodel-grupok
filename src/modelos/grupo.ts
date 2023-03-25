@@ -66,7 +66,7 @@ export class Grupo implements EntidadInterface {
   setID = (id: number): void => {
     this.id = id;
     if ( id > contador_id ) {
-      contador_id = id = 1;
+      contador_id = id;
     }
   }
 
