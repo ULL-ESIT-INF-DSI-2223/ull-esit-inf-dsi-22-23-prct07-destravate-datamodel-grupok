@@ -23,7 +23,8 @@
       },
       "rutasFavoritas": [],
       "retosActivos": [],
-      "historicoRutas": []
+      "historicoRutas": [],
+      "actividad": "corredor"
     }
   ]
 }

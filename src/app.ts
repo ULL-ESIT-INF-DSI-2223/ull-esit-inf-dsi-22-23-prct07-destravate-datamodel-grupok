@@ -8,6 +8,10 @@ import { ColeccionRuta } from './colecciones/coleccionRuta';
 import { ColeccionGrupo } from './colecciones/coleccionGrupo';
 // import { ColeccionReto } from './colecciones/coleccionReto';
 import { JsonColeccionUsuario } from './jsonModifiers/jsonColeccionUsuario';
+import { ColeccionReto } from './colecciones/coleccionReto';
+import { JsonColeccionReto } from './jsonModifiers/jsonColeccionReto';
+import { JsonColeccionRuta } from './jsonModifiers/jsonColeccionRuta';
+import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
 // import { JsonColeccionRuta } from './jsonModifiers/jsonColeccionRuta';
 // import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
 // import { JsonColeccionReto } from './jsonModifiers/jsonColeccionReto';
@@ -22,14 +26,22 @@ export class Gestor {
   private coleccionUsuarios: ColeccionUsuario;
   private coleccionRutas: ColeccionRuta;
   private coleccionGrupos: ColeccionGrupo;
+  private coleccionRetos: ColeccionReto;
   private jsonColeccionUsuario = new JsonColeccionUsuario();
+  private jsonColeccionRuta = new JsonColeccionRuta();
+  private jsonColeccionReto = new JsonColeccionReto();
+  private jsonColeccionGrupo = new JsonColeccionGrupo();
 
 
   constructor() {
     this.coleccionUsuarios = new ColeccionUsuario();
     this.coleccionRutas = new ColeccionRuta();
     this.coleccionGrupos = new ColeccionGrupo();
+    this.coleccionRetos = new ColeccionReto();
     this.coleccionUsuarios.setUsuarios(this.jsonColeccionUsuario.cargarUsuarios());
+    this.coleccionRetos.setRetos(this.jsonColeccionReto.cargarRetos());
+    this.coleccionRutas.setRutas(this.jsonColeccionRuta.cargarRutas());
+    this.coleccionGrupos.setGrupos(this.jsonColeccionGrupo.cargarGrupos());
     ////////////////////////////////////////////////////////////////////////////////////////// Falta poner los otros json
 
   }
@@ -38,8 +50,32 @@ export class Gestor {
     return this.coleccionUsuarios;
   }
 
+  public getRetos() {
+    return this.coleccionRetos;
+  }
+
+  public getRutas() {
+    return this.coleccionRutas;
+  }
+
+  public getGrupos() {
+    return this.coleccionGrupos;
+  }
+
   public setUsuarios(coleccion: ColeccionUsuario) {
     this.coleccionUsuarios = coleccion;
+  }
+
+  public setRetos(coleccion: ColeccionReto) {
+    this.coleccionRetos = coleccion;
+  }
+
+  public setRutas(coleccion: ColeccionRuta) {
+    this.coleccionRutas = coleccion;
+  }
+
+  public setGrupos(coleccion: ColeccionGrupo) {
+    this.coleccionGrupos = coleccion;
   }
 
   private volver(callback: (i: this) => void): void {
@@ -231,16 +267,34 @@ export class Gestor {
                   choices: ['bicicleta', 'corredor'],
                 }).then((respuesta2) => {
                   this.gestionInfo();
+                  this.jsonColeccionUsuario.modificarActividad(usuarioAModificar, respuesta2.actividad)
+                  this.coleccionUsuarios.modificarActividad(usuarioAModificar, respuesta2.actividad)
                 });
                 break;
-              case 'Amigos en la aplicación':
-                break;
-              case 'Grupo de amigos':
-                break;
-              case 'Rutas Favoritas':
-                  break;
-              case 'Retos activos':
-                break;
+              case 'Añadir Amigo':
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'nombre',
+                  message: 'Introduce tu nombre del amigo a añadir: ',
+                }).then((respuesta2) => {
+                  const amigoAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.nombre);
+                  this.jsonColeccionUsuario.addAmigo(usuarioAModificar, respuesta2.nombre)
+                  this.coleccionUsuarios.addAmigo(usuarioAModificar, respuesta2.nombre)
+                  this.gestionInfo();
+                });
+                case 'Borrar Amigo':
+                  console.clear();
+                  inquirer.prompt({
+                    type: 'input',
+                    name: 'nombre',
+                    message: 'Introduce tu nombre del amigo a añadir: ',
+                  }).then((respuesta2) => {
+                    const amigoAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.nombre);
+                    this.jsonColeccionUsuario.addAmigo(usuarioAModificar, respuesta2.nombre)
+                    this.coleccionUsuarios.addAmigo(usuarioAModificar, respuesta2.nombre)
+                    this.gestionInfo();
+                  });
               default:
                 break;
             }
