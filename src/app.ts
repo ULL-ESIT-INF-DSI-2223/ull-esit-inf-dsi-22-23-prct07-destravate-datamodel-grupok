@@ -1,16 +1,16 @@
 import inquirer from 'inquirer';
-import { Usuario } from '../modelos/usuario';
-import { Ruta } from '../modelos/ruta';
-import { Grupo } from '../modelos/grupo';
-import { Reto } from '../modelos/reto';
-import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
-import { ColeccionRuta } from '../colecciones/coleccionRuta';
-import { ColeccionGrupo } from '../colecciones/coleccionGrupo';
-// import { ColeccionReto } from '../colecciones/coleccionReto';
-import { JsonColeccionUsuario } from '../jsonModifiers/jsonColeccionUsuario';
-// import { JsonColeccionRuta } from '../jsonModifiers/jsonColeccionRuta';
-// import { JsonColeccionGrupo } from '../jsonModifiers/jsonColeccionGrupo';
-// import { JsonColeccionReto } from '../jsonModifiers/jsonColeccionReto';
+import { Usuario } from './modelos/usuario';
+import { Ruta } from './modelos/ruta';
+import { Grupo } from './modelos/grupo';
+import { Reto } from './modelos/reto';
+import { ColeccionUsuario } from './colecciones/coleccionUsuario';
+import { ColeccionRuta } from './colecciones/coleccionRuta';
+import { ColeccionGrupo } from './colecciones/coleccionGrupo';
+// import { ColeccionReto } from './colecciones/coleccionReto';
+import { JsonColeccionUsuario } from './jsonModifiers/jsonColeccionUsuario';
+// import { JsonColeccionRuta } from './jsonModifiers/jsonColeccionRuta';
+// import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
+// import { JsonColeccionReto } from './jsonModifiers/jsonColeccionReto';
 
 /**
  * Clase Gestor
@@ -36,6 +36,90 @@ export class Gestor {
 
   public getUsuarios() {
     return this.coleccionUsuarios;
+  }
+  public setUsuarios(coleccion: ColeccionUsuario) {
+    this.coleccionUsuarios = coleccion;
+  }
+
+  ////////////////////////////////////
+  ////////// Menú Principal //////////
+  ////////////////////////////////////
+
+  /**
+   * Método que inicia el menú principal del programa
+   */
+  public consola(): void {
+    console.clear();
+    console.log('Bienvenido a la consola del usuario. ¿Qué desea hacer?');
+    inquirer.prompt({
+      type: 'list',
+      name: 'opcion',
+      message: 'Elige una opción: ',
+      choices: [
+        'Registrarse como usuario',
+        'Log in',
+        'Gestión de la información',
+        'Salir',
+      ],
+    }).then((respuesta) => {
+      switch (respuesta.opcion) {
+        case 'Registrarse como usuario':
+          this.registrarUsuario();
+          break;
+        case 'Log in':
+          this.listarUsuarios();
+          break;
+        case 'Gestión de la información':
+          this.gestionInfo();
+          break;
+        case 'Salir':
+          console.log('Hasta pronto');
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  ////////////////////////////////////////////
+  ////////// Gestión de Información //////////
+  ////////////////////////////////////////////
+
+  /**
+   * Método que inicia el menú que permite gestionar la información
+   */
+  public gestionInfo(): void {
+    console.clear();
+    console.log('Bienvenido a la consola de gestión de la base de datos. ¿Qué datos desea gestionar');
+    inquirer.prompt({
+      type: 'list',
+      name: 'opcion',
+      message: 'Elige una opción: ',
+      choices: [
+        'Usuario',
+        'Rutas',
+        'Grupos',
+        'Retos',
+        'Volver al menú anterior'
+      ],
+    }).then((respuesta) => {
+      switch (respuesta.opcion) {
+        case 'Usuario':
+          this.gestionUsuarios();
+          break;
+        case 'Rutas':
+          break;
+        case 'Grupos':
+          break;
+        case 'Retos':
+          break;
+        case 'Volver al menú anterior':
+          this.consola()
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   /**
@@ -238,72 +322,9 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
     });
   }
 
-  public gestionInfo(): void {
-    console.clear();
-    console.log('Bienvenido a la consola de gestión de la base de datos. ¿Qué datos desea gestionar');
-    inquirer.prompt({
-      type: 'list',
-      name: 'opcion',
-      message: 'Elige una opción: ',
-      choices: [
-        'Usuario',
-        'Rutas',
-        'Grupos',
-        'Retos',
-        'Volver al menú anterior'
-      ],
-    }).then((respuesta) => {
-      switch (respuesta.opcion) {
-        case 'Usuario':
-          this.gestionUsuarios();
-          break;
-        case 'Rutas':
-          break;
-        case 'Grupos':
-          break;
-        case 'Retos':
-          break;
-        case 'Volver al menú anterior':
-          this.consola()
-          break;
-        default:
-          break;
-      }
-    });
-  }
+  
 
-  public consola(): void {
-    console.clear();
-    console.log('Bienvenido a la consola del usuario. ¿Qué desea hacer?');
-    inquirer.prompt({
-      type: 'list',
-      name: 'opcion',
-      message: 'Elige una opción: ',
-      choices: [
-        'Registrarse como usuario',
-        'Log in',
-        'Gestión de la información',
-        'Salir',
-      ],
-    }).then((respuesta) => {
-      switch (respuesta.opcion) {
-        case 'Registrarse como usuario':
-          this.registrarUsuario();
-          break;
-        case 'Log in':
-          this.listarUsuarios();
-          break;
-        case 'Gestión de la información':
-          this.gestionInfo();
-          break;
-        case 'Salir':
-          console.log('Hasta pronto');
-          break;
-        default:
-          break;
-      }
-    });
-  }
+
 }
 
 const gestor = new Gestor();
