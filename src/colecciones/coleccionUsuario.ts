@@ -55,13 +55,19 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
    */
   public insertar(usuario: Usuario): void {
     if (this.usuarios.has(usuario.getID())) {
-      /// Lanzamos un error que debería decir el id del usuario que ya existe
       throw new Error('El usuario con id ' + usuario.getID() + ' ya existe');
-      // console.log('El usuario ya existe insertar usuario');
-      // return;
     }
+  
+    // comprobar que el nombre no existe
+    const nuevoNombre = usuario.getNombre();
+    for (const u of this.usuarios.values()) {
+      if (u.getNombre() === nuevoNombre) {
+        throw new Error('El usuario con nombre ' + nuevoNombre + ' ya existe');
+      }
+    }
+  
     this.usuarios.set(usuario.getID(), usuario);
-  }
+  }  
 
   public eliminar( usuario: Usuario) {
     this.usuarios.delete(usuario.getID());
