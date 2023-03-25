@@ -10,16 +10,16 @@ import { JsonColeccionUsuario } from '../jsonModifiers/jsonColeccionUsuario';
  * grupo existente, Visualizar, crear y borrar grupos.
  */
 export class Gestor {
-  private usuarios: ColeccionUsuario;
+  private coleccionUsuarios: ColeccionUsuario;
   jsonColeccionUsuario = new JsonColeccionUsuario();
 
   constructor() {
-    this.usuarios = new ColeccionUsuario();
-    this.usuarios.setUsuarios(this.jsonColeccionUsuario.cargarUsuarios());
+    this.coleccionUsuarios = new ColeccionUsuario();
+    this.coleccionUsuarios.setUsuarios(this.jsonColeccionUsuario.cargarUsuarios());
   }
 
   public getUsuarios() {
-    return this.usuarios;
+    return this.coleccionUsuarios;
   }
 
   /**
@@ -60,7 +60,7 @@ export class Gestor {
         let usuario = new Usuario(respuesta.nombre, respuesta2.actividad);
 
         // Insertamos el usuario en la colección de usuarios
-        this.usuarios.insertarUsuario(usuario);
+        this.coleccionUsuarios.insertar(usuario);
         // Insertamos el usuario en el json
         this.jsonColeccionUsuario.insertarUsuario(usuario);
 
@@ -74,7 +74,7 @@ export class Gestor {
   private listarUsuarios(): void {
     console.clear();
     console.log('Listando usuarios...');
-    for (const usuario of this.usuarios) {
+    for (const usuario of this.coleccionUsuarios) {
       // console.log(usuario.getNombre());
       console.log(usuario);
     }
@@ -89,7 +89,7 @@ export class Gestor {
     console.log('Eliminando usuario...');
   
     // Obtener el listado de usuarios
-    const usuarios = this.usuarios.getUsuarios();
+    const usuarios = this.coleccionUsuarios.getUsuarios();
   
     // Pedir al usuario que seleccione el usuario a eliminar
     inquirer.prompt({

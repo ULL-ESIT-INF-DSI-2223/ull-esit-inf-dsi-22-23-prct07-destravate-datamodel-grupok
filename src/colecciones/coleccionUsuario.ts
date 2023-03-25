@@ -1,8 +1,9 @@
 import { Usuario } from '../modelos/usuario';
+import { Coleccion } from '../interfaces/Coleccion';
 /**
  * 
  */
-export class ColeccionUsuario {
+export class ColeccionUsuario implements Coleccion<Usuario> {
   private usuarios: Map<number, Usuario>;
 
   constructor() {
@@ -35,7 +36,7 @@ export class ColeccionUsuario {
     return this.usuarios;
   }
 
-  public listarUsuarios(): void {
+  public listar(): void {
     console.clear();
     console.log('Listando usuarios...');
     for (const usuario of this.usuarios.values()) {
@@ -48,7 +49,7 @@ export class ColeccionUsuario {
    * previamente que el usuario no exista
    * @param usuario 
    */
-  public insertarUsuario(usuario: Usuario): void {
+  public insertar(usuario: Usuario): void {
     if (this.usuarios.has(usuario.getID())) {
       /// Lanzamos un error que debería decir el id del usuario que ya existe
       throw new Error('El usuario con id ' + usuario.getID() + ' ya existe');
@@ -56,5 +57,9 @@ export class ColeccionUsuario {
       // return;
     }
     this.usuarios.set(usuario.getID(), usuario);
+  }
+
+  public eliminar( usuario: Usuario) {
+    this.usuarios.delete(usuario.getID());
   }
 }

@@ -1,1 +1,0 @@
-/// poner en una interfaz el buscar, eliminar, insertar, listar, etc los métodos triviales vamos
