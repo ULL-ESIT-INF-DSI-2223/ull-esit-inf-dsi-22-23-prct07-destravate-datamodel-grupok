@@ -10,16 +10,20 @@ const EMPTY_ESTADISTICAS_ENTRENAMIENTO: EstadisticasEntrenamiento = { semana: { 
 export class Grupo implements EntidadInterface {
   id: number;
   nombre: string;
-  participantes: number[];
+  creador: number;
+  participantes: number[] = [];
   estadisticasEntrenamiento: EstadisticasEntrenamiento = EMPTY_ESTADISTICAS_ENTRENAMIENTO;
   clasificacion: { id: number; km: number; desnivel: number }[] = [];
   rutasFavoritas: number[] = [];
   historicoRutas: { ruta: number; fecha: Date; }[] = [];
 
-  constructor(nombre: string, participantes: number[]) {
+  constructor(nombre: string, creador: number) {
+    if (nombre === '') {
+      throw new Error('Nombre de grupo vacío');
+    }
     this.id = contador_id++;
     this.nombre = nombre;
-    this.participantes = participantes;
+    this.creador = creador;
   }
 
   getID(): number {
@@ -28,6 +32,10 @@ export class Grupo implements EntidadInterface {
 
   getNombre(): string {
     return this.nombre;
+  }
+
+  getCreador(): number {
+    return this.creador;
   }
 
   getParticipantes(): number[] {
@@ -65,6 +73,10 @@ export class Grupo implements EntidadInterface {
     this.nombre = nombre;
   }
 
+  setCreador(creador: number): void {
+    this.creador = creador;
+  }
+
   setParticipantes(participantes: number[]): void {
     this.participantes = participantes;
   }
@@ -97,5 +109,13 @@ export class Grupo implements EntidadInterface {
   eraseRutaFavorita(idRuta: number): void {
     this.rutasFavoritas = this.rutasFavoritas.filter((id) => id !== idRuta);
   }
-  
+
+  addParticipante(id: number): void {
+    this.participantes.push(id);
+  }
+
+  eraseParticipante(idParticipante: number): void {
+    this.participantes = this.rutasFavoritas.filter((id) => id !== idParticipante);
+  }
+
 }

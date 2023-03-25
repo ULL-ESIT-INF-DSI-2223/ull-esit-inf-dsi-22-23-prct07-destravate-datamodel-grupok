@@ -21,7 +21,7 @@ export class Usuario implements EntidadInterface {
   constructor(nombre: string, contraseña: string, actividades: Actividad) {
     /// Comprobamos que el nombre no esté vacío y que la actividad sea válida
     if (nombre === '') {
-      throw new Error('Nombre de usuario vacío o actividad no válida');
+      throw new Error('Nombre de usuario vacío');
     }
     if (this.isValidPassword(contraseña) === false) {
       throw new Error('Contraseña no válida');

@@ -25,12 +25,13 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
     const grupos_no_instancia: Grupo[] = this.gruposDatabase.get('grupos').value();
     const grupos: Grupo[] = [];
     for (const grupo of grupos_no_instancia) {
-      let grupoAux = new Grupo(grupo.nombre, grupo.participantes);
-      grupoAux.setID(grupo.getID());
-      grupoAux.setEstadisticasEntrenamiento(grupo.getEstadisticasEntrenamiento());
-      grupoAux.setClasificacion(grupo.getClasificacion());
-      grupoAux.setRutasFavoritas(grupo.getRutasFavoritas());
-      grupoAux.setHistoricoRutas(grupo.getHistoricoRutas());
+      let grupoAux = new Grupo(grupo.nombre, grupo.creador);
+      grupoAux.setID(grupo.id);
+      grupoAux.setCreador(grupo.creador);
+      grupoAux.setEstadisticasEntrenamiento(grupo.estadisticasEntrenamiento);
+      grupoAux.setClasificacion(grupo.clasificacion);
+      grupoAux.setRutasFavoritas(grupo.rutasFavoritas);
+      grupoAux.setHistoricoRutas(grupo.historicoRutas);
       grupos.push(grupoAux);
     }
     // Compruebamos si alguno de los grupos es una instancia de grupo
@@ -51,7 +52,26 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).assign({ nombre: nombre }).write();
   }
 
-  
+  public modificarCreador(grupo: Grupo, creador: number): void {
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).assign({ creador: creador }).write();
+  }
+
+  public addRuta(grupo: Grupo, ruta: number): void {
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').push(ruta).write();
+  }
+
+  public eraseRuta(grupo: Grupo, ruta: number): void {
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').remove(ruta).write();
+  }
+
+  public addParticipante(grupo: Grupo, participante: number): void {
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('participantes').push(participante).write();
+  }
+
+  public eraseParticipante(grupo: Grupo, participante: number): void {
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('participantes').remove(participante).write();
+  }
+
 }
 
 
