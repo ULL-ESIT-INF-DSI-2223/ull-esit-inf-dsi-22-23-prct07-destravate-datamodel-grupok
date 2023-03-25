@@ -3,7 +3,6 @@ import { Usuario } from './usuario';
 import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
 import { JsonColeccionUsuario } from '../jsonModifiers/jsonColeccionUsuario';
 
-/// crea un tipo
 /**
  * Clase Gestor
  * Tiene que permitir añadir, borrar y modificar rutas, usuarios, grupos y retos, 
