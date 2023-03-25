@@ -18,7 +18,7 @@ import { JsonColeccionUsuario } from '../jsonModifiers/jsonColeccionUsuario';
  * así como Visualizar todas las rutas existentes dentro del sistema, Unirse a un 
  * grupo existente, Visualizar, crear y borrar grupos.
  */
-export class Gestor<T> {
+export class Gestor {
   private coleccionUsuarios: ColeccionUsuario;
   private coleccionRutas: ColeccionRuta;
   private coleccionGrupos: ColeccionGrupo;
@@ -81,7 +81,7 @@ export class Gestor<T> {
         this.jsonColeccionUsuario.insertarUsuario(usuario);
 
         console.log('Usuario registrado con éxito:', usuario);
-        this.volverConsola();
+        this.volver(() => this.consola());
       });
 
     });
@@ -94,7 +94,7 @@ export class Gestor<T> {
       // console.log(usuario.getNombre());
       console.log(usuario);
     }
-    this.volverConsola();
+    this.volver(() => this.gestionInfo());
   }
 
   /**
@@ -115,7 +115,7 @@ export class Gestor<T> {
       choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
       if (respuesta.usuario === 'Cancelar') {
-        this.volverConsola();
+        this.volver(() => this.consola());
       } else {
         // Buscar el usuario a eliminar por su nombre y eliminarlo
         const usuarioAEliminar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
@@ -129,7 +129,7 @@ export class Gestor<T> {
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
         }
-        this.volverConsola();
+        this.volver(() => this.consola());
       }
     });
   }
@@ -196,15 +196,14 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
 }
 
 
-
-  private volverConsola(): void {
+  private volver(callback: (i: this) => void): void {
     inquirer.prompt({
       type: 'list',
       name: 'volver',
       message: 'Presiona enter para volver a atrás en la consola',
-      choices: ['Volver a la consola'],
+      choices: ['Volver al menú anterior'],
     }).then((respuesta) => {
-      this.consola();
+      callback(this);
     });
   }
 
@@ -220,6 +219,7 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
         'Listar usuarios',
         'Eliminar usuario',
         'Salir',
+        'Volver al menú anterior'
       ],
     }).then((respuesta) => {
       switch (respuesta.opcion) {
@@ -229,11 +229,11 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
         case 'Listar usuarios':
           this.listarUsuarios();
           break;
-        case 'Salir':
-          console.log('Hasta pronto');
-          break;
         case 'Eliminar usuario':
           this.eliminarUsuario();
+          break;
+        case 'Volver al menú anterior':
+          this.gestionInfo()
           break;
         default:
           break;
@@ -253,6 +253,7 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
         'Rutas',
         'Grupos',
         'Retos',
+        'Volver al menú anterior'
       ],
     }).then((respuesta) => {
       switch (respuesta.opcion) {
@@ -264,6 +265,9 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
         case 'Grupos':
           break;
         case 'Retos':
+          break;
+        case 'Volver al menú anterior':
+          this.consola()
           break;
         default:
           break;
