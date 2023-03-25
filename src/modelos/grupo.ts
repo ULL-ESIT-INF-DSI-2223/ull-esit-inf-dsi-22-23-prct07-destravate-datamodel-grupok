@@ -1,6 +1,6 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
 
-class Grupo implements EntidadInterface {
+export class Grupo implements EntidadInterface {
   id: number;
   nombre: string;
   participantes: number[];
