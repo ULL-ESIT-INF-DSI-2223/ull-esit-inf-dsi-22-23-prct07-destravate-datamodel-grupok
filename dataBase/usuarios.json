@@ -23,6 +23,30 @@
       "rutasFavoritas": [],
       "retosActivos": [],
       "historicoRutas": []
+    },
+    {
+      "id": 1,
+      "nombre": "PEDRO",
+      "actividades": "corredor",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
     }
   ]
 }
