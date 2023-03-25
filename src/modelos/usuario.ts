@@ -78,6 +78,7 @@ export class Usuario implements EntidadInterface {
       contador_id = id = 1;
     }
   }
+
   // Métodos de modificación
   setNombre(nombre: string): void {
     this.nombre = nombre;

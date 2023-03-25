@@ -36,6 +36,7 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
       usuarioAux.setRutasFavoritas(usuario.rutasFavoritas);
       usuarioAux.setRetosActivos(usuario.retosActivos);
       usuarioAux.setHistoricoRutas(usuario.historicoRutas);
+      usuarioAux.setID(usuario.id);
       usuarios.push(usuarioAux);
     }
     // Compruebamos si alguno de los usuarios es una instancia de usuario

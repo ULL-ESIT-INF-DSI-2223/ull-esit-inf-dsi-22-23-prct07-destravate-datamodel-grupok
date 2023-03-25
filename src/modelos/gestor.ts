@@ -75,7 +75,7 @@ export class Gestor {
   }
 
   /**
-   * Elimina un usuario de la lista de usuarios con opción a cancelar
+   * Eliminar un usuario de la lista de usuarios con opción a cancelar
    */
   public eliminarUsuario(): void {
     console.clear();
