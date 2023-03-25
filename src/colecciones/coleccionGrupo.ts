@@ -1,9 +1,15 @@
 import {Grupo} from '../modelos/grupo';
 import { Coleccion } from '../interfaces/coleccion';
 
+/**
+ * Clase que implemente Colección y la especifica para grupos
+ */
 export class ColeccionGrupo implements Coleccion<Grupo> {
   private grupos: Map<number, Grupo>;
 
+  /**
+   * Constructor de la clase
+   */
   constructor() {
     this.grupos = new Map();
   }
@@ -28,10 +34,18 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
     }
   }
 
+  /**
+   * Setter de los grupos (entrada en formato map)
+   * @param grupos Grupos en formato map
+   */
   public setGrupos(grupos: Map<number, Grupo>): void {
     this.grupos = grupos;
   }
 
+  /**
+   * Setter de los grupos (entrada en formato array)
+   * @param grupos Grupos en formato array
+   */
   public setGruposFromArray(grupos: Grupo[]): void {
     for (const grupo of grupos) {
       if (grupo instanceof Grupo && !this.grupos.has(grupo.getID())) {
@@ -40,10 +54,17 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
     }
   }
 
+  /**
+   * Getter de la clase grupo
+   * @returns Map con los grupos
+   */
   public getGrupos(): Map<number, Grupo> {
     return this.grupos;
   }
 
+  /**
+   * Permite listar los grupos
+   */
   public listar(): void {
     console.clear();
     console.log('Listando grupos...');
@@ -63,6 +84,10 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
     this.grupos.set(grupo.getID(), grupo);
   }
 
+  /**
+   * Permite eliminar un grupo
+   * @param grupo 
+   */
   public eliminar( grupo: Grupo ) {
     if (this.grupos.has(grupo.getID())) {
       this.grupos.delete(grupo.getID());
