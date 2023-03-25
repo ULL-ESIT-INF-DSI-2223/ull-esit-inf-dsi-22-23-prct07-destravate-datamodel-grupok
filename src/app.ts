@@ -808,8 +808,33 @@ export class Gestor {
                   }
                 });
               case 'Modificar coordenadas de inicio':
-                // this.modificarCoordenadasInicioRuta(rutaAModificar);
-                break;
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'coordenadasInicio',
+                  message: 'Introduce las coordenadas de inicio: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
+                    this.coleccionRutas.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce un nombre de ruta nuevo');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver a introducir un ruta',
+                    }).then(() => {
+                      this.registrarRuta();
+                    });
+                    return;
+                  }
+                });
+              break;
               case 'Modificar coordenadas de fin':
                 // this.modificarCoordenadasFinRuta(rutaAModificar);
                 break;
