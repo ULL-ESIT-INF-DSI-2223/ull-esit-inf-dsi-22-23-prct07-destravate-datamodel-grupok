@@ -74,14 +74,6 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('amigosApp').write();
   }
 
-  // public eraseAmigo(usuario: Usuario, ID: number): void {
-  //   // Borramos amigos app y lo volvemos a escribir
-  //   this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).unset('amigosApp').write();
-  //   this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).set('amigosApp', usuario.getAmigosApp()).write();
-  // }  
-  // public eraseAmigo(usuario: Usuario, ID: number): void {
-  //   this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).pull('amigosApp', ID).write();
-  // }
   public eraseAmigo(usuario: Usuario, ID: number): void {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('amigosApp').pull(ID).write();
   }
