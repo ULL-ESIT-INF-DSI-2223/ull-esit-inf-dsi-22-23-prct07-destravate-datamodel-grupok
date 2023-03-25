@@ -72,6 +72,13 @@ export class ColeccionRuta implements Coleccion<Ruta>{
       console.log('La ruta ya existe insertar ruta');
       return;
     }
+
+    const nuevoNombre = ruta.getNombre();
+    for (const u of this.rutas.values()) {
+      if (u.getNombre() === nuevoNombre) {
+        throw new Error('La ruta con nombre ' + nuevoNombre + ' ya existe');
+      }
+    }
     this.rutas.set(ruta.getID(), ruta);
   }
 
@@ -94,6 +101,13 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     }
     else {
       throw new Error("La ruta que deseas modificar no existe.");
+    }
+    // comprobar que el nuevo nombre no existe
+    const nuevoNombre = ruta.getNombre();
+    for (const u of this.rutas.values()) {
+      if (u.getNombre() === nuevoNombre) {
+        throw new Error('La ruta con nombre ' + nuevoNombre + ' ya existe');
+      }
     }
   }
 
