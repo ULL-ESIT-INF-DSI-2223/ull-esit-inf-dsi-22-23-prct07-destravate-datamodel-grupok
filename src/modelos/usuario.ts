@@ -127,7 +127,7 @@ export class Usuario implements EntidadInterface {
   setHistoricoRutas(historicoRutas: { ruta: number; fecha: Date; }[]): void {
     this.historicoRutas = historicoRutas;
   }
-
+  
   addAmigoApp(idAmigo: number): void {
     // Compruebamos si el id del amigo ya está en la lista
     if (this.amigosApp.includes(idAmigo)) {

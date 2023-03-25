@@ -69,8 +69,8 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).assign({ actividad: actividad }).write();
   }
 
-  public addAmigo(usuario: Usuario, amigoID: number): void {
-    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('amigosApp').push(amigoID).write();
+  public addAmigo(usuario: Usuario): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('amigosApp').write();
   }
 
   public eraseAmigo(usuario: Usuario, amigo: number): void {

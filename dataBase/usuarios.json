@@ -5,7 +5,9 @@
       "nombre": "yanfris",
       "contraseña": "Dsi23*",
       "actividades": "bicicleta",
-      "amigosApp": [],
+      "amigosApp": [
+        2
+      ],
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {

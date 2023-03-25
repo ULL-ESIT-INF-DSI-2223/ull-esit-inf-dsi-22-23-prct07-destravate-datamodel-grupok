@@ -255,7 +255,7 @@ export class Gestor {
                   this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
                   this.gestionInfo();
                 });
-                break;
+              break;
               case 'Editar Actividad':
                 console.clear();
                 inquirer.prompt({
@@ -268,58 +268,58 @@ export class Gestor {
                   this.jsonColeccionUsuario.modificarActividad(usuarioAModificar, respuesta2.actividad)
                   this.coleccionUsuarios.modificarActividad(usuarioAModificar, respuesta2.actividad)
                 });
-                break;
-                case 'Añadir Amigo':
-                  console.clear();
-                  console.log('Añadiendo amigo...');
-                  console.clear();
-                  inquirer.prompt({
-                    type: 'input',
-                    name: 'nombre',
-                    message: 'Introduce el nombre del amigo que deseas añadir: ',
-                  }).then((respuesta2) => {
-                    // Obtener el listado de usuarios
-                    const usuarios = this.coleccionUsuarios.getUsuarios();
-                    // Comprobamos si el usuario está en la lista de usuarios
-                    if ( usuarios.has(respuesta2.nombre) ) {
-                      console.log('Usuarios registrados:');
-                      usuarios.forEach((usuario) => console.log(usuario.getNombre()));
+              break;
+              case 'Añadir Amigo':
+                console.clear();
+                console.log('Añadiendo amigo...');
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'nombre',
+                  message: 'Introduce el nombre del amigo que deseas añadir: ',
+                }).then((respuesta2) => {
+                  // Obtener el listado de usuarios
+                  const usuarios = this.coleccionUsuarios.getUsuarios();
+                  // Comprobamos si el usuario está en la lista de usuarios
+                  if ( usuarios.has(respuesta2.nombre) ) {
+                    console.log('Usuarios registrados:');
+                    usuarios.forEach((usuario) => console.log(usuario.getNombre()));
 
-                      console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-                      return (this.volver(() => this.gestionUsuarios()));
-                    }
-                    // Buscamos el amigo por su nombre dentro del map
-                    const nuevoAmigo = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
-                    // Comprobamos que exista el amigo
-                    if ( nuevoAmigo == undefined ) {
-                      console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-                      return (this.volver(() => this.gestionUsuarios()));
-                    }
-                    // Añadimos el amigo al usuario actual
-                    usuarioAModificar.addAmigoApp(nuevoAmigo.getID());
-                    // Lo escribimos en el fichero 
-                    this.jsonColeccionUsuario.addAmigo(usuarioAModificar, nuevoAmigo.getID());
-                    
-                    console.log(`Amigo ${nuevoAmigo.getNombre()} añadido al usuario ${usuarioAModificar.getNombre()}.`);
+                    console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
                     return (this.volver(() => this.gestionUsuarios()));
-                  });
-                  break;
-                case 'Borrar Amigo':
-                  console.clear();
-                  inquirer.prompt({
-                    type: 'input',
-                    name: 'nombre',
-                    message: 'Introduce tu nombre del amigo a añadir: ',
-                  }).then((respuesta2) => {
-                    const amigoAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.nombre);
-                    this.jsonColeccionUsuario.addAmigo(usuarioAModificar, respuesta2.nombre)
-                    this.coleccionUsuarios.addAmigo(usuarioAModificar, respuesta2.nombre)
-                    this.gestionInfo();
-                  });
+                  }
+                  // Buscamos el amigo por su nombre dentro del map
+                  const nuevoAmigo = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
+                  // Comprobamos que exista el amigo
+                  if ( nuevoAmigo == undefined ) {
+                    console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+                    return (this.volver(() => this.gestionUsuarios()));
+                  }
+                  // Añadimos el amigo al usuario actual
+                  usuarioAModificar.addAmigoApp(nuevoAmigo.getID());
+                  // Lo escribimos en el fichero 
+                  this.jsonColeccionUsuario.addAmigo(usuarioAModificar);
+
+                  console.log(`Amigo ${nuevoAmigo.getNombre()} añadido al usuario ${usuarioAModificar.getNombre()}.`);
+                  return (this.volver(() => this.gestionUsuarios()));
+                });
+              break;
+              case 'Borrar Amigo':
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'nombre',
+                  message: 'Introduce tu nombre del amigo a borrar: ',
+                }).then((respuesta2) => {
+                  // const amigoAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.nombre);
+                  // this.jsonColeccionUsuario.addAmigo(usuarioAModificar, respuesta2.nombre)
+                  // this.coleccionUsuarios.addAmigo(usuarioAModificar, respuesta2.nombre)
+                  // this.gestionInfo();
+                });
+              break;
               default:
-                break;
+              break;
             }
-           
           });
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
