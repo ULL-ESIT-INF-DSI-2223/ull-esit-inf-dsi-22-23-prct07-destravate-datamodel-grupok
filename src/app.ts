@@ -725,23 +725,40 @@ export class Gestor {
         choices: [ 'Fácil', 'Media', 'Difícil' ],
       },
     ]).then((respuesta: any) => {
-      const ruta = new Ruta(
-        respuesta.nombre,
-        respuesta.coordenadasInicio,
-        respuesta.coordenadasFin,
-        respuesta.longitud,
-        respuesta.desnivel,
-        respuesta.tipoActividad,
-        respuesta.dificultad
-      );
-      // Lo añadimos a la colección de rutas
-      this.coleccionRutas.addRuta(ruta);
+      try {
+        const ruta = new Ruta(
+          respuesta.nombre,
+          respuesta.coordenadasInicio,
+          respuesta.coordenadasFin,
+          respuesta.longitud,
+          respuesta.desnivel,
+          respuesta.tipoActividad,
+          respuesta.dificultad
+        );
+        // Lo añadimos a la colección de rutas
+        this.coleccionRutas.addRuta(ruta);
+  
+        // Lo escribimos en el fichero
+        this.jsonColeccionRuta.insertarRuta(ruta);
+  
+        console.log('Ruta registrada con éxito');
+        this.volver(() => this.gestionRutas());
 
-      // Lo escribimos en el fichero
-      this.jsonColeccionRuta.insertarRuta(ruta);
-
-      console.log('Ruta registrada con éxito');
-      this.volver(() => this.gestionRutas());
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.log('\x1b[31m%s\x1b[0m', 'Error al registrar la ruta: ', error.message);
+        }
+        console.log('Introduce los datos de nuevo');
+        // pulsar enter para volver a introducir un nombre de usuario
+        inquirer.prompt({
+          type: 'input',
+          name: 'volver',
+          message: 'Pulsa enter para volver a introducir los datos',
+        }).then(() => {
+          this.registrarRuta();
+        });
+        return;
+      }
     });
   }
 
@@ -840,13 +857,13 @@ export class Gestor {
           this.registrarUsuario();
           break;
         case 'Listar Retos':
-          this.listarRetos();
+          //this.listarRetos();
           break;
         case 'Modificar Retos':
           this.modificarReto();
           break;
         case 'Eliminar Retos':
-          this.eliminarReto(); 
+          //this.eliminarReto(); 
           break;
         case 'Volver al menú anterior':
           this.gestionInfo();
