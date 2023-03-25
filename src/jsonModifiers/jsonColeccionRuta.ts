@@ -26,7 +26,7 @@ export class JsonColeccionRuta extends ColeccionRuta {
   public insertarRuta(ruta: Ruta): void {
     const nuevoNombre = ruta.getNombre();
     if (this.rutasDatabase.get('rutas').find({ nombre: nuevoNombre }).value() != undefined) {
-      throw new Error('El nombre de usuario ya existe');
+      throw new Error('El nombre de la ruta ya existe');
     }
     this.rutasDatabase.get('rutas').push(ruta).write();
   }
@@ -65,7 +65,7 @@ export class JsonColeccionRuta extends ColeccionRuta {
   public modificarNombreRuta(ruta: Ruta, nuevoNombre: string): void {
     // comprobar que el nombre no existe
     if (this.rutasDatabase.get('rutas').find({ nombre: nuevoNombre }).value() != undefined) {
-      throw new Error('El nombre de usuario ya existe');
+      throw new Error('El nombre de la ruta ya existe');
     }
     this.rutasDatabase.get('rutas').find({ nombre: ruta.getNombre() }).assign({ nombre: nuevoNombre }).write();
   }

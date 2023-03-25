@@ -8,3 +8,8 @@ export interface Coordenadas {
   latitud: number;
   longitud: number;
 }
+
+export function stringToCoordenadas(coordenadas: string): Coordenadas {
+  const [latitud, longitud] = coordenadas.split(' ');
+  return { latitud: Number(latitud), longitud: Number(longitud) };
+}
