@@ -280,16 +280,17 @@ export class Gestor {
                 }).then((respuesta2) => {
                   // Buscamos el usuario con el nombre dado y lo guardamos como un objeto usuario
                   const amigoAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.nombre);
-                  if (!amigoAAñadir) {
-                    console.log('No existe un usuario con ese nombre');
+                  if ( amigoAAñadir === undefined ) {
+                    console.log('El usuario no existe');
                     this.volver(() => this.gestionInfo());
                     return;
+                  } else {
+                    // Obtenemos el id del usuario a añadir como amigo
+                    const idAmigoAAñadir = amigoAAñadir.getID();
+                    this.jsonColeccionUsuario.addAmigo(usuarioAModificar, idAmigoAAñadir);
+                    this.coleccionUsuarios.addAmigo(usuarioAModificar, idAmigoAAñadir);
+                    this.gestionInfo();
                   }
-                  // Obtenemos el id del usuario a añadir como amigo
-                  const idAmigoAAñadir = amigoAAñadir.getID();
-                  this.jsonColeccionUsuario.addAmigo(usuarioAModificar, idAmigoAAñadir);
-                  this.coleccionUsuarios.addAmigo(usuarioAModificar, idAmigoAAñadir);
-                  this.gestionInfo();
                 });
                 case 'Borrar Amigo':
                   console.clear();

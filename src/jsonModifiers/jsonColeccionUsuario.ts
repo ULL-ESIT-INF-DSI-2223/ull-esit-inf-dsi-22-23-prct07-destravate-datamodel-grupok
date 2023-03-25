@@ -66,7 +66,6 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   }
 
   public addAmigo(usuario: Usuario, amigoID: number): void {
-    // Metemos el id del amigo dentro
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('amigosApp').push(amigoID).write();
   }
 
