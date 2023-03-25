@@ -2,10 +2,8 @@
   "usuarios": [
     {
       "id": 0,
-      "nombre": "Aday",
-      "actividades": [
-        "bicicleta"
-      ],
+      "nombre": "Fer",
+      "actividades": "bicicleta",
       "amigosApp": [],
       "amigosFrecuentes": [],
       "estadisticas": {

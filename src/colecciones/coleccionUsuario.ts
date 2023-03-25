@@ -21,13 +21,22 @@ export class ColeccionUsuario {
    * el uso del id
    * @param usuarios 
    */
+  // public setUsuarios(usuarios: Usuario[]): void {
+  //   usuarios.forEach(usuario => {
+  //     if (!this.usuarios.has(usuario.getID())) {
+  //       this.usuarios.set(usuario.getID(), usuario);
+  //     }
+  //   });
+  // }
   public setUsuarios(usuarios: Usuario[]): void {
-    usuarios.forEach(usuario => {
-      if (!this.usuarios.has(usuario.getID())) {
+    for (const usuario of usuarios) {
+      if (usuario instanceof Usuario && !this.usuarios.has(usuario.getID())) {
+        console.log('Usuario insertado');
         this.usuarios.set(usuario.getID(), usuario);
       }
-    });
+    }
   }
+
 
   public getUsuarios(): Map<number, Usuario> {
     return this.usuarios;

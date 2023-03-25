@@ -26,7 +26,20 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   }
   
   public cargarUsuarios(): Usuario[] {
-    const usuarios: Usuario[] = this.usuariosDatabase.get('usuarios').value();
+    const usuarios_no_instancia: Usuario[] = this.usuariosDatabase.get('usuarios').value();
+    const usuarios: Usuario[] = [];
+    for (const usuario of usuarios_no_instancia) {
+      let usuarioAux = new Usuario(usuario.nombre, usuario.actividades);
+      usuarios.push(usuarioAux);
+    }
+
+    /// Comprueba si alguno de los usuarios es una instancia de usuario
+    for (const usuario of usuarios) {
+      if (!(usuario instanceof Usuario)) {
+        throw new Error('Usuario NO es instancia de Usuario');
+      }
+    }
+
     return usuarios;
   }
 }

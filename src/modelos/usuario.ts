@@ -4,7 +4,7 @@ let contador_id = 0;
 export class Usuario implements EntidadInterface {
   id: number;
   nombre: string;
-  actividades: string[]; // deberia ser un array de actividades
+  actividades: Actividad; // deberia ser un array de actividades
   amigosApp: number[] = [];
   amigosFrecuentes: number[] = [];
   estadisticas: {
@@ -49,7 +49,7 @@ export class Usuario implements EntidadInterface {
     this.id = contador_id;
     contador_id++;
     this.nombre = nombre;
-    this.actividades = [actividades];
+    this.actividades = actividades;
   }
 
   *[Symbol.iterator]() {
@@ -65,7 +65,7 @@ export class Usuario implements EntidadInterface {
     return this.nombre;
   }
 
-  getActividades(): string[] {
+  getActividades(): Actividad {
     return this.actividades;
   }
 
@@ -97,12 +97,15 @@ export class Usuario implements EntidadInterface {
     return this.historicoRutas;
   }
 
+  setID = (id: number): void => {
+    this.id = id;
+  }
   // Métodos de modificación
   setNombre(nombre: string): void {
     this.nombre = nombre;
   }
 
-  setActividades(actividades: string[]): void {
+  setActividades(actividades: Actividad): void {
     this.actividades = actividades;
   }
 
