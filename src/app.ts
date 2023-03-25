@@ -15,7 +15,7 @@ import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
 // import { JsonColeccionRuta } from './jsonModifiers/jsonColeccionRuta';
 // import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
 // import { JsonColeccionReto } from './jsonModifiers/jsonColeccionReto';
-import { stringToCoordenadas } from './interfaces/coordenadasInterface';
+import { checkCoordenadas, stringToCoordenadas } from './interfaces/coordenadasInterface';
 
 /**
  * Clase Gestor
@@ -803,6 +803,9 @@ export class Gestor {
       },
     ]).then((respuesta: any) => {
       try {
+        checkCoordenadas(respuesta.coordenadasInicio);
+        checkCoordenadas(respuesta.coordenadasFin);
+
         const coordenadasInicio = stringToCoordenadas(respuesta.coordenadasInicio);
         const coordenadasFin = stringToCoordenadas(respuesta.coordenadasFin);
         const ruta = new Ruta(

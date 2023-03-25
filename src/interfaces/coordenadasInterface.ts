@@ -13,3 +13,26 @@ export function stringToCoordenadas(coordenadas: string): Coordenadas {
   const [latitud, longitud] = coordenadas.split(' ');
   return { latitud: Number(latitud), longitud: Number(longitud) };
 }
+
+export function checkCoordenadas(coordenadas: Coordenadas): void {
+  // Comprueba si las coordenadas son números válidos
+  if (isNaN(coordenadas.latitud) || isNaN(coordenadas.longitud)) {
+    throw new Error('Las coordenadas no son válidas');
+  }
+
+  // Comprueba si las coordenadas están dentro de los límites permitidos
+  const maxLatitud = 90;
+  const minLatitud = -90;
+  const maxLongitud = 180;
+  const minLongitud = -180;
+
+  if (coordenadas.latitud > maxLatitud || coordenadas.latitud < minLatitud) {
+    throw new Error('Las coordenadas no son válidas');
+
+  }
+
+  if (coordenadas.longitud > maxLongitud || coordenadas.longitud < minLongitud) {
+    throw new Error('Las coordenadas no son válidas');
+
+  }
+}
