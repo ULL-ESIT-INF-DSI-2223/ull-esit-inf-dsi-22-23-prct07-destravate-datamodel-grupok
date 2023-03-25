@@ -15,12 +15,16 @@ export class ColeccionRutas {
     return this.rutas.values();
   }
 
+  public setRutas( map : Map<number, Ruta>): void {
+    this.rutas = map;
+  }
+
   /**
-   * Método setRutas, establece el valor de Rutas pero antes revisa si el usuario ya existe mediante 
+   * Método addRutas, establece el valor de Rutas pero antes revisa si el usuario ya existe mediante 
    * el uso del id
    * @param rutas 
    */
-  public setRutas(rutas: Ruta[]): void {
+  public addRutas(rutas: Ruta[]): void {
     for (const ruta of rutas) {
       if (ruta instanceof Ruta && !this.rutas.has(ruta.getID())) {
         console.log('ruta insertado');
