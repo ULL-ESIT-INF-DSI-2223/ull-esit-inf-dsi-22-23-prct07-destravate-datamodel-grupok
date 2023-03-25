@@ -233,12 +233,13 @@ export class Gestor {
         if (usuarioAModificar) {
           console.clear();
           console.log('¿Qué atributo desea modificar?');
+
           inquirer.prompt({
             type: 'list',
             name: 'opcion',
             message: 'Elige una opción: ',
             choices: [
-              'Modificar Nombre de Usuario',
+              'Modificar nombre de Usuario',
               'Editar Actividad',
               'Añadir Amigo',
               'Borrar Amigo',
