@@ -144,6 +144,7 @@ export class Gestor {
       choices: [
         'Registrar usuario',
         'Listar usuarios',
+        'Modificar usuarios',
         'Eliminar usuario',
         'Salir',
         'Volver al menú anterior'
@@ -156,6 +157,9 @@ export class Gestor {
         case 'Listar usuarios':
           this.listarUsuarios();
           break;
+        case 'Modificar usuarios':
+          this.modificarUsuario();
+          break;
         case 'Eliminar usuario':
           this.eliminarUsuario();
           break;
@@ -164,6 +168,36 @@ export class Gestor {
           break;
         default:
           break;
+      }
+    });
+  }
+
+  private modificarUsuario(): void {
+    console.clear();
+    console.log('Eliminando usuario...');
+  
+    // Obtener el listado de usuarios
+    const usuarios = this.coleccionUsuarios.getUsuarios();
+  
+    // Pedir al usuario que seleccione el usuario a modificar
+    inquirer.prompt({
+      type: 'list',
+      name: 'usuario',
+      message: 'Selecciona el usuario que deseas modificar:',
+      choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.usuario === 'Cancelar') {
+        this.volver(() => this.consola());
+      } else {
+        // Buscar el usuario a modificar por su nombre y modificarlo
+        const usuarioAModificar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
+        if (usuarioAModificar) {
+          
+
+        } else {
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+        }
+        this.volver(() => this.consola());
       }
     });
   }
