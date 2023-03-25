@@ -63,7 +63,11 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
     this.usuarios.delete(usuario.getID());
   }
 
-  // modificar atributos de usuario
+  /**
+   * Método que permite modificar el nombre de un usuario
+   * @param usuario usuario a modificar
+   * @param nombre nuevo nombre
+   */
   public modificarNombre( usuario: Usuario, nombre: string) {
     this.usuarios.get(usuario.getID())!.setNombre(nombre);
   }
