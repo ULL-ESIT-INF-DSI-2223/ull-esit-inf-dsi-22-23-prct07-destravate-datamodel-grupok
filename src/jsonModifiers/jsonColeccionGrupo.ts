@@ -46,6 +46,12 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
   public eliminarGrupo(grupo: Grupo): void {
     this.gruposDatabase.get('grupos').remove({ nombre: grupo.getNombre() }).write();
   }
+
+  public modificarNombre(grupo: Grupo, nombre: string): void {
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).assign({ nombre: nombre }).write();
+  }
+
+  
 }
 
 

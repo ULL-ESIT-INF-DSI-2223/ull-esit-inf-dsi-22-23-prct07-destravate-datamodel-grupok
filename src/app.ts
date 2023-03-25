@@ -252,6 +252,9 @@ export class Gestor {
             ],
           }).then((respuesta) => {
             switch (respuesta.opcion) {
+              case 'Salir':
+                this.gestionInfo()
+                break;
               case 'Modificar nombre de Usuario':
                 console.clear();
                 inquirer.prompt({

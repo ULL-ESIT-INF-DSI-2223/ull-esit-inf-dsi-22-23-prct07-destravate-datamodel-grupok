@@ -2,6 +2,7 @@ import { Ruta } from '../modelos/ruta';
 import { Coleccion } from '../interfaces/coleccion';
 import { Coordenadas } from '../interfaces/coordenadasInterface';
 import { Actividad } from '../enums/actividadEnum';
+import { Dificultad } from '../enums/dificultadEnum';
 
 /**
  * Clase que implemente Colección y la especifica para rutas
@@ -138,5 +139,14 @@ export class ColeccionRuta implements Coleccion<Ruta>{
       throw new Error("La ruta que deseas añadir ya existe.");
     }
     this.rutas.set(ruta.getID(), ruta);
+  }
+
+  public modificarDificultadRuta(ruta: Ruta, dificultad: Dificultad) {
+    if (this.rutas.has(ruta.getID())) {
+      ruta.setDificultad(dificultad);
+    }
+    else {
+      throw new Error("La ruta que deseas modificar no existe.");
+    }
   }
 }

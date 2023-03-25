@@ -3,7 +3,9 @@ import { Actividad } from "../enums/actividadEnum";
 import { EstadisticasEntrenamiento } from "../interfaces/estadisticasEntrenamiento";
 
 let contador_id = 0;
-
+/**
+ * Clase que representa a un usuario
+ */
 export class Usuario implements EntidadInterface {
   id: number;
   nombre: string;
