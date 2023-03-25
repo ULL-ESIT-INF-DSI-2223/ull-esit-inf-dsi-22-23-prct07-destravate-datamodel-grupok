@@ -288,6 +288,7 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
     }).then((respuesta) => {
       switch (respuesta.opcion) {
         case 'Registrarse como usuario':
+          this.registrarUsuario();
           break;
         case 'Log in':
           this.listarUsuarios();
