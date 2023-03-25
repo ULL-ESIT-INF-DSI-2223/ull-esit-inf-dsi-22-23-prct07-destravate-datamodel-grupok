@@ -278,9 +278,17 @@ export class Gestor {
                   name: 'nombre',
                   message: 'Introduce tu nombre del amigo a añadir: ',
                 }).then((respuesta2) => {
+                  // Buscamos el usuario con el nombre dado y lo guardamos como un objeto usuario
                   const amigoAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.nombre);
-                  this.jsonColeccionUsuario.addAmigo(usuarioAModificar, respuesta2.nombre)
-                  this.coleccionUsuarios.addAmigo(usuarioAModificar, respuesta2.nombre)
+                  if (!amigoAAñadir) {
+                    console.log('No existe un usuario con ese nombre');
+                    this.volver(() => this.gestionInfo());
+                    return;
+                  }
+                  // Obtenemos el id del usuario a añadir como amigo
+                  const idAmigoAAñadir = amigoAAñadir.getID();
+                  this.jsonColeccionUsuario.addAmigo(usuarioAModificar, idAmigoAAñadir);
+                  this.coleccionUsuarios.addAmigo(usuarioAModificar, idAmigoAAñadir);
                   this.gestionInfo();
                 });
                 case 'Borrar Amigo':
@@ -466,10 +474,6 @@ export class Gestor {
   //   }
   // });
   }
-
-
-  
-
 }
 
 const gestor = new Gestor();

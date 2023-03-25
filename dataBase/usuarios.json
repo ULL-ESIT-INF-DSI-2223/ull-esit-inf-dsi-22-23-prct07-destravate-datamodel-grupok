@@ -25,6 +25,31 @@
       "retosActivos": [],
       "historicoRutas": [],
       "actividad": "corredor"
+    },
+    {
+      "id": 2,
+      "nombre": "sergio",
+      "contraseña": "1Pr*",
+      "actividades": "bicicleta",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
     }
   ]
 }
