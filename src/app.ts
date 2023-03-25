@@ -629,7 +629,6 @@ export class Gestor {
     });
   }
 
-<<<<<<< HEAD
   private registrarGrupo(): void {
     console.clear();
     console.log('Registrando grupo...');
@@ -718,7 +717,6 @@ export class Gestor {
     });
   }
   
-=======
   ///////////////////////////////////////
   ////////// Gestión de Rutas  //////////
   ///////////////////////////////////////
@@ -927,8 +925,8 @@ export class Gestor {
                     message: 'Introduce las coordenadas de fin: ',
                   }
                 ).then((respuesta2) => {
-                  this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
-                  this.jsonColeccionRuta.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
+                  // this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
+                  // this.jsonColeccionRuta.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
                   this.gestionInfo();
                 });
               break;
@@ -1063,7 +1061,6 @@ export class Gestor {
     });
   }
 
->>>>>>> bef13609df101c20c3f27ea4e9a4f0a45e49eca6
 }
 
 
