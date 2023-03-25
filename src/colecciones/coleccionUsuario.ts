@@ -138,4 +138,8 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
   public eraseRetosActivos( usuario: Usuario, reto: number) {
     this.usuarios.get(usuario.getID())!.eraseRetosActivos(reto);
   }
+
+  public getUsuario(id: number): Usuario {
+    return this.usuarios.get(id)!;
+  }
 }
