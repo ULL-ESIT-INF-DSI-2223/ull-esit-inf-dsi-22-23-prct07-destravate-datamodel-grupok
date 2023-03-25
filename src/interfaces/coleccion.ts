@@ -1,4 +1,6 @@
-/// poner en una interfaz el buscar, eliminar, insertar, listar, etc los métodos triviales vamos
+/**
+ * Interfaz que permite implementar los métodos eliminar, insertar y  listar
+ */
 export interface Coleccion<T> {
   insertar(elemento: T): void;
   eliminar(elemento: T): void;

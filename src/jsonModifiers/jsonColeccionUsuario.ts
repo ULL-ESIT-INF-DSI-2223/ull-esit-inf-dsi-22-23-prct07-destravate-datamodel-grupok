@@ -22,6 +22,10 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
    * si el usuario ya existe de antemano
    */
   public insertarUsuario(usuario: Usuario): void {
+    // comprobar que el nombre de usuario no existe
+    if (this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).value() != undefined) {
+      throw new Error('El nombre de usuario ya existe');
+    }
     this.usuariosDatabase.get('usuarios').push(usuario).write();
   }
   

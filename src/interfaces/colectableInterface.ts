@@ -1,3 +1,6 @@
+/**
+ * Interfaz que impementa los métodos ascendente y descendente
+ */
 export interface ColectableInterfaz<T> {
   ordenAscendente( arr: T[] ): T[];
   ordenDescendente( arr: T[] ): T[];
