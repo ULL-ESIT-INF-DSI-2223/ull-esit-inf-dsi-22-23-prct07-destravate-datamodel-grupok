@@ -97,9 +97,33 @@
       "historicoRutas": []
     },
     {
-      "id": 6,
-      "nombre": "sonya",
+      "id": 5,
+      "nombre": "peter",
       "actividades": "bicicleta",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 6,
+      "nombre": "asdfjlk",
+      "actividades": "corredor",
       "amigosApp": [],
       "amigosFrecuentes": [],
       "estadisticas": {
