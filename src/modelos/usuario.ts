@@ -95,7 +95,7 @@ export class Usuario implements EntidadInterface {
   setContraseña(contraseña: string): void {
     this.contraseña = contraseña;
   }
-
+  
   setActividades(actividades: Actividad): void {
     this.actividades = actividades;
   }

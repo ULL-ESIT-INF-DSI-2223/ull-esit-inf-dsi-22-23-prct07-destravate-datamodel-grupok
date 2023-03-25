@@ -1,5 +1,6 @@
 import { Usuario } from '../modelos/usuario';
 import { Coleccion } from '../interfaces/coleccion';
+import { Actividad } from '../enums/actividadEnum';
 /**
  * 
  */
@@ -74,6 +75,10 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
 
   public modificarContraseña( usuario: Usuario, contraseña: string) {
     this.usuarios.get(usuario.getID())!.setContraseña(contraseña);
+  }
+
+  public modificarActividad( usuario: Usuario, actividad: Actividad ) {
+    this.usuarios.get(usuario.getID())!.setActividades(actividad);
   }
 
   public addAmigo( usuario: Usuario, amigo: number) {
