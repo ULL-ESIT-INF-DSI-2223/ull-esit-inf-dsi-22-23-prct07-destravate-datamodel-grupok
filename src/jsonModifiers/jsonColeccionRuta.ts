@@ -32,7 +32,16 @@ export class JsonColeccionRuta extends ColeccionRuta {
     const rutas: Ruta[] = [];
     for (const ruta of rutas_no_instancia) {
       let rutaAux = new Ruta(ruta.nombre, ruta.coordenadasInicio, ruta.coordenadasFin, ruta.longitud, ruta.desnivel, ruta.tipoActividad, ruta.dificultad)
-      rutaAux.setID(ruta.getID());
+      rutaAux.setID(ruta.id);
+      rutaAux.setNombre(ruta.nombre);
+      rutaAux.setCoordenadasInicio(ruta.coordenadasInicio);
+      rutaAux.setCoordenadasFin(ruta.coordenadasFin);
+      rutaAux.setLongitud(ruta.longitud);
+      rutaAux.setDesnivel(ruta.desnivel);
+      rutaAux.setUsuariosVisitantes(ruta.usuariosVisitantes);
+      rutaAux.setTipoActividad(ruta.tipoActividad);
+      rutaAux.setDificultad(ruta.dificultad);
+      rutaAux.setCalificacion(ruta.calificacion);
       rutas.push(rutaAux);
     }
     // Compruebamos si alguno de las rutas es una instancia de ruta
