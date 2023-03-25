@@ -774,7 +774,7 @@ export class Gestor {
       },
       {
         type: 'input',
-        name: 'coordenadasInicio',
+         name: 'coordenadasInicio',
         message: 'Coordenadas de inicio: ',
       },
       {
