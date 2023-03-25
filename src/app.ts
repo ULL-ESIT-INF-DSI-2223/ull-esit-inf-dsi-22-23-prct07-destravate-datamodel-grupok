@@ -1,16 +1,16 @@
 import inquirer from 'inquirer';
-import { Usuario } from '../modelos/usuario';
-import { Ruta } from '../modelos/ruta';
-import { Grupo } from '../modelos/grupo';
-import { Reto } from '../modelos/reto';
-import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
-import { ColeccionRuta } from '../colecciones/coleccionRuta';
-import { ColeccionGrupo } from '../colecciones/coleccionGrupo';
-// import { ColeccionReto } from '../colecciones/coleccionReto';
-import { JsonColeccionUsuario } from '../jsonModifiers/jsonColeccionUsuario';
-// import { JsonColeccionRuta } from '../jsonModifiers/jsonColeccionRuta';
-// import { JsonColeccionGrupo } from '../jsonModifiers/jsonColeccionGrupo';
-// import { JsonColeccionReto } from '../jsonModifiers/jsonColeccionReto';
+import { Usuario } from './modelos/usuario';
+import { Ruta } from './modelos/ruta';
+import { Grupo } from './modelos/grupo';
+import { Reto } from './modelos/reto';
+import { ColeccionUsuario } from './colecciones/coleccionUsuario';
+import { ColeccionRuta } from './colecciones/coleccionRuta';
+import { ColeccionGrupo } from './colecciones/coleccionGrupo';
+// import { ColeccionReto } from './colecciones/coleccionReto';
+import { JsonColeccionUsuario } from './jsonModifiers/jsonColeccionUsuario';
+// import { JsonColeccionRuta } from './jsonModifiers/jsonColeccionRuta';
+// import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
+// import { JsonColeccionReto } from './jsonModifiers/jsonColeccionReto';
 
 /**
  * Clase Gestor
