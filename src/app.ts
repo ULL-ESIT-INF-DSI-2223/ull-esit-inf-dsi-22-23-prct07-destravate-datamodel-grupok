@@ -37,8 +37,20 @@ export class Gestor {
   public getUsuarios() {
     return this.coleccionUsuarios;
   }
+
   public setUsuarios(coleccion: ColeccionUsuario) {
     this.coleccionUsuarios = coleccion;
+  }
+
+  private volver(callback: (i: this) => void): void {
+    inquirer.prompt({
+      type: 'list',
+      name: 'volver',
+      message: 'Presiona enter para volver a atrás en la consola',
+      choices: ['Volver al menú anterior'],
+    }).then((respuesta) => {
+      callback(this);
+    });
   }
 
   ////////////////////////////////////
@@ -115,6 +127,40 @@ export class Gestor {
           break;
         case 'Volver al menú anterior':
           this.consola()
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  public gestionUsuarios(): void {
+    console.clear();
+    console.log('Bienvenido a gestión de usuarios. ¿Qué desea hacer?');
+    inquirer.prompt({
+      type: 'list',
+      name: 'opcion',
+      message: 'Elige una opción: ',
+      choices: [
+        'Registrar usuario',
+        'Listar usuarios',
+        'Eliminar usuario',
+        'Salir',
+        'Volver al menú anterior'
+      ],
+    }).then((respuesta) => {
+      switch (respuesta.opcion) {
+        case 'Registrar usuario':
+          this.registrarUsuario();
+          break;
+        case 'Listar usuarios':
+          this.listarUsuarios();
+          break;
+        case 'Eliminar usuario':
+          this.eliminarUsuario();
+          break;
+        case 'Volver al menú anterior':
+          this.gestionInfo()
           break;
         default:
           break;
@@ -216,9 +262,9 @@ export class Gestor {
   }
 
   /**
- * Eliminar un elemento de la lista con opción a cancelar
- */
-private eliminar(elemento: Usuario | Ruta | Reto): void {
+   * Eliminar un elemento de la lista con opción a cancelar
+   */
+  private eliminar(elemento: Usuario | Ruta | Reto): void {
   // console.clear();
   // console.log(`Eliminando ${typeof elemento === 'object' ? elemento.constructor.name.toLowerCase() : 'elemento'}...`);
 
@@ -274,56 +320,10 @@ private eliminar(elemento: Usuario | Ruta | Reto): void {
   //     this.volverConsola();
   //   }
   // });
-}
-
-
-  private volver(callback: (i: this) => void): void {
-    inquirer.prompt({
-      type: 'list',
-      name: 'volver',
-      message: 'Presiona enter para volver a atrás en la consola',
-      choices: ['Volver al menú anterior'],
-    }).then((respuesta) => {
-      callback(this);
-    });
   }
 
-  public gestionUsuarios(): void {
-    console.clear();
-    console.log('Bienvenido a gestión de usuarios. ¿Qué desea hacer?');
-    inquirer.prompt({
-      type: 'list',
-      name: 'opcion',
-      message: 'Elige una opción: ',
-      choices: [
-        'Registrar usuario',
-        'Listar usuarios',
-        'Eliminar usuario',
-        'Salir',
-        'Volver al menú anterior'
-      ],
-    }).then((respuesta) => {
-      switch (respuesta.opcion) {
-        case 'Registrar usuario':
-          this.registrarUsuario();
-          break;
-        case 'Listar usuarios':
-          this.listarUsuarios();
-          break;
-        case 'Eliminar usuario':
-          this.eliminarUsuario();
-          break;
-        case 'Volver al menú anterior':
-          this.gestionInfo()
-          break;
-        default:
-          break;
-      }
-    });
-  }
 
   
-
 
 }
 
