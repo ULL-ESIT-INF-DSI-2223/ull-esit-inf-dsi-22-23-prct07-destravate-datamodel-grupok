@@ -1,6 +1,8 @@
 import { EntidadInterface } from "../interfaces/entidadInterface";
+
 type Actividad = 'bicicleta' | 'corredor';
 let contador_id = 0;
+
 export class Usuario implements EntidadInterface {
   id: number;
   nombre: string;

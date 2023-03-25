@@ -1,8 +1,8 @@
 import inquirer from 'inquirer';
-import { Usuario } from './usuario';
-import { Ruta } from './ruta';
-import { Grupo } from './grupo';
-import { Reto } from './reto';
+import { Usuario } from '../modelos/usuario';
+import { Ruta } from '../modelos/ruta';
+import { Grupo } from '../modelos/grupo';
+import { Reto } from '../modelos/reto';
 import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
 import { ColeccionRuta } from '../colecciones/coleccionRuta';
 import { ColeccionGrupo } from '../colecciones/coleccionGrupo';
