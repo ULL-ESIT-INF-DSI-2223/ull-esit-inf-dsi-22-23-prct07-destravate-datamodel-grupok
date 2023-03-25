@@ -27,7 +27,6 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   
   public cargarUsuarios(): Usuario[] {
     const usuarios_no_instancia: Usuario[] = this.usuariosDatabase.get('usuarios').value();
-                                                                                                    //////////////// HACER QUE TODOS LOS ATRIBUTOS SEAN IGUALES
     const usuarios: Usuario[] = [];
     for (const usuario of usuarios_no_instancia) {
       let usuarioAux = new Usuario(usuario.nombre, usuario.actividades);
@@ -39,7 +38,7 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
       usuarioAux.setHistoricoRutas(usuario.historicoRutas);
       usuarios.push(usuarioAux);
     }
-
+    
     /// Comprueba si alguno de los usuarios es una instancia de usuario
     for (const usuario of usuarios) {
       if (!(usuario instanceof Usuario)) {

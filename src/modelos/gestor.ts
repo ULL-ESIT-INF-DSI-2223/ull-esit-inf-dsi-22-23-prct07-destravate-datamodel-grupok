@@ -17,8 +17,6 @@ export class Gestor {
   constructor() {
     this.usuarios = new ColeccionUsuario();
     this.usuarios.setUsuarios(this.jsonColeccionUsuario.cargarUsuarios());
-    
-                                                                            //////////////////// se debería generar la colección de usuarios aquí con los datos de cada uno pillando del fichero aquello
   }
 
   public getUsuarios() {
@@ -95,9 +93,12 @@ export class Gestor {
         // Buscar el usuario a eliminar por su nombre y eliminarlo
         const usuarioAEliminar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
         if (usuarioAEliminar) {
+          // Lo eliminamos del map de usuarios
           usuarios.delete(usuarioAEliminar.getID());
+          // Lo eliminamos del json
+          this.jsonColeccionUsuario.eliminarUsuario(usuarioAEliminar);
           console.log(`Usuario ${usuarioAEliminar.getNombre()} eliminado con éxito`);
-                                                                                           //////////////////////////// Eliminar también usuario de collection 
+
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
         }
