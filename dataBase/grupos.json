@@ -1,3 +1,50 @@
 {
-  "grupos": []
+  "grupos": [
+    {
+      "id": 0,
+      "nombre": "secta",
+      "creador": "3",
+      "participantes": [],
+      "estadisticasEntrenamiento": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "clasificacion": [],
+      "rutasFavoritas": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 2,
+      "nombre": "secta2",
+      "creador": "2",
+      "participantes": [],
+      "estadisticasEntrenamiento": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "clasificacion": [],
+      "rutasFavoritas": [],
+      "historicoRutas": []
+    }
+  ]
 }
