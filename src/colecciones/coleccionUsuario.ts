@@ -62,4 +62,9 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
   public eliminar( usuario: Usuario) {
     this.usuarios.delete(usuario.getID());
   }
+
+  // modificar atributos de usuario
+  public modificarNombre( usuario: Usuario, nombre: string) {
+    this.usuarios.get(usuario.getID())!.setNombre(nombre);
+  }
 }
