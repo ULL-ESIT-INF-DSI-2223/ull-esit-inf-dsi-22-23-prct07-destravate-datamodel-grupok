@@ -1,25 +1,38 @@
 import { Ruta } from '../modelos/ruta';
 import { Coleccion } from '../interfaces/coleccion';
 
+/**
+ * Clase que implemente Colección y la especifica para rutas
+ */
 export class ColeccionRuta implements Coleccion<Ruta>{
-
   private rutas: Map<number, Ruta>;
 
+  /**
+   * Constructor de la clase
+   */
   constructor() {
     this.rutas = new Map();
   }
 
   /**
-   * Hacemos que la clase ColeccionUsuario sea iterable
+   * Hace posible que la clase ColeccionRutas sea iterable
    */
   [Symbol.iterator]() {
     return this.rutas.values();
   }
 
-  public setRutas( map : Map<number, Ruta>): void {
-    this.rutas = map;
+  /**
+   * Setter de las rutas (entrada en formato map)
+   * @param rutas Rutas en formato map
+   */
+  public setRutas( rutas : Map<number, Ruta>): void {
+    this.rutas = rutas;
   }
 
+  /**
+   * Setter de las rutas (entrada en formato array)
+   * @param rutas Rutas en formato array
+   */
   public setRutasFromArray(rutas: Ruta[]): void {
     for (const ruta of rutas) {
       if (ruta instanceof Ruta && !this.rutas.has(ruta.getID())) {
@@ -28,24 +41,17 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     }
   }
 
+  /**
+   * Getter de las rutas
+   * @returns Map con las rutas
+   */
   public getRutas(): Map<number, Ruta> {
     return this.rutas;
   }
 
   /**
-  * Método addRutas, establece el valor de Rutas pero antes revisa si el usuario ya existe mediante 
-  * el uso del id
-  * @param rutas 
-  */
-  public addRutas(rutas: Ruta[]): void {
-    for (const ruta of rutas) {
-      if (ruta instanceof Ruta && !this.rutas.has(ruta.getID())) {
-        console.log('ruta insertado');
-        this.rutas.set(ruta.getID(), ruta);
-      }
-    }
-  }
-
+   * Método que permite lista las rutas
+   */
   public listar(): void {
     console.clear();
     console.log('Listando rutas...');
@@ -54,11 +60,9 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     }
   }
 
-
-  /**
-   * Método que permite insertar una ruta en la colección de Rutas revisando
-   * previamente que la ruta no exista
-   * @param ruta 
+ /**
+   * Método que permite insertar una ruta
+   * @param ruta Ruta a añadir
    */
   public insertar(ruta: Ruta): void {
     if (this.rutas.has(ruta.getID())) {
@@ -68,9 +72,16 @@ export class ColeccionRuta implements Coleccion<Ruta>{
     this.rutas.set(ruta.getID(), ruta);
   }
 
+  /**
+   * Método que permite insertar un reto
+   * @param ruta Ruta a eliminar
+   */
   public eliminar( ruta: Ruta) {
     if (this.rutas.has(ruta.getID())) {
       this.rutas.delete(ruta.getID());
+    }
+    else {
+      console.log("La ruta que deseas eliminar no existe.");
     }
   }
 }
