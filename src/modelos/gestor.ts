@@ -1,7 +1,16 @@
 import inquirer from 'inquirer';
 import { Usuario } from './usuario';
+import { Ruta } from './ruta';
+import { Grupo } from './grupo';
+import { Reto } from './reto';
 import { ColeccionUsuario } from '../colecciones/coleccionUsuario';
+import { ColeccionRuta } from '../colecciones/coleccionRuta';
+import { ColeccionGrupo } from '../colecciones/coleccionGrupo';
+// import { ColeccionReto } from '../colecciones/coleccionReto';
 import { JsonColeccionUsuario } from '../jsonModifiers/jsonColeccionUsuario';
+// import { JsonColeccionRuta } from '../jsonModifiers/jsonColeccionRuta';
+// import { JsonColeccionGrupo } from '../jsonModifiers/jsonColeccionGrupo';
+// import { JsonColeccionReto } from '../jsonModifiers/jsonColeccionReto';
 
 /**
  * Clase Gestor
@@ -9,13 +18,20 @@ import { JsonColeccionUsuario } from '../jsonModifiers/jsonColeccionUsuario';
  * así como Visualizar todas las rutas existentes dentro del sistema, Unirse a un 
  * grupo existente, Visualizar, crear y borrar grupos.
  */
-export class Gestor {
+export class Gestor<T> {
   private coleccionUsuarios: ColeccionUsuario;
-  jsonColeccionUsuario = new JsonColeccionUsuario();
+  private coleccionRutas: ColeccionRuta;
+  private coleccionGrupos: ColeccionGrupo;
+  private jsonColeccionUsuario = new JsonColeccionUsuario();
+
 
   constructor() {
     this.coleccionUsuarios = new ColeccionUsuario();
+    this.coleccionRutas = new ColeccionRuta();
+    this.coleccionGrupos = new ColeccionGrupo();
     this.coleccionUsuarios.setUsuarios(this.jsonColeccionUsuario.cargarUsuarios());
+    ////////////////////////////////////////////////////////////////////////////////////////// Falta poner los otros json
+
   }
 
   public getUsuarios() {
@@ -117,7 +133,70 @@ export class Gestor {
       }
     });
   }
-  
+
+  /**
+ * Eliminar un elemento de la lista con opción a cancelar
+ */
+private eliminar(elemento: Usuario | Ruta | Reto): void {
+  // console.clear();
+  // console.log(`Eliminando ${typeof elemento === 'object' ? elemento.constructor.name.toLowerCase() : 'elemento'}...`);
+
+  // // Obtener el listado de elementos
+  // let elementos: string[];
+  // switch (typeof elemento) {
+  //   case 'object':
+  //     if (elemento instanceof Usuario) {
+  //       elementos = this.coleccionUsuarios.listar();
+  //     } else if (elemento instanceof Ruta) {
+  //       elementos = this.coleccionRutas.listar();
+  //     } else if (elemento instanceof Reto) {
+  //       elementos = this.coleccionRetos.listar();
+  //     }
+  //     break;
+  //   default:
+  //     elementos = new Map();
+  //     break;
+  // }
+
+  // // Pedir al usuario que seleccione el elemento a eliminar
+  // inquirer.prompt({
+  //   type: 'list',
+  //   name: 'elemento',
+  //   message: `Selecciona el ${typeof elemento === 'object' ? elemento.constructor.name.toLowerCase() : 'elemento'} que deseas eliminar:`,
+  //   choices: Array.from(elementos.values()).map((elemento) => elemento.getNombre()).concat('Cancelar'),
+  // }).then((respuesta) => {
+  //   if (respuesta.elemento === 'Cancelar') {
+  //     this.volverConsola();
+  //   } else {
+  //     // Buscar el elemento a eliminar por su nombre y eliminarlo
+  //     const elementoAEliminar = Array.from(elementos.values()).find((elemento) => elemento.getNombre() === respuesta.elemento);
+  //     if (elementoAEliminar) {
+  //       // Lo eliminamos del json
+  //       switch (typeof elemento) {
+  //         case 'object':
+  //           if (elemento instanceof Usuario) {
+  //             this.jsonColeccionUsuario.eliminarUsuario(elementoAEliminar);
+  //           } else if (elemento instanceof Ruta) {
+  //             this.jsonColeccionRuta.eliminarRuta(elementoAEliminar);
+  //           } else if (elemento instanceof Reto) {
+  //             this.jsonColeccionReto.eliminarReto(elementoAEliminar);
+  //           }
+  //           break;
+  //       }
+  //       // Lo eliminamos del map de elementos
+  //       elementos.delete(elementoAEliminar.getID());
+  //       console.log(`${typeof elemento === 'object' ? elemento.constructor.name : 'Elemento'} ${elementoAEliminar.getNombre()} eliminado con éxito`);
+
+  //     } else {
+  //       console.log(`No se encontró el ${typeof elemento === 'object' ? elemento.constructor.name.toLowerCase() : 'elemento'} ${respuesta.elemento}`);
+  //     }
+  //     this.volverConsola();
+  //   }
+  // });
+}
+
+
+
   private volverConsola(): void {
     inquirer.prompt({
       type: 'list',
