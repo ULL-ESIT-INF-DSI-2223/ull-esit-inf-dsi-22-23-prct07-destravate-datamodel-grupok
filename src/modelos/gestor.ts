@@ -93,10 +93,10 @@ export class Gestor {
         // Buscar el usuario a eliminar por su nombre y eliminarlo
         const usuarioAEliminar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
         if (usuarioAEliminar) {
-          // Lo eliminamos del map de usuarios
-          usuarios.delete(usuarioAEliminar.getID());
           // Lo eliminamos del json
           this.jsonColeccionUsuario.eliminarUsuario(usuarioAEliminar);
+          // Lo eliminamos del map de usuarios
+          usuarios.delete(usuarioAEliminar.getID());
           console.log(`Usuario ${usuarioAEliminar.getNombre()} eliminado con éxito`);
 
         } else {
