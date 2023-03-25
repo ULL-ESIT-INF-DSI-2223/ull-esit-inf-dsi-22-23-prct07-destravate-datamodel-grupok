@@ -341,8 +341,10 @@ export class Gestor {
 
             console.log('Usuario registrado con éxito:', usuario);
             this.volver(() => this.consola());
-          } catch (error) {
-            console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario');
+          } catch (error: unknown) {
+            if (error instanceof Error) {
+              console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario: ', error.message);
+            }
             console.log('Introduce un nombre de usuario válido no vacío');
             // pulsar enter para volver a introducir un nombre de usuario
             inquirer.prompt({
