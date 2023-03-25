@@ -198,17 +198,19 @@ export class Gestor {
             name: 'opcion',
             message: 'Elige una opción: ',
             choices: [
-              'Nombre de Usuario',
-              'Actividad que realiza',
-              'Amigos en la aplicación',
-              'Grupo de amigos',
-              'Rutas Favoritas',
-              'Retos activos',
+              'Modificar Nombre de Usuario',
+              'Editar Actividad',
+              'Añadir Amigo',
+              'Borrar Amigo',
+              'Añadir Rutas Favoritas',
+              'Borrar Rutas Favoritas',
+              'Añadir Retos activos',
+              'Borrar Retos activos',
               'Salir',
             ],
           }).then((respuesta) => {
             switch (respuesta.opcion) {
-              case 'Nombre de Usuario':
+              case 'Modificar nombre de Usuario':
                 console.clear();
                 inquirer.prompt({
                   type: 'input',
@@ -220,7 +222,17 @@ export class Gestor {
                   this.gestionInfo();
                 });
                 break;
-              case 'Actividad que realiza':
+              case 'Editar Actividad':
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'nombre',
+                  message: 'Introduce tu nombre de usuario: ',
+                }).then((respuesta2) => {
+                  this.jsonColeccionUsuario.modificarNombre(usuarioAModificar, respuesta2.nombre)
+                  this.coleccionUsuarios.modificarNombre(usuarioAModificar, respuesta2.nombre)
+                  this.gestionInfo();
+                });
                 break;
               case 'Amigos en la aplicación':
                 break;
