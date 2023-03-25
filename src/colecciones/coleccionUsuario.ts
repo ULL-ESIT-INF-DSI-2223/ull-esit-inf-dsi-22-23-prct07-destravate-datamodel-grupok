@@ -62,4 +62,5 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
   public eliminar( usuario: Usuario) {
     this.usuarios.delete(usuario.getID());
   }
+  
 }
