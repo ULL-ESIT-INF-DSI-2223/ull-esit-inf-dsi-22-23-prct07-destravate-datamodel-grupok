@@ -224,5 +224,4 @@ export class Ruta implements EntidadInterface {
       (id) => id !== idUsuario
     );
   }
-
 }
