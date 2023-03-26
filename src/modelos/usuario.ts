@@ -3,6 +3,7 @@ import { Actividad } from "../enums/actividadEnum";
 import { EstadisticasEntrenamiento } from "../interfaces/estadisticasEntrenamiento";
 
 let contador_id = 0;
+const ESTADISTICASNULL = { semana: { km: 0, desnivel: 0 }, mes: { km: 0, desnivel: 0 }, anio: { km: 0, desnivel: 0 } };
 /**
  * Clase que representa a un usuario
  */
@@ -13,7 +14,7 @@ export class Usuario implements EntidadInterface {
   actividades: Actividad; // deberia ser un array de actividades
   amigosApp: number[] = [];
   amigosFrecuentes: number[] = [];
-  estadisticas: EstadisticasEntrenamiento = { semana: { km: 0, desnivel: 0 }, mes: { km: 0, desnivel: 0 }, anio: { km: 0, desnivel: 0 } };
+  estadisticas: EstadisticasEntrenamiento = ESTADISTICASNULL;
   rutasFavoritas: number[] = [];
   retosActivos: number[] = [];
   historicoRutas: { ruta: number; fecha: string; }[] = [];
