@@ -843,10 +843,53 @@ public gestionInfo(): void {
 ```
 
 #### Gestión de usuarios
-Este método se encarga de gestionar los usuarios, pudiendo hacer uso de los siguientes métodos de gestión:
+Es un conjunto de métodos gestionados por el método `gestionUsuarios` que se encarga de gestionar los usuarios de la base de datos. Se ha definido de la siguiente forma:
+``` typescript
+console.clear();
+    console.log("Bienvenido a gestión de usuarios. ¿Qué desea hacer?");
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Registrar usuario",
+          "Lista de usuarios",
+          "Modificar usuarios",
+          "Eliminar usuario",
+          "Volver al menú anterior",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Registrar usuario":
+            this.registrarUsuario();
+            break;
+          case "Lista de usuarios":
+            this.listarUsuarios(() =>
+              this.volver(() => this.gestionUsuarios())
+            );
+            break;
+          case "Modificar usuarios":
+            this.modificarUsuario();
+            break;
+          case "Eliminar usuario":
+            this.eliminarUsuario();
+            break;
+          case "Volver al menú anterior":
+            this.gestionInfo();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+```
+Y hace uso de los siguientes métodos
   - `listarUsuarios`: Lista los usuarios de la base de datos.
   - `registrarUsuario`: Crea un usuario en la base de datos.
-  - `eliminarUsuario`: Elimina un usuario de la base de datos.
+  - `modificarUsuario`: Modifica un usuario de la base de datos.
+  - `eliminarUsuario`: Modifica un usuario de la base de datos.
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
