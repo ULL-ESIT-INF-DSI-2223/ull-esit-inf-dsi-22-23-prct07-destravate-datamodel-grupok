@@ -61,7 +61,7 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   public modificarNombre(usuario: Usuario, nombre: string): void {
     // comprobar que el nombre de usuario nuevo no existe
     if (this.usuariosDatabase.get('usuarios').find({ nombre: nombre }).value() != undefined) {
-      throw new Error('El nombre de usuario ya existe');
+      throw new Error('El nombre de usuario ya existe json');
     }
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).assign({ nombre: nombre }).write();
   }
