@@ -434,8 +434,7 @@ export class Gestor {
         case 'Listar rutas':
           console.clear();
           console.log('Listando rutas...');
-          this.listarRutasUsuario();
-          this.volver(() => this.gestionRutasUsuario(id));
+          this.listarRutas(() => this.gestionRutasUsuario(id));
         break;
         case 'Mostrar rutas':
           console.clear();
@@ -1529,16 +1528,6 @@ export class Gestor {
     rutas.forEach((ruta) => {
       // console.log(ruta.getNombre());
       console.log(ruta);
-    });
-  }
-
-  private listarRutasUsuario(): void {
-    console.clear();
-    console.log('Listado de rutas:');
-    const rutas = this.coleccionRutas.getRutas();
-    rutas.forEach((ruta) => {
-      console.log(ruta.getNombre());
-      // console.log(ruta);
     });
   }
 
