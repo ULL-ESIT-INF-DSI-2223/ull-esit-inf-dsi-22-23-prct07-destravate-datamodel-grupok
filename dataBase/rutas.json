@@ -23,6 +23,24 @@
       "tipoActividad": "Ciclismo",
       "dificultad": "Difícil",
       "calificacion": 1
+    },
+    {
+      "id": 3,
+      "nombre": "pescaito",
+      "coordenadasInicio": {
+        "latitud": 90,
+        "longitud": 90
+      },
+      "coordenadasFin": {
+        "latitud": 90,
+        "longitud": 90
+      },
+      "longitud": "12",
+      "desnivel": "32",
+      "usuariosVisitantes": [],
+      "tipoActividad": "Ciclismo",
+      "dificultad": "Fácil",
+      "calificacion": 4
     }
   ]
 }
