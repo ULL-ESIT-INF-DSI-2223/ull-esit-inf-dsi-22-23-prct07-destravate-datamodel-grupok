@@ -5,8 +5,13 @@
       "nombre": "yanfris",
       "contraseña": "Dsi23*",
       "actividades": "corredor",
-      "amigosApp": [2, 5],
-      "amigosFrecuentes": [2],
+      "amigosApp": [
+        2,
+        5
+      ],
+      "amigosFrecuentes": [
+        2
+      ],
       "estadisticas": {
         "semana": {
           "km": 3,

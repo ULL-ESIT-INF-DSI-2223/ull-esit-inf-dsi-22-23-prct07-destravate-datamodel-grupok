@@ -4,12 +4,12 @@
       "id": 1,
       "nombre": "carne",
       "coordenadasInicio": {
-        "latitud": null,
-        "longitud": null
+        "latitud": 123,
+        "longitud": 123
       },
       "coordenadasFin": {
         "latitud": 0,
-        "longitud": null
+        "longitud": 123
       },
       "longitud": "12345",
       "desnivel": "12",
@@ -54,12 +54,12 @@
       "id": 5,
       "nombre": "puerto",
       "coordenadasInicio": {
-        "latitud": null,
-        "longitud": null
+        "latitud": 12,
+        "longitud": 12
       },
       "coordenadasFin": {
-        "latitud": null,
-        "longitud": null
+        "latitud": 12,
+        "longitud": 12
       },
       "longitud": "123",
       "desnivel": "43",
@@ -72,12 +72,12 @@
       "id": 6,
       "nombre": "queso",
       "coordenadasInicio": {
-        "latitud": null,
-        "longitud": null
+        "latitud": 45,
+        "longitud": 45
       },
       "coordenadasFin": {
         "latitud": 0,
-        "longitud": null
+        "longitud": 45
       },
       "longitud": "",
       "desnivel": "",
@@ -111,11 +111,11 @@
       "id": 8,
       "nombre": "rosario",
       "coordenadasInicio": {
-        "latitud": null,
+        "latitud": 12,
         "longitud": 12
       },
       "coordenadasFin": {
-        "latitud": null,
+        "latitud": 12,
         "longitud": 65
       },
       "longitud": "5",
@@ -130,10 +130,10 @@
       "nombre": "tetir",
       "coordenadasInicio": {
         "latitud": 34,
-        "longitud": null
+        "longitud": 56
       },
       "coordenadasFin": {
-        "latitud": null,
+        "latitud": 56,
         "longitud": 87
       },
       "longitud": "6",
@@ -147,12 +147,12 @@
       "id": 10,
       "nombre": "candelaria",
       "coordenadasInicio": {
-        "latitud": null,
-        "longitud": null
+        "latitud": 67,
+        "longitud": 67
       },
       "coordenadasFin": {
-        "latitud": null,
-        "longitud": null
+        "latitud": 67,
+        "longitud": 67
       },
       "longitud": "2",
       "desnivel": "1",
@@ -165,12 +165,12 @@
       "id": 11,
       "nombre": "savanna",
       "coordenadasInicio": {
-        "latitud": null,
-        "longitud": null
+        "latitud": 12,
+        "longitud": 12
       },
       "coordenadasFin": {
-        "latitud": null,
-        "longitud": null
+        "latitud": 34,
+        "longitud": 34
       },
       "longitud": "200",
       "desnivel": "22",
