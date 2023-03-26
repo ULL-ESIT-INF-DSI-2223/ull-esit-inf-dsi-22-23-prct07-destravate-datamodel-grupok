@@ -688,7 +688,7 @@ export class Gestor {
       message: 'Elige una opción: ',
       choices: [
         'Registrar usuario',
-        'Listar usuarios',
+        'Lista de usuarios',
         'Modificar usuarios',
         'Eliminar usuario',
         'Volver al menú anterior'
@@ -698,8 +698,8 @@ export class Gestor {
         case 'Registrar usuario':
           this.registrarUsuario();
           break;
-        case 'Listar usuarios':
-          this.listarUsuarios(() => this.volver(() => this.gestionInfo()));
+        case 'Lista de usuarios':
+          this.listarUsuarios(() => this.volver(() => this.gestionUsuarios()));
           break;
         case 'Modificar usuarios':
           this.modificarUsuario();
@@ -757,7 +757,7 @@ export class Gestor {
           }).then((respuesta) => {
             switch (respuesta.opcion) {
               case 'Salir':
-                this.gestionInfo()
+                this.gestionUsuarios()
                 break;
               case 'Modificar nombre de Usuario':
                 console.clear();
@@ -825,7 +825,7 @@ export class Gestor {
                   // Comprobamos que exista el amigo
                   if ( nuevoAmigo == undefined ) {
                     console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-                    return (this.volver(() => this.gestionUsuarios()));
+                    return (this.volver(() => this.modificarUsuario()));
                   }
                   // Añadimos el amigo al usuario actual
                   usuarioAModificar.addAmigoApp(nuevoAmigo.getID());
@@ -833,7 +833,7 @@ export class Gestor {
                   this.jsonColeccionUsuario.addAmigo(usuarioAModificar);
 
                   console.log(`Amigo ${nuevoAmigo.getNombre()} añadido al usuario ${usuarioAModificar.getNombre()}.`);
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarUsuario()));
                 });
               break;
               case 'Borrar Amigo':
@@ -844,7 +844,7 @@ export class Gestor {
                   choices: Array.from(usuarioAModificar.getAmigosApp().values()).map((id) => this.coleccionUsuarios.getUsuario(id).getNombre()).concat('Cancelar'),
                 }).then((respuesta2) => {
                   if (respuesta2.usuario === 'Cancelar') {
-                    this.gestionUsuarios();
+                    this.modificarUsuario();
                   }
                   // Obtenemos el id del usuario que queremos borrar 
                   const idUsuarioBorrar = Array.from(usuarioAModificar.getAmigosApp().values()).find((id) => this.coleccionUsuarios.getUsuario(id).getNombre() === respuesta2.nombre);
@@ -857,7 +857,7 @@ export class Gestor {
                   usuarioAModificar.eraseAmigoApp(idUsuarioBorrar);
                   // Lo escribimos en el fichero
                   this.jsonColeccionUsuario.eraseAmigo(usuarioAModificar, idUsuarioBorrar);
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarUsuario()));
                 });
               break;
               case 'Añadir Rutas Favoritas':
@@ -869,7 +869,7 @@ export class Gestor {
                   choices: Array.from(this.coleccionRutas.getRutas().values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
                 }).then((respuesta2) => {
                   if (respuesta2.usuario === 'Cancelar') {
-                    this.gestionUsuarios();
+                    this.modificarUsuario();
                   }
                   // Obtenemos el id de la ruta que queremos añadir
                   const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
@@ -881,14 +881,14 @@ export class Gestor {
                   usuarioAModificar.addRutaFavorita(idRuta);
                   // Lo escribimos en el fichero
                   this.jsonColeccionUsuario.addRutaFavorita(usuarioAModificar, idRuta);
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarUsuario()));
                 });
               break;
               case 'Borrar Rutas Favoritas':
                 const rutasFavoritas = Array.from(usuarioAModificar.getRutasFavoritas().values()).map((id) => this.coleccionRutas.getRuta(id).getNombre());
                 if ( rutasFavoritas.length === 0 ) {
                   console.log('No tienes rutas favoritas.');
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarUsuario()));
                 }
                 console.clear();
                 inquirer.prompt({
@@ -897,7 +897,7 @@ export class Gestor {
                   choices: rutasFavoritas.concat('Cancelar'),
                 }).then((respuesta2) => {
                   if (respuesta2.usuario === 'Cancelar') {
-                    this.gestionUsuarios();
+                    this.modificarUsuario();
                   }
                   // Obtenemos el id de la ruta que queremos borrar
                   const idRuta = Array.from(usuarioAModificar.getRutasFavoritas().values()).find((id) => this.coleccionRutas.getRuta(id).getNombre() === respuesta2.nombre);
@@ -909,7 +909,7 @@ export class Gestor {
                   usuarioAModificar.eraseRutaFavorita(idRuta);
                   // Lo escribimos en el fichero
                   this.jsonColeccionUsuario.eraseRutaFavorita(usuarioAModificar, idRuta);
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarUsuario()));
                 });
               break;
               case 'Añadir Ruta Realizada':
@@ -921,7 +921,7 @@ export class Gestor {
                   choices: Array.from(this.coleccionRutas.getRutas().values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
                 }).then((respuesta2) => {
                   if (respuesta2.usuario === 'Cancelar') {
-                    this.gestionUsuarios();
+                    this.modificarUsuario();
                   }
                   // Obtenemos el id de la ruta que queremos añadir
                   const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
@@ -940,7 +940,7 @@ export class Gestor {
                     rutaParticipada.addUsuarioVisitante(usuarioAModificar.getID());
                     this.jsonColeccionRuta.addUsuarioVisitante(rutaParticipada, usuarioAModificar.getID());
                   }
-                  this.volver(() => this.gestionUsuarios());
+                  this.volver(() => this.modificarUsuario());
                 });
               break;
               case 'Añadir Retos Activos':
@@ -949,7 +949,7 @@ export class Gestor {
                 const retosActivos = Array.from(this.coleccionRetos.getRetos().values()).map((reto) => reto.getNombre()).concat('Cancelar');
                 if ( retosActivos.length === 0 ) {
                   console.log('No hay retos disponibles.');
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarUsuario()));
                 }
                 inquirer.prompt({
                   type: 'list',
@@ -957,7 +957,7 @@ export class Gestor {
                   choices: retosActivos.concat('Cancelar'),
                 }).then((respuesta2) => {
                   if (respuesta2.usuario === 'Cancelar') {
-                    this.gestionUsuarios();
+                    this.modificarUsuario();
                   }
                   // Obtenemos el id del reto que queremos añadir
                   const idReto = Array.from(this.coleccionRetos.getRetos().values()).find((reto) => reto.getNombre() === respuesta2.nombre)?.getID();
@@ -969,14 +969,14 @@ export class Gestor {
                   usuarioAModificar.addRetosActivos(idReto);
                   // Lo escribimos en el fichero
                   this.jsonColeccionUsuario.addRetosActivos(usuarioAModificar, idReto);
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarUsuario()));
                 });
               break;
               case 'Borrar Retos Activos':
                 const retosActivosUsuario = Array.from(usuarioAModificar.getRetosActivos().values()).map((id) => this.coleccionRetos.getReto(id).getNombre());
                 if ( retosActivosUsuario.length === 0 ) {
                   console.log('No tienes retos activos.');
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarUsuario()));
                 }
                 console.clear();
                 inquirer.prompt({
@@ -985,7 +985,7 @@ export class Gestor {
                   choices: retosActivosUsuario.concat('Cancelar'),
                 }).then((respuesta2) => {
                   if (respuesta2.usuario === 'Cancelar') {
-                    this.gestionUsuarios();
+                    this.modificarUsuario();
                   }
                   // Obtenemos el id del reto que queremos borrar
                   const idReto = Array.from(usuarioAModificar.getRetosActivos().values()).find((id) => this.coleccionRetos.getReto(id).getNombre() === respuesta2.nombre);
@@ -997,7 +997,7 @@ export class Gestor {
                   usuarioAModificar.eraseRetosActivos(idReto);
                   // Lo escribimos en el fichero
                   this.jsonColeccionUsuario.eraseRetosActivos(usuarioAModificar, idReto);
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarUsuario()));
                 });
               default:
               break;
@@ -1040,43 +1040,35 @@ export class Gestor {
       let array
       switch (respuesta.ordenacion) {
         case 'Alfabéticamente':
-          array = [...this.coleccionUsuarios.getUsuarios().values()].map((a) => a.getNombre()).sort()
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a, b) => a.getNombre().localeCompare(b.getNombre())).map((a) => ({'Nombre': a.getNombre()}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const usuario of array) {
-            console.log(usuario);
-          }
+          console.table(array);
           callback(this);
           break;
         case 'Cantidad de km (semanal)':
-          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().semana.km - b.getEstadisticas().semana.km).map((a) => `${a.getNombre()} - Km(semana): ${a.getEstadisticas().semana.km} `)
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().semana.km - b.getEstadisticas().semana.km).map((a) => ({'Nombre': a.getNombre(), 'Km(semana)':a.getEstadisticas().semana.km}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const usuario of array) {
-            console.log(usuario);
-          }
+          console.table(array);
           callback(this);
           break;
         case 'Cantidad de km (mensual)':
-          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().mes.km - b.getEstadisticas().mes.km).map((a) => `${a.getNombre()} - Km(mes): ${a.getEstadisticas().mes.km} `)
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().mes.km - b.getEstadisticas().mes.km).map((a) => ({'Nombre': a.getNombre(), 'Km(mes)':a.getEstadisticas().mes.km}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const usuario of array) {
-            console.log(usuario);
-          }
+          console.table(array);
           callback(this);
           break;
         case 'Cantidad de km (anual)':
-          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().anio.km - b.getEstadisticas().anio.km).map((a) => `${a.getNombre()} - Km(año): ${a.getEstadisticas().anio.km} `)
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().anio.km - b.getEstadisticas().anio.km).map((a) => ({'Nombre': a.getNombre(), 'Km(año)':a.getEstadisticas().anio.km}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const usuario of array) {
-            console.log(usuario);
-          }
+          console.table(array);
           callback(this);
           break;
       }
@@ -1101,7 +1093,7 @@ export class Gestor {
       choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
       if (respuesta.usuario === 'Cancelar') {
-        this.gestionInfo();
+        this.gestionUsuarios();
       } else {
         // Buscar el usuario a eliminar por su nombre y eliminarlo
         const usuarioAEliminar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
@@ -1115,7 +1107,7 @@ export class Gestor {
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
         }
-        this.volver(() => this.consola());
+        this.volver(() => this.gestionUsuarios());
       }
     });
   }
@@ -1148,7 +1140,7 @@ export class Gestor {
           break;
         case 'Listar grupos':
           this.listarGrupos(() => this.volver(() => this.gestionGrupos()));
-          
+
           break;
         case 'Modificar grupos':
           this.modificarGrupo();
@@ -1203,7 +1195,7 @@ export class Gestor {
           }).then((respuesta) => {
             switch (respuesta.opcion) {
               case 'Salir':
-                this.gestionInfo()
+                this.gestionGrupos()
                 break;
               case 'Modificar Nombre de Grupo':
                 console.clear();
@@ -1250,14 +1242,14 @@ export class Gestor {
                     usuarios.forEach((usuario) => console.log(usuario.getNombre()));
 
                     console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-                    return (this.volver(() => this.gestionUsuarios()));
+                    return (this.volver(() => this.modificarGrupo()));
                   }
                   // Buscamos el participante por su nombre dentro del map
                   const nuevoParticipante = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
                   // Comprobamos que exista el participante
                   if ( nuevoParticipante == undefined ) {
                     console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-                    return (this.volver(() => this.gestionUsuarios()));
+                    return (this.volver(() => this.modificarGrupo()));
                   }
                   // Añadimos el participante al grupo
                   grupoAModificar.addParticipante(nuevoParticipante.getID());
@@ -1265,7 +1257,7 @@ export class Gestor {
                   this.jsonColeccionGrupo.addParticipante(grupoAModificar, nuevoParticipante.getID());
 
                   console.log(`Participante ${nuevoParticipante.getNombre()} añadido al grupo ${grupoAModificar.getNombre()}.`);
-                  return (this.volver(() => this.gestionGrupos()));
+                  return (this.volver(() => this.modificarGrupo()));
                 });
                 break;
               case 'Borrar Participante':
@@ -1276,7 +1268,7 @@ export class Gestor {
                   choices: Array.from(grupoAModificar.getParticipantes().values()).map((id) => this.coleccionUsuarios.getUsuario(id).getNombre()).concat('Cancelar'),
                 }).then((respuesta2) => {
                   if (respuesta2.nombre === 'Cancelar') {
-                    this.gestionGrupos();
+                    this.modificarGrupo();
                   }
                   // Obtenemos el id del participante que queremos borrar 
                   const idParticipanteBorrar = Array.from(grupoAModificar.getParticipantes().values()).find((id) => this.coleccionUsuarios.getUsuario(id).getNombre() === respuesta2.nombre);
@@ -1289,7 +1281,7 @@ export class Gestor {
                   grupoAModificar.eraseParticipante(idParticipanteBorrar);
                   // Lo escribimos en el fichero
                   this.jsonColeccionGrupo.eraseParticipante(grupoAModificar, idParticipanteBorrar);
-                  return (this.volver(() => this.gestionGrupos()));
+                  return (this.volver(() => this.modificarGrupo()));
                 });
                 break;
               case 'Añadir Rutas Favoritas':
@@ -1301,7 +1293,7 @@ export class Gestor {
                   choices: Array.from(this.coleccionRutas.getRutas().values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
                 }).then((respuesta2) => {
                   if (respuesta2.usuario === 'Cancelar') {
-                    this.gestionGrupos();
+                    this.modificarGrupo();
                   }
                   // Obtenemos el id de la ruta que queremos añadir
                   const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
@@ -1313,36 +1305,38 @@ export class Gestor {
                   grupoAModificar.addRutaFavorita(idRuta);
                   // Lo escribimos en el fichero
                   this.jsonColeccionGrupo.addRutaFavorita(grupoAModificar, idRuta);
-                  return (this.volver(() => this.gestionGrupos()));
+                  return (this.volver(() => this.modificarGrupo()));
                 });
                 break;
               case 'Borrar Rutas Favoritas':
                 const rutasFavoritas = Array.from(grupoAModificar.getRutasFavoritas().values()).map((id) => this.coleccionRutas.getRuta(id).getNombre());
                 if ( rutasFavoritas.length === 0 ) {
                   console.log('No tienes rutas favoritas.');
-                  return (this.volver(() => this.gestionUsuarios()));
+                  return (this.volver(() => this.modificarGrupo()));
                 }
-                console.clear();
-                inquirer.prompt({
-                  type: 'list',
-                  name: 'nombre',
-                  choices: rutasFavoritas.concat('Cancelar'),
-                }).then((respuesta2) => {
-                  if (respuesta2.usuario === 'Cancelar') {
-                    this.gestionGrupos();
-                  }
-                  // Obtenemos el id de la ruta que queremos borrar
-                  const idRuta = Array.from(grupoAModificar.getRutasFavoritas().values()).find((id) => this.coleccionRutas.getRuta(id).getNombre() === respuesta2.nombre);
-                  // Comprobamos que la ruta exista
-                  if ( idRuta == undefined ) {
-                    throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
-                  }
-                  // Borramos la ruta de la lista de rutas favoritas del grupo actual
-                  grupoAModificar.eraseRutaFavorita(idRuta);
-                  // Lo escribimos en el fichero
-                  this.jsonColeccionGrupo.eraseRutaFavorita(grupoAModificar, idRuta);
-                  return (this.volver(() => this.gestionGrupos()));
-                });
+                else {
+                  console.clear();
+                  inquirer.prompt({
+                    type: 'list',
+                    name: 'nombre',
+                    choices: rutasFavoritas.concat('Cancelar'),
+                  }).then((respuesta2) => {
+                    if (respuesta2.usuario === 'Cancelar') {
+                      this.modificarGrupo();
+                    }
+                    // Obtenemos el id de la ruta que queremos borrar
+                    const idRuta = Array.from(grupoAModificar.getRutasFavoritas().values()).find((id) => this.coleccionRutas.getRuta(id).getNombre() === respuesta2.nombre);
+                    // Comprobamos que la ruta exista
+                    if ( idRuta === undefined ) {
+                      throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                    }
+                    // Borramos la ruta de la lista de rutas favoritas del grupo actual
+                    grupoAModificar.eraseRutaFavorita(idRuta);
+                    // Lo escribimos en el fichero
+                    this.jsonColeccionGrupo.eraseRutaFavorita(grupoAModificar, idRuta);
+                    return (this.volver(() => this.modificarGrupo()));
+                  });
+                }
                 break;
               case 'Añadir Ruta Realizada':
                 console.clear();
@@ -1354,7 +1348,7 @@ export class Gestor {
                 }).then((respuesta2) => {
                   // Obtenemos el id de la ruta que queremos añadir
                   if (respuesta2.usuario === 'Cancelar') {
-                    this.gestionGrupos();
+                    this.modificarGrupo();
                   }
                   const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
                   // Comprobamos que la ruta exista
@@ -1392,7 +1386,7 @@ export class Gestor {
                       this.jsonColeccionRuta.addUsuarioVisitante(rutaParticipada, userID);
                     }
                   }
-                  this.volver(() => this.gestionGrupos());
+                  this.volver(() => this.modificarGrupo());
                 });
                 break;
               default:
@@ -1400,8 +1394,8 @@ export class Gestor {
             }
           });
         } else {
-          console.log(`No se encontró el usuario ${respuesta.usuario}`);
-          this.volver(() => this.gestionUsuarios());
+          console.log(`No se encontró el grupo ${respuesta.usuario}`);
+          this.volver(() => this.gestionGrupos());
         }
       }
     });
@@ -1429,7 +1423,7 @@ export class Gestor {
           this.jsonColeccionGrupo.insertarGrupo(grupo);
 
           console.log('Grupo registrado con éxito:', grupo);
-          this.volver(() => this.gestionInfo());
+          this.volver(() => this.gestionGrupos());
         } catch (error: unknown) {
           if (error instanceof Error) {
             console.log('\x1b[31m%s\x1b[0m', 'Error al crear el grupo: ', error.message);
@@ -1480,53 +1474,43 @@ export class Gestor {
       let array
       switch (respuesta.ordenacion) {
         case 'Alfabéticamente':
-          array = [...this.coleccionGrupos.getGrupos().values()].map((a) => a.getNombre()).sort()
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a, b) => a.getNombre().localeCompare(b.getNombre())).map((a) => ({'Nombre': a.getNombre()}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const grupos of array) {
-            console.log(grupos);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Cantidad de km (semanal)':
-          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().semana.km - b.getEstadisticasEntrenamiento().semana.km).map((a) => `${a.getNombre()} - Km(semana): ${a.getEstadisticasEntrenamiento().semana.km} `)
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().semana.km - b.getEstadisticasEntrenamiento().semana.km).map((a) => ({'Nombre': a.getNombre(), 'Km(semana)':a.getEstadisticasEntrenamiento().semana.km}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const grupos of array) {
-            console.log(grupos);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Cantidad de km (mensual)':
-          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().mes.km - b.getEstadisticasEntrenamiento().mes.km).map((a) => `${a.getNombre()} - Km(mes): ${a.getEstadisticasEntrenamiento().mes.km} `)
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().mes.km - b.getEstadisticasEntrenamiento().mes.km).map((a) => ({'Nombre': a.getNombre(), 'Km(mes)':a.getEstadisticasEntrenamiento().mes.km}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const grupos of array) {
-            console.log(grupos);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Cantidad de km (anual)':
-          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().anio.km - b.getEstadisticasEntrenamiento().anio.km).map((a) => `${a.getNombre()} - Km(año): ${a.getEstadisticasEntrenamiento().anio.km} `)
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().anio.km - b.getEstadisticasEntrenamiento().anio.km).map((a) => ({'Nombre': a.getNombre(), 'Km(año)':a.getEstadisticasEntrenamiento().anio.km}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const grupos of array) {
-            console.log(grupos);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Número de miembros':
-          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getParticipantes().length - b.getParticipantes().length).map((a) => `${a.getNombre()} - Miembros: ${a.getParticipantes().length +1} `)
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getParticipantes().length - b.getParticipantes().length).map((a) => ({'Nombre': a.getNombre(), 'Miembros':a.getParticipantes().length +1}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const grupos of array) {
-            console.log(grupos);
-          }
+          console.table(array);
           callback(this)
           break;
         default:
@@ -1553,7 +1537,7 @@ export class Gestor {
       choices: Array.from(grupos.values()).map((grupo) => grupo.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
       if (respuesta.grupo === 'Cancelar') {
-        this.gestionInfo();
+        this.gestionGrupos();
       } else {
         // Buscar el grupo a eliminar por su nombre y eliminarlo
         const grupoAEliminar = Array.from(grupos.values()).find((grupo) => grupo.getNombre() === respuesta.grupo);
@@ -1567,7 +1551,7 @@ export class Gestor {
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
         }
-        this.volver(() => this.gestionInfo());
+        this.volver(() => this.gestionGrupos());
       }
     });
   }
@@ -1726,53 +1710,43 @@ export class Gestor {
       let array
       switch (respuesta.ordenacion) {
         case 'Alfabéticamente':
-          array = [...this.coleccionRutas.getRutas().values()].map((a) => a.getNombre()).sort()
+          array = [...this.coleccionRutas.getRutas().values()].sort((a, b) => a.getNombre().localeCompare(b.getNombre())).map((a) => ({'Nombre': a.getNombre()}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const rutas of array) {
-            console.log(rutas);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Número de usuarios':
-          array = [...this.coleccionRutas.getRutas().values()].sort((a,b) => a.getUsuariosVisitantes().length - b.getUsuariosVisitantes().length).map((a) => `${a.getNombre()} -Usuarios: ${a.getUsuariosVisitantes().length +1} `)
+          array = [...this.coleccionRutas.getRutas().values()].sort((a,b) => a.getUsuariosVisitantes().length - b.getUsuariosVisitantes().length).map((a) => ({'Nombre': a.getNombre(), 'Usuarios de la ruta':a.getUsuariosVisitantes().length +1}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const rutas of array) {
-            console.log(rutas);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Cantidad de km':
-          array = [...this.coleccionRutas.getRutas().values()].sort((a,b) => a.getLongitud() - b.getLongitud()).map((a) => `${a.getNombre()} - Km: ${a.getLongitud()} `)
+          array = [...this.coleccionRutas.getRutas().values()].sort((a,b) => a.getLongitud() - b.getLongitud()).map((a) => ({'Nombre': a.getNombre(), 'Km':a.getLongitud() +1}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const rutas of array) {
-            console.log(rutas);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Calificación Media':
-          array = [...this.coleccionRutas.getRutas().values()].sort((a,b) => a.getCalificacion() - b.getCalificacion()).map((a) => `${a.getNombre()} - Calificación: ${a.getCalificacion()} `)
+          array = [...this.coleccionRutas.getRutas().values()].sort((a,b) => a.getCalificacion() - b.getCalificacion()).map((a) => ({'Nombre': a.getNombre(), 'Miembros':a.getCalificacion()}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const rutas of array) {
-            console.log(rutas);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Por actividad':
-          array = [...this.coleccionRutas.getRutas().values()].map((a) => `Actividad de ${a.getTipoActividad()}: ${a.getNombre()}`).sort()
+          array = [...this.coleccionRutas.getRutas().values()].sort((a, b) => a.getTipoActividad().localeCompare(b.getTipoActividad())).map((a) => ({'Actividad': a.getTipoActividad(), 'Nombre': a.getNombre()}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const rutas of array) {
-            console.log(rutas);
-          }
+          console.table(array);
           callback(this)
           break;
         default:
@@ -1836,7 +1810,7 @@ export class Gestor {
                   try {
                     this.jsonColeccionRuta.modificarNombreRuta(rutaAModificar, respuesta2.nombre)
                     this.coleccionRutas.modificarNombreRuta(rutaAModificar, respuesta2.nombre)
-                    this.gestionInfo();
+                    this.modificarRuta();
                   } catch (error: unknown) {
                     if (error instanceof Error) {
                       console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
@@ -1876,7 +1850,7 @@ export class Gestor {
                     
                     this.jsonColeccionRuta.modificarCoordenadasRuta(rutaAModificar, coordenadasInicio, coordenadasFin);
                     this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, coordenadasInicio, coordenadasFin);
-                    this.gestionInfo();
+                    this.modificarRuta();
                   } catch (error: any) {
                     if (error instanceof Error) {
                       console.log('\x1b[31m%s\x1b[0m', 'Error al modificar la ruta: ', error.message);
@@ -1887,11 +1861,11 @@ export class Gestor {
                       name: 'volver',
                       message: 'Pulsa enter para volver al menú',
                     }).then(() => {
-                      this.gestionInfo();
+                      this.modificarRuta();
                     });
                     return;
                   }
-                  this.gestionInfo();
+                  this.modificarRuta();
                 });
               break;
               case 'Modificar longitud':
@@ -1904,7 +1878,7 @@ export class Gestor {
                   try {
                     this.jsonColeccionRuta.modificarLongitudRuta(rutaAModificar, respuesta2.longitud)
                     this.coleccionRutas.modificarLongitudRuta(rutaAModificar, respuesta2.longitud)
-                    this.gestionInfo();
+                    this.modificarRuta();
                   } catch (error: unknown) {
                     if (error instanceof Error) {
                       console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
@@ -1916,7 +1890,7 @@ export class Gestor {
                       name: 'volver',
                       message: 'Pulsa enter para volver al menu',
                     }).then(() => {
-                      this.gestionInfo();
+                      this.modificarRuta();
                     });
                     return;
                   }
@@ -1932,7 +1906,7 @@ export class Gestor {
                   try {
                     this.jsonColeccionRuta.modificarDesnivelRuta(rutaAModificar, respuesta2.desnivel)
                     this.coleccionRutas.modificarDesnivelRuta(rutaAModificar, respuesta2.desnivel)
-                    this.gestionInfo();
+                    this.modificarRuta();
                   } catch (error: unknown) {
                     if (error instanceof Error) {
                       console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
@@ -1944,7 +1918,7 @@ export class Gestor {
                       name: 'volver',
                       message: 'Pulsa enter para volver al menu',
                     }).then(() => {
-                      this.gestionInfo();
+                      this.modificarRuta();
                     });
                     return;
                   }
@@ -1960,7 +1934,7 @@ export class Gestor {
                   try {
                     this.jsonColeccionRuta.modificarTipoActividadRuta(rutaAModificar, respuesta2.tipoActividad)
                     this.coleccionRutas.modificarTipoActividadRuta(rutaAModificar, respuesta2.tipoActividad)
-                    this.gestionInfo();
+                    this.modificarRuta();
                   } catch (error: unknown) {
                     if (error instanceof Error) {
                       console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
@@ -1972,7 +1946,7 @@ export class Gestor {
                       name: 'volver',
                       message: 'Pulsa enter para volver al menu',
                     }).then(() => {
-                      this.gestionInfo();
+                      this.modificarRuta();
                     });
                     return;
                   }
@@ -1988,7 +1962,7 @@ export class Gestor {
                   try {
                     this.jsonColeccionRuta.modificarDificultadRuta(rutaAModificar, respuesta2.dificultad)
                     this.coleccionRutas.modificarDificultadRuta(rutaAModificar, respuesta2.dificultad)
-                    this.gestionInfo();
+                    this.modificarRuta();
                   } catch (error: unknown) {
                     if (error instanceof Error) {
                       console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
@@ -2000,14 +1974,14 @@ export class Gestor {
                       name: 'volver',
                       message: 'Pulsa enter para volver al menu',
                     }).then(() => {
-                      this.gestionInfo();
+                      this.modificarRuta();
                     });
                     return;
                   }
                 });
                 break;
               case 'Salir':
-                this.gestionInfo();
+                this.gestionRutas();
                 break;
               default:
                 break;
@@ -2015,7 +1989,7 @@ export class Gestor {
           });
         } else {
           console.log(`No se encontró la ruta ${respuesta.usuario}`);
-          this.volver(() => this.gestionUsuarios());
+          this.volver(() => this.gestionRutas());
         }
       }
     });
@@ -2049,7 +2023,7 @@ export class Gestor {
         } else {
           console.log(`No se encontró la ruta ${respuesta.ruta}`);
         }
-        this.volver(() => this.consola());
+        this.volver(() => this.gestionRutas());
       }
     });
   }
@@ -2078,7 +2052,7 @@ export class Gestor {
           this.registrarReto();
           break;
         case 'Listar Retos':
-          this.listarRetos(() => this.volver(() => this.gestionInfo()));
+          this.listarRetos(() => this.volver(() => this.gestionRetos()));
           break;
         case 'Modificar Retos':
           this.modificarReto();
@@ -2157,33 +2131,27 @@ export class Gestor {
       let array
       switch (respuesta.ordenacion) {
         case 'Alfabéticamente':
-          array = [...this.coleccionRetos.getRetos().values()].map((a) => a.getNombre()).sort()
+          array = [...this.coleccionRetos.getRetos().values()].sort((a, b) => a.getNombre().localeCompare(b.getNombre())).map((a) => ({'Nombre': a.getNombre()}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const retos of array) {
-            console.log(retos);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Cantidad de km':
-          array = [...this.coleccionRetos.getRetos().values()].sort((a,b) => a.getKmTotales() - b.getKmTotales()).map((a) => `${a.getNombre()} - Km totales: ${a.getKmTotales()} `)
+          array = [...this.coleccionRetos.getRetos().values()].sort((a,b) => a.getKmTotales() - b.getKmTotales()).map((a) => ({'Nombre': a.getNombre(), 'Km Totales':a.getKmTotales()}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const retos of array) {
-            console.log(retos);
-          }
+          console.table(array);
           callback(this)
           break;
         case 'Número de miembros':
-          array = [...this.coleccionRetos.getRetos().values()].sort((a,b) => a.getUsuarios().length - b.getUsuarios().length).map((a) => `${a.getNombre()} - Miembros: ${a.getUsuarios().length} `)
+          array = [...this.coleccionRetos.getRetos().values()].sort((a,b) => a.getUsuarios().length - b.getUsuarios().length).map((a) => ({'Nombre': a.getNombre(), 'Miembros':a.getUsuarios().length}))
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const usuario of array) {
-            console.log(usuario);
-          }
+          console.table(array);
           callback(this)
           break;
         default:
@@ -2294,7 +2262,7 @@ export class Gestor {
                   choices: rutaslist.concat('Cancelar'),
                 }).then((respuesta) => {
                   if (respuesta.ruta === 'Cancelar') {
-                    this.gestionRetos();
+                    this.modificarReto();
                   } else {
                     // Buscar la ruta a borrar por su nombre y borrarla
                     const rutaABorrar = Array.from(retoAModificar.getRutas().values()).find((id) => this.coleccionRutas.getRuta(id).getNombre() === respuesta.ruta);
@@ -2303,10 +2271,10 @@ export class Gestor {
                       retoAModificar.removeRuta(rutaABorrar);
                       console.log(retoAModificar.getNombre());
                       console.log(`Ruta borrada con éxito`);
-                      this.volver(() => this.gestionRetos());
+                      this.volver(() => this.modificarReto());
                     } else {
                       console.log(`No se encontró la ruta ${respuesta.ruta}`);
-                      this.volver(() => this.gestionRetos());
+                      this.volver(() => this.modificarReto());
                     }
                   }
                 });
@@ -2323,7 +2291,7 @@ export class Gestor {
                   choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
                 }).then((respuesta) => {
                   if (respuesta.usuario === 'Cancelar') {
-                    this.gestionRetos();
+                    this.modificarReto();
                   } else {
                     // Buscar el usuario a añadir por su nombre y añadirlo
                     const usuarioAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
@@ -2331,10 +2299,10 @@ export class Gestor {
                       retoAModificar.addUsuario(usuarioAAñadir.getID());
                       this.jsonColeccionReto.addUsuario(retoAModificar, usuarioAAñadir.getID());
                       console.log(`Usuario ${usuarioAAñadir.getNombre()} añadido con éxito`);
-                      this.volver(() => this.gestionRetos());
+                      this.volver(() => this.modificarReto());
                     } else {
                       console.log(`No se encontró el usuario ${respuesta.usuario}`);
-                      this.volver(() => this.gestionRetos());
+                      this.volver(() => this.modificarReto());
                     }
                   }
                 });
@@ -2351,7 +2319,7 @@ export class Gestor {
                   choices: Array.from(usuarioslist.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
                 }).then((respuesta) => {
                   if (respuesta.usuario === 'Cancelar') {
-                    this.gestionRetos();
+                    this.modificarReto();
                   } else {
                     // Buscar el usuario a borrar por su nombre y borrarlo
                     const usuarioABorrar = Array.from(usuarioslist.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
@@ -2359,10 +2327,10 @@ export class Gestor {
                       retoAModificar.removeUsuario(usuarioABorrar.getID());
                       this.jsonColeccionReto.eraseUsuario(retoAModificar, usuarioABorrar.getID());
                       console.log(`Usuario ${usuarioABorrar.getNombre()} borrado con éxito`);
-                      this.volver(() => this.gestionRetos());
+                      this.volver(() => this.modificarReto());
                     } else {
                       console.log(`No se encontró el usuario ${respuesta.usuario}`);
-                      this.volver(() => this.gestionRetos());
+                      this.volver(() => this.modificarReto());
                     }
                   }
                 });
@@ -2380,7 +2348,7 @@ export class Gestor {
                   this.jsonColeccionReto.modificarActividad(retoAModificar, respuesta.actividad);
                   this.coleccionRetos.modificarActividad(retoAModificar, respuesta.actividad);
                   console.log(`Actividad modificada con éxito`);
-                  this.volver(() => this.gestionRetos());
+                  this.volver(() => this.modificarReto());
                 });
                 break;
               case 'Salir':
