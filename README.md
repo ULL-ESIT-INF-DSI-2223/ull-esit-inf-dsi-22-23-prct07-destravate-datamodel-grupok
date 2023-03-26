@@ -388,6 +388,22 @@ La clase contiene tambien los siguientes métodos para gestionar y modificar los
 A partir de la implementación de las colecciones heredan las clases denominadas `jsonCollection`, las cuales encontramos dentro de la carpeta `jsonModifiers` en `src`. Con estas cuatro clases (una por cada colección) podremos manejar los ficheros `.json` que se encuentran en la carptea `dataBase`, que es donde se almacenarán los datos de la aplicacción.
 
 ### jsonCollectionUsuario
+
+La primera de las cuatro clases es la relacionada con los usuarios. Lo primero que encontramos en el archivo es  la interfaz `DatabaseSchema`, que sirve para definir el tipo de dato que se va a guardar mediante el módulo `Lowdb`. Esta es muy simple como podemos observar a continuación:
+
+```typescript
+export interface DatabaseSchema {
+  usuarios: Usuario[];
+}
+```
+
+
+
+
+
+
+
+### jsonCollectionGrupos
 Esta colección se encarga con todo lo relacionado con la persistencia de datos de los usuarios. Esta clase hereda de la clase `jsonCollection` y se ha definido de la siguiente forma:
 
 ```typescript
@@ -414,24 +430,6 @@ Con sus distintos métodos
 * ``` public eraseRutaFavorita(grupo: Grupo, ruta: number): void ``` Esta se encarga de eliminar una ruta favorita a un grupo de la base de datos.
 * ``` public addParticipante(grupo: Grupo, participante: number): void ``` Esta se encarga de añadir un participante a un grupo de la base de datos.
 * ``` public eraseParticipante(grupo: Grupo, participante: number): void ``` Esta se encarga de eliminar un participante a un grupo de la base de datos.
-
-
-La primera de las cuatro clases es la relacionada con los usuarios. Lo primero que encontramos en el archivo es  la interfaz `DatabaseSchema`, que sirve para definir el tipo de dato que se va a guardar mediante el módulo `Lowdb`. Esta es muy simple como podemos observar a continuación:
-
-```typescript
-export interface DatabaseSchema {
-  usuarios: Usuario[];
-}
-```
-
-
-
-
-
-
-
-### jsonCollectionGrupos
-
 
 ## Conclusiones
 
