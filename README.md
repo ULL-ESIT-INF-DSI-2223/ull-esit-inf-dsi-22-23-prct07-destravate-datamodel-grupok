@@ -96,7 +96,7 @@ interface CoordenadasInterface {
 
 La interfaz consta de dos atributos, la `latitud` y la `longitud`, que son los atributos que se requieren para definir las coordenadas de una ruta. Por ejemplo las coordenadas de una ruta pueden ser: `{ latitud: 40.4167754, longitud: -3.7037902 }`
 
-#### EsatdisticasEntrenamientoInterface
+#### EstadisticasEntrenamientoInterface
 
 Esta interfaz define los atributos que debe tener un objeto que contenga las estadísticas de un usuario. Esta interfaz contiene los siguientes atributos:
 
@@ -248,6 +248,48 @@ El constructor de la clase es el siguiente:
 
 En el constructor se incrementa el contador de identificadores y se asigna el valor del contador al atributo `id` de la ruta, esto se hace de esta forma para que al crear una ruta se le asigne un identificador único. Por último, se asignan los valores de los parámetros al resto de atributos de la clase.
 
+La clase contiene tambien getters y setters para todos los atributos de la clase, además de ciertos métodos para modificar algunos elementos de los atributos de la clase. como son:
+
+* `addUsuarioVisitante` y `eraseUsuarioVisitante`: Estos métodos permiten añadir y eliminar usuarios a la lista de usuarios visitantes de la ruta.
+
+#### Grupos
+
+La clase `Grupo` contiene la información de los grupos que se pueden crear en el sistema. Un grupo de usuarios engloba la información de los usuarios que se unen para realizar rutas juntos. Esta clase contiene los siguientes atributos:
+
+```typescript
+class Grupo implements EntidadInterface {
+  id: number;
+  nombre: string;
+  creador: number;
+  participantes: number[] = [];
+  estadisticasEntrenamiento: EstadisticasEntrenamiento = EMPTY_ESTADISTICAS_ENTRENAMIENTO;
+  clasificacion: { id: number; km: number; desnivel: number }[] = [];
+  rutasFavoritas: number[] = [];
+  historicoRutas: { ruta: number; fecha: string; }[] = [];
+...
+```
+
+Se puede apreciar que ciertos atributos se inicializan con un valor por defecto, esto se hace porque no se pasan por parámetro en el constructor, ya que estos atributos se van modificando a lo largo de la ejecución del sistema y cuando se va agregando información a los grupos. EMPTY_ESTADISTICAS_ENTRENAMIENTO es una constante que se define en el fichero `constantes.ts` y que contiene un objeto de tipo `EstadisticasEntrenamiento` con todos los atributos a 0.
+
+Cabe resaltar que la clase `Grupo` implementa la interfaz `EntidadInterface`, por lo que debe implementar los métodos que se definen en esta interfaz que comentamos previamente.
+
+El constructor de la clase es el siguiente:
+
+```typescript
+  constructor(nombre: string, creador: number) {
+    if (nombre === '') {
+      throw new Error('Nombre de grupo vacío');
+    }
+    contador_id++;
+    this.id = contador_id;
+    this.nombre = nombre;
+    this.creador = creador;
+  }
+```
+
+Basicamente se comprueba que el nombre del grupo no esté vacío y se asignan los valores de los parámetros al resto de atributos de la clase.
+
+La clase contiene tambien getters y setters para todos los atributos de la clase, además de ciertos métodos para modificar algunos elementos de los atributos de la clase. como son:
 
 ## Conclusiones
 
