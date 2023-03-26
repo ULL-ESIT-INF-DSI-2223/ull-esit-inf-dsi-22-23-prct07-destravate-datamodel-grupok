@@ -1,20 +1,19 @@
 import inquirer from 'inquirer';
+
 import { Usuario } from './modelos/usuario';
 import { Ruta } from './modelos/ruta';
 import { Grupo } from './modelos/grupo';
 import { Reto } from './modelos/reto';
+
 import { ColeccionUsuario } from './colecciones/coleccionUsuario';
 import { ColeccionRuta } from './colecciones/coleccionRuta';
 import { ColeccionGrupo } from './colecciones/coleccionGrupo';
-// import { ColeccionReto } from './colecciones/coleccionReto';
-import { JsonColeccionUsuario } from './jsonModifiers/jsonColeccionUsuario';
 import { ColeccionReto } from './colecciones/coleccionReto';
+
+import { JsonColeccionUsuario } from './jsonModifiers/jsonColeccionUsuario';
 import { JsonColeccionReto } from './jsonModifiers/jsonColeccionReto';
 import { JsonColeccionRuta } from './jsonModifiers/jsonColeccionRuta';
 import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
-// import { JsonColeccionRuta } from './jsonModifiers/jsonColeccionRuta';
-// import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
-// import { JsonColeccionReto } from './jsonModifiers/jsonColeccionReto';
 import { checkCoordenadas, stringToCoordenadas } from './interfaces/coordenadasInterface';
 
 /**
@@ -427,11 +426,12 @@ export class Gestor {
                     throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
                   }
                   // Añadimos la ruta a la lista de rutas realizadas del grupo actual
-                  usuarioAModificar.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString()});
+                  usuarioAModificar.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
                   // Lo escribimos en el fichero
-                  this.jsonColeccionUsuario.addRutaRealizada(usuarioAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString()});
+                  this.jsonColeccionUsuario.addRutaRealizada(usuarioAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
                   return (this.volver(() => this.gestionUsuarios()));
                 });
+              break;
               case 'Añadir Retos Activos':
                 console.clear();
                 console.log('Añadiendo reto activo...');
@@ -1080,9 +1080,9 @@ export class Gestor {
                     throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
                   }
                   // Añadimos la ruta a la lista de rutas realizadas del grupo actual
-                  grupoAModificar.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString()});
+                  grupoAModificar.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
                   // Lo escribimos en el fichero
-                  this.jsonColeccionGrupo.addRutaRealizada(grupoAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString()});
+                  this.jsonColeccionGrupo.addRutaRealizada(grupoAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
                   return (this.volver(() => this.gestionGrupos()));
                 });
                 break;
