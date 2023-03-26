@@ -432,6 +432,7 @@ export class Gestor {
                   this.jsonColeccionUsuario.addRutaRealizada(usuarioAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString()});
                   return (this.volver(() => this.gestionUsuarios()));
                 });
+              break;
               case 'Añadir Retos Activos':
                 console.clear();
                 console.log('Añadiendo reto activo...');
