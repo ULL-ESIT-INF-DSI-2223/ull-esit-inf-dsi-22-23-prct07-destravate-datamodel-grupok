@@ -197,6 +197,49 @@
 </code></pre>
 <p>Basicamente se comprueba que el nombre del grupo no esté vacío y se asignan los valores de los parámetros al resto de atributos de la clase.</p>
 <p>La clase contiene tambien getters y setters para todos los atributos de la clase, además de ciertos métodos para modificar algunos elementos de los atributos de la clase. como son:</p>
+<ul>
+<li><p><code>addParticipante</code> y <code>eraseParticipante</code>: Estos métodos permiten añadir y eliminar usuarios a la lista de participantes del grupo.</p>
+</li>
+<li><p><code>addRutaFavorita</code> y <code>eraseRutaFavorita</code>: Estos métodos permiten añadir y eliminar rutas a la lista de rutas favoritas del grupo.</p>
+</li>
+<li><p><code>addRutaRealizada</code>: Este método permite añadir una ruta al historico de rutas realizadas por el grupo, no se puede eliminar una ruta del historico porque no tiene sentido que un grupo elimine una ruta que ha realizado.</p>
+</li>
+</ul>
+
+<a href="#retos" id="retos" style="color: inherit; text-decoration: none;">
+  <h4>Retos</h4>
+</a>
+<p>La clase <code>Reto</code> contiene la información de los retos que se pueden crear en el sistema. Un reto es basicamente un objetivo de entrenamiento que se puede realizar si se realizan una serie de rutas de las que conste el reto. </p>
+<p>Esta clase contiene los siguientes atributos:</p>
+<pre><code class="language-typescript"><span class="hl-2">class</span><span class="hl-1"> </span><span class="hl-3">Reto</span><span class="hl-1"> </span><span class="hl-2">implements</span><span class="hl-1"> </span><span class="hl-3">EntidadInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">id</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-4">nombre</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-4">rutas</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">[] = [];</span><br/><span class="hl-1">    </span><span class="hl-4">tipoActividad</span><span class="hl-1">: </span><span class="hl-3">Actividad</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-4">kmTotales</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1"> = </span><span class="hl-9">0</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-4">usuarios</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">[] = [];</span><br/><span class="hl-1">...</span>
+</code></pre>
+<p>Se puede apreciar que ciertos atributos se inicializan con un valor por defecto, esto se hace porque no se pasan por parámetro en el constructor, ya que estos atributos se van modificando a lo largo de la ejecución del sistema y cuando se va agregando información a los retos. </p>
+<p>Cabe resaltar que la clase <code>Reto</code> implementa la interfaz <code>EntidadInterface</code>, por lo que debe implementar los métodos que se definen en esta interfaz que comentamos previamente.</p>
+<p>Podemos ver tambien que el atributo tipoActividad es de tipo <code>Actividad</code>, esto se debe a que el tipo de actividad de un reto es el mismo que el de las rutas que contiene el reto osea puede ser <code>Ciclismo</code> o <code>Running</code>.</p>
+<p>El constructor de la clase es el siguiente:</p>
+<pre><code class="language-typescript"><span class="hl-1">    </span><span class="hl-5">constructor</span><span class="hl-1">(</span><span class="hl-4">nombre</span><span class="hl-1">: </span><span class="hl-4">string</span><span class="hl-1">, </span><span class="hl-4">tipoActividad</span><span class="hl-1">: </span><span class="hl-4">Actividad</span><span class="hl-1">) {</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">id</span><span class="hl-1"> = </span><span class="hl-4">contador_id</span><span class="hl-1">++;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">nombre</span><span class="hl-1"> = </span><span class="hl-4">nombre</span><span class="hl-1">;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">tipoActividad</span><span class="hl-1"> = </span><span class="hl-4">tipoActividad</span><span class="hl-1">;</span><br/><span class="hl-1">    }</span>
+</code></pre>
+<p>Los unicos parametros que se pasan al constructor son el nombre y el tipo de actividad, ya que los demás atributos se inicializan con un valor por defecto, además de que el atributo <code>id</code> se inicializa con el valor del contador de identificadores y se incrementa el contador de identificadores, como el las demas entidades, esto es para que al crear una entidad se le asigne un identificador único.</p>
+<p>La clase contiene tambien getters y setters para todos los atributos de la clase, además de ciertos métodos para modificar algunos elementos de los atributos de la clase. como son:</p>
+<ul>
+<li><p><code>addUsuario</code> y <code>removeUsuario</code>: Estos métodos permiten añadir y eliminar usuarios a la lista de usuarios que han realizado el reto.</p>
+</li>
+<li><p><code>addRuta</code> y <code>removeRuta</code>: Estos métodos permiten añadir y eliminar rutas a la lista de rutas que contiene el reto.</p>
+</li>
+</ul>
+
+<a href="#colecciones" id="colecciones" style="color: inherit; text-decoration: none;">
+  <h3>Colecciones</h3>
+</a>
+<p>Las colecciones son los contenedores de las entidades, en este caso las colecciones son los contenedores de las rutas, grupos, retos y usuarios. Se ha creado una carpeta dentro de <code>src</code> llamada <code>colecciones</code> en la que se encuentran los ficheros de las colecciones de cada entidad.</p>
+
+<a href="#colección-de-usuarios" id="colección-de-usuarios" style="color: inherit; text-decoration: none;">
+  <h4>Colección de usuarios</h4>
+</a>
+<p>La clase <code>ColeccionUsuario</code> contiene los métodos necesarios para gestionar los usuarios del sistema. Esta clase se ha definido con el siguiente atributo y este constructor:</p>
+<pre><code class="language-typescript"><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-2">class</span><span class="hl-1"> </span><span class="hl-3">ColeccionUsuario</span><span class="hl-1"> </span><span class="hl-2">implements</span><span class="hl-1"> </span><span class="hl-3">Coleccion</span><span class="hl-1">&lt;</span><span class="hl-3">Usuario</span><span class="hl-1">&gt; {</span><br/><span class="hl-1">  </span><span class="hl-2">private</span><span class="hl-1"> </span><span class="hl-4">usuarios</span><span class="hl-1">: </span><span class="hl-3">Map</span><span class="hl-1">&lt;</span><span class="hl-3">number</span><span class="hl-1">, </span><span class="hl-3">Usuario</span><span class="hl-1">&gt;;</span><br/><br/><span class="hl-1">  </span><span class="hl-2">constructor</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">usuarios</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-5">Map</span><span class="hl-1">();</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">...</span>
+</code></pre>
+<p>Como se puede apreciar el atributo de la clase es un <code>Map</code> que contiene los usuarios del sistema, el identificador de cada usuario es la clave del <code>Map</code> y el usuario en si es el valor del <code>Map</code>. En el constructor se inicializa el <code>Map</code> vacío. Además la clase implementa la interfaz <code>Coleccion</code> que se ha definido en el fichero <code>colecciones.ts</code> y que contiene los métodos que se deben implementar en las colecciones.</p>
 
 <a href="#conclusiones" id="conclusiones" style="color: inherit; text-decoration: none;">
   <h2>Conclusiones</h2>
