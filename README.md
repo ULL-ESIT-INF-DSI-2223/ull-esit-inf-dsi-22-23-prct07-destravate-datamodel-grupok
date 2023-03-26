@@ -446,9 +446,89 @@ La primera de las cuatro clases es la relacionada con los usuarios. Lo primero q
 export interface DatabaseSchema {
   usuarios: Usuario[];
 }
+
+export class JsonColeccionUsuario extends ColeccionUsuario {
+  private usuariosDatabase: LowdbSync<DatabaseSchema>;
+
+  constructor() {
+    super();
+    const adapter = new FileSync<DatabaseSchema>("./dataBase/usuarios.json");
+    this.usuariosDatabase = lowdb(adapter);
+    this.usuariosDatabase.defaults({ usuarios: [] }).write();
+  }
+
+  public insertarUsuario(usuario: Usuario): void {
+    // comprobar que el nombre de usuario no existe
+    if (
+      this.usuariosDatabase
+        .get("usuarios")
+        .find({ nombre: usuario.getNombre() })
+        .value() != undefined
+    ) {
+      throw new Error("El nombre de usuario ya existe");
+    }
+    this.usuariosDatabase.get("usuarios").push(usuario).write();
+  }
+
+  public cargarUsuarios(): Usuario[] {
+    const usuarios_no_instancia: Usuario[] = this.usuariosDatabase
+      .get("usuarios")
+      .value();
+    const usuarios: Usuario[] = [];
+    for (const usuario of usuarios_no_instancia) {
+      let usuarioAux = new Usuario(
+        usuario.nombre,
+        usuario.contraseña,
+        usuario.actividades
+      );
+      usuarioAux.setAmigosApp(usuario.amigosApp);
+      usuarioAux.setAmigosFrecuentes(usuario.amigosFrecuentes);
+      usuarioAux.setEstadisticas(usuario.estadisticas);
+      usuarioAux.setRutasFavoritas(usuario.rutasFavoritas);
+      usuarioAux.setRetosActivos(usuario.retosActivos);
+      usuarioAux.setHistoricoRutas(usuario.historicoRutas);
+      usuarioAux.setID(usuario.id);
+      usuarios.push(usuarioAux);
+    }
+    // Compruebamos si alguno de los usuarios es una instancia de usuario
+    for (const usuario of usuarios) {
+      if (!(usuario instanceof Usuario)) {
+        throw new Error("Usuario NO es instancia de Usuario");
+      }
+    }
+
+    return usuarios;
+  }
+
+  public eliminarUsuario(usuario: Usuario): void {
+    this.usuariosDatabase
+      .get("usuarios")
+      .remove({ nombre: usuario.getNombre() })
+      .write();
+  }
+  ...
+
+}
 ```
 
+También podemos observar el inicio de la clase, la cual cuenta con el atributo `usuariosDatabase` que permite el almacenamiento de datos con el módulo anteriormente mencionado, así como un constructor que, además de llamar a `super()`, modifica parámetros del atributo anteriormente mencionado. Además observamos tres métodos importantes (existen más que los mencionaremos más tarde por encima), los cuales son:
 
+* ```public insertarUsuario(usuario: Usuario): void``` Este método se encarga de insertar un usuario en la base de datos, de manera que primero comprueba si existe un usuario con el mismo nombre (entra a los usuarios, busca el nombre y mira que su valor no sea undefined). En caso de que no haya, empujará al usuario dentro de la database y guardará los cambios.
+* ```public cargarUsuarios(): Usuario[]``` Este método se encarga de insertar un usuario en la base de datos. En el, se sacan los datos de los usuarios del `.json` y dentro de un bucle `for` se irán creando los usuarios, añadiendo los datos y pusheandolos a la propiedad que los almacena. Finalmente se comprueba si existe alguna instancia que no sean los usuarios y se devuelven los usuarios.
+* ```public eliminarUsuario(usuario: Usuario): void``` Este método se encarga de eliminar el usuario pasado por parámetros, de manera que entra a la database, obtiene los usuarios, elimina el que tenga el nombre como el pasado por parámetros y guarda los cambios.
+
+Además de estos métodos existen otros menos importantes que mencionaremos rápidamente y destacar que, aunque no se mencionen, cada propiedad cuenta con getter y setter. Los métodos son:
+
+* ``` public modificarNombre(usuario: Usuario, nombre: string): void ``` Esta se encarga de modificar el nombre de un usuario de la base de datos.
+* ``` public modificarContraseña(usuario: Usuario, contraseña: string): void ``` Esta se encarga de modificar la contraseña de un usuario de la base de datos.
+* ``` public modificarActividad(usuario: Usuario, actividad: Actividad): void``` Esta se encarga de modificar el tipo de actividad de un usuario de la base de datos.
+* ``` public addAmigo(usuario: Usuario): void ``` Esta se encarga de añadir un amigo a un usuario de la base de datos.
+* ``` public eraseAmigo(usuario: Usuario, ID: number): void ``` Esta se encarga de eliminar un amigo de un usuario de la base de datos.
+* ``` public addRutaFavorita(usuario: Usuario, ruta: number): void ``` Esta se encarga de añadir una ruta favorita a un usuario de la base de datos.
+* ``` public eraseRutaFavorita(usuario: Usuario, ruta: number): void ``` Esta se encarga de eliminar una ruta favorita de un usuario de la base de datos.
+* ``` addRutaRealizada( usuario: Usuario, ruta: { ruta: number; fecha: string } ): void ``` Esta se encarga de añadir una ruta que ha realizado el usuario a la base de datos.
+* ``` public addRetosActivos(usuario: Usuario, reto: number): voi ``` Esta se encarga de añadir una reto a un usuario de la base de datos.
+* ``` public eraseRetosActivos(usuario: Usuario, reto: number): void ``` Esta se encarga de eliminar una reto de un usuario de la base de datos.
 
 
 
@@ -568,7 +648,299 @@ export class Gestor {
   }
 ```
 
-Como podemos observar, dentro del constructor 
+Como podemos observar, dentro del constructor cada vez que se crea una instancia de un objeto de la clase `Gestor` se cargan los datos de las distintas colecciones de la base de datos. Además, se ha definido un método para cada una de las distintas colecciones, así como un método para cada uno de los distintos modificadores. Pudiendo así mantener una base de datos que se carga cuando se inicia el programa
+
+Estos son los método más triviales: 
+* ``` public getUsuarios(): Usuario[] ``` Este método se encarga de devolver la colección de usuarios.
+* ``` public getRetos(): Reto[] ``` Este método se encarga de devolver la colección de retos.
+* ``` public getRutas(): Ruta[] ``` Este método se encarga de devolver la colección de rutas.
+* ``` public getGrupos(): Grupo[] ``` Este método se encarga de devolver la colección de grupos.
+* ``` public setUsuarios(coleccion: ColeccionUsuario) ``` Este método se encarga de modificar la colección de usuarios.
+* ``` public setRetos(coleccion: ColeccionReto) ``` Este método se encarga de modificar la colección de retos.
+* ``` public setRutas(coleccion: ColeccionRuta) ``` Este método se encarga de modificar la colección de rutas.
+* ``` public setGrupos(coleccion: ColeccionGrupo) ``` Este método se encarga de modificar la colección de grupos.
+
+#### Menú principal
+Esta es la función encargada de mostrar el menú principal del programa. Se ha definido de la siguiente forma:
+
+```typescript
+public consola(): void {
+    console.clear();
+    console.log("Bienvenido a la consola del usuario. ¿Qué desea hacer?");
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Log in",
+          "Registrarse como usuario",
+          "Gestión de la información",
+          "Salir",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Registrarse como usuario":
+            this.registrarUsuario();
+            break;
+          case "Log in":
+            this.logIn();
+            break;
+          case "Gestión de la información":
+            this.gestionInfo();
+            break;
+          case "Salir":
+            console.log("Hasta pronto");
+            break;
+          default:
+            break;
+        }
+      });
+  }
+```
+Llama a las distintas funciones para que podamos interactuar con el programa.
+
+#### Registro de usuario
+Este es el método encargado de registrar un usuario en el sistema. Se ha definido de la siguiente forma:
+
+```typescript
+private registrarUsuario(): void {
+    console.clear();
+    console.log("Registrando usuario...");
+    inquirer
+      .prompt({
+        type: "input",
+        name: "nombre",
+        message: "Introduce tu nombre de usuario: ",
+      })
+      .then((respuesta) => {
+        inquirer
+          .prompt({
+            type: "list",
+            name: "actividad",
+            message: "Elige una actividad: ",
+            choices: ["cilismo", "running"],
+          })
+          .then((respuesta2) => {
+            inquirer
+              .prompt({
+                type: "input",
+                name: "contraseña",
+                message: "Introduce tu contraseña: ",
+              })
+              .then((respuesta3) => {
+                try {
+                  let usuario = new Usuario(
+                    respuesta.nombre,
+                    respuesta3.contraseña,
+                    respuesta2.actividad
+                  );
+                  // Insertamos el usuario en la colección de usuarios
+                  this.coleccionUsuarios.insertar(usuario);
+                  // Insertamos el usuario en el json
+                  this.jsonColeccionUsuario.insertarUsuario(usuario);
+
+                  console.log("Usuario registrado con éxito:", usuario);
+                  this.volver(() => this.consola());
+                } catch (error: unknown) {
+                  if (error instanceof Error) {
+                    console.log(
+                      "\x1b[31m%s\x1b[0m",
+                      "Error al crear el usuario: ",
+                      error.message
+                    );
+                  }
+                  console.log(
+                    "Introduce un nombre de usuario válido no vacío y/o contraseña válida"
+                  );
+                  // pulsar enter para volver a introducir un nombre de usuario
+                  inquirer
+                    .prompt({
+                      type: "input",
+                      name: "volver",
+                      message:
+                        "Pulsa enter para volver a introducir un usuario",
+                    })
+                    .then(() => {
+                      this.registrarUsuario();
+                    });
+                  return;
+                }
+              });
+          });
+      });
+  }
+```
+Como podemos ver se piden los datos del usuario y se crea un objeto de la clase `Usuario` con esos datos. Después se inserta el usuario en la colección de usuarios y en el json.
+
+#### Login de usuario
+Esto es un conjunto de métodos que hemos usado para gestionar el login de los usuarios para loguearse y una vez logueados poder acceder a las distintas opciones del programa. Se ha definido de la siguiente forma:
+
+```typescript
+private logIn() {
+    console.clear();
+    console.log("Iniciando sesión...");
+    inquirer
+      .prompt({
+        type: "input",
+        name: "usuario",
+        message: "Introduce tu nombre de usuario: ",
+      })
+      .then((respuesta) => {
+        inquirer
+          .prompt({
+            type: "input",
+            name: "contraseña",
+            message: "Introduce tu contraseña: ",
+          })
+          .then((respuesta2) => {
+            // Buscamos en la colección de usuarios el usuario que se ha logueado
+            const usuario = Array.from(
+              this.coleccionUsuarios.getUsuarios().values()
+            ).find((usuario) => usuario.getNombre() === respuesta.usuario);
+            if (usuario != undefined) {
+              if (usuario.getContraseña() === respuesta2.contraseña) {
+                console.log("Sesión iniciada correctamente.");
+                this.menuUsuario(usuario.id);
+              } else {
+                console.log("Contraseña incorrecta.");
+                this.volver(() => this.logIn());
+              }
+            } else {
+              console.log(`No se encontró el usuario ${respuesta.usuario}`);
+              this.volver(() => this.logIn());
+            }
+          });
+      });
+  }
+  ```
+  Como podemos ver se piden los datos del usuario y se busca en la colección de usuarios el usuario que se ha logueado. Si el usuario existe y la contraseña es correcta se muestra el menú del usuario, si no se muestra un mensaje de error y se vuelve a mostrar el menú principal. Una vez logueado el usuario se le muestra el menú del usuario. Este menú se ha definido de la siguiente forma:
+  
+  ```typescript
+  private menuUsuario(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    inquirer
+      .prompt({
+        type: "list",
+        name: "menu",
+        message: "Elige una opción: ",
+        choices: [
+          "Lista de usuarios",
+          "Amigos",
+          "Rutas",
+          "Grupos",
+          "Estadísticas",
+          "Retos",
+          "Histórico de rutas",
+          "Salir",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.menu) {
+          case "Lista de usuarios":
+            console.clear();
+            this.listarUsuarios(() => this.volver(() => this.menuUsuario(id)));
+            break;
+          case "Amigos":
+            console.clear();
+            this.gestionAmigos(usuarioActual);
+            break;
+          case "Rutas":
+            console.clear();
+            this.gestionRutasUsuario(id);
+            break;
+          case "Grupos":
+            console.clear();
+            this.gestionGruposUsuario(id);
+            break;
+          case "Estadísticas":
+            console.clear();
+            this.listarEstadisticas(id);
+            this.volver(() => this.menuUsuario(id));
+            break;
+          case "Retos":
+            console.clear();
+            this.gestionRetosUsuario(id);
+            break;
+          case "Histórico de rutas":
+            console.clear();
+            this.listarHistoricoRutas(id);
+            this.volver(() => this.menuUsuario(id));
+            break;
+          case "Salir":
+            console.clear();
+            console.log("Saliendo...");
+            this.consola();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+  ```
+Este método se encarga de lidiar con el menú del usuario logueado, pudiendo hacer uso de los siguientes métodos de gestión:
+  - `gestionAmigos`: Gestiona los amigos del usuario logueado.
+  - `gestionRutasUsuario`: Gestiona las rutas del usuario logueado.
+  - `gestionGruposUsuario`: Gestiona los grupos del usuario logueado.
+  - `gestionRetosUsuario`: Gestiona los retos del usuario logueado.
+  - `listarEstadisticas`: Lista las estadísticas del usuario logueado.
+  - `listarHistoricoRutas`: Lista el histórico de rutas del usuario logueado.
+Se ha de recalcar que los métodos de listar estadísticas y listar histórico de rutas se han definido de tal forma que permiten listar por orden ascendente y descendente, así como por fecha y distancia.
+
+#### Gestión de información 
+Este es un método que se encarga de gestionar la información de los usuarios, rutas, grupos y retos. Se ha definido de la siguiente forma:
+
+```typescript
+public gestionInfo(): void {
+    console.clear();
+    console.log(
+      "Bienvenido a la consola de gestión de la base de datos. ¿Qué datos desea gestionar?"
+    );
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Usuario",
+          "Rutas",
+          "Grupos",
+          "Retos",
+          "Volver al menú anterior",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Usuario":
+            this.gestionUsuarios();
+            break;
+          case "Rutas":
+            this.gestionRutas();
+            break;
+          case "Grupos":
+            this.gestionGrupos();
+            break;
+          case "Retos":
+            this.gestionRetos();
+            break;
+          case "Volver al menú anterior":
+            this.consola();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+```
+
+#### Gestión de usuarios
+Este método se encarga de gestionar los usuarios, pudiendo hacer uso de los siguientes métodos de gestión:
+  - `listarUsuarios`: Lista los usuarios de la base de datos.
+  - `registrarUsuario`: Crea un usuario en la base de datos.
+  - `eliminarUsuario`: Elimina un usuario de la base de datos.
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
