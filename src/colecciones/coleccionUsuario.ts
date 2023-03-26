@@ -104,7 +104,7 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
    */
   public modificarNombre( usuario: Usuario, nombre: string) {
     // comprobar que el nombre no existe
-    const nuevoNombre = usuario.getNombre();
+    const nuevoNombre = nombre;
     for (const u of this.usuarios.values()) {
       if (u.getNombre() === nuevoNombre) {
         throw new Error('El usuario con nombre ' + nuevoNombre + ' ya existe');

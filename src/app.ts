@@ -764,7 +764,7 @@ export class Gestor {
                 inquirer.prompt({
                   type: 'input',
                   name: 'nombre',
-                  message: 'Introduce tu nombre de usuario: ',
+                  message: 'Introduce el nuevo nombre de usuario: ',
                 }).then((respuesta2) => {
                   try {
                     this.jsonColeccionUsuario.modificarNombre(usuarioAModificar, respuesta2.nombre)
