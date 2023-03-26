@@ -291,6 +291,54 @@ Basicamente se comprueba que el nombre del grupo no esté vacío y se asignan lo
 
 La clase contiene tambien getters y setters para todos los atributos de la clase, además de ciertos métodos para modificar algunos elementos de los atributos de la clase. como son:
 
+* `addParticipante` y `eraseParticipante`: Estos métodos permiten añadir y eliminar usuarios a la lista de participantes del grupo.
+
+* `addRutaFavorita` y `eraseRutaFavorita`: Estos métodos permiten añadir y eliminar rutas a la lista de rutas favoritas del grupo.
+
+* `addRutaRealizada`: Este método permite añadir una ruta al historico de rutas realizadas por el grupo, no se puede eliminar una ruta del historico porque no tiene sentido que un grupo elimine una ruta que ha realizado.
+
+#### Retos
+
+La clase `Reto` contiene la información de los retos que se pueden crear en el sistema. Un reto es basicamente un objetivo de entrenamiento que se puede realizar si se realizan una serie de rutas de las que conste el reto. 
+
+Esta clase contiene los siguientes atributos:
+
+```typescript
+class Reto implements EntidadInterface {
+    id: number;
+    nombre: string;
+    rutas: number[] = [];
+    tipoActividad: Actividad;
+    kmTotales: number = 0;
+    usuarios: number[] = [];
+...
+```
+
+Se puede apreciar que ciertos atributos se inicializan con un valor por defecto, esto se hace porque no se pasan por parámetro en el constructor, ya que estos atributos se van modificando a lo largo de la ejecución del sistema y cuando se va agregando información a los retos. 
+
+Cabe resaltar que la clase `Reto` implementa la interfaz `EntidadInterface`, por lo que debe implementar los métodos que se definen en esta interfaz que comentamos previamente.
+
+Podemos ver tambien que el atributo tipoActividad es de tipo `Actividad`, esto se debe a que el tipo de actividad de un reto es el mismo que el de las rutas que contiene el reto osea puede ser `Ciclismo` o `Running`.
+
+El constructor de la clase es el siguiente:
+
+```typescript
+    constructor(nombre: string, tipoActividad: Actividad) {
+      this.id = contador_id++;
+      this.nombre = nombre;
+      this.tipoActividad = tipoActividad;
+    }
+```
+
+Los unicos parametros que se pasan al constructor son el nombre y el tipo de actividad, ya que los demás atributos se inicializan con un valor por defecto, además de que el atributo `id` se inicializa con el valor del contador de identificadores y se incrementa el contador de identificadores, como el las demas entidades, esto es para que al crear una entidad se le asigne un identificador único.
+
+La clase contiene tambien getters y setters para todos los atributos de la clase, además de ciertos métodos para modificar algunos elementos de los atributos de la clase. como son:
+
+* `addUsuario` y `removeUsuario`: Estos métodos permiten añadir y eliminar usuarios a la lista de usuarios que han realizado el reto.
+
+* `addRuta` y `removeRuta`: Estos métodos permiten añadir y eliminar rutas a la lista de rutas que contiene el reto.
+
+
 ## Conclusiones
 
 ## Referencias
