@@ -398,9 +398,89 @@ La primera de las cuatro clases es la relacionada con los usuarios. Lo primero q
 export interface DatabaseSchema {
   usuarios: Usuario[];
 }
+
+export class JsonColeccionUsuario extends ColeccionUsuario {
+  private usuariosDatabase: LowdbSync<DatabaseSchema>;
+
+  constructor() {
+    super();
+    const adapter = new FileSync<DatabaseSchema>("./dataBase/usuarios.json");
+    this.usuariosDatabase = lowdb(adapter);
+    this.usuariosDatabase.defaults({ usuarios: [] }).write();
+  }
+
+  public insertarUsuario(usuario: Usuario): void {
+    // comprobar que el nombre de usuario no existe
+    if (
+      this.usuariosDatabase
+        .get("usuarios")
+        .find({ nombre: usuario.getNombre() })
+        .value() != undefined
+    ) {
+      throw new Error("El nombre de usuario ya existe");
+    }
+    this.usuariosDatabase.get("usuarios").push(usuario).write();
+  }
+
+  public cargarUsuarios(): Usuario[] {
+    const usuarios_no_instancia: Usuario[] = this.usuariosDatabase
+      .get("usuarios")
+      .value();
+    const usuarios: Usuario[] = [];
+    for (const usuario of usuarios_no_instancia) {
+      let usuarioAux = new Usuario(
+        usuario.nombre,
+        usuario.contraseña,
+        usuario.actividades
+      );
+      usuarioAux.setAmigosApp(usuario.amigosApp);
+      usuarioAux.setAmigosFrecuentes(usuario.amigosFrecuentes);
+      usuarioAux.setEstadisticas(usuario.estadisticas);
+      usuarioAux.setRutasFavoritas(usuario.rutasFavoritas);
+      usuarioAux.setRetosActivos(usuario.retosActivos);
+      usuarioAux.setHistoricoRutas(usuario.historicoRutas);
+      usuarioAux.setID(usuario.id);
+      usuarios.push(usuarioAux);
+    }
+    // Compruebamos si alguno de los usuarios es una instancia de usuario
+    for (const usuario of usuarios) {
+      if (!(usuario instanceof Usuario)) {
+        throw new Error("Usuario NO es instancia de Usuario");
+      }
+    }
+
+    return usuarios;
+  }
+
+  public eliminarUsuario(usuario: Usuario): void {
+    this.usuariosDatabase
+      .get("usuarios")
+      .remove({ nombre: usuario.getNombre() })
+      .write();
+  }
+  ...
+
+}
 ```
 
+También podemos observar el inicio de la clase, la cual cuenta con el atributo `usuariosDatabase` que permite el almacenamiento de datos con el módulo anteriormente mencionado, así como un constructor que, además de llamar a `super()`, modifica parámetros del atributo anteriormente mencionado. Además observamos tres métodos importantes (existen más que los mencionaremos más tarde por encima), los cuales son:
 
+* ```public insertarUsuario(usuario: Usuario): void``` Este método se encarga de insertar un usuario en la base de datos, de manera que primero comprueba si existe un usuario con el mismo nombre (entra a los usuarios, busca el nombre y mira que su valor no sea undefined). En caso de que no haya, empujará al usuario dentro de la database y guardará los cambios.
+* ```public cargarUsuarios(): Usuario[]``` Este método se encarga de insertar un usuario en la base de datos. En el, se sacan los datos de los usuarios del `.json` y dentro de un bucle `for` se irán creando los usuarios, añadiendo los datos y pusheandolos a la propiedad que los almacena. Finalmente se comprueba si existe alguna instancia que no sean los usuarios y se devuelven los usuarios.
+* ```public eliminarUsuario(usuario: Usuario): void``` Este método se encarga de eliminar el usuario pasado por parámetros, de manera que entra a la database, obtiene los usuarios, elimina el que tenga el nombre como el pasado por parámetros y guarda los cambios.
+
+Además de estos métodos existen otros menos importantes que mencionaremos rápidamente y destacar que, aunque no se mencionen, cada propiedad cuenta con getter y setter. Los métodos son:
+
+* ``` public modificarNombre(usuario: Usuario, nombre: string): void ``` Esta se encarga de modificar el nombre de un usuario de la base de datos.
+* ``` public modificarContraseña(usuario: Usuario, contraseña: string): void ``` Esta se encarga de modificar la contraseña de un usuario de la base de datos.
+* ``` public modificarActividad(usuario: Usuario, actividad: Actividad): void``` Esta se encarga de modificar el tipo de actividad de un usuario de la base de datos.
+* ``` public addAmigo(usuario: Usuario): void ``` Esta se encarga de añadir un amigo a un usuario de la base de datos.
+* ``` public eraseAmigo(usuario: Usuario, ID: number): void ``` Esta se encarga de eliminar un amigo de un usuario de la base de datos.
+* ``` public addRutaFavorita(usuario: Usuario, ruta: number): void ``` Esta se encarga de añadir una ruta favorita a un usuario de la base de datos.
+* ``` public eraseRutaFavorita(usuario: Usuario, ruta: number): void ``` Esta se encarga de eliminar una ruta favorita de un usuario de la base de datos.
+* ``` addRutaRealizada( usuario: Usuario, ruta: { ruta: number; fecha: string } ): void ``` Esta se encarga de añadir una ruta que ha realizado el usuario a la base de datos.
+* ``` public addRetosActivos(usuario: Usuario, reto: number): voi ``` Esta se encarga de añadir una reto a un usuario de la base de datos.
+* ``` public eraseRetosActivos(usuario: Usuario, reto: number): void ``` Esta se encarga de eliminar una reto de un usuario de la base de datos.
 
 
 
