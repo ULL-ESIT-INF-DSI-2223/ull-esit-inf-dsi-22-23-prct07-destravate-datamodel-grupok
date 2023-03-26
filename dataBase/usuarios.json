@@ -82,6 +82,56 @@
       ],
       "retosActivos": [],
       "historicoRutas": []
+    },
+    {
+      "id": 4,
+      "nombre": "PEDO",
+      "contraseña": "2Wa*",
+      "actividades": "cilismo",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 5,
+      "nombre": "pedo",
+      "contraseña": "1Aa*",
+      "actividades": "cilismo",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
     }
   ]
 }

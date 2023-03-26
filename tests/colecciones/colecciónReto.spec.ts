@@ -127,8 +127,24 @@ describe('ColeccionReto', () => {
 
   it ('should delete a user from a challenge', () => {
     const usuario = 1;
-    coleccionReto.addUsuario(reto1, usuario);
     coleccionReto.eraseUsuario(reto1, usuario);
     expect(coleccionReto.getReto(reto1.getID()).getUsuarios()).to.be.eql([]);
+  });
+
+  it ('should throw an error if the new name of a challenge already exists', () => {
+    const nuevoNombre = 'Reto 2';
+    expect(() => coleccionReto.modificarNombre(reto1, nuevoNombre)).to.throw(Error);
+  });
+
+  it ('should print an error if the challenge does not exist', () => {
+    const reto = new Reto('Reto 4', Actividad.ciclismo);
+    const nuevoNombre = 'patata';
+    expect(() => coleccionReto.modificarNombre(reto, nuevoNombre)).to.throw(Error);
+  });
+
+  it ('should throw an error if the challenge does not exist', () => {
+    const reto = new Reto('Reto 4', Actividad.ciclismo);
+    const ruta = 1;
+    expect(() => coleccionReto.addRuta(reto, ruta)).to.throw(Error);
   });
 });

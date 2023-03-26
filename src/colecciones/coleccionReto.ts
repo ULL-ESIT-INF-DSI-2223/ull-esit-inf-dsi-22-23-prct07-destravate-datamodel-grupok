@@ -117,6 +117,7 @@ export class ColeccionReto implements Coleccion<Reto> {
     }
     else {
       console.log("El reto que deseas modificar no existe.");
+      throw new Error('El reto que deseas modificar no existe');
     }
   }
 
@@ -130,7 +131,8 @@ export class ColeccionReto implements Coleccion<Reto> {
       reto.addRuta(ruta);
     }
     else {
-      console.log("El reto al que deseas añadir la ruta no existe.");
+      throw new Error('El reto al que deseas añadir la ruta no existe');
+      // console.log("El reto al que deseas añadir la ruta no existe.");
     }
   }
 
