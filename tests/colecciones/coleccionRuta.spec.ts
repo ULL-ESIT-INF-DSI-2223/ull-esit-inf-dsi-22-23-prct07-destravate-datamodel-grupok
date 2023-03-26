@@ -43,8 +43,18 @@ describe('ColeccionRuta', () => {
     rutasArray.push(ruta2);
     rutasArray.push(ruta3);
 
-    coleccionRuta.setRutasFromArray(rutasArray);
-    expect(coleccionRuta.getRutas()).to.be.instanceOf(Map);
+    let coleccionRuta2: ColeccionRuta;
+    // creamos un nuevo map
+    const rutasMap: Map<number, Ruta> = new Map();
+    rutasMap.set(ruta1.getID(), ruta1);
+    rutasMap.set(ruta2.getID(), ruta2);
+    rutasMap.set(ruta3.getID(), ruta3);
+    // Creamos una nueva colección
+    coleccionRuta2 = new ColeccionRuta();
+    // Asignamos el map
+    coleccionRuta2.setRutas(rutasMap);
+    coleccionRuta2.setRutasFromArray(rutasArray);
+    expect(coleccionRuta.getRutas()).to.be.eql(coleccionRuta2.getRutas());
   });
 
   it('should list the routes', () => {
@@ -56,13 +66,6 @@ describe('ColeccionRuta', () => {
   //   expect(coleccionRuta.getIterator()).to.be.instanceOf(Map);
   // });
 
-//   /**
-//    * Setter de las rutas (entrada en formato map)
-//    * @param rutas Rutas en formato map
-//    */
-//   public setRutas( rutas : Map<number, Ruta>): void {
-//     this.rutas = rutas;
-//   }
   it ('should return a route from its id', () => {
     expect(coleccionRuta.getRuta(ruta1.getID())).to.be.eql(ruta1);
   });
@@ -180,4 +183,17 @@ describe('ColeccionRuta', () => {
     expect(() => coleccionRuta.insertar(ruta1)).to.throw('La ruta que deseas insertar ya existe.');
   })
 
+  it ('should throw an error if the route does not exist', () => {
+    expect(() => coleccionRuta.getRuta(4)).to.throw('La ruta que deseas obtener no existe.');
+  });
+
+  it ('should throw an error if the route does exist', () => {
+    expect(() => coleccionRuta.addRuta(ruta1)).to.throw('La ruta que deseas insertar ya existe.');
+  });
+  
+  it ('should insert a route', () => {
+    const ruta4 = new Ruta('Ruta 4', coordenadas, coordenadas, 13, 321, Actividad.ciclismo, Dificultad.dificil);
+    coleccionRuta.addRuta(ruta4);
+    expect(coleccionRuta.getRuta(ruta4.getID())).to.be.eql(ruta4);
+  });
 });

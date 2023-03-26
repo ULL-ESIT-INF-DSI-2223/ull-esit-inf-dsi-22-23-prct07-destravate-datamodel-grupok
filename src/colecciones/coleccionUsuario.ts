@@ -92,7 +92,8 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
       this.usuarios.delete(usuario.getID());
     }
     else {
-      console.log("El usuario que deseas eliminar no existe.");
+      throw new Error('El usuario que deseas eliminar no existe.');
+      // console.log("El usuario que deseas eliminar no existe.");
     }
     
   }
