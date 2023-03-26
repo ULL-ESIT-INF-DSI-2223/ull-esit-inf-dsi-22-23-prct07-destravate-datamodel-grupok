@@ -721,6 +721,72 @@ private logIn() {
       });
   }
   ```
+  Como podemos ver se piden los datos del usuario y se busca en la colección de usuarios el usuario que se ha logueado. Si el usuario existe y la contraseña es correcta se muestra el menú del usuario, si no se muestra un mensaje de error y se vuelve a mostrar el menú principal. Una vez logueado el usuario se le muestra el menú del usuario. Este menú se ha definido de la siguiente forma:
+  
+  ```typescript
+  private menuUsuario(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    inquirer
+      .prompt({
+        type: "list",
+        name: "menu",
+        message: "Elige una opción: ",
+        choices: [
+          "Lista de usuarios",
+          "Amigos",
+          "Rutas",
+          "Grupos",
+          "Estadísticas",
+          "Retos",
+          "Histórico de rutas",
+          "Salir",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.menu) {
+          case "Lista de usuarios":
+            console.clear();
+            this.listarUsuarios(() => this.volver(() => this.menuUsuario(id)));
+            break;
+          case "Amigos":
+            console.clear();
+            this.gestionAmigos(usuarioActual);
+            break;
+          case "Rutas":
+            console.clear();
+            this.gestionRutasUsuario(id);
+            break;
+          case "Grupos":
+            console.clear();
+            this.gestionGruposUsuario(id);
+            break;
+          case "Estadísticas":
+            console.clear();
+            this.listarEstadisticas(id);
+            this.volver(() => this.menuUsuario(id));
+            break;
+          case "Retos":
+            console.clear();
+            this.gestionRetosUsuario(id);
+            break;
+          case "Histórico de rutas":
+            console.clear();
+            this.listarHistoricoRutas(id);
+            this.volver(() => this.menuUsuario(id));
+            break;
+          case "Salir":
+            console.clear();
+            console.log("Saliendo...");
+            this.consola();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+  
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
