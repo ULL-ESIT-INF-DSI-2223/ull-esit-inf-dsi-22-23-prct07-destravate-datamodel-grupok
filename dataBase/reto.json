@@ -1,0 +1,28 @@
+{
+  "retos": [
+    {
+      "id": 1,
+      "nombre": "nofapseptember",
+      "rutas": [],
+      "tipoActividad": "Ciclismo",
+      "kmTotales": 0,
+      "usuarios": []
+    },
+    {
+      "id": 2,
+      "nombre": "ssb4",
+      "rutas": [],
+      "tipoActividad": "Individual",
+      "kmTotales": 0,
+      "usuarios": []
+    },
+    {
+      "id": 3,
+      "nombre": "tekkentournament",
+      "rutas": [],
+      "tipoActividad": "Grupal",
+      "kmTotales": 0,
+      "usuarios": []
+    }
+  ]
+}
