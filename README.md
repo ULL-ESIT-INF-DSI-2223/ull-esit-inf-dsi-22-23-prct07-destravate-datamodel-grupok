@@ -383,6 +383,40 @@ La clase contiene tambien los siguientes métodos para gestionar y modificar los
 * `addRutaRealizada`: Este método añade una ruta a la lista de rutas realizadas por un usuario. No se implementó un metodo para eliminar rutas de la lista de rutas realizadas porque no se consideró necesario.
 * `addRetosActivos` y `eraseRetosActivos`: Estos métodos añaden y eliminan retos de la lista de retos activos de un usuario pasado por parámetro.
 
+#### Colección de rutas
+
+La clase `ColeccionRuta` contiene los métodos necesarios para gestionar las rutas del sistema. Esta clase se ha definido con el siguiente atributo y este constructor:
+
+```typescript
+class ColeccionRuta implements Coleccion<Ruta> {
+  private rutas: Map<number, Ruta>;
+
+  constructor() {
+    this.rutas = new Map();
+  }
+...
+```
+
+Esto es básicamente igual que en la clase `ColeccionUsuario` solo que en este caso el atributo de la clase es un `Map` que contiene las rutas del sistema, el identificador de cada ruta es la clave del `Map` y la ruta en si es el valor del `Map`. En el constructor se inicializa el `Map` vacío. Además la clase implementa la interfaz `Coleccion` que se ha definido en el fichero `coleccion.ts` y que contiene los métodos que se deben implementar en las colecciones.
+
+La clase es iterable pues se ha implementado el método `Symbol.iterator` al igual que en la clase `ColeccionUsuario`.
+
+Además se han implementados los setters y getters para el atributo `rutas` de la clase, en este caso hay un setter cuyo parametro es un `Map` y otro setter cuyo `setRutasFromArray` que recibe un array de rutas y lo convierte en un `Map` para asignarlo al atributo `rutas`. También se implementó un getter `getRuta` que recibe un identificador de ruta y devuelve la ruta correspondiente, y un getter `getNombreRutas` que devuelve un array con los nombres de las rutas. 
+
+La clase contiene tambien los siguientes métodos para gestionar y modificar las rutas:
+
+* `listar`: Este método imprime por pantalla la lista de rutas del sistema.
+* `insertar`: Este método inserta una ruta en el sistema. Se comprueba que la ruta no exista previamente en el sistema y si no existe se inserta en el sistema.
+* `eliminar`: Este método elimina una ruta del sistema. Se comprueba que la ruta exista previamente en el sistema y si existe se elimina del sistema.
+* `modificarNombreRuta`: Este método modifica el nombre de una ruta del sistema. Se comprueba que no haya una ruta con el mismo nombre en el sistema y si no hay una ruta con el mismo nombre se modifica el nombre de la ruta.
+* `modificarCoordenadas`: Este método modifica las coordenadas de una ruta del sistema pasada por parametros, dadas las coordenadas de inicio y de fin tambien pasadas por parámetro.
+* `modificarLongitudRuta`: Este método modifica la longitud de una ruta del sistema, comprueba si la longitud de la ruta es correcta y si es correcta modifica la longitud de la ruta.
+* `modificarDificultadRuta`: Este método modifica la dificultad de una ruta del sistema, se le pasa un parámetro de tipo `Dificultad` que es la dificultad de la ruta.
+* `modificarTipoActividadRuta`: Este método modifica el tipo de actividad de una ruta del sistema, se le pasa un parámetro de tipo `Actividad` que es el tipo de actividad de la ruta.
+
+
+
+
 
 
 
