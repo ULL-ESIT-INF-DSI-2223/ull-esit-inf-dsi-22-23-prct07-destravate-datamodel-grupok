@@ -430,9 +430,22 @@ La clase contiene tambien los siguientes métodos para gestionar y modificar los
 * `addUsuario` y `eraseUsuario`: Estos métodos añaden y eliminan usuarios de la lista de usuarios de un reto pasado por parámetro, se comprueba en ambos casos si el usuario está ya en la lista de usuarios del reto o no.
 * `modificarActividad`: Este método modifica el tipo de actividad de un reto del sistema, se le pasa un parámetro de tipo `Actividad` que es el tipo de actividad del reto.
 
+#### Coleccion Grupo
 
+La clase `ColeccionGrupo` contiene los métodos necesarios para gestionar los grupos del sistema. El atributo y constructor de esta clase es básicamente igual que en las anteriores, pero en este caso el atributo es un `Map` que contiene los grupos del sistema, el identificador de cada grupo es la clave del `Map` y el grupo en si es el valor del `Map`. En el constructor se inicializa el `Map` vacío. Además la clase implementa la interfaz `Coleccion` que se ha definido en el fichero `coleccion.ts` y que contiene los métodos que se deben implementar en las colecciones. Al igual que las anteriores la clase se ha definido como iterable.
 
+Igualmente, también se han implementados los setters y getters para el atributo `grupos` de la clase, en este caso hay un setter cuyo parametro es un `Map` y otro setter cuyo `setGruposFromArray` que recibe un array de grupos y lo convierte en un `Map` para asignarlo al atributo `grupos`.
 
+La clase contiene tambien los siguientes métodos para gestionar y modificar los grupos:
+
+* `listar`: Este método imprime por pantalla la lista de grupos del sistema.
+* `insertar`: Este método inserta un grupo en el sistema. Se comprueba que el grupo no exista previamente en el sistema y si no existe se inserta en el sistema.
+* `eliminar`: Este método elimina un grupo del sistema. Se comprueba que el grupo exista previamente en el sistema y si existe se elimina del sistema.
+* `modificarNombre`: Este método modifica el nombre de un grupo del sistema. Se comprueba que no haya un grupo con el mismo nombre en el sistema y si no hay un grupo con el mismo nombre se modifica el nombre del grupo.
+* `modificarCreador`: Este método modifica el creador de un grupo del sistema. Se comprueba que el usuario exista en el sistema y si existe se modifica el creador del grupo.
+* `addParticipante` y `eraseParticipante`: Estos métodos añaden y eliminan participantes de la lista de participantes de un grupo pasado por parámetro, se comprueba en ambos casos si el usuario está ya en la lista de participantes del grupo o no.
+* `addRutaFavorite` y `eraseRutaFavorite`: Estos métodos añaden y eliminan rutas de la lista de rutas favoritas de un grupo pasado por parámetro.
+* `addRutaRealizada`: Este método añade una ruta a la lista de rutas realizadas de un grupo pasado por parámetro.
 
 ### jsonCollection
 
