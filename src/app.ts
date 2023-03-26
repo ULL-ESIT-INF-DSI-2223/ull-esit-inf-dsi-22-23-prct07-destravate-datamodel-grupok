@@ -959,7 +959,32 @@ export class Gestor {
                 });
               break;
               case 'Modificar longitud':
-                // this.modificarLongitudRuta(rutaAModificar);
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'longitud',
+                  message: 'Introduce la longitud de la ruta: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarLongitudRuta(rutaAModificar, respuesta2.longitud)
+                    this.coleccionRutas.modificarLongitudRuta(rutaAModificar, respuesta2.longitud)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce una longitud de ruta nueva');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menu',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
+                });
                 break;
               case 'Modificar desnivel':
                 // this.modificarDesnivelRuta(rutaAModificar);
