@@ -3,7 +3,7 @@
     {
       "id": 0,
       "nombre": "secta",
-      "creador": "3",
+      "creador": 3,
       "participantes": [
         2
       ],
@@ -35,7 +35,7 @@
     {
       "id": 2,
       "nombre": "salvameDeluxe",
-      "creador": "2",
+      "creador": 2,
       "participantes": [],
       "estadisticasEntrenamiento": {
         "semana": {
