@@ -970,6 +970,151 @@ Y hace uso de los siguientes métodos
   - `registrarUsuario`: Crea un usuario en la base de datos.
   - `modificarUsuario`: Modifica un usuario de la base de datos.
   - `eliminarUsuario`: Modifica un usuario de la base de datos.
+
+#### Gestión de grupos
+Es un conjunto de métodos gestionados por el método `gestionGrupos` que se encarga de gestionar los grupos de la base de datos. Se ha definido de la siguiente forma:
+```typescript
+public gestionGrupos(): void {
+    console.clear();
+    console.log("Bienvenido a gestión de grupos. ¿Qué desea hacer?");
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Registrar grupo",
+          "Listar grupos",
+          "Modificar grupos",
+          "Eliminar grupo",
+          "Volver al menú anterior",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Registrar grupo":
+            this.registrarGrupo();
+            break;
+          case "Listar grupos":
+            this.listarGrupos(() => this.volver(() => this.gestionGrupos()));
+
+            break;
+          case "Modificar grupos":
+            this.modificarGrupo();
+            break;
+          case "Eliminar grupo":
+            this.eliminarGrupo();
+            break;
+          case "Volver al menú anterior":
+            this.gestionInfo();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+```
+Y hace uso de los siguientes métodos
+  - `listarGrupos`: Lista los grupos de la base de datos.
+  - `registrarGrupo`: Crea un grupo en la base de datos.
+  - `modificarGrupo`: Modifica un grupo de la base de datos.
+  - `eliminarGrupo`: Modifica un grupo de la base de datos.
+
+#### Gestión de rutas
+Es un conjunto de métodos gestionados por el método `gestionRutas` que se encarga de gestionar las rutas de la base de datos. Se ha definido de la siguiente forma:
+```typescript
+private gestionRutas(): void {
+    console.clear();
+    console.log("Bienvenido a gestión de rutas. ¿Qué desea hacer?");
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Registrar ruta",
+          "Listar rutas",
+          "Modificar rutas",
+          "Eliminar ruta",
+          "Volver al menú anterior",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Registrar ruta":
+            this.registrarRuta();
+            break;
+          case "Listar rutas":
+            this.listarRutas(() => this.volver(() => this.gestionRutas()));
+            break;
+          case "Modificar rutas":
+            this.modificarRuta();
+            break;
+          case "Eliminar ruta":
+            this.eliminarRuta();
+            break;
+          case "Volver al menú anterior":
+            this.gestionInfo();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+```
+Y hace uso de los siguientes métodos
+  - `listarRutas`: Lista las rutas de la base de datos.
+  - `registrarRuta`: Crea una ruta en la base de datos.
+  - `modificarRuta`: Modifica una ruta de la base de datos.
+  - `eliminarRuta`: Modifica una ruta de la base de datos.
+
+#### Gestión de retos
+Es un conjunto de métodos gestionados por el método `gestionRetos` que se encarga de gestionar los retos de la base de datos. Se ha definido de la siguiente forma:
+```typescript
+public gestionRetos(): void {
+    console.clear();
+    console.log("Bienvenido a gestión de Retos. ¿Qué desea hacer?");
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Registrar Reto",
+          "Listar Retos",
+          "Modificar Retos",
+          "Eliminar Reto",
+          "Volver al menú anterior",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Registrar Reto":
+            this.registrarReto();
+            break;
+          case "Listar Retos":
+            this.listarRetos(() => this.volver(() => this.gestionRetos()));
+            break;
+          case "Modificar Retos":
+            this.modificarReto();
+            break;
+          case "Eliminar Reto":
+            this.eliminarReto();
+            break;
+          case "Volver al menú anterior":
+            this.gestionInfo();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+```
+Y hace uso de los siguientes métodos
+  - `listarRetos`: Lista los retos de la base de datos.
+  - `registrarReto`: Crea un reto en la base de datos.
+  - `modificarReto`: Modifica un reto de la base de datos.
+  - `eliminarReto`: Modifica un reto de la base de datos.
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
