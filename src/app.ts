@@ -558,8 +558,8 @@ export class Gestor {
         case 'Modificar grupos':
           this.modificarGrupo();
           break;
-        case 'Eliminar grupos':
-          this.eliminarUsuario();
+        case 'Eliminar grupo':
+          this.eliminarGrupo();
           break;
         case 'Volver al menú anterior':
           this.gestionInfo()
@@ -651,7 +651,7 @@ export class Gestor {
           this.jsonColeccionGrupo.insertarGrupo(grupo);
 
           console.log('Grupo registrado con éxito:', grupo);
-          this.volver(() => this.consola());
+          this.volver(() => this.gestionInfo());
         } catch (error: unknown) {
           if (error instanceof Error) {
             console.log('\x1b[31m%s\x1b[0m', 'Error al crear el grupo: ', error.message);
@@ -682,33 +682,33 @@ export class Gestor {
   }
 
   /**
-   * Eliminar un usuario de la lista de usuarios con opción a cancelar
+   * Eliminar un grupo de la lista de usuarios con opción a cancelar
    */
   private eliminarGrupo(): void {
     console.clear();
-    console.log('Eliminando usuario...');
+    console.log('Eliminando grupo...');
   
     // Obtener el listado de usuarios
-    const usuarios = this.coleccionUsuarios.getUsuarios();
+    const grupos = this.coleccionGrupos.getGrupos();
   
-    // Pedir al usuario que seleccione el usuario a eliminar
+    // Pedir al grupo que seleccione el grupo a eliminar
     inquirer.prompt({
       type: 'list',
-      name: 'usuario',
-      message: 'Selecciona el usuario que deseas eliminar:',
-      choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
+      name: 'grupo',
+      message: 'Selecciona el grupo que deseas eliminar:',
+      choices: Array.from(grupos.values()).map((grupo) => grupo.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
-      if (respuesta.usuario === 'Cancelar') {
-        this.consola();
+      if (respuesta.grupo === 'Cancelar') {
+        this.gestionInfo();
       } else {
-        // Buscar el usuario a eliminar por su nombre y eliminarlo
-        const usuarioAEliminar = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
-        if (usuarioAEliminar) {
+        // Buscar el grupo a eliminar por su nombre y eliminarlo
+        const grupoAEliminar = Array.from(grupos.values()).find((grupo) => grupo.getNombre() === respuesta.grupo);
+        if (grupoAEliminar) {
           // Lo eliminamos del json
-          this.jsonColeccionUsuario.eliminarUsuario(usuarioAEliminar);
-          // Lo eliminamos del map de usuarios
-          usuarios.delete(usuarioAEliminar.getID());
-          console.log(`Usuario ${usuarioAEliminar.getNombre()} eliminado con éxito`);
+          this.jsonColeccionGrupo.eliminarGrupo(grupoAEliminar);
+          // Lo eliminamos del map de grupos
+          grupos.delete(grupoAEliminar.getID());
+          console.log(`Grupo ${grupoAEliminar.getNombre()} eliminado con éxito`);
 
         } else {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
@@ -966,9 +966,9 @@ export class Gestor {
     });
   }
 
-    ///////////////////////////////////////
+  /////////////////////////////////////
   ////////// Gestión de Reto //////////
-  ///////////////////////////////////////
+  /////////////////////////////////////
 
   public gestionRetos(): void {
     console.clear();
