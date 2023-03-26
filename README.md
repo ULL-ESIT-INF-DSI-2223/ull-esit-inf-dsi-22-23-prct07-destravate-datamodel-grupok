@@ -378,6 +378,8 @@ La clase contiene tambien los siguientes métodos para gestionar y modificar los
 * `modificarNombre`: Este método modifica el nombre de un usuario del sistema. Se comprueba que no haya un usuario con el mismo nombre en el sistema y si no hay un usuario con el mismo nombre se modifica el nombre del usuario.
 * `modificarContraseña`: Este método modifica la contraseña de un usuario del sistema. Se comprueba que la contraseña actual del usuario sea correcta y si es correcta se modifica la contraseña del usuario.
 * `
+
+
 ### jsonCollection
 
 A partir de la implementación de las colecciones heredan las clases denominadas `jsonCollection`, las cuales encontramos dentro de la carpeta `jsonModifiers` en `src`. Con estas cuatro clases (una por cada colección) podremos manejar los ficheros `.json` que se encuentran en la carptea `dataBase`, que es donde se almacenarán los datos de la aplicacción.
