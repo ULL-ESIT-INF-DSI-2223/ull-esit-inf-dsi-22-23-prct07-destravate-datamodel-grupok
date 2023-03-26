@@ -218,7 +218,9 @@
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -311,9 +313,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -359,6 +359,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -373,9 +376,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Usuario } from '../modelos/usuario';
-import { Coleccion } from '../interfaces/coleccion';
-import { Actividad } from '../enums/actividadEnum';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Usuario } from "../modelos/usuario";
+import { Coleccion } from "../interfaces/coleccion";
+import { Actividad } from "../enums/actividadEnum";
 &nbsp;
 /**
  * Clase que implemente Colección y la especifica para usuarios
@@ -398,9 +402,9 @@ export class ColeccionUsuario implements Coleccion&lt;Usuario&gt; {
   }
 &nbsp;
   /**
-   * Método setUsuarios, establece el valor de usuarios pero antes revisa si el usuario ya existe mediante 
+   * Método setUsuarios, establece el valor de usuarios pero antes revisa si el usuario ya existe mediante
    * el uso del id
-   * @param usuarios 
+   * @param usuarios
    */
   public setUsuarios(usuarios: Map&lt;number, Usuario&gt;): void {
     this.usuarios = usuarios;
@@ -416,7 +420,7 @@ export class ColeccionUsuario implements Coleccion&lt;Usuario&gt; {
 <span class="cstat-no" title="statement not covered" >        this.usuarios.set(usuario.getID(), usuario);</span>
       }
     }
-  }    
+  }
 &nbsp;
   /**
    * Getter de la clase usuario
@@ -431,7 +435,7 @@ export class ColeccionUsuario implements Coleccion&lt;Usuario&gt; {
    */
   public listar(): void {
     console.clear();
-    console.log('Listando usuarios...');
+    console.log("Listando usuarios...");
     for (const usuario of this.usuarios.values()) {
       console.log(usuario);
     }
@@ -444,33 +448,31 @@ export class ColeccionUsuario implements Coleccion&lt;Usuario&gt; {
    */
   public insertar(usuario: Usuario): void {
     if (this.usuarios.has(usuario.getID())) {
-      throw new Error('El usuario con id ' + usuario.getID() + ' ya existe');
+      throw new Error("El usuario con id " + usuario.getID() + " ya existe");
     }
-  
+&nbsp;
     // comprobar que el nombre no existe
     const nuevoNombre = usuario.getNombre();
     for (const u of this.usuarios.values()) {
       if (u.getNombre() === nuevoNombre) {
-        throw new Error('El usuario con nombre ' + nuevoNombre + ' ya existe');
+        throw new Error("El usuario con nombre " + nuevoNombre + " ya existe");
       }
     }
-  
+&nbsp;
     this.usuarios.set(usuario.getID(), usuario);
-  }  
+  }
 &nbsp;
   /**
    * Método que permite eliminar usuarios
    * @param usuario Usuario a eliminar
    */
-  public eliminar( usuario: Usuario) {
+  public eliminar(usuario: Usuario) {
     if (this.usuarios.has(usuario.getID())) {
       this.usuarios.delete(usuario.getID());
-    }
-    else {
-      throw new Error('El usuario que deseas eliminar no existe.');
+    } else {
+      throw new Error("El usuario que deseas eliminar no existe.");
       // console.log("El usuario que deseas eliminar no existe.");
     }
-    
   }
 &nbsp;
   /**
@@ -478,64 +480,68 @@ export class ColeccionUsuario implements Coleccion&lt;Usuario&gt; {
    * @param usuario usuario a modificar
    * @param nombre nuevo nombre
    */
-  public modificarNombre( usuario: Usuario, nombre: string) {
+  public modificarNombre(usuario: Usuario, nombre: string) {
     // comprobar que el nombre no existe
     const nuevoNombre = nombre;
     for (const u of this.usuarios.values()) {
       if (u.getNombre() === nuevoNombre) {
-        throw new Error('El usuario con nombre ' + nuevoNombre + ' ya existe');
+        throw new Error("El usuario con nombre " + nuevoNombre + " ya existe");
       }
     }
     this.usuarios.get(usuario.getID())!.setNombre(nombre);
   }
 &nbsp;
-  public modificarContraseña( usuario: Usuario, contraseña: string) {
+  public modificarContraseña(usuario: Usuario, contraseña: string) {
     this.usuarios.get(usuario.getID())!.setContraseña(contraseña);
   }
 &nbsp;
-  public modificarActividad( usuario: Usuario, actividad: Actividad ) {
+  public modificarActividad(usuario: Usuario, actividad: Actividad) {
     this.usuarios.get(usuario.getID())!.setActividades(actividad);
   }
 &nbsp;
-  public addAmigo( usuario: Usuario, amigo: number) {
+  public addAmigo(usuario: Usuario, amigo: number) {
     this.usuarios.get(usuario.getID())!.addAmigoApp(amigo);
   }
 &nbsp;
-  public eraseAmigo( usuario: Usuario, amigo: number) {
+  public eraseAmigo(usuario: Usuario, amigo: number) {
     this.usuarios.get(usuario.getID())!.eraseAmigoApp(amigo);
   }
 &nbsp;
-  public addRutaFavorita( usuario: Usuario, ruta: number) {
+  public addRutaFavorita(usuario: Usuario, ruta: number) {
     this.usuarios.get(usuario.getID())!.addRutaFavorita(ruta);
   }
 &nbsp;
-  public eraseRutaFavorita( usuario: Usuario, ruta: number) {
+  public eraseRutaFavorita(usuario: Usuario, ruta: number) {
     this.usuarios.get(usuario.getID())!.eraseRutaFavorita(ruta);
   }
 &nbsp;
-  public addRutaRealizada( usuario: Usuario, ruta: { ruta: number; fecha: string; }) {
+  public addRutaRealizada(
+    usuario: Usuario,
+    ruta: { ruta: number; fecha: string }
+  ) {
     this.usuarios.get(usuario.getID())!.addRutaRealizada(ruta);
   }
 &nbsp;
-  public addRetosActivos( usuario: Usuario, reto: number) {
+  public addRetosActivos(usuario: Usuario, reto: number) {
     this.usuarios.get(usuario.getID())!.addRetosActivos(reto);
   }
 &nbsp;
-  public eraseRetosActivos( usuario: Usuario, reto: number) {
+  public eraseRetosActivos(usuario: Usuario, reto: number) {
     this.usuarios.get(usuario.getID())!.eraseRetosActivos(reto);
   }
 &nbsp;
   public getUsuario(id: number): Usuario {
     return this.usuarios.get(id)!;
   }
-}</pre></td></tr></table></pre>
+}
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-26T19:02:17.443Z
+                at 2023-03-26T19:56:42.217Z
             </div>
         <script src="../prettify.js"></script>
         <script>

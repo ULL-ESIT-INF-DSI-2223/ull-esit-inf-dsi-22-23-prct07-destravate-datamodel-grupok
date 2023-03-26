@@ -265,17 +265,7 @@
 <a name='L200'></a><a href='#L200'>200</a>
 <a name='L201'></a><a href='#L201'>201</a>
 <a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a>
-<a name='L207'></a><a href='#L207'>207</a>
-<a name='L208'></a><a href='#L208'>208</a>
-<a name='L209'></a><a href='#L209'>209</a>
-<a name='L210'></a><a href='#L210'>210</a>
-<a name='L211'></a><a href='#L211'>211</a>
-<a name='L212'></a><a href='#L212'>212</a>
-<a name='L213'></a><a href='#L213'>213</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L203'></a><a href='#L203'>203</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -370,7 +360,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -394,7 +383,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,7 +397,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -424,7 +411,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -438,7 +424,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -455,7 +440,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -475,14 +459,10 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -555,7 +535,7 @@ export class ColeccionReto implements Coleccion&lt;Reto&gt; {
    */
   public listar(): void {
     console.clear();
-    console.log('Listando retos...');
+    console.log("Listando retos...");
     for (const reto of this.retos.values()) {
       console.log(reto);
     }
@@ -581,8 +561,7 @@ export class ColeccionReto implements Coleccion&lt;Reto&gt; {
   public eliminar(reto: Reto) {
     if (this.retos.has(reto.getID())) {
       this.retos.delete(reto.getID());
-    }
-    else {
+    } else {
       throw new Error("El reto que deseas eliminar no existe");
       // console.log("El reto que deseas eliminar no existe.");
     }
@@ -593,7 +572,7 @@ export class ColeccionReto implements Coleccion&lt;Reto&gt; {
    * @param reto Reto a modificar
    * @param nombre Nombre nuevo del reto
    * @returns void
-  */
+   */
   public modificarNombre(reto: Reto, nombre: string): void {
     if (this.retos.has(reto.getID())) {
       // comprobar si el nombre nuevo ya existe
@@ -601,14 +580,13 @@ export class ColeccionReto implements Coleccion&lt;Reto&gt; {
       const nuevoNombre = nombre;
       for (const u of this.retos.values()) {
         if (u.getNombre() === nuevoNombre) {
-          throw new Error('El reto con nombre ' + nuevoNombre + ' ya existe');
+          throw new Error("El reto con nombre " + nuevoNombre + " ya existe");
         }
       }
       reto.setNombre(nombre);
-    }
-    else {
+    } else {
       console.log("El reto que deseas modificar no existe.");
-      throw new Error('El reto que deseas modificar no existe');
+      throw new Error("El reto que deseas modificar no existe");
     }
   }
 &nbsp;
@@ -620,9 +598,8 @@ export class ColeccionReto implements Coleccion&lt;Reto&gt; {
   public addRuta(reto: Reto, ruta: number): void {
     if (this.retos.has(reto.getID())) {
       reto.addRuta(ruta);
-    }
-    else {
-      throw new Error('El reto al que deseas añadir la ruta no existe');
+    } else {
+      throw new Error("El reto al que deseas añadir la ruta no existe");
       // console.log("El reto al que deseas añadir la ruta no existe.");
     }
   }
@@ -635,9 +612,8 @@ export class ColeccionReto implements Coleccion&lt;Reto&gt; {
   public eraseRuta(reto: Reto, ruta: number): void {
     if (this.retos.has(reto.getID())) {
       reto.removeRuta(ruta);
-    }
-    else {
-      throw new Error('El reto del que deseas eliminar la ruta no existe');
+    } else {
+      throw new Error("El reto del que deseas eliminar la ruta no existe");
       // console.log("El reto del que deseas eliminar la ruta no existe.");
     }
   }
@@ -650,9 +626,8 @@ export class ColeccionReto implements Coleccion&lt;Reto&gt; {
   public modificarActividad(reto: Reto, tipo: Actividad): void {
     if (this.retos.has(reto.getID())) {
       reto.setTipoActividad(tipo);
-    }
-    else {
-      throw new Error('El reto que deseas modificar no existe');
+    } else {
+      throw new Error("El reto que deseas modificar no existe");
       // console.log("El reto que deseas modificar no existe.");
     }
   }
@@ -663,13 +638,12 @@ export class ColeccionReto implements Coleccion&lt;Reto&gt; {
       const usuarios = reto.getUsuarios();
       for (const u of usuarios) {
 <span class="cstat-no" title="statement not covered" >        if (u === usuario) {</span>
-<span class="cstat-no" title="statement not covered" >          throw new Error('El usuario ya está en el reto');</span>
+<span class="cstat-no" title="statement not covered" >          throw new Error("El usuario ya está en el reto");</span>
         }
       }
       reto.addUsuario(usuario);
-    }
-    else {
-      throw new Error('El reto al que deseas añadir el usuario no existe');
+    } else {
+      throw new Error("El reto al que deseas añadir el usuario no existe");
       // console.log("El reto al que deseas añadir el usuario no existe.");
     }
   }
@@ -685,28 +659,24 @@ export class ColeccionReto implements Coleccion&lt;Reto&gt; {
         }
       }
       if (!encontrado) {
-        throw new Error('El usuario no está en el reto');
-      }
-      else {
+        throw new Error("El usuario no está en el reto");
+      } else {
         reto.removeUsuario(usuario);
       }
-    }
-    else {
-      throw new Error('El reto del que deseas eliminar el usuario no existe');
+    } else {
+      throw new Error("El reto del que deseas eliminar el usuario no existe");
       // console.log("El reto del que deseas eliminar el usuario no existe.");
     }
   }
 }
-&nbsp;
-&nbsp;
-  </pre></td></tr></table></pre>
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-26T19:02:17.443Z
+                at 2023-03-26T19:56:42.217Z
             </div>
         <script src="../prettify.js"></script>
         <script>
