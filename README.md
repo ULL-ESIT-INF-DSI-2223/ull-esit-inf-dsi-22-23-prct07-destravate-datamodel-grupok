@@ -215,6 +215,39 @@ class Ruta implements EntidadInterface {
   calificacion: number = 0;
 ```
 
+Se puede apreciar que ciertos atributos se inicializan con un valor por defecto, esto se hace porque no se pasan por parámetro en el constructor, ya que estos atributos se van modificando a lo largo de la ejecución del sistema y cuando se va agregando información a las rutas.
+
+Cabe resaltar que la clase `Ruta` implementa la interfaz `EntidadInterface`, por lo que debe implementar los métodos que se definen en esta interfaz que comentamos previamente.
+
+El constructor de la clase es el siguiente:
+
+```typescript
+  constructor(
+    nombre: string, 
+    coordenadasInicio: Coordenadas, 
+    coordenadasFin: Coordenadas, 
+    longitud: number, 
+    desnivel: number, 
+    tipoActividad: Actividad,
+    dificultad: Dificultad) 
+    {
+      contador_id++;
+      this.id = contador_id;
+      this.nombre = nombre;
+      this.coordenadasInicio = coordenadasInicio;
+      this.coordenadasFin = coordenadasFin;
+      this.longitud = longitud;
+      this.desnivel = desnivel;
+      this.tipoActividad = tipoActividad;
+      this.dificultad = dificultad;
+
+      // Ponemos una calificación aleatoria entre 0 y 5
+      this.calificacion = Math.floor(Math.random() * 6);
+    }    
+```
+
+En el constructor se incrementa el contador de identificadores y se asigna el valor del contador al atributo `id` de la ruta, esto se hace de esta forma para que al crear una ruta se le asigne un identificador único. Por último, se asignan los valores de los parámetros al resto de atributos de la clase.
+
 
 ## Conclusiones
 
