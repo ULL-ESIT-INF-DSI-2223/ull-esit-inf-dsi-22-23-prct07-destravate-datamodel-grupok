@@ -1270,18 +1270,20 @@ export class Gestor {
                   if (respuesta2.nombre === 'Cancelar') {
                     this.modificarGrupo();
                   }
-                  // Obtenemos el id del participante que queremos borrar 
-                  const idParticipanteBorrar = Array.from(grupoAModificar.getParticipantes().values()).find((id) => this.coleccionUsuarios.getUsuario(id).getNombre() === respuesta2.nombre);
-                  
-                  // Comprobamos que el participante exista
-                  if ( idParticipanteBorrar == undefined ) {
-                    throw new Error (`No se ha encontrado ningún participante con el nombre ${respuesta2.nombre}.`);
+                  else {
+                    // Obtenemos el id del participante que queremos borrar 
+                    const idParticipanteBorrar = Array.from(grupoAModificar.getParticipantes().values()).find((id) => this.coleccionUsuarios.getUsuario(id).getNombre() === respuesta2.nombre);
+                    
+                    // Comprobamos que el participante exista
+                    if ( idParticipanteBorrar == undefined ) {
+                      throw new Error (`No se ha encontrado ningún participante con el nombre ${respuesta2.nombre}.`);
+                    }
+                    // Borramos el participante de la lista del grupo actual
+                    grupoAModificar.eraseParticipante(idParticipanteBorrar);
+                    // Lo escribimos en el fichero
+                    this.jsonColeccionGrupo.eraseParticipante(grupoAModificar, idParticipanteBorrar);
+                    return (this.volver(() => this.modificarGrupo()));
                   }
-                  // Borramos el participante de la lista del grupo actual
-                  grupoAModificar.eraseParticipante(idParticipanteBorrar);
-                  // Lo escribimos en el fichero
-                  this.jsonColeccionGrupo.eraseParticipante(grupoAModificar, idParticipanteBorrar);
-                  return (this.volver(() => this.modificarGrupo()));
                 });
                 break;
               case 'Añadir Rutas Favoritas':
@@ -1292,20 +1294,22 @@ export class Gestor {
                   name: 'nombre',
                   choices: Array.from(this.coleccionRutas.getRutas().values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
                 }).then((respuesta2) => {
-                  if (respuesta2.usuario === 'Cancelar') {
+                  if (respuesta2.nombre === 'Cancelar') {
                     this.modificarGrupo();
                   }
-                  // Obtenemos el id de la ruta que queremos añadir
-                  const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
-                  // Comprobamos que la ruta exista
-                  if ( idRuta == undefined ) {
-                    throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                  else {
+                    // Obtenemos el id de la ruta que queremos añadir
+                    const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
+                    // Comprobamos que la ruta exista
+                    if ( idRuta == undefined ) {
+                      throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                    }
+                    // Añadimos la ruta a la lista de rutas favoritas del grupo actual
+                    grupoAModificar.addRutaFavorita(idRuta);
+                    // Lo escribimos en el fichero
+                    this.jsonColeccionGrupo.addRutaFavorita(grupoAModificar, idRuta);
+                    return (this.volver(() => this.modificarGrupo()));
                   }
-                  // Añadimos la ruta a la lista de rutas favoritas del grupo actual
-                  grupoAModificar.addRutaFavorita(idRuta);
-                  // Lo escribimos en el fichero
-                  this.jsonColeccionGrupo.addRutaFavorita(grupoAModificar, idRuta);
-                  return (this.volver(() => this.modificarGrupo()));
                 });
                 break;
               case 'Borrar Rutas Favoritas':
@@ -1321,20 +1325,22 @@ export class Gestor {
                     name: 'nombre',
                     choices: rutasFavoritas.concat('Cancelar'),
                   }).then((respuesta2) => {
-                    if (respuesta2.usuario === 'Cancelar') {
+                    if (respuesta2.nombre === 'Cancelar') {
                       this.modificarGrupo();
                     }
-                    // Obtenemos el id de la ruta que queremos borrar
-                    const idRuta = Array.from(grupoAModificar.getRutasFavoritas().values()).find((id) => this.coleccionRutas.getRuta(id).getNombre() === respuesta2.nombre);
-                    // Comprobamos que la ruta exista
-                    if ( idRuta === undefined ) {
-                      throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                    else {
+                      // Obtenemos el id de la ruta que queremos borrar
+                      const idRuta = Array.from(grupoAModificar.getRutasFavoritas().values()).find((id) => this.coleccionRutas.getRuta(id).getNombre() === respuesta2.nombre);
+                      // Comprobamos que la ruta exista
+                      if ( idRuta === undefined ) {
+                        throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                      }
+                      // Borramos la ruta de la lista de rutas favoritas del grupo actual
+                      grupoAModificar.eraseRutaFavorita(idRuta);
+                      // Lo escribimos en el fichero
+                      this.jsonColeccionGrupo.eraseRutaFavorita(grupoAModificar, idRuta);
+                      return (this.volver(() => this.modificarGrupo()));
                     }
-                    // Borramos la ruta de la lista de rutas favoritas del grupo actual
-                    grupoAModificar.eraseRutaFavorita(idRuta);
-                    // Lo escribimos en el fichero
-                    this.jsonColeccionGrupo.eraseRutaFavorita(grupoAModificar, idRuta);
-                    return (this.volver(() => this.modificarGrupo()));
                   });
                 }
                 break;
@@ -1347,46 +1353,48 @@ export class Gestor {
                   choices: Array.from(this.coleccionRutas.getRutas().values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
                 }).then((respuesta2) => {
                   // Obtenemos el id de la ruta que queremos añadir
-                  if (respuesta2.usuario === 'Cancelar') {
+                  if (respuesta2.nombre === 'Cancelar') {
                     this.modificarGrupo();
                   }
-                  const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
-                  // Comprobamos que la ruta exista
-                  if ( idRuta == undefined ) {
-                    throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
-                  }
-                  // Añadimos la ruta a la lista de rutas realizadas del grupo actual
-                  grupoAModificar.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
-                  
-                  // Lo escribimos en el fichero
-                  this.jsonColeccionGrupo.addRutaRealizada(grupoAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                  else {
+                    const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
+                    // Comprobamos que la ruta exista
+                    if ( idRuta == undefined ) {
+                      throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                    }
+                    // Añadimos la ruta a la lista de rutas realizadas del grupo actual
+                    grupoAModificar.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                    
+                    // Lo escribimos en el fichero
+                    this.jsonColeccionGrupo.addRutaRealizada(grupoAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
 
-                  // Añadimos la ruta al creador y viceversa
-                  let participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === grupoAModificar.getCreador());
-                  let rutaParticipada = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getID() === idRuta);
-                  if (participanteRuta !== undefined) {
-                    participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
-                    this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
-                  }
-                  if (rutaParticipada !== undefined  && rutaParticipada.getUsuariosVisitantes().find((id) => id === grupoAModificar.getCreador()) === undefined) {
-                    rutaParticipada.addUsuarioVisitante(grupoAModificar.getCreador());
-                    this.jsonColeccionRuta.addUsuarioVisitante(rutaParticipada, grupoAModificar.getCreador());
-                  }
-
-                  // Añadimos la ruta al usuario y viceversa
-                  for (const userID of grupoAModificar.participantes) {
-                    participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === userID);
-                    rutaParticipada = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getID() === idRuta);
+                    // Añadimos la ruta al creador y viceversa
+                    let participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === grupoAModificar.getCreador());
+                    let rutaParticipada = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getID() === idRuta);
                     if (participanteRuta !== undefined) {
                       participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
                       this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
                     }
-                    if (rutaParticipada !== undefined && rutaParticipada.getUsuariosVisitantes().find((id) => id === userID) === undefined) {
-                      rutaParticipada.addUsuarioVisitante(userID);
-                      this.jsonColeccionRuta.addUsuarioVisitante(rutaParticipada, userID);
+                    if (rutaParticipada !== undefined  && rutaParticipada.getUsuariosVisitantes().find((id) => id === grupoAModificar.getCreador()) === undefined) {
+                      rutaParticipada.addUsuarioVisitante(grupoAModificar.getCreador());
+                      this.jsonColeccionRuta.addUsuarioVisitante(rutaParticipada, grupoAModificar.getCreador());
                     }
+
+                    // Añadimos la ruta al usuario y viceversa
+                    for (const userID of grupoAModificar.participantes) {
+                      participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === userID);
+                      rutaParticipada = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getID() === idRuta);
+                      if (participanteRuta !== undefined) {
+                        participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                        this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                      }
+                      if (rutaParticipada !== undefined && rutaParticipada.getUsuariosVisitantes().find((id) => id === userID) === undefined) {
+                        rutaParticipada.addUsuarioVisitante(userID);
+                        this.jsonColeccionRuta.addUsuarioVisitante(rutaParticipada, userID);
+                      }
+                    }
+                    this.volver(() => this.modificarGrupo());
                   }
-                  this.volver(() => this.modificarGrupo());
                 });
                 break;
               default:
