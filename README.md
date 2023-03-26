@@ -554,7 +554,23 @@ export class Gestor {
   }
 ```
 
-Como podemos observar, dentro del constructor 
+Como podemos observar, dentro del constructor cada vez que se crea una instancia de un objeto de la clase `Gestor` se cargan los datos de las distintas colecciones de la base de datos. Además, se ha definido un método para cada una de las distintas colecciones, así como un método para cada uno de los distintos modificadores. Pudiendo así mantener una base de datos que se carga cuando se inicia el programa
+
+Estos son los método más triviales: 
+* ``` public getUsuarios(): Usuario[] ``` Este método se encarga de devolver la colección de usuarios.
+* ``` public getRetos(): Reto[] ``` Este método se encarga de devolver la colección de retos.
+* ``` public getRutas(): Ruta[] ``` Este método se encarga de devolver la colección de rutas.
+* ``` public getGrupos(): Grupo[] ``` Este método se encarga de devolver la colección de grupos.
+* ``` public setUsuarios(coleccion: ColeccionUsuario) ``` Este método se encarga de modificar la colección de usuarios.
+* ``` public setRetos(coleccion: ColeccionReto) ``` Este método se encarga de modificar la colección de retos.
+* ``` public setRutas(coleccion: ColeccionRuta) ``` Este método se encarga de modificar la colección de rutas.
+* ``` public setGrupos(coleccion: ColeccionGrupo) ``` Este método se encarga de modificar la colección de grupos.
+
+#### Menú principal
+Esta es la función encargada de mostrar el menú principal del programa. Se ha definido de la siguiente forma:
+
+```typescript
+```
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
