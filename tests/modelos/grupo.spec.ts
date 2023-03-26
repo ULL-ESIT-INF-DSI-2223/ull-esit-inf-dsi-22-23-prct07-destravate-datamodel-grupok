@@ -126,4 +126,9 @@ describe('Grupo', () => {
     ]);
   });
 
+  it ('should add a new route to the historical routes list', () => {
+    const fecha = new Date();
+    grupo.addRutaRealizada({ruta: 1, fecha: fecha.toLocaleDateString()});
+    expect(grupo.getHistoricoRutas()).to.be.eql([{ruta: 1, fecha: fecha.toLocaleDateString()}]);
+  });
 });
