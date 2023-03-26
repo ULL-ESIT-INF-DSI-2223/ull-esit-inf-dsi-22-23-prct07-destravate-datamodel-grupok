@@ -32,7 +32,9 @@ export class Gestor {
   private jsonColeccionReto = new JsonColeccionReto();
   private jsonColeccionGrupo = new JsonColeccionGrupo();
 
-
+  /**
+   * Constructor de la clase gestor
+   */
   constructor() {
     this.coleccionUsuarios = new ColeccionUsuario();
     this.coleccionRutas = new ColeccionRuta();
@@ -44,38 +46,74 @@ export class Gestor {
     this.coleccionGrupos.setGruposFromArray(this.jsonColeccionGrupo.cargarGrupos());
   }
 
+  /**
+   * Getter de coleccionUsuarios
+   * @returns colección de usuarios
+   */
   public getUsuarios() {
     return this.coleccionUsuarios;
   }
 
+  /**
+   * Getter de coleccionRetos
+   * @returns colección de retos
+   */
   public getRetos() {
     return this.coleccionRetos;
   }
 
+  /**
+   * Getter de coleccionRutas
+   * @returns colección de rutas
+   */
   public getRutas() {
     return this.coleccionRutas;
   }
 
+  /**
+   * Getter de coleccionGrupos
+   * @returns colección de grupos
+   */
   public getGrupos() {
     return this.coleccionGrupos;
   }
 
+  /**
+   * Setter de coleccionUsuarios
+   * @param coleccion colección de usuarios
+   */
   public setUsuarios(coleccion: ColeccionUsuario) {
     this.coleccionUsuarios = coleccion;
   }
 
+  /**
+   * Setter de coleccionRetos
+   * @param coleccion colección de retos
+   */
   public setRetos(coleccion: ColeccionReto) {
     this.coleccionRetos = coleccion;
   }
 
+  /**
+   * Setter de coleccionRutas
+   * @param coleccion colección de rutas
+   */
   public setRutas(coleccion: ColeccionRuta) {
     this.coleccionRutas = coleccion;
   }
 
+  /**
+   * Setter de coleccionGrupos
+   * @param coleccion colección de grupos
+   */
   public setGrupos(coleccion: ColeccionGrupo) {
     this.coleccionGrupos = coleccion;
   }
 
+  /**
+   * Método que permite volver al menu mediante la selección de su opción
+   * @param callback Callback que indica a que menú vuelve
+   */
   private volver(callback: (i: this) => void): void {
     inquirer.prompt({
       type: 'list',
@@ -102,8 +140,8 @@ export class Gestor {
       name: 'opcion',
       message: 'Elige una opción: ',
       choices: [
-        'Registrarse como usuario',
         'Log in',
+        'Registrarse como usuario',
         'Gestión de la información',
         'Salir',
       ],
@@ -123,6 +161,371 @@ export class Gestor {
           break;
         default:
           break;
+      }
+    });
+  }
+
+  ////////////////////////////////////////
+  ////////// Registo de Usuario //////////
+  ////////////////////////////////////////
+
+  /**
+   * Método que permite crear usuarios y añadirlos a la colección de usuarios,
+   * esto lo hace preguntando el nombre del usuario y la actividad que realiza, 
+   * así como asignar el id del usuario como key dentro del map de ColeccionUsuario
+   */
+  private registrarUsuario(): void {
+    console.clear();
+    console.log('Registrando usuario...');
+    inquirer.prompt({
+      type: 'input',
+      name: 'nombre',
+      message: 'Introduce tu nombre de usuario: ',
+    }).then((respuesta) => {
+      inquirer.prompt({
+        type: 'list',
+        name: 'actividad',
+        message: 'Elige una actividad: ',
+        choices: ['cilismo', 'running'],
+      }).then((respuesta2) => {
+        inquirer.prompt({
+          type: 'input',
+          name: 'contraseña',
+          message: 'Introduce tu contraseña: '
+        }).then((respuesta3) => {
+          try {
+            let usuario = new Usuario(respuesta.nombre, respuesta3.contraseña, respuesta2.actividad);
+            // Insertamos el usuario en la colección de usuarios
+            this.coleccionUsuarios.insertar(usuario);
+            // Insertamos el usuario en el json
+            this.jsonColeccionUsuario.insertarUsuario(usuario);
+
+            console.log('Usuario registrado con éxito:', usuario);
+            this.volver(() => this.consola());
+          } catch (error: unknown) {
+            if (error instanceof Error) {
+              console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario: ', error.message);
+            }
+            console.log('Introduce un nombre de usuario válido no vacío y/o contraseña válida');
+            // pulsar enter para volver a introducir un nombre de usuario
+            inquirer.prompt({
+              type: 'input',
+              name: 'volver',
+              message: 'Pulsa enter para volver a introducir un usuario',
+            }).then(() => {
+              this.registrarUsuario();
+            });
+            return;
+          }
+        });
+      });
+    });
+  }  
+
+
+  /////////////////////////////////
+  ////////// Menú Log In //////////
+  /////////////////////////////////
+
+  /**
+   * Método que desplega el proceso de log in
+   */
+  private logIn() {
+    console.clear();
+    console.log('Iniciando sesión...');
+    inquirer.prompt({
+      type: 'input',
+      name: 'usuario',
+      message: 'Introduce tu nombre de usuario: ',
+    }).then((respuesta) => {
+      inquirer.prompt({
+        type: 'input',
+        name: 'contraseña',
+        message: 'Introduce tu contraseña: '
+      }).then((respuesta2) => {
+        // Buscamos en la colección de usuarios el usuario que se ha logueado
+        const usuario = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
+        if ( usuario != undefined ) {
+          if ( usuario.getContraseña() === respuesta2.contraseña ) {
+            console.log('Sesión iniciada correctamente.');
+            this.menuUsuario(usuario.id);
+          } else {
+            console.log('Contraseña incorrecta.');
+            this.volver(() => this.logIn());
+          }
+        } else {
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+          this.volver(() => this.logIn());
+        }
+      });
+    });
+  }
+
+  /**
+   * Método que despliega el menú de el usuario loggeado
+   * @param id Id del usuario logeado
+   */
+  private menuUsuario(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    inquirer.prompt({
+      type: 'list',
+      name: 'menu',
+      message: 'Elige una opción: ',
+      choices: ['Lista de usuarios', 'Amigos', 'Rutas', 'Grupos', 'Estadísticas', 'Retos', 'Histórico de rutas', 'Salir'],
+    }).then((respuesta) => {
+      switch (respuesta.menu) {
+        case 'Lista de usuarios':
+          console.clear();
+          this.listarUsuarios();
+        break;
+        case 'Amigos':
+          console.clear();
+          this.gestionAmigos(usuarioActual);
+        break;
+        case 'Rutas':
+          console.clear();
+          this.gestionRutasUsuario(id);
+        break;
+        case 'Grupos':
+          console.clear();
+          this.gestionGruposUsuario(id);
+        break;
+        case 'Estadísticas':
+          console.clear();
+          this.listarEstadisticas(id);
+          this.menuUsuario(id)
+        break;
+        case 'Retos':
+          console.clear();
+          // this.gestionRetos(usuarioActual);
+        break;
+        case 'Histórico de rutas':
+          console.clear();
+          this.listarHistoricoRutas(id);
+        break;
+        case 'Salir':
+          console.clear();
+          console.log('Saliendo...');
+          this.consola();
+        break;
+        default:
+        break;
+      }
+    });
+  }
+
+  /**
+   * Método que imprime las estadísticas del usuario
+   * @param id Id del usuario
+   */
+  private listarEstadisticas(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    // Listamos sus estadísticas 
+    console.log(usuarioActual.getEstadisticas());
+  }
+
+  private listarHistoricoRutas(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    // Listamos sus estadísticas 
+    console.log(usuarioActual.getHistoricoRutas());
+  }
+
+  /**
+   * Método que despliega el menú del usuario que permite gestionar amigos
+   * @param usuarioActual Usuario Actual
+   */
+  private gestionAmigos(usuarioActual: Usuario) {
+    inquirer.prompt({
+      type: 'list',
+      name: 'menu',
+      message: 'Elige una opción: ',
+      choices: ['Listar amigos', 'Añadir amigos', 'Borrar amigos', 'Volver'],
+    }).then((respuesta) => {
+      switch (respuesta.menu) {
+        case 'Listar amigos':
+          console.clear();
+          usuarioActual.getAmigosApp().forEach((id) => {
+            console.log(this.coleccionUsuarios.getUsuario(id).getNombre());
+          });
+          this.volver(() => this.gestionAmigos(usuarioActual));
+        break;
+        case 'Añadir amigos':
+          console.clear();
+          console.clear();
+          console.log('Añadiendo amigo...');
+          console.clear();
+          inquirer.prompt({
+            type: 'input',
+            name: 'nombre',
+            message: 'Introduce el nombre del amigo que deseas añadir: ',
+          }).then((respuesta2) => {
+            // Obtener el listado de usuarios
+            const usuarios = this.coleccionUsuarios.getUsuarios();
+            // Comprobamos si el usuario está en la lista de usuarios
+            if ( usuarios.has(respuesta2.nombre) ) {
+              console.log('Usuarios registrados:');
+              usuarios.forEach((usuario) => console.log(usuario.getNombre()));
+  
+              console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+              return (this.volver(() => this.gestionUsuarios()));
+            }
+            // Buscamos el amigo por su nombre dentro del map
+            const nuevoAmigo = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
+            // Comprobamos que exista el amigo
+            if ( nuevoAmigo == undefined ) {
+              console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+              return (this.volver(() => this.gestionUsuarios()));
+            }
+            // Añadimos el amigo al usuario actual
+            usuarioActual.addAmigoApp(nuevoAmigo.getID());
+            // Lo escribimos en el fichero 
+            this.jsonColeccionUsuario.addAmigo(usuarioActual);
+            console.log(`Amigo ${nuevoAmigo.getNombre()} añadido al usuario ${usuarioActual.getNombre()}.`);
+            return (this.volver(() => this.gestionUsuarios()));
+          });
+        break;
+        case 'Borrar amigos':
+          console.clear();
+          inquirer.prompt({
+            type: 'list',
+            name: 'nombre',
+            choices: Array.from(usuarioActual.getAmigosApp().values()).map((id) => this.coleccionUsuarios.getUsuario(id).getNombre()).concat('Cancelar'),
+          }).then((respuesta2) => {
+            // Obtenemos el id del usuario que queremos borrar 
+            const idUsuarioBorrar = Array.from(usuarioActual.getAmigosApp().values()).find((id) => this.coleccionUsuarios.getUsuario(id).getNombre() === respuesta2.nombre);
+            
+            // Comprobamos que el usuario exista
+            if ( idUsuarioBorrar == undefined ) {
+              throw new Error (`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+            }
+            // Borramos el usuario de la lista de amigos del usuario actual
+            usuarioActual.eraseAmigoApp(idUsuarioBorrar);
+            // Lo escribimos en el fichero
+            this.jsonColeccionUsuario.eraseAmigo(usuarioActual, idUsuarioBorrar);
+            return (this.volver(() => this.gestionUsuarios()));
+          });
+        break;
+        case 'Volver':
+          console.clear();
+          this.menuUsuario(usuarioActual.id);
+        break;
+        default:
+        break;
+      }
+    });
+  }
+
+  private gestionRutasUsuario(id: number) {
+    console.log('Gestionando rutas...');
+    inquirer.prompt({
+      type: 'list',
+      name: 'menu',
+      message: 'Elige una opción: ',
+      choices: ['Listar rutas', 'Mostrar rutas', 'Volver'],
+    }).then((respuesta) => {
+      switch (respuesta.menu) {
+        case 'Listar rutas':
+          console.clear();
+          console.log('Listando rutas...');
+          this.listarRutasUsuario();
+          this.gestionRutasUsuario(id);
+        break;
+        case 'Mostrar rutas':
+          console.clear();
+          console.log('Añadiendo ruta...');
+          this.mostrarRutas();
+          this.gestionRutasUsuario(id);
+        break;
+        case 'Volver':
+          console.clear();
+          this.menuUsuario(id);
+        break;
+        default:
+        break;
+      }
+    });
+  }
+  
+  /** 
+   * Permite listar, crear, borrar y unirse a grupos
+   */
+  private gestionGruposUsuario(id: number) {
+    console.clear();
+    console.log('Gestionando grupos...');
+    inquirer.prompt({
+      type: 'list',
+      name: 'menu',
+      message: 'Elige una opción: ',
+      choices: ['Listar grupos', 'Borrar', 'Unirse', 'Volver'],
+    }).then((respuesta) => {
+      switch (respuesta.menu) {
+        case 'Listar grupos':
+          console.clear();
+          console.log('Listando grupos...');
+          this.listarGrupos(() => this.gestionGruposUsuario(id));
+          this.gestionGruposUsuario(id);
+        break;
+        case 'Borrar':
+          console.clear();
+          console.log('Borrando grupo...');
+          // Hacemos que el usuario elija el grupo que quiere borrar de los cuales es administrador
+          inquirer.prompt({
+            type: 'list',
+            name: 'nombre',
+            // Ponemos como choices solo aquellos grupos de los cuales el usuario con id es administrador
+            choices: Array.from(this.coleccionGrupos.getGrupos().values()).filter((grupo) => grupo.getCreador() === id).map((grupo) => grupo.getNombre()).concat('Cancelar'),
+          }).then((respuesta2) => {
+            // Obtenemos el nombre del grupo que queremos borrar 
+            const grupoBorrar = Array.from(this.coleccionGrupos.getGrupos().values()).find((grupo) => grupo.getNombre() === respuesta2.nombre);
+            
+            // Comprobamos que el grupo exista
+            if ( grupoBorrar == undefined ) {
+              throw new Error (`No se ha encontrado ningún grupo con el nombre ${respuesta2.nombre}.`);
+            }
+            // Borramos el grupo de la lista de grupos del usuario actual
+            this.coleccionGrupos.eliminar(grupoBorrar);
+            // Lo escribimos en el fichero
+            this.jsonColeccionGrupo.eliminarGrupo(grupoBorrar);
+            return (this.volver(() => this.gestionGruposUsuario(id)));
+          });
+        break;
+        case 'Unirse':
+          console.clear();
+          console.log('Uniendo grupo...');
+          // Hacemos que el usuario seleccione uno de los grupos disponibles de los cuales no es participante
+          inquirer.prompt({
+            type: 'list',
+            name: 'nombre',
+            // Ponemos como choices solo aquellos grupos de los cuales el usuario con id no es participante
+            message: 'Elige un grupo: ',
+            choices: Array.from(this.coleccionGrupos.getGrupos().values()).filter((grupo) => !new Set(grupo.getParticipantes()).has(id)).map((grupo) => grupo.getNombre()).concat('Cancelar'),
+          }).then((respuesta2) => {
+            // Obtenemos el nombre del grupo que queremos borrar 
+            const grupoUnirse = Array.from(this.coleccionGrupos.getGrupos().values()).find((grupo) => grupo.getNombre() === respuesta2.nombre);
+            
+            // Comprobamos que el grupo exista
+            if ( grupoUnirse == undefined ) {
+              throw new Error (`No se ha encontrado ningún grupo con el nombre ${respuesta2.nombre}.`);
+            }
+            // Añadimos el usuario al grupo
+            grupoUnirse.addParticipante(id);
+            // Lo escribimos en el fichero
+            this.jsonColeccionGrupo.addParticipante(grupoUnirse, id);
+            return (this.volver(() => this.gestionGruposUsuario(id)));
+          });
+        break;
+        case 'Volver':
+          console.clear();
+          this.menuUsuario(id);
+        break;
+        default:
+        break;
       }
     });
   }
@@ -503,339 +906,6 @@ export class Gestor {
       }
     });
   }
-
-  private logIn() {
-    console.clear();
-    console.log('Iniciando sesión...');
-    inquirer.prompt({
-      type: 'input',
-      name: 'usuario',
-      message: 'Introduce tu nombre de usuario: ',
-    }).then((respuesta) => {
-      inquirer.prompt({
-        type: 'input',
-        name: 'contraseña',
-        message: 'Introduce tu contraseña: '
-      }).then((respuesta2) => {
-        // Buscamos en la colección de usuarios el usuario que se ha logueado
-        const usuario = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
-        if ( usuario != undefined ) {
-          if ( usuario.getContraseña() === respuesta2.contraseña ) {
-            console.log('Sesión iniciada correctamente.');
-            this.menuUsuario(usuario.id);
-          } else {
-            console.log('Contraseña incorrecta.');
-            this.volver(() => this.logIn());
-          }
-        } else {
-          console.log(`No se encontró el usuario ${respuesta.usuario}`);
-          this.volver(() => this.logIn());
-        }
-      });
-    });
-  }
-
-  private menuUsuario(id: number) {
-    console.clear();
-    // Cogemos el usuario de la colección de usuarios
-    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
-    inquirer.prompt({
-      type: 'list',
-      name: 'menu',
-      message: 'Elige una opción: ',
-      choices: ['Lista de usuarios', 'Amigos', 'Rutas', 'Grupos', 'Estadísticas', 'Retos', 'Histórico de rutas', 'Salir'],
-    }).then((respuesta) => {
-      switch (respuesta.menu) {
-        case 'Lista de usuarios':
-          console.clear();
-          this.listarUsuarios();
-        break;
-        case 'Amigos':
-          console.clear();
-          this.gestionAmigos(usuarioActual);
-        break;
-        case 'Rutas':
-          console.clear();
-          this.gestionRutasUsuario(id);
-        break;
-        case 'Grupos':
-          console.clear();
-          this.gestionGruposUsuario(id);
-        break;
-        case 'Estadísticas':
-          console.clear();
-          this.listarEstadisticas(id);
-          this.menuUsuario(id)
-        break;
-        case 'Retos':
-          console.clear();
-          // this.gestionRetos(usuarioActual);
-        break;
-        case 'Histórico de rutas':
-          console.clear();
-          // this.gestionHistoricoRutas(usuarioActual);
-        break;
-        case 'Salir':
-          console.clear();
-          console.log('Saliendo...');
-          this.consola();
-        break;
-        default:
-        break;
-      }
-    });
-  }
-
-  private listarEstadisticas(id: number) {
-    console.clear();
-    // Cogemos el usuario de la colección de usuarios
-    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
-    // Listamos sus estadísticas 
-    console.log(usuarioActual.getEstadisticas())
-  }
-
-  private gestionAmigos(usuarioActual: Usuario) {
-    inquirer.prompt({
-      type: 'list',
-      name: 'menu',
-      message: 'Elige una opción: ',
-      choices: ['Listar amigos', 'Añadir amigos', 'Borrar amigos', 'Volver'],
-    }).then((respuesta) => {
-      switch (respuesta.menu) {
-        case 'Listar amigos':
-          console.clear();
-          usuarioActual.getAmigosApp().forEach((id) => {
-            console.log(this.coleccionUsuarios.getUsuario(id).getNombre());
-          });
-          this.volver(() => this.gestionAmigos(usuarioActual));
-        break;
-        case 'Añadir amigos':
-          console.clear();
-          console.clear();
-          console.log('Añadiendo amigo...');
-          console.clear();
-          inquirer.prompt({
-            type: 'input',
-            name: 'nombre',
-            message: 'Introduce el nombre del amigo que deseas añadir: ',
-          }).then((respuesta2) => {
-            // Obtener el listado de usuarios
-            const usuarios = this.coleccionUsuarios.getUsuarios();
-            // Comprobamos si el usuario está en la lista de usuarios
-            if ( usuarios.has(respuesta2.nombre) ) {
-              console.log('Usuarios registrados:');
-              usuarios.forEach((usuario) => console.log(usuario.getNombre()));
-  
-              console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-              return (this.volver(() => this.gestionUsuarios()));
-            }
-            // Buscamos el amigo por su nombre dentro del map
-            const nuevoAmigo = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
-            // Comprobamos que exista el amigo
-            if ( nuevoAmigo == undefined ) {
-              console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-              return (this.volver(() => this.gestionUsuarios()));
-            }
-            // Añadimos el amigo al usuario actual
-            usuarioActual.addAmigoApp(nuevoAmigo.getID());
-            // Lo escribimos en el fichero 
-            this.jsonColeccionUsuario.addAmigo(usuarioActual);
-            console.log(`Amigo ${nuevoAmigo.getNombre()} añadido al usuario ${usuarioActual.getNombre()}.`);
-            return (this.volver(() => this.gestionUsuarios()));
-          });
-        break;
-        case 'Borrar amigos':
-          console.clear();
-          inquirer.prompt({
-            type: 'list',
-            name: 'nombre',
-            choices: Array.from(usuarioActual.getAmigosApp().values()).map((id) => this.coleccionUsuarios.getUsuario(id).getNombre()).concat('Cancelar'),
-          }).then((respuesta2) => {
-            // Obtenemos el id del usuario que queremos borrar 
-            const idUsuarioBorrar = Array.from(usuarioActual.getAmigosApp().values()).find((id) => this.coleccionUsuarios.getUsuario(id).getNombre() === respuesta2.nombre);
-            
-            // Comprobamos que el usuario exista
-            if ( idUsuarioBorrar == undefined ) {
-              throw new Error (`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-            }
-            // Borramos el usuario de la lista de amigos del usuario actual
-            usuarioActual.eraseAmigoApp(idUsuarioBorrar);
-            // Lo escribimos en el fichero
-            this.jsonColeccionUsuario.eraseAmigo(usuarioActual, idUsuarioBorrar);
-            return (this.volver(() => this.gestionUsuarios()));
-          });
-        break;
-        case 'Volver':
-          console.clear();
-          this.menuUsuario(usuarioActual.id);
-        break;
-        default:
-        break;
-      }
-    });
-  }
-
-  private gestionRutasUsuario(id: number) {
-    console.log('Gestionando rutas...');
-    inquirer.prompt({
-      type: 'list',
-      name: 'menu',
-      message: 'Elige una opción: ',
-      choices: ['Listar rutas', 'Mostrar rutas', 'Volver'],
-    }).then((respuesta) => {
-      switch (respuesta.menu) {
-        case 'Listar rutas':
-          console.clear();
-          console.log('Listando rutas...');
-          this.listarRutasUsuario();
-          this.gestionRutasUsuario(id);
-        break;
-        case 'Mostrar rutas':
-          console.clear();
-          console.log('Añadiendo ruta...');
-          this.mostrarRutas();
-          this.gestionRutasUsuario(id);
-        break;
-        case 'Volver':
-          console.clear();
-          this.menuUsuario(id);
-        break;
-        default:
-        break;
-      }
-    });
-  }
-  
-  /** 
-   * Permite listar, crear, borrar y unirse a grupos
-   */
-  private gestionGruposUsuario(id: number) {
-    console.clear();
-    console.log('Gestionando grupos...');
-    inquirer.prompt({
-      type: 'list',
-      name: 'menu',
-      message: 'Elige una opción: ',
-      choices: ['Listar grupos', 'Borrar', 'Unirse', 'Volver'],
-    }).then((respuesta) => {
-      switch (respuesta.menu) {
-        case 'Listar grupos':
-          console.clear();
-          console.log('Listando grupos...');
-          this.listarGrupos(() => this.gestionGruposUsuario(id));
-          this.gestionGruposUsuario(id);
-        break;
-        case 'Borrar':
-          console.clear();
-          console.log('Borrando grupo...');
-          // Hacemos que el usuario elija el grupo que quiere borrar de los cuales es administrador
-          inquirer.prompt({
-            type: 'list',
-            name: 'nombre',
-            // Ponemos como choices solo aquellos grupos de los cuales el usuario con id es administrador
-            choices: Array.from(this.coleccionGrupos.getGrupos().values()).filter((grupo) => grupo.getCreador() === id).map((grupo) => grupo.getNombre()).concat('Cancelar'),
-          }).then((respuesta2) => {
-            // Obtenemos el nombre del grupo que queremos borrar 
-            const grupoBorrar = Array.from(this.coleccionGrupos.getGrupos().values()).find((grupo) => grupo.getNombre() === respuesta2.nombre);
-            
-            // Comprobamos que el grupo exista
-            if ( grupoBorrar == undefined ) {
-              throw new Error (`No se ha encontrado ningún grupo con el nombre ${respuesta2.nombre}.`);
-            }
-            // Borramos el grupo de la lista de grupos del usuario actual
-            this.coleccionGrupos.eliminar(grupoBorrar);
-            // Lo escribimos en el fichero
-            this.jsonColeccionGrupo.eliminarGrupo(grupoBorrar);
-            return (this.volver(() => this.gestionGruposUsuario(id)));
-          });
-        break;
-        case 'Unirse':
-          console.clear();
-          console.log('Uniendo grupo...');
-          // Hacemos que el usuario seleccione uno de los grupos disponibles de los cuales no es participante
-          inquirer.prompt({
-            type: 'list',
-            name: 'nombre',
-            // Ponemos como choices solo aquellos grupos de los cuales el usuario con id no es participante
-            message: 'Elige un grupo: ',
-            choices: Array.from(this.coleccionGrupos.getGrupos().values()).filter((grupo) => !new Set(grupo.getParticipantes()).has(id)).map((grupo) => grupo.getNombre()).concat('Cancelar'),
-          }).then((respuesta2) => {
-            // Obtenemos el nombre del grupo que queremos borrar 
-            const grupoUnirse = Array.from(this.coleccionGrupos.getGrupos().values()).find((grupo) => grupo.getNombre() === respuesta2.nombre);
-            
-            // Comprobamos que el grupo exista
-            if ( grupoUnirse == undefined ) {
-              throw new Error (`No se ha encontrado ningún grupo con el nombre ${respuesta2.nombre}.`);
-            }
-            // Añadimos el usuario al grupo
-            grupoUnirse.addParticipante(id);
-            // Lo escribimos en el fichero
-            this.jsonColeccionGrupo.addParticipante(grupoUnirse, id);
-            return (this.volver(() => this.gestionGruposUsuario(id)));
-          });
-        break;
-        case 'Volver':
-          console.clear();
-          this.menuUsuario(id);
-        break;
-        default:
-        break;
-      }
-    });
-  }
-
-  /**
-   * Método que permite crear usuarios y añadirlos a la colección de usuarios,
-   * esto lo hace preguntando el nombre del usuario y la actividad que realiza, 
-   * así como asignar el id del usuario como key dentro del map de ColeccionUsuario
-   */
-  private registrarUsuario(): void {
-    console.clear();
-    console.log('Registrando usuario...');
-    inquirer.prompt({
-      type: 'input',
-      name: 'nombre',
-      message: 'Introduce tu nombre de usuario: ',
-    }).then((respuesta) => {
-      inquirer.prompt({
-        type: 'list',
-        name: 'actividad',
-        message: 'Elige una actividad: ',
-        choices: ['cilismo', 'running'],
-      }).then((respuesta2) => {
-        inquirer.prompt({
-          type: 'input',
-          name: 'contraseña',
-          message: 'Introduce tu contraseña: '
-        }).then((respuesta3) => {
-          try {
-            let usuario = new Usuario(respuesta.nombre, respuesta3.contraseña, respuesta2.actividad);
-            // Insertamos el usuario en la colección de usuarios
-            this.coleccionUsuarios.insertar(usuario);
-            // Insertamos el usuario en el json
-            this.jsonColeccionUsuario.insertarUsuario(usuario);
-
-            console.log('Usuario registrado con éxito:', usuario);
-            this.volver(() => this.consola());
-          } catch (error: unknown) {
-            if (error instanceof Error) {
-              console.log('\x1b[31m%s\x1b[0m', 'Error al crear el usuario: ', error.message);
-            }
-            console.log('Introduce un nombre de usuario válido no vacío y/o contraseña válida');
-            // pulsar enter para volver a introducir un nombre de usuario
-            inquirer.prompt({
-              type: 'input',
-              name: 'volver',
-              message: 'Pulsa enter para volver a introducir un usuario',
-            }).then(() => {
-              this.registrarUsuario();
-            });
-            return;
-          }
-        });
-      });
-    });
-  }  
 
   private listarUsuarios(): void {
     console.clear();
@@ -1733,9 +1803,9 @@ export class Gestor {
     });
   }
 
-  /////////////////////////////////////
+  //////////////////////////////////////
   ////////// Gestión de Retos //////////
-  /////////////////////////////////////
+  //////////////////////////////////////
 
   public gestionRetos(): void {
     console.clear();
