@@ -360,7 +360,6 @@ export class Gestor {
           console.clear();
           this.listarRetos();
           this.volver(() => this.gestionRetosUsuario(id));
-          // this.listarRetos(id);
         break;
         case 'Completar reto':
           console.clear();
@@ -381,6 +380,8 @@ export class Gestor {
               usuarioActual.eraseRetosActivos(reto.getID());
               // Borramos el id del usuario de la lista de usuarios del reto
               reto.removeUsuario(usuarioActual.getID());
+              // Lo escribimos en el json
+              this.jsonColeccionReto.eraseUsuario(reto, usuarioActual.getID());
             } else {
               // throw new Error(`El reto no existe - línea ${new Error().stack.split('\n')[1].trim().substr(3)}`);
             }
@@ -2038,7 +2039,7 @@ export class Gestor {
     // console.table(
     //   Array.from(retos.values()).map((reto) => ({ Nombre: reto.getNombre() }))
     // );
-    this.volver(() => this.gestionRetos());
+    console.log(retos);
   }
 
   private modificarReto(): void {
