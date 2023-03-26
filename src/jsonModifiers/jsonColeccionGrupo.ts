@@ -161,6 +161,3 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
   }
 
 }
-
-
-
