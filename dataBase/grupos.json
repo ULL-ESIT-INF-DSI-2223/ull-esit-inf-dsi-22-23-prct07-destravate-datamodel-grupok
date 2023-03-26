@@ -54,6 +54,29 @@
       "clasificacion": [],
       "rutasFavoritas": [],
       "historicoRutas": []
+    },
+    {
+      "id": 3,
+      "nombre": "redes",
+      "creador": 2,
+      "participantes": [],
+      "estadisticasEntrenamiento": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "clasificacion": [],
+      "rutasFavoritas": [],
+      "historicoRutas": []
     }
   ]
 }

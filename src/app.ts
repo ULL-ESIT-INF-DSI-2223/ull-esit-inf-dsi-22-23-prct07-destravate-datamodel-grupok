@@ -1122,7 +1122,8 @@ export class Gestor {
         message: 'Introduce el id del creador del grupo: ',
       }).then((respuesta2) => {
         try {
-          let grupo = new Grupo(respuesta.nombre, respuesta2.creador);
+          
+          let grupo = new Grupo(respuesta.nombre, parseInt(respuesta2.creador));
           // Insertamos el grupo en la colección de grupos
           this.coleccionGrupos.insertar(grupo);
           // Insertamos el grupo en el json

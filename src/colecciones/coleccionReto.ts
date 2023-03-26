@@ -96,7 +96,7 @@ export class ColeccionReto implements Coleccion<Reto> {
     }
   }
 
-
+  
 }
 
 
