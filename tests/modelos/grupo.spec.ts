@@ -52,8 +52,8 @@ describe('Grupo', () => {
 
   it('should add a new route to the historical routes list', () => {
     const fecha = new Date();
-    grupo.getHistoricoRutas().push({ ruta: 1, fecha });
-    expect(grupo.getHistoricoRutas()).to.be.eql([{ ruta: 1, fecha }]);
+    grupo.getHistoricoRutas().push({ ruta: 1, fecha: fecha.toLocaleDateString() });
+    expect(grupo.getHistoricoRutas()).to.be.eql([{ ruta: 1, fecha: fecha.toLocaleDateString() }]);
   });
 
   it('should update the group classification', () => {
@@ -84,8 +84,8 @@ describe('Grupo', () => {
 
   it ('should set the group historical routes', () => {
     const fecha = new Date();
-    grupo.setHistoricoRutas([{ruta: 1, fecha}]);
-    expect(grupo.getHistoricoRutas()).to.be.eql([{ruta: 1, fecha}]);
+    grupo.setHistoricoRutas([{ruta: 1, fecha: fecha.toLocaleDateString()}]);
+    expect(grupo.getHistoricoRutas()).to.be.eql([{ruta: 1, fecha: fecha.toLocaleDateString()}]);
   });
   
   it ('should add a new route to the favorite routes list', () => {
