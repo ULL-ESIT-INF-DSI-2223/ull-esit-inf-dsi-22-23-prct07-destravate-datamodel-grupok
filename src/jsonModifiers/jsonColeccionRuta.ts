@@ -89,4 +89,8 @@ export class JsonColeccionRuta extends ColeccionRuta {
   public modificarDificultadRuta(ruta: Ruta, nuevaDificultad: Dificultad): void {
     this.rutasDatabase.get('rutas').find({ nombre: ruta.getNombre() }).assign({ dificultad: nuevaDificultad }).write();
   }
+
+  public addUsuarioVisitante(ruta: Ruta, id: Number): void {
+    this.rutasDatabase.get('rutas').find({ nombre: ruta.getNombre() }).get('usuariosVisitantes').write();
+  }
 }

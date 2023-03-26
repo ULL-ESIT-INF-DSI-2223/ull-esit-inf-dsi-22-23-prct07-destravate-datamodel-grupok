@@ -4,7 +4,7 @@ import { expect } from "chai";
 import { Usuario } from "../../src/modelos/usuario";
 import { Actividad } from "../../src/enums/actividadEnum";
 
-describe("Usuario", () => { 
+describe("Usuario", () => {
   it("Debería crear un usuario con nombre y contraseña", () => {
     const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
     expect(usuario.getNombre()).to.be.equal("usuario");
@@ -207,4 +207,28 @@ describe("Usuario", () => {
     const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
     expect(usuario.isValidPassword("Dsi23*1234567890123456784234234234234234290")).to.be.equal(false);
   });
+
+  it ('Debería devolver false si la contraseña contiene _ al principio o al final', () => {
+    const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
+    expect(usuario.isValidPassword("_Dsi23*")).to.be.equal(false);
+  });
+
+  it ("Debería devolver los amigos frecuentes del usuario", () => {
+    const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
+    usuario.setAmigosFrecuentes([1,2,3]);
+    expect(usuario.getAmigosFrecuentes()).to.be.deep.equal([1,2,3]);
+  });
+
+  it ("Debería devolver un error si el amigo ya está en la lista de amigos", () => {
+    const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
+    usuario.addAmigoApp(1);
+    expect(() => usuario.addAmigoApp(1)).to.throw(Error, "El amigo ya está en la lista de amigos");
+  });
+
+  it ("Debería actualizar el contador de ids", () => {
+    const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
+    usuario.setID(2);
+    expect(usuario.getContadorID()).to.be.equal(37);
+  });
+
 });

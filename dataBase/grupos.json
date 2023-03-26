@@ -3,7 +3,7 @@
     {
       "id": 0,
       "nombre": "secta",
-      "creador": 3,
+      "creador": 1,
       "participantes": [
         2
       ],
@@ -23,7 +23,8 @@
       },
       "clasificacion": [],
       "rutasFavoritas": [
-        5
+        5,
+        1
       ],
       "historicoRutas": [
         {
@@ -37,7 +38,7 @@
       "nombre": "salvameDeluxe",
       "creador": 2,
       "participantes": [
-        2
+        1
       ],
       "estadisticasEntrenamiento": {
         "semana": {
@@ -55,7 +56,24 @@
       },
       "clasificacion": [],
       "rutasFavoritas": [],
-      "historicoRutas": []
+      "historicoRutas": [
+        {
+          "ruta": 6,
+          "fecha": "3/26/2023 10:43:34 AM"
+        },
+        {
+          "ruta": 6,
+          "fecha": "3/26/2023 10:59:07 AM"
+        },
+        {
+          "ruta": 6,
+          "fecha": "3/26/2023 11:11:12 AM"
+        },
+        {
+          "ruta": 6,
+          "fecha": "3/26/2023 11:13:47 AM"
+        }
+      ]
     }
   ]
 }
