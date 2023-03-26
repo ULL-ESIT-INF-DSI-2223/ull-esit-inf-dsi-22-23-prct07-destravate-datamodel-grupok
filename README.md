@@ -360,6 +360,10 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
 
 Como se puede apreciar el atributo de la clase es un `Map` que contiene los usuarios del sistema, el identificador de cada usuario es la clave del `Map` y el usuario en si es el valor del `Map`. En el constructor se inicializa el `Map` vacío. Además la clase implementa la interfaz `Coleccion` que se ha definido en el fichero `colecciones.ts` y que contiene los métodos que se deben implementar en las colecciones.
 
+### jsonCollection
+
+A partir de la implementación de las colecciones heredan las clases denominadas `jsonCollection`, las cuales encontramos dentro de la carpeta `jsonModifiers` en `src`. Con estas cuatro clases (una por cada colección) podremos manejar los ficheros `.json` que se encuentran en la carptea `dataBase`, que es donde se almacenarán los datos de la aplicacción.
+
 
 
 ## Conclusiones
