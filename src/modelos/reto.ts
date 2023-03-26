@@ -3,6 +3,9 @@ import { Actividad } from "../enums/actividadEnum";
 
 let contador_id = 0;
 
+/**
+ * Clase que representa un reto
+ */
 export class Reto implements EntidadInterface {
     id: number;
     nombre: string;
@@ -17,7 +20,10 @@ export class Reto implements EntidadInterface {
       this.tipoActividad = tipoActividad;
     }
   
-    // Métodos para acceder a los atributos de la clase
+    /**
+     * 
+     * @returns 
+     */
     public getID(): number {
       return this.id;
     }
