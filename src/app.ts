@@ -345,7 +345,6 @@ export class Gestor {
                   // Comprobamos que el usuario exista
                   if ( idUsuarioBorrar == undefined ) {
                     throw new Error (`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-                    return (this.volver(() => this.gestionUsuarios()));
                   }
                   // Borramos el usuario de la lista de amigos del usuario actual
                   usuarioAModificar.eraseAmigoApp(idUsuarioBorrar);
@@ -354,6 +353,102 @@ export class Gestor {
                   return (this.volver(() => this.gestionUsuarios()));
                 });
               break;
+              case 'Añadir Rutas Favoritas':
+                console.clear();
+                console.log('Añadiendo ruta favorita...');
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'nombre',
+                  choices: Array.from(this.coleccionRutas.getRutas().values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
+                }).then((respuesta2) => {
+                  // Obtenemos el id de la ruta que queremos añadir
+                  const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
+                  // Comprobamos que la ruta exista
+                  if ( idRuta == undefined ) {
+                    throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                  }
+                  // Añadimos la ruta a la lista de rutas favoritas del usuario actual
+                  usuarioAModificar.addRutaFavorita(idRuta);
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.addRuta(usuarioAModificar, idRuta);
+                  return (this.volver(() => this.gestionUsuarios()));
+                });
+              break;
+              case 'Borrar Rutas Favoritas':
+                const rutasFavoritas = Array.from(usuarioAModificar.getRutasFavoritas().values()).map((id) => this.coleccionRutas.getRuta(id).getNombre());
+                if ( rutasFavoritas.length === 0 ) {
+                  console.log('No tienes rutas favoritas.');
+                  return (this.volver(() => this.gestionUsuarios()));
+                }
+                console.clear();
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'nombre',
+                  choices: rutasFavoritas.concat('Cancelar'),
+                }).then((respuesta2) => {
+                  // Obtenemos el id de la ruta que queremos borrar
+                  const idRuta = Array.from(usuarioAModificar.getRutasFavoritas().values()).find((id) => this.coleccionRutas.getRuta(id).getNombre() === respuesta2.nombre);
+                  // Comprobamos que la ruta exista
+                  if ( idRuta == undefined ) {
+                    throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                  }
+                  // Borramos la ruta de la lista de rutas favoritas del usuario actual
+                  usuarioAModificar.eraseRutaFavorita(idRuta);
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.eraseRuta(usuarioAModificar, idRuta);
+                  return (this.volver(() => this.gestionUsuarios()));
+                });
+              break;
+              case 'Añadir Retos Activos':
+                console.clear();
+                console.log('Añadiendo reto activo...');
+                const retosActivos = Array.from(this.coleccionRetos.getRetos().values()).map((reto) => reto.getNombre()).concat('Cancelar');
+                if ( retosActivos.length === 0 ) {
+                  console.log('No hay retos disponibles.');
+                  return (this.volver(() => this.gestionUsuarios()));
+                }
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'nombre',
+                  choices: retosActivos.concat('Cancelar'),
+                }).then((respuesta2) => {
+                  // Obtenemos el id del reto que queremos añadir
+                  const idReto = Array.from(this.coleccionRetos.getRetos().values()).find((reto) => reto.getNombre() === respuesta2.nombre)?.getID();
+                  // Comprobamos que el reto exista
+                  if ( idReto == undefined ) {
+                    throw new Error (`No se ha encontrado ningún reto con el nombre ${respuesta2.nombre}.`);
+                  }
+                  // Añadimos el reto a la lista de retos activos del usuario actual
+                  usuarioAModificar.addRetosActivos(idReto);
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.addRetosActivos(usuarioAModificar, idReto);
+                  return (this.volver(() => this.gestionUsuarios()));
+                });
+              break;
+              case 'Borrar Retos Activos':
+                const retosActivosUsuario = Array.from(usuarioAModificar.getRetosActivos().values()).map((id) => this.coleccionRetos.getReto(id).getNombre());
+                if ( retosActivosUsuario.length === 0 ) {
+                  console.log('No tienes retos activos.');
+                  return (this.volver(() => this.gestionUsuarios()));
+                }
+                console.clear();
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'nombre',
+                  choices: retosActivosUsuario.concat('Cancelar'),
+                }).then((respuesta2) => {
+                  // Obtenemos el id del reto que queremos borrar
+                  const idReto = Array.from(usuarioAModificar.getRetosActivos().values()).find((id) => this.coleccionRetos.getReto(id).getNombre() === respuesta2.nombre);
+                  // Comprobamos que el reto exista
+                  if ( idReto == undefined ) {
+                    throw new Error (`No se ha encontrado ningún reto con el nombre ${respuesta2.nombre}.`);
+                  }
+                  // Borramos el reto de la lista de retos activos del usuario actual
+                  usuarioAModificar.eraseRetosActivos(idReto);
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.eraseRetosActivos(usuarioAModificar, idReto);
+                  return (this.volver(() => this.gestionUsuarios()));
+                });
               default:
               break;
             }

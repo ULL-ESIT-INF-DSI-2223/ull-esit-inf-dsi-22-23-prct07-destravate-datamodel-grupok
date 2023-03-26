@@ -53,6 +53,17 @@ export class ColeccionRuta implements Coleccion<Ruta>{
   }
 
   /**
+   * Metodo que devuelve una ruta a partir de su id
+   */
+  public getRuta(id: number): Ruta {
+    const ruta = this.rutas.get(id);
+    if (ruta === undefined) {
+      throw new Error("La ruta que deseas obtener no existe.");
+    }
+    return ruta;
+  }  
+
+  /**
    * Método que permite lista las rutas
    */
   public listar(): void {
