@@ -1,3 +1,20 @@
 {
-  "retos": []
+  "retos": [
+    {
+      "id": 0,
+      "nombre": "nofap",
+      "rutas": [],
+      "tipoActividad": "Grupal",
+      "kmTotales": 0,
+      "usuarios": []
+    },
+    {
+      "id": 1,
+      "nombre": "nofapseptember",
+      "rutas": [],
+      "tipoActividad": "Grupal",
+      "kmTotales": 0,
+      "usuarios": []
+    }
+  ]
 }

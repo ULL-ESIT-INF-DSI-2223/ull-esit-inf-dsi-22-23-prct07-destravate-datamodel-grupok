@@ -6,7 +6,7 @@
       "coordenadasInicio": "321",
       "coordenadasFin": "123",
       "longitud": "12345",
-      "desnivel": "90",
+      "desnivel": "12",
       "usuariosVisitantes": [],
       "tipoActividad": "Running",
       "dificultad": "Difícil",
@@ -82,6 +82,24 @@
       "tipoActividad": "Ciclismo",
       "dificultad": "Fácil",
       "calificacion": 4
+    },
+    {
+      "id": 7,
+      "nombre": "pescaitololo",
+      "coordenadasInicio": {
+        "latitud": 34,
+        "longitud": 56
+      },
+      "coordenadasFin": {
+        "latitud": 43,
+        "longitud": 21
+      },
+      "longitud": "123",
+      "desnivel": "654",
+      "usuariosVisitantes": [],
+      "tipoActividad": "Ciclismo",
+      "dificultad": "Fácil",
+      "calificacion": 2
     }
   ]
 }
