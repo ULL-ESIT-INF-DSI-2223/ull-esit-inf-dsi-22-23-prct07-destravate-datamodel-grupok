@@ -36,7 +36,9 @@
       "id": 2,
       "nombre": "salvameDeluxe",
       "creador": 2,
-      "participantes": [],
+      "participantes": [
+        2
+      ],
       "estadisticasEntrenamiento": {
         "semana": {
           "km": 0,
