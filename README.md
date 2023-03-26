@@ -425,6 +425,22 @@ La clase contiene tambien los siguientes métodos para gestionar y modificar las
 A partir de la implementación de las colecciones heredan las clases denominadas `jsonCollection`, las cuales encontramos dentro de la carpeta `jsonModifiers` en `src`. Con estas cuatro clases (una por cada colección) podremos manejar los ficheros `.json` que se encuentran en la carptea `dataBase`, que es donde se almacenarán los datos de la aplicacción.
 
 ### jsonCollectionUsuario
+
+La primera de las cuatro clases es la relacionada con los usuarios. Lo primero que encontramos en el archivo es  la interfaz `DatabaseSchema`, que sirve para definir el tipo de dato que se va a guardar mediante el módulo `Lowdb`. Esta es muy simple como podemos observar a continuación:
+
+```typescript
+export interface DatabaseSchema {
+  usuarios: Usuario[];
+}
+```
+
+
+
+
+
+
+
+### jsonCollectionGrupos
 Esta colección se encarga con todo lo relacionado con la persistencia de datos de los usuarios. Esta clase hereda de la clase `jsonCollection` y se ha definido de la siguiente forma:
 
 ```typescript
@@ -452,24 +468,93 @@ Con sus distintos métodos
 * ``` public addParticipante(grupo: Grupo, participante: number): void ``` Esta se encarga de añadir un participante a un grupo de la base de datos.
 * ``` public eraseParticipante(grupo: Grupo, participante: number): void ``` Esta se encarga de eliminar un participante a un grupo de la base de datos.
 
-
-La primera de las cuatro clases es la relacionada con los usuarios. Lo primero que encontramos en el archivo es  la interfaz `DatabaseSchema`, que sirve para definir el tipo de dato que se va a guardar mediante el módulo `Lowdb`. Esta es muy simple como podemos observar a continuación:
+### jsonCollectionRutas
+Esta colección se encarga con todo lo relacionado con la persistencia de datos de los usuarios. Esta clase hereda de la clase `jsonCollection` y se ha definido de la siguiente forma:
 
 ```typescript
-export interface DatabaseSchema {
-  usuarios: Usuario[];
-}
+export class JsonColeccionRuta extends ColeccionRuta {
+  private rutasDatabase: LowdbSync<DatabaseSchema>;
+
+  constructor() {
+    super();
+    const adapter = new FileSync<DatabaseSchema>("./dataBase/rutas.json");
+    this.rutasDatabase = lowdb(adapter);
+    this.rutasDatabase.defaults({ rutas: [] }).write();
+  }
 ```
 
+Con sus distintos métodos
 
+* ```public insertarRuta(ruta: Ruta): void``` Esta se encarga de insertar una ruta en la base de datos.
+* ``` public cargarRutas(): Ruta[] ``` Esta se encarga de cargar las rutas de la base de datos. Se usa sobretodo a la hora de iniciar el programa
+* ``` public eliminarRuta(ruta: Ruta): void ``` Esta se encarga de eliminar una ruta de la base de datos.
+* ``` public modificarCoordenadasRuta(ruta: Ruta coordenadasInicio: Coordenadas,coordenadasFin: Coordenadas ): void  ``` Esta se encarga de modificar el nombre de una ruta de la base de datos.
+* ``` public modificarLongitudRuta(ruta: Ruta, nuevaLongitud: number): void  ``` Esta se encarga de modificar la longitud de una ruta de la base de datos.
+* ``` public modificarDesnivelRuta(ruta: Ruta, nuevoDesnivel: number): void  ``` Esta se encarga de modificar el desnivel de una ruta de la base de datos.
+* ``` public modificarTipoActividadRuta(ruta: Ruta nuevoTipoActividad: Actividad): void  ``` Esta se encarga de modificar el tipo de actividad de una ruta de la base de datos.
+* ``` public modificarDificultadRuta( ruta: Ruta, nuevaDificultad: Dificultad): void   ``` Esta se encarga de modificar la dificultad de una ruta de la base de datos.
+* ``` public addUsuarioVisitante(ruta: Ruta, id: Number): void  ``` Esta se encarga de añadir un usuario visitante a una ruta de la base de datos.
 
+### jsonCollectionRetos
+Esta colección se encarga con todo lo relacionado con la persistencia de datos de los usuarios. Esta clase hereda de la clase `jsonCollection` y se ha definido de la siguiente forma:
 
+```typescript
+export class JsonColeccionReto extends ColeccionReto {
+  private retosDatabase: LowdbSync<DatabaseSchema>;
 
+  constructor() {
+    super();
+    const adapter = new FileSync<DatabaseSchema>("./dataBase/reto.json");
+    this.retosDatabase = lowdb(adapter);
+    this.retosDatabase.defaults({ retos: [] }).write();
+  }
+```
+Con sus métodos
 
+* ```public registrarReto(reto: Reto): void ``` Esta se encarga de registrar un reto en la base de datos.
+* ``` public cargarRetos(): Reto[] ``` Esta se encarga de cargar los retos de la base de datos. Se usa sobretodo a la hora de iniciar el programa
+* ``` public eliminarReto(reto: Reto): void ``` Esta se encarga de eliminar un reto de la base de datos.
+* ``` public modificarNombre(reto: Reto, nombre: string): void ``` Esta se encarga de modificar el nombre de un reto de la base de datos.
+* ``` public addRuta(reto: Reto, ruta: number): void  ``` Esta se encarga de añadir una ruta a un reto de la base de datos.
+* ``` public eraseRuta(reto: Reto, ruta: number): void   ``` Esta se encarga de eliminar una ruta a un reto de la base de datos.
+* ``` public modificarActividad(reto: Reto, actividad: string): void   ``` Esta se encarga de modificar la actividad de un reto de la base de datos.
+* ``` public addUsuario(reto: Reto, id: number): void ``` Esta se encarga de añadir un usuario a un reto de la base de datos.
+* ``` public eraseUsuario(reto: Reto, usuario: number): void  ``` Esta se encarga de eliminar un usuario a un reto de la base de datos.
 
-### jsonCollectionGrupos
+### App 
+Esta es la clase con la que se maneja todo el sistema de menús, así como la gestión de los datos. Esta clase hereda de la clase maneja las distintas ``` colecciones ```, así como los distintos ``` modificadores ```. Se ha definido de la siguiente forma:
 
+```typescript
+export class Gestor {
+  private coleccionUsuarios: ColeccionUsuario;
+  private coleccionRutas: ColeccionRuta;
+  private coleccionGrupos: ColeccionGrupo;
+  private coleccionRetos: ColeccionReto;
+  private jsonColeccionUsuario = new JsonColeccionUsuario();
+  private jsonColeccionRuta = new JsonColeccionRuta();
+  private jsonColeccionReto = new JsonColeccionReto();
+  private jsonColeccionGrupo = new JsonColeccionGrupo();
 
+  /**
+   * Constructor de la clase gestor
+   */
+  constructor() {
+    this.coleccionUsuarios = new ColeccionUsuario();
+    this.coleccionRutas = new ColeccionRuta();
+    this.coleccionGrupos = new ColeccionGrupo();
+    this.coleccionRetos = new ColeccionReto();
+    this.coleccionUsuarios.setUsuariosFromArray(
+      this.jsonColeccionUsuario.cargarUsuarios()
+    );
+    this.coleccionRetos.setRetosFromArray(this.jsonColeccionReto.cargarRetos());
+    this.coleccionRutas.setRutasFromArray(this.jsonColeccionRuta.cargarRutas());
+    this.coleccionGrupos.setGruposFromArray(
+      this.jsonColeccionGrupo.cargarGrupos()
+    );
+  }
+```
+
+Como podemos observar, dentro del constructor 
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
