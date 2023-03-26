@@ -4,7 +4,9 @@
       "id": 0,
       "nombre": "secta",
       "creador": 1,
-      "participantes": [2],
+      "participantes": [
+        2
+      ],
       "estadisticasEntrenamiento": {
         "semana": {
           "km": 0,
@@ -20,7 +22,10 @@
         }
       },
       "clasificacion": [],
-      "rutasFavoritas": [5, 1],
+      "rutasFavoritas": [
+        5,
+        1
+      ],
       "historicoRutas": [
         {
           "ruta": 4,
@@ -32,7 +37,10 @@
       "id": 2,
       "nombre": "salvameDeluxe",
       "creador": 2,
-      "participantes": [1, 2],
+      "participantes": [
+        1,
+        2
+      ],
       "estadisticasEntrenamiento": {
         "semana": {
           "km": 0,
