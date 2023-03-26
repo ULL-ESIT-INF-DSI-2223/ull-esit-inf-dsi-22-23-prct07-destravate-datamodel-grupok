@@ -1041,10 +1041,38 @@ export class Gestor {
           }
           this.volver(() => this.gestionInfo());
           break;
+        case 'Cantidad de km (semanal)':
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().semana.km - b.getEstadisticas().semana.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          this.volver(() => this.gestionInfo());
+          break;
+        case 'Cantidad de km (mensual)':
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().mes.km - b.getEstadisticas().mes.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          this.volver(() => this.gestionInfo());
+          break;
+        case 'Cantidad de km (anual)':
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().anio.km - b.getEstadisticas().anio.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          this.volver(() => this.gestionInfo());
+          break;
       }
     });
-    
-    
   }
 
   /**
@@ -1413,13 +1441,69 @@ export class Gestor {
     });
   }  
 
-  private listarGrupos(/*funcionVolver: () => void*/): void {
+  private listarGrupos(): void {
     console.clear();
     console.log('Listando grupos...');
-    for (const grupos of this.coleccionGrupos) {
-      console.log(grupos.getNombre());
-    }
-    // this.volver(funcionVolver);
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'sentido',
+        choices: [
+          'Ascendente',
+          'Descendente',
+        ],
+      },
+      {
+        type: 'list',
+        name: 'ordenacion',
+        choices: [
+          'Alfabéticamente',
+          'Cantidad de km (semanal)',
+          'Cantidad de km (mensual)',
+          'Cantidad de km (anual)',
+        ],
+      }
+    ]).then((respuesta) => {
+      let array
+      switch (respuesta.ordenacion) {
+        case 'Alfabéticamente':
+          array = [...this.coleccionGrupos.getGrupos().values()].map((a) => a.getNombre()).sort()
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          break;
+        case 'Cantidad de km (semanal)':
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().semana.km - b.getEstadisticasEntrenamiento().semana.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          break;
+        case 'Cantidad de km (mensual)':
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().mes.km - b.getEstadisticasEntrenamiento().mes.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          break;
+        case 'Cantidad de km (anual)':
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().anio.km - b.getEstadisticasEntrenamiento().anio.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          break;
+      }
+    });
   }
 
   /**
