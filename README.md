@@ -6,10 +6,10 @@ Esta práctica, que es la primera práctica grupal de la asignatura, consiste en
 
 El sistema contará con diferentes tipos de datos, que son los siguientes:
 
-*Rutas
-*Usuarios
-*Grupos
-*Retos 
+* Rutas
+* Usuarios
+* Grupos
+* Retos 
 
 Cada uno de estos, tienen distinta información y características, que se explican a profundidad en el [guión de la práctica](https://ull-esit-inf-dsi-2223.github.io/prct07-destravate-dataModel/).
 
