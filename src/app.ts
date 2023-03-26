@@ -1165,8 +1165,29 @@ export class Gestor {
                   }
                   // Añadimos la ruta a la lista de rutas realizadas del grupo actual
                   grupoAModificar.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                  
                   // Lo escribimos en el fichero
                   this.jsonColeccionGrupo.addRutaRealizada(grupoAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+
+                  // Añadimos la ruta al creador y a los usuarios
+                  let participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === grupoAModificar.getCreador());
+                    if (participanteRuta !== undefined) {
+                      participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                      this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                    }
+
+                  for (const userID of grupoAModificar.participantes) {
+                    participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === userID);
+                    if (participanteRuta !== undefined) {
+                      participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                      this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                    }
+                  }
+                    
+
+                  
+                    
+
                   return (this.volver(() => this.gestionGrupos()));
                 });
                 break;
