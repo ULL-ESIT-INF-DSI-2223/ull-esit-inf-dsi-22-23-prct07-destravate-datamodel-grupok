@@ -121,6 +121,8 @@ export class Gestor {
       message: 'Presiona enter para volver a atrás en la consola',
       choices: ['Volver al menú anterior'],
     }).then((respuesta) => {
+      // Borramos el listener
+      // process.stdin.removeAllListeners('keypress');
       callback(this);
     });
   }
@@ -297,6 +299,7 @@ export class Gestor {
         break;
         case 'Retos':
           console.clear();
+          this.gestionRetosUsuario(id);
           this.volver(() => this.menuUsuario(id));
         break;
         case 'Histórico de rutas':
@@ -316,6 +319,70 @@ export class Gestor {
   }
 
   /**
+   * Método que despliega el menú de gestión de retos
+   */
+  private gestionRetosUsuario(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    // Preguntamos al usuario si quiere unirse a un reto, listar los retos y completar un reto
+    inquirer.prompt({
+      type: 'list',
+      name: 'menu',
+      message: 'Elige una opción: ',
+      choices: ['Unirse a un reto', 'Listar retos', 'Completar reto', 'Volver'],
+    }).then((respuesta) => {
+      switch (respuesta.menu) {
+        case 'Unirse a un reto':
+          console.clear();
+          // Hacemos que el usuario seleccione un reto en el que no sea participante ya
+          inquirer.prompt({
+            type: 'list',
+            name: 'reto',
+            message: 'Elige un reto: ',
+            // Hacemos que los choices sean los nombres de los retos en los que no participa
+            choices: Array.from(this.coleccionRetos.getRetos().values()).filter((reto) => !reto.getUsuarios().includes(usuarioActual.getID())).map((reto) => reto.getNombre()),
+          }).then((respuesta2) => {
+            // Cogemos el reto seleccionado
+            const reto = Array.from(this.coleccionRetos.getRetos().values()).find((reto) => reto.getNombre() === respuesta2.reto);
+            if ( reto != undefined ) {
+              // Si el usuario no es participante del reto, lo añadimos a la lista de participantes del reto
+              if ( !reto.getUsuarios().includes(usuarioActual.getID()) ) {
+                reto.addUsuario(usuarioActual.getID());
+                // Insertamos el reto en el json
+                this.jsonColeccionReto.addUsuario(reto, usuarioActual.getID());
+              }
+              // Añadimos el reto al usuario
+              usuarioActual.addRetosActivos(reto.id);
+              // Lo escribimos el en json
+              this.jsonColeccionUsuario.insertarUsuario(usuarioActual);
+            }
+            this.gestionRetosUsuario(id);
+          });
+
+          // this.volver(() => this.gestionRetosUsuario(id));
+        break;
+        case 'Listar retos':
+          console.clear();
+          this.volver(() => this.gestionRetosUsuario(id));
+          // this.listarRetos(id);
+        break;
+        case 'Completar reto':
+          console.clear();
+          // this.completarReto(id);
+          this.volver(() => this.gestionRetosUsuario(id));
+        break;
+        case 'Volver':
+          console.clear();
+          this.menuUsuario(id);
+        break;
+        default:
+        break;
+      }
+    });
+  }
+
+  /**
    * Método que imprime las estadísticas del usuario
    * @param id Id del usuario
    */
@@ -327,6 +394,10 @@ export class Gestor {
     console.log(usuarioActual.getEstadisticas());
   }
 
+  /**
+   * Listar histórico de rutas
+   * @param id 
+   */
   private listarHistoricoRutas(id: number) {
     console.clear();
     // Cogemos el usuario de la colección de usuarios
@@ -927,7 +998,6 @@ export class Gestor {
       // console.log(usuario.getNombre());
       console.log(usuario);
     }
-    this.volver(() => this.gestionInfo());
   }
 
   /**
