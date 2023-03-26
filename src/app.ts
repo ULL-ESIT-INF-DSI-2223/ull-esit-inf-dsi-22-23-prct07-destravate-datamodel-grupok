@@ -46,38 +46,74 @@ export class Gestor {
     this.coleccionGrupos.setGruposFromArray(this.jsonColeccionGrupo.cargarGrupos());
   }
 
+  /**
+   * Getter de coleccionUsuarios
+   * @returns colección de usuarios
+   */
   public getUsuarios() {
     return this.coleccionUsuarios;
   }
 
+  /**
+   * Getter de coleccionRetos
+   * @returns colección de retos
+   */
   public getRetos() {
     return this.coleccionRetos;
   }
 
+  /**
+   * Getter de coleccionRutas
+   * @returns colección de rutas
+   */
   public getRutas() {
     return this.coleccionRutas;
   }
 
+  /**
+   * Getter de coleccionGrupos
+   * @returns colección de grupos
+   */
   public getGrupos() {
     return this.coleccionGrupos;
   }
 
+  /**
+   * Setter de coleccionUsuarios
+   * @param coleccion colección de usuarios
+   */
   public setUsuarios(coleccion: ColeccionUsuario) {
     this.coleccionUsuarios = coleccion;
   }
 
+  /**
+   * Setter de coleccionRetos
+   * @param coleccion colección de retos
+   */
   public setRetos(coleccion: ColeccionReto) {
     this.coleccionRetos = coleccion;
   }
 
+  /**
+   * Setter de coleccionRutas
+   * @param coleccion colección de rutas
+   */
   public setRutas(coleccion: ColeccionRuta) {
     this.coleccionRutas = coleccion;
   }
 
+  /**
+   * Setter de coleccionGrupos
+   * @param coleccion colección de grupos
+   */
   public setGrupos(coleccion: ColeccionGrupo) {
     this.coleccionGrupos = coleccion;
   }
 
+  /**
+   * Método que permite volver al menu mediante la selección de su opción
+   * @param callback Callback que indica a que menú vuelve
+   */
   private volver(callback: (i: this) => void): void {
     inquirer.prompt({
       type: 'list',
@@ -191,6 +227,9 @@ export class Gestor {
   ////////// Menú Log In //////////
   /////////////////////////////////
 
+  /**
+   * Método que desplega el proceso de log in
+   */
   private logIn() {
     console.clear();
     console.log('Iniciando sesión...');
@@ -222,6 +261,10 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que despliega el menú de el usuario loggeado
+   * @param id Id del usuario logeado
+   */
   private menuUsuario(id: number) {
     console.clear();
     // Cogemos el usuario de la colección de usuarios
@@ -273,6 +316,10 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que imprime las estadísticas del usuario
+   * @param id Id del usuario
+   */
   private listarEstadisticas(id: number) {
     console.clear();
     // Cogemos el usuario de la colección de usuarios
@@ -281,6 +328,10 @@ export class Gestor {
     console.log(usuarioActual.getEstadisticas())
   }
 
+  /**
+   * Método que despliega el menú del usuario que permite gestionar amigos
+   * @param usuarioActual Usuario Actual
+   */
   private gestionAmigos(usuarioActual: Usuario) {
     inquirer.prompt({
       type: 'list',
