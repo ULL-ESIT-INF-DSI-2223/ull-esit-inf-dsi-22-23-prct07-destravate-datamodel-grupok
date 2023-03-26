@@ -4,7 +4,9 @@
       "id": 0,
       "nombre": "secta",
       "creador": "3",
-      "participantes": [],
+      "participantes": [
+        1
+      ],
       "estadisticasEntrenamiento": {
         "semana": {
           "km": 0,
@@ -25,7 +27,7 @@
     },
     {
       "id": 2,
-      "nombre": "secta2",
+      "nombre": "salvameDeluxe",
       "creador": "2",
       "participantes": [],
       "estadisticasEntrenamiento": {

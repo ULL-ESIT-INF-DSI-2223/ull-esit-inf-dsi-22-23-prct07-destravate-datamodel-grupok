@@ -594,30 +594,106 @@ export class Gestor {
             name: 'opcion',
             message: 'Elige una opción: ',
             choices: [
-              'Modificar Nombre de Usuario',
-              'Editar Actividad',
-              'Añadir Amigo',
-              'Borrar Amigo',
+              'Modificar Nombre de Grupo',
+              'Añadir Participante',
+              'Borrar Participante',
               'Añadir Rutas Favoritas',
               'Borrar Rutas Favoritas',
-              'Añadir Retos activos',
-              'Borrar Retos activos',
+              'Añadir Ruta Realizada',
               'Salir',
             ],
           }).then((respuesta) => {
             switch (respuesta.opcion) {
-              case 'Modificar nombre de Usuario':
-                
+              case 'Salir':
+                this.gestionInfo()
                 break;
-              case 'Editar Actividad':
-                
+              case 'Modificar Nombre de Grupo':
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'nombre',
+                  message: 'Introduce tu nombre de grupo: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionGrupo.modificarNombre(grupoAModificar, respuesta2.nombre)
+                    this.coleccionGrupos.modificarNombre(grupoAModificar, respuesta2.nombre)
+                    this.gestionGrupos();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el grupo: ', error.message);
+                    }
+                    console.log('Introduce un nombre de grupo nuevo');
+                    // pulsar enter para volver a introducir un nombre de grupo
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver a introducir un grupo',
+                    }).then(() => {
+                      this.registrarGrupo();
+                    });
+                    return;
+                  }
+                });
                 break;
-              case 'Añadir Amigo':
-                
-                break;
-              case 'Borrar Amigo':
-                
-                break;
+                case 'Añadir Participante':
+                  console.clear();
+                  console.log('Añadiendo participante...');
+                  console.clear();
+                  inquirer.prompt({
+                    type: 'input',
+                    name: 'nombre',
+                    message: 'Introduce el nombre del participante que deseas añadir: ',
+                  }).then((respuesta2) => {
+                    // Obtener el listado de usuarios
+                    const usuarios = this.coleccionUsuarios.getUsuarios();
+                    // Comprobamos si el usuario está en la lista de usuarios
+                    if ( usuarios.has(respuesta2.nombre) ) {
+                      console.log('Usuarios registrados:');
+                      usuarios.forEach((usuario) => console.log(usuario.getNombre()));
+  
+                      console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+                      return (this.volver(() => this.gestionUsuarios()));
+                    }
+                    // Buscamos el participante por su nombre dentro del map
+                    const nuevoParticipante = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta2.nombre);
+                    // Comprobamos que exista el participante
+                    if ( nuevoParticipante == undefined ) {
+                      console.log(`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
+                      return (this.volver(() => this.gestionUsuarios()));
+                    }
+                    // Añadimos el participante al grupo
+                    grupoAModificar.addParticipante(nuevoParticipante.getID());
+                    // Lo escribimos en el fichero 
+                    this.jsonColeccionGrupo.addParticipante(grupoAModificar, nuevoParticipante.getID());
+  
+                    console.log(`Participante ${nuevoParticipante.getNombre()} añadido al usuario ${grupoAModificar.getNombre()}.`);
+                    return (this.volver(() => this.gestionGrupos()));
+                  });
+                  break;
+                case 'Borrar Participante':
+                  console.clear();
+                  inquirer.prompt({
+                    type: 'list',
+                    name: 'nombre',
+                    choices: Array.from(grupoAModificar.getParticipantes().values()).map((id) => this.coleccionUsuarios.getUsuario(id).getNombre()).concat('Cancelar'),
+                  }).then((respuesta2) => {
+                    if (respuesta2.nombre === 'Cancelar') {
+                      this.gestionGrupos();
+                    }
+                    // Obtenemos el id del participante que queremos borrar 
+                    const idParticipanteBorrar = Array.from(grupoAModificar.getParticipantes().values()).find((id) => this.coleccionUsuarios.getUsuario(id).getNombre() === respuesta2.nombre);
+                    
+                    // Comprobamos que el participante exista
+                    if ( idParticipanteBorrar == undefined ) {
+                      throw new Error (`No se ha encontrado ningún participante con el nombre ${respuesta2.nombre}.`);
+                    }
+                    // Borramos el participante de la lista del grupo actual
+                    grupoAModificar.eraseParticipante(idParticipanteBorrar);
+                    // Lo escribimos en el fichero
+                    this.jsonColeccionGrupo.eraseParticipante(grupoAModificar, idParticipanteBorrar);
+                    return (this.volver(() => this.gestionGrupos()));
+                  });
+                  break;
               default:
                 break;
             }

@@ -29,6 +29,7 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
       grupoAux.setID(grupo.id);
       grupoAux.setCreador(grupo.creador);
       grupoAux.setEstadisticasEntrenamiento(grupo.estadisticasEntrenamiento);
+      grupoAux.setParticipantes(grupo.participantes);
       grupoAux.setClasificacion(grupo.clasificacion);
       grupoAux.setRutasFavoritas(grupo.rutasFavoritas);
       grupoAux.setHistoricoRutas(grupo.historicoRutas);
@@ -57,19 +58,19 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
   }
 
   public addRuta(grupo: Grupo, ruta: number): void {
-    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').push(ruta).write();
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').write();
   }
 
   public eraseRuta(grupo: Grupo, ruta: number): void {
-    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').remove(ruta).write();
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').write();
   }
 
   public addParticipante(grupo: Grupo, participante: number): void {
-    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('participantes').push(participante).write();
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('participantes').write();
   }
 
   public eraseParticipante(grupo: Grupo, participante: number): void {
-    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('participantes').remove(participante).write();
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('participantes').pull(participante).write();
   }
 
 }
