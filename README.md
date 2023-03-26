@@ -338,6 +338,27 @@ La clase contiene tambien getters y setters para todos los atributos de la clase
 
 * `addRuta` y `removeRuta`: Estos métodos permiten añadir y eliminar rutas a la lista de rutas que contiene el reto.
 
+### Colecciones
+
+Las colecciones son los contenedores de las entidades, en este caso las colecciones son los contenedores de las rutas, grupos, retos y usuarios. Se ha creado una carpeta dentro de `src` llamada `colecciones` en la que se encuentran los ficheros de las colecciones de cada entidad.
+
+#### Colección de usuarios
+
+La clase `ColeccionUsuario` contiene los métodos necesarios para gestionar los usuarios del sistema. Esta clase se ha definido con el siguiente atributo y este constructor:
+
+```typescript
+export class ColeccionUsuario implements Coleccion<Usuario> {
+  private usuarios: Map<number, Usuario>;
+
+  constructor() {
+    this.usuarios = new Map();
+  }
+...
+```
+
+Como se puede apreciar el atributo de la clase es un `Map` que contiene los usuarios del sistema, el identificador de cada usuario es la clave del `Map` y el usuario en si es el valor del `Map`. En el constructor se inicializa el `Map` vacío. Además la clase implementa la interfaz `Coleccion` que se ha definido en el fichero `colecciones.ts` y que contiene los métodos que se deben implementar en las colecciones.
+
+
 
 ## Conclusiones
 
