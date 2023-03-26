@@ -109,5 +109,9 @@ export class Ruta implements EntidadInterface {
   addUsuarioVisitante(idUsuario: number): void {
     this.usuariosVisitantes.push(idUsuario);
   }
+  removeUsuarioVisitante(idUsuario: number): void {
+    // Lo borramos de usuariosVisitantes
+    this.usuariosVisitantes = this.usuariosVisitantes.filter( id => id !== idUsuario );
+  }
   
 }
