@@ -1,0 +1,232 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupok</title><meta name="description" content="Documentation for ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupok"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupok</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>ull-esit-inf-dsi-22-23-prct07-destravate-datamodel-grupok</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#práctica-7---destravate" id="práctica-7---destravate" style="color: inherit; text-decoration: none;">
+  <h1>Práctica 7 - DeStravate</h1>
+</a>
+<p>Esta práctica, que es la primera práctica grupal de la asignatura, consiste en la creación de un sistema que permite llevar un registro de actividades deportivas de los usuarios. El sistema debe permitir diferentes funcionalidades y elementos que comentaremos a continuación.</p>
+
+<a href="#descrición-de-los-requisitos-del-sistema" id="descrición-de-los-requisitos-del-sistema" style="color: inherit; text-decoration: none;">
+  <h2>Descrición de los requisitos del sistema</h2>
+</a>
+<p>El sistema contará con diferentes tipos de datos, que son los siguientes:</p>
+<ul>
+<li>Rutas</li>
+<li>Usuarios</li>
+<li>Grupos</li>
+<li>Retos</li>
+</ul>
+<p>Cada uno de estos, tienen distinta información y características, que se explican a profundidad en el <a href="https://ull-esit-inf-dsi-2223.github.io/prct07-destravate-dataModel/">guión de la práctica</a>.</p>
+
+<a href="#funcionamiento" id="funcionamiento" style="color: inherit; text-decoration: none;">
+  <h3>Funcionamiento</h3>
+</a>
+<p>El funcionamiento del sistema debe funcionar con por lo menos los siguientes requisitos:</p>
+<ul>
+<li>10 rutas distintas</li>
+<li>20 usuarios distintos</li>
+<li>5 grupos distintos</li>
+<li>3 retos distintos</li>
+</ul>
+<p>Para la gestión del sistema, se hará uso de un menú o linea de comandos interactiva, que permita al usuario realizar las distintas acciones que tenga el sistema. Debido a esto se debe utilizar el módulo <code>Inquirer.js</code> para la gestión de la interacción con el usuario. Además toda la información del sistema debe ser guardada y persistir, para esto se hace uso del paquete <code>lowdb</code> que permite guardar la información en un archivo JSON.</p>
+<p>Otro aspecto de la gestión del sistema es que se debe poder navegar la informacion de las entidades. Para cada tipo, osea para usuarios, rutas, grupos y retos, se debe poder mostrar la información y ordenarla de diferentes formas, por ejemplo en las Rutas se debe poder mostrar de alfabéticamente por nombre de la ruta, ascendente y descendente, también por cantidad de usuarios que realizan las rutas, ascendente y descendente, entre otras, la especificación completa de los requisitos se encuentra en el <a href="https://ull-esit-inf-dsi-2223.github.io/prct07-destravate-dataModel/">guión de la práctica</a>.</p>
+
+<a href="#clase-gestor" id="clase-gestor" style="color: inherit; text-decoration: none;">
+  <h3>Clase Gestor</h3>
+</a>
+<p>Se debe crear una clase gestor para el tratamiento de la información del sistema. Esta clase también contará con un menú de interacción con el usuario, que permita realizar las distintas acciones que se requieren para el sistema. Esta clase debe tener la siguiente funcionalidad:</p>
+<ul>
+<li>Registrarse en el sistema, iniciar sesión, visualizar la lista de usuarios y añadir/eliminar amigos.</li>
+<li>Visuaizar las rutas del sistema y acceder a toda la informacion de ellas</li>
+<li>Unirse a un grupo</li>
+<li>Visualizar, crear y borrar grupos, pero solo los crados por el usuario</li>
+</ul>
+<p>De nuevo, toda la información detallada de los requisitos del sistema, se encuentra en el <a href="https://ull-esit-inf-dsi-2223.github.io/prct07-destravate-dataModel/">guión de la práctica</a>.</p>
+
+<a href="#implementación" id="implementación" style="color: inherit; text-decoration: none;">
+  <h2>Implementación</h2>
+</a>
+
+<a href="#estructura-del-proyecto" id="estructura-del-proyecto" style="color: inherit; text-decoration: none;">
+  <h3>Estructura del proyecto</h3>
+</a>
+<p>El proyecto se ha estructurado de la siguiente manera:</p>
+<ul>
+<li><p><code>src</code> - Carpeta que contiene el código fuente del proyecto</p>
+<ul>
+<li><code>src/modelos</code> - Carpeta que contiene los archivos de los modelos o entidades del sistema (usuarios, rutas, grupos y retos)</li>
+<li><code>src/coleccion</code> - Carpeta que contiene los archivos de las clases de las colecciones de los modelos (usuarios, rutas, grupos y retos) que permiten la gestión de </li>
+<li><code>src/jsonModifiers</code> - Carpeta que contiene los archivos que modifican los archivos JSON de los modelos (usuarios, rutas, grupos y retos) para añadir, modificar o eliminar información y que esta persista tras la ejecución del programa</li>
+<li><code>src/interfaces</code> - Carpeta que contiene los archivos de las interfaces utilizadas en el proyecto</li>
+<li><code>src/enums</code> - Carpeta que contiene los archivos de los enumerados utilizados en el proyecto</li>
+<li><code>src/app.ts</code> - Archivo principal del proyecto, que contiene la clase Gestor y toda la funcionalidad en si del sistema que permite la interacción con el usuario.</li>
+</ul>
+</li>
+<li><p><code>database</code> - Carpeta que contiene los archivos JSON con la información de los modelos (usuarios, rutas, grupos y retos)</p>
+</li>
+<li><p><code>tests</code> - Carpeta que contiene los archivos de los tests del proyecto (los tests se han realizado con el framework <code>Mocha</code> y la librería <code>Chai</code>)</p>
+</li>
+</ul>
+<p>Esta es la estructura del proyecto, decidimos hacerlo de esta forma, para organizar el código por funcionalidades y tenerlo todo más ordenado. Además se ha intentado seguir los principios SOLID, para que el código sea más mantenible y escalable. </p>
+
+<a href="#interfaces" id="interfaces" style="color: inherit; text-decoration: none;">
+  <h3>Interfaces</h3>
+</a>
+<p>Para la implementación de las interfaces, se ha creado una carpeta llamada <code>interfaces</code> dentro de la carpeta <code>src</code>, en la que se encuentran los archivos de cada una de las interfaces. Estos archivos contienen la definición de las interfaces que se utilizan en el proyecto.</p>
+
+<a href="#entidadinterface" id="entidadinterface" style="color: inherit; text-decoration: none;">
+  <h4>EntidadInterface</h4>
+</a>
+<p>Esta interfaz se utiliza para definir los métodos que se requieren para la gestión de las entidades (usuarios, rutas, grupos y retos). Esta interfaz contiene los siguientes métodos:</p>
+<pre><code class="language-typescript"><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-2">interface</span><span class="hl-1"> </span><span class="hl-3">EntidadInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">id</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">nombre</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>La interfaz consta de dos atributos, el <code>id</code> y el <code>nombre</code>, que son los atributos que se requieren en comun para todos las entidades o modelos del sistema.</p>
+
+<a href="#coleccioninterface" id="coleccioninterface" style="color: inherit; text-decoration: none;">
+  <h4>ColeccionInterface</h4>
+</a>
+<p>Esta interfaz se utiliza para definir los métodos que se requieren para la gestión de las colecciones de las entidades (usuarios, rutas, grupos y retos). Esta interfaz contiene los siguientes métodos:</p>
+<pre><code class="language-typescript"><span class="hl-2">interface</span><span class="hl-1"> </span><span class="hl-3">Coleccion</span><span class="hl-1">&lt;</span><span class="hl-3">T</span><span class="hl-1">&gt; {</span><br/><span class="hl-1">  </span><span class="hl-5">insertar</span><span class="hl-1">(</span><span class="hl-4">elemento</span><span class="hl-1">: </span><span class="hl-3">T</span><span class="hl-1">): </span><span class="hl-3">void</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-5">eliminar</span><span class="hl-1">(</span><span class="hl-4">elemento</span><span class="hl-1">: </span><span class="hl-3">T</span><span class="hl-1">): </span><span class="hl-3">void</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-5">listar</span><span class="hl-1">(): </span><span class="hl-3">void</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>La interfaz consta de tres métodos, <code>insertar</code>, <code>eliminar</code> y <code>listar</code>, que son los métodos que deben implementar las clases de las colecciones de las entidades o modelos del sistema. Estos métodos permiten añadir, eliminar y listar los elementos de la colección.</p>
+
+<a href="#coordenadasinterface" id="coordenadasinterface" style="color: inherit; text-decoration: none;">
+  <h4>CoordenadasInterface</h4>
+</a>
+<p>Esta interfaz define los atributos que debe tener un objeto que contenga las coordenadas de una ruta. Esta interfaz contiene los siguientes atributos:</p>
+<pre><code class="language-typescript"><span class="hl-2">interface</span><span class="hl-1"> </span><span class="hl-3">CoordenadasInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">latitud</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">longitud</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>La interfaz consta de dos atributos, la <code>latitud</code> y la <code>longitud</code>, que son los atributos que se requieren para definir las coordenadas de una ruta. Por ejemplo las coordenadas de una ruta pueden ser: <code>{ latitud: 40.4167754, longitud: -3.7037902 }</code></p>
+
+<a href="#esatdisticasentrenamientointerface" id="esatdisticasentrenamientointerface" style="color: inherit; text-decoration: none;">
+  <h4>EsatdisticasEntrenamientoInterface</h4>
+</a>
+<p>Esta interfaz define los atributos que debe tener un objeto que contenga las estadísticas de un usuario. Esta interfaz contiene los siguientes atributos:</p>
+<pre><code class="language-typescript"><span class="hl-2">interface</span><span class="hl-1"> </span><span class="hl-3">EstadisticasEntrenamiento</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">semana</span><span class="hl-1">: { </span><span class="hl-4">km</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">; </span><span class="hl-4">desnivel</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1"> };</span><br/><span class="hl-1">  </span><span class="hl-4">mes</span><span class="hl-1">: { </span><span class="hl-4">km</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">; </span><span class="hl-4">desnivel</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1"> };</span><br/><span class="hl-1">  </span><span class="hl-4">anio</span><span class="hl-1">: { </span><span class="hl-4">km</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">; </span><span class="hl-4">desnivel</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1"> };</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>La interfaz consta de tres atributos, <code>semana</code>, <code>mes</code> y <code>anio</code>, que son los atributos que se requieren para definir las estadísticas de un usuario. Por ejemplo las estadísticas de un usuario pueden ser: <code>{ semana: { km: 10, desnivel: 100 }, mes: { km: 20, desnivel: 200 }, anio: { km: 30, desnivel: 300 } }</code></p>
+
+<a href="#enumerados" id="enumerados" style="color: inherit; text-decoration: none;">
+  <h3>Enumerados</h3>
+</a>
+<p>Para la implementación de los enumerados, se ha creado una carpeta llamada <code>enums</code> dentro de la carpeta <code>src</code>, en la que se encuentran los archivos de cada uno de los enumerados. Estos archivos contienen la definición de los enumerados que se utilizan en el proyecto.</p>
+
+<a href="#tipo-de-actividad" id="tipo-de-actividad" style="color: inherit; text-decoration: none;">
+  <h4>Tipo de Actividad</h4>
+</a>
+<p>Este enumerado define los tipos de actividad que puede tener una ruta o actiividad del sistema. Este enumerado contiene los siguientes valores:</p>
+<pre><code class="language-typescript"><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-2">enum</span><span class="hl-1"> </span><span class="hl-3">Actividad</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-6">ciclismo</span><span class="hl-1"> = </span><span class="hl-7">&#39;ciclismo&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-6">running</span><span class="hl-1"> = </span><span class="hl-7">&#39;running&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>El enumerado consta de dos valores, <code>ciclismo</code> y <code>running</code>, que son los tipos de actividad que puede tener una ruta.</p>
+
+<a href="#dificultad" id="dificultad" style="color: inherit; text-decoration: none;">
+  <h4>Dificultad</h4>
+</a>
+<p>Este enumerado define las dificultades que puede tener una ruta o actiividad del sistema. Este enumerado contiene los siguientes valores:</p>
+<pre><code class="language-typescript"><span class="hl-2">enum</span><span class="hl-1"> </span><span class="hl-3">Dificultad</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-6">facil</span><span class="hl-1"> = </span><span class="hl-7">&#39;facil&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-6">media</span><span class="hl-1"> = </span><span class="hl-7">&#39;media&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-6">dificil</span><span class="hl-1"> = </span><span class="hl-7">&#39;dificil&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>El enumerado consta de tres valores, <code>facil</code>, <code>media</code> y <code>dificil</code>, que son las posibles dificultades que puede tener una ruta. Se optó por un enumerado en vez de un alias de tipo, ya que se consideró que al ser sencillo y con valores predefinidos, era más adecuado utilizar un enumerado.</p>
+
+<a href="#modelos-o-entidades" id="modelos-o-entidades" style="color: inherit; text-decoration: none;">
+  <h3>Modelos o Entidades</h3>
+</a>
+<p>Para la implementación de los modelos o entidades, se ha creado una carpeta llamada <code>modelos</code> dentro de la carpeta <code>src</code>, en la que se encuentran los archivos de cada uno de los modelos. Estos archivos contienen la definición de las clases que representan a cada uno de los modelos (usuarios, rutas, grupos y retos) y los métodos que se requieren para su funcionamiento.</p>
+
+<a href="#usuarios" id="usuarios" style="color: inherit; text-decoration: none;">
+  <h4>Usuarios</h4>
+</a>
+<p>La clase <code>Usuario</code> contiene la información de cada uno de los usuarios del sistema. Esta clase contiene los siguientes atributos:</p>
+<pre><code class="language-typescript"><span class="hl-2">class</span><span class="hl-1"> </span><span class="hl-3">Usuario</span><span class="hl-1"> </span><span class="hl-2">implements</span><span class="hl-1"> </span><span class="hl-3">EntidadInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">id</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">nombre</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">contraseña</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">actividades</span><span class="hl-1">: </span><span class="hl-3">Actividad</span><span class="hl-1">; </span><span class="hl-8">// deberia ser un array de actividades</span><br/><span class="hl-1">  </span><span class="hl-4">amigosApp</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">[] = [];</span><br/><span class="hl-1">  </span><span class="hl-4">amigosFrecuentes</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">[] = [];</span><br/><span class="hl-1">  </span><span class="hl-4">estadisticas</span><span class="hl-1">: </span><span class="hl-3">EstadisticasEntrenamiento</span><span class="hl-1"> = </span><span class="hl-6">ESTADISTICASNULL</span><br/><span class="hl-1">  </span><span class="hl-4">rutasFavoritas</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">[] = [];</span><br/><span class="hl-1">  </span><span class="hl-4">retosActivos</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">[] = [];</span><br/><span class="hl-1">  </span><span class="hl-4">historicoRutas</span><span class="hl-1">: { </span><span class="hl-4">ruta</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">; </span><span class="hl-4">fecha</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">; }[] = [];</span>
+</code></pre>
+<p>Se puede apreciar que ciertos atributos se inicializan con un valor por defecto, esto se hace porque no se pasan por parámetro en el constructor, ya que estos atributos se van modificando a lo largo de la ejecución del sistema y cuando se va agregando información a los usuarios.</p>
+<p>Cabe resaltar que la clase <code>Usuario</code> implementa la interfaz <code>EntidadInterface</code>, por lo que debe implementar los métodos que se definen en esta interfaz que comentamos previamente.</p>
+<p>El constructor de la clase es el siguiente:</p>
+<pre><code class="language-typescript"><span class="hl-1">  </span><span class="hl-5">constructor</span><span class="hl-1">(</span><span class="hl-4">nombre</span><span class="hl-1">: </span><span class="hl-4">string</span><span class="hl-1">, </span><span class="hl-4">contraseña</span><span class="hl-1">: </span><span class="hl-4">string</span><span class="hl-1">, </span><span class="hl-4">actividades</span><span class="hl-1">: </span><span class="hl-4">Actividad</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-8">/// Comprobamos que el nombre no esté vacío y que la actividad sea válida</span><br/><span class="hl-1">    </span><span class="hl-0">if</span><span class="hl-1"> (</span><span class="hl-4">nombre</span><span class="hl-1"> === </span><span class="hl-7">&#39;&#39;</span><span class="hl-1">) {</span><br/><span class="hl-1">      </span><span class="hl-0">throw</span><span class="hl-1"> </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-5">Error</span><span class="hl-1">(</span><span class="hl-7">&#39;Nombre de usuario vacío&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">    </span><span class="hl-0">if</span><span class="hl-1"> (</span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-5">isValidPassword</span><span class="hl-1">(</span><span class="hl-4">contraseña</span><span class="hl-1">) === </span><span class="hl-2">false</span><span class="hl-1">) {</span><br/><span class="hl-1">      </span><span class="hl-0">throw</span><span class="hl-1"> </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-5">Error</span><span class="hl-1">(</span><span class="hl-7">&#39;Contraseña no válida&#39;</span><span class="hl-1">);</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">    </span><span class="hl-4">contador_id</span><span class="hl-1">++;</span><br/><span class="hl-1">    </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">id</span><span class="hl-1"> = </span><span class="hl-4">contador_id</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">nombre</span><span class="hl-1"> = </span><span class="hl-4">nombre</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">contraseña</span><span class="hl-1"> = </span><span class="hl-4">contraseña</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">actividades</span><span class="hl-1"> = </span><span class="hl-4">actividades</span><span class="hl-1">;</span><br/><span class="hl-1">  }</span>
+</code></pre>
+<p>En el constructor se comprueba que el nombre no esté vacío y que la contraseña tenga un formato válido, este formato se define en el método <code>isValidPassword</code> que se encuentra en la clase <code>Usuario</code> y que basicamente comprueba que la contraseña tenga al menos una letra mayúscula, una minúscula, un número y un carácter especial. Si la contraseña no tiene un formato válido se lanza una excepción. Además, se incrementa el contador de identificadores y se asigna el valor del contador al atributo <code>id</code> del usuario, esto se hace de esta forma para que al crear un usuario se le asigne un identificador único. Por último, se asignan los valores de los parámetros al resto de atributos de la clase.</p>
+<p>La clase contiene tambien getters y setters para todos los atributos de la clase, además de ciertos métodos para modificar algunos elementos de los atributos de la clase. como son:</p>
+<ul>
+<li><p><code>addAmigoApp</code> y <code>eraseAmigoApp</code>: Estos métodos permiten añadir y eliminar amigos de la aplicación a la lista de amigos de la aplicación del usuario.</p>
+</li>
+<li><p><code>addRutaFavorita</code> y <code>eraseRutaFavorita</code>: Estos métodos permiten añadir y eliminar rutas a la lista de rutas favoritas del usuario.</p>
+</li>
+<li><p><code>addRetoActivo</code> y <code>eraseRetoActivo</code>: Estos métodos permiten añadir y eliminar retos a la lista de retos activos del usuario.</p>
+</li>
+</ul>
+
+<a href="#rutas" id="rutas" style="color: inherit; text-decoration: none;">
+  <h4>Rutas</h4>
+</a>
+<p>La clase <code>Ruta</code> contiene la información de las rutas que se pueden realizar en el sistema. Esta clase contiene los siguientes atributos:</p>
+<pre><code class="language-typescript"><span class="hl-2">class</span><span class="hl-1"> </span><span class="hl-3">Ruta</span><span class="hl-1"> </span><span class="hl-2">implements</span><span class="hl-1"> </span><span class="hl-3">EntidadInterface</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">id</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">nombre</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">coordenadasInicio</span><span class="hl-1">: </span><span class="hl-3">Coordenadas</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">coordenadasFin</span><span class="hl-1">: </span><span class="hl-3">Coordenadas</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">longitud</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">desnivel</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">usuariosVisitantes</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">[] = [];</span><br/><span class="hl-1">  </span><span class="hl-4">tipoActividad</span><span class="hl-1">: </span><span class="hl-3">Actividad</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">dificultad</span><span class="hl-1">: </span><span class="hl-3">Dificultad</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">calificacion</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1"> = </span><span class="hl-9">0</span><span class="hl-1">;</span>
+</code></pre>
+<p>Se puede apreciar que ciertos atributos se inicializan con un valor por defecto, esto se hace porque no se pasan por parámetro en el constructor, ya que estos atributos se van modificando a lo largo de la ejecución del sistema y cuando se va agregando información a las rutas.</p>
+<p>Cabe resaltar que la clase <code>Ruta</code> implementa la interfaz <code>EntidadInterface</code>, por lo que debe implementar los métodos que se definen en esta interfaz que comentamos previamente.</p>
+<p>El constructor de la clase es el siguiente:</p>
+<pre><code class="language-typescript"><span class="hl-1">  </span><span class="hl-5">constructor</span><span class="hl-1">(</span><br/><span class="hl-1">    </span><span class="hl-4">nombre</span><span class="hl-1">: </span><span class="hl-4">string</span><span class="hl-1">, </span><br/><span class="hl-1">    </span><span class="hl-4">coordenadasInicio</span><span class="hl-1">: </span><span class="hl-4">Coordenadas</span><span class="hl-1">, </span><br/><span class="hl-1">    </span><span class="hl-4">coordenadasFin</span><span class="hl-1">: </span><span class="hl-4">Coordenadas</span><span class="hl-1">, </span><br/><span class="hl-1">    </span><span class="hl-4">longitud</span><span class="hl-1">: </span><span class="hl-4">number</span><span class="hl-1">, </span><br/><span class="hl-1">    </span><span class="hl-4">desnivel</span><span class="hl-1">: </span><span class="hl-4">number</span><span class="hl-1">, </span><br/><span class="hl-1">    </span><span class="hl-4">tipoActividad</span><span class="hl-1">: </span><span class="hl-4">Actividad</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">dificultad</span><span class="hl-1">: </span><span class="hl-4">Dificultad</span><span class="hl-1">) </span><br/><span class="hl-1">    {</span><br/><span class="hl-1">      </span><span class="hl-4">contador_id</span><span class="hl-1">++;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">id</span><span class="hl-1"> = </span><span class="hl-4">contador_id</span><span class="hl-1">;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">nombre</span><span class="hl-1"> = </span><span class="hl-4">nombre</span><span class="hl-1">;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">coordenadasInicio</span><span class="hl-1"> = </span><span class="hl-4">coordenadasInicio</span><span class="hl-1">;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">coordenadasFin</span><span class="hl-1"> = </span><span class="hl-4">coordenadasFin</span><span class="hl-1">;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">longitud</span><span class="hl-1"> = </span><span class="hl-4">longitud</span><span class="hl-1">;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">desnivel</span><span class="hl-1"> = </span><span class="hl-4">desnivel</span><span class="hl-1">;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">tipoActividad</span><span class="hl-1"> = </span><span class="hl-4">tipoActividad</span><span class="hl-1">;</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">dificultad</span><span class="hl-1"> = </span><span class="hl-4">dificultad</span><span class="hl-1">;</span><br/><br/><span class="hl-1">      </span><span class="hl-8">// Ponemos una calificación aleatoria entre 0 y 5</span><br/><span class="hl-1">      </span><span class="hl-2">this</span><span class="hl-1">.</span><span class="hl-4">calificacion</span><span class="hl-1"> = </span><span class="hl-4">Math</span><span class="hl-1">.</span><span class="hl-5">floor</span><span class="hl-1">(</span><span class="hl-4">Math</span><span class="hl-1">.</span><span class="hl-5">random</span><span class="hl-1">() * </span><span class="hl-9">6</span><span class="hl-1">);</span><br/><span class="hl-1">    }    </span>
+</code></pre>
+<p>En el constructor se incrementa el contador de identificadores y se asigna el valor del contador al atributo <code>id</code> de la ruta, esto se hace de esta forma para que al crear una ruta se le asigne un identificador único. Por último, se asignan los valores de los parámetros al resto de atributos de la clase.</p>
+
+<a href="#conclusiones" id="conclusiones" style="color: inherit; text-decoration: none;">
+  <h2>Conclusiones</h2>
+</a>
+
+<a href="#referencias" id="referencias" style="color: inherit; text-decoration: none;">
+  <h2>Referencias</h2>
+</a>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">ull-<wbr/>esit-<wbr/>inf-<wbr/>dsi-<wbr/>22-<wbr/>23-<wbr/>prct07-<wbr/>destravate-<wbr/>datamodel-<wbr/>grupok</a>
+<ul>
+<li class="tsd-kind-module"><a href="modules/app.html">app</a></li>
+<li class="tsd-kind-module"><a href="modules/colecciones_coleccionGrupo.html">colecciones/coleccion<wbr/>Grupo</a></li>
+<li class="tsd-kind-module"><a href="modules/colecciones_coleccionReto.html">colecciones/coleccion<wbr/>Reto</a></li>
+<li class="tsd-kind-module"><a href="modules/colecciones_coleccionRuta.html">colecciones/coleccion<wbr/>Ruta</a></li>
+<li class="tsd-kind-module"><a href="modules/colecciones_coleccionUsuario.html">colecciones/coleccion<wbr/>Usuario</a></li>
+<li class="tsd-kind-module"><a href="modules/enums_actividadEnum.html">enums/actividad<wbr/>Enum</a></li>
+<li class="tsd-kind-module"><a href="modules/enums_dificultadEnum.html">enums/dificultad<wbr/>Enum</a></li>
+<li class="tsd-kind-module"><a href="modules/interfaces_coleccion.html">interfaces/coleccion</a></li>
+<li class="tsd-kind-module"><a href="modules/interfaces_coordenadasInterface.html">interfaces/coordenadas<wbr/>Interface</a></li>
+<li class="tsd-kind-module"><a href="modules/interfaces_entidadInterface.html">interfaces/entidad<wbr/>Interface</a></li>
+<li class="tsd-kind-module"><a href="modules/interfaces_estadisticasEntrenamiento.html">interfaces/estadisticas<wbr/>Entrenamiento</a></li>
+<li class="tsd-kind-module"><a href="modules/jsonModifiers_jsonColeccionGrupo.html">json<wbr/>Modifiers/json<wbr/>Coleccion<wbr/>Grupo</a></li>
+<li class="tsd-kind-module"><a href="modules/jsonModifiers_jsonColeccionReto.html">json<wbr/>Modifiers/json<wbr/>Coleccion<wbr/>Reto</a></li>
+<li class="tsd-kind-module"><a href="modules/jsonModifiers_jsonColeccionRuta.html">json<wbr/>Modifiers/json<wbr/>Coleccion<wbr/>Ruta</a></li>
+<li class="tsd-kind-module"><a href="modules/jsonModifiers_jsonColeccionUsuario.html">json<wbr/>Modifiers/json<wbr/>Coleccion<wbr/>Usuario</a></li>
+<li class="tsd-kind-module"><a href="modules/modelos_grupo.html">modelos/grupo</a></li>
+<li class="tsd-kind-module"><a href="modules/modelos_reto.html">modelos/reto</a></li>
+<li class="tsd-kind-module"><a href="modules/modelos_ruta.html">modelos/ruta</a></li>
+<li class="tsd-kind-module"><a href="modules/modelos_usuario.html">modelos/usuario</a></li></ul></li></ul></div></details></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>

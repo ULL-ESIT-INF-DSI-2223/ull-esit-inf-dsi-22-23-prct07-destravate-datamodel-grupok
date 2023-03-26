@@ -4,12 +4,12 @@ import lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 
 /**
- * Database schema
+ * Interfaz de la base de datos
  * 
- * @interface DatabaseSchema  
- * @property {Grupo[]} grupos
+ * @export
+ * @interface DatabaseSchema
  */
-interface DatabaseSchema{
+export interface DatabaseSchema{
   grupos: Grupo[];
 }
 

@@ -4,7 +4,7 @@ import FileSync from 'lowdb/adapters/FileSync';
 import { Usuario } from '../modelos/usuario';
 import { Actividad } from '../enums/actividadEnum';
 
-interface DatabaseSchema {
+export interface DatabaseSchema {
   usuarios: Usuario[];
 }
 
