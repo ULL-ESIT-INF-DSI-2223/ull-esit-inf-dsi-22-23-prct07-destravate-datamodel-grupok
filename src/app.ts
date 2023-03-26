@@ -1316,6 +1316,7 @@ export class Gestor {
                         );
                         return this.volver(() => this.modificarUsuario());
                       });
+                      break;
                   default:
                     break;
                 }

@@ -5,34 +5,24 @@
       "nombre": "yanfris",
       "contraseña": "Dsi23*",
       "actividades": "corredor",
-<<<<<<< HEAD
-      "amigosApp": [],
-      "amigosFrecuentes": [],
-=======
-      "amigosApp": [
-        2,
-        5
-      ],
-      "amigosFrecuentes": [
-        2
-      ],
->>>>>>> aac6317a73e092859dc7ce7d18b41ed4df38e114
+      "amigosApp": [2, 5],
+      "amigosFrecuentes": [2],
       "estadisticas": {
         "semana": {
           "km": 3,
-          "desnivel": 0
+          "desnivel": 1
         },
         "mes": {
           "km": 2,
-          "desnivel": 0
+          "desnivel": 7
         },
         "anio": {
           "km": 1,
-          "desnivel": 0
+          "desnivel": 8
         }
       },
-      "rutasFavoritas": [],
-      "retosActivos": [],
+      "rutasFavoritas": [1],
+      "retosActivos": [2],
       "historicoRutas": []
     },
     {
@@ -43,25 +33,25 @@
       "amigosApp": [
         1
       ],
-      "amigosFrecuentes": [],
+      "amigosFrecuentes": [1],
       "estadisticas": {
         "semana": {
-          "km": 1,
-          "desnivel": 0
+          "km": 15,
+          "desnivel": 6
         },
         "mes": {
-          "km": 2,
-          "desnivel": 0
+          "km": 276,
+          "desnivel": 7
         },
         "anio": {
-          "km": 3,
-          "desnivel": 0
+          "km": 38,
+          "desnivel": 9
         }
       },
       "rutasFavoritas": [
         4
       ],
-      "retosActivos": [],
+      "retosActivos": [2],
       "historicoRutas": []
     },
     {
@@ -75,16 +65,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 65,
+          "desnivel": 6
         },
         "mes": {
-          "km": 5,
-          "desnivel": 0
+          "km": 65,
+          "desnivel": 5
         },
         "anio": {
-          "km": 2,
-          "desnivel": 0
+          "km": 642,
+          "desnivel": 4
         }
       },
       "rutasFavoritas": [
@@ -102,21 +92,19 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 45,
+          "desnivel": 4
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 234,
+          "desnivel": 7
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 432,
+          "desnivel": 6
         }
       },
-      "rutasFavoritas": [
-        5
-      ],
+      "rutasFavoritas": [],
       "retosActivos": [],
       "historicoRutas": []
     },
@@ -129,16 +117,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
+          "km": 23,
           "desnivel": 0
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 28,
+          "desnivel": 4
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 234,
+          "desnivel": 4
         }
       },
       "rutasFavoritas": [],
@@ -154,16 +142,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
+          "km": 5,
           "desnivel": 0
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 45,
+          "desnivel": 2
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 77,
+          "desnivel": 3
         }
       },
       "rutasFavoritas": [],
@@ -179,16 +167,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 2,
+          "desnivel": 4
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 22,
+          "desnivel": 3
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 222,
+          "desnivel": 1
         }
       },
       "rutasFavoritas": [],
@@ -204,16 +192,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 34,
+          "desnivel": 5
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 232,
+          "desnivel": 6
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 777,
+          "desnivel": 5
         }
       },
       "rutasFavoritas": [],
@@ -229,16 +217,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 99,
+          "desnivel": 10
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 500,
+          "desnivel": 10
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 7777,
+          "desnivel": 10
         }
       },
       "rutasFavoritas": [],
@@ -254,16 +242,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 3,
+          "desnivel": 1
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 4,
+          "desnivel": 1
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 12,
+          "desnivel": 2
         }
       },
       "rutasFavoritas": [],
@@ -279,16 +267,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 34,
+          "desnivel": 3
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 73,
+          "desnivel": 4
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 232,
+          "desnivel": 1
         }
       },
       "rutasFavoritas": [],
@@ -304,15 +292,15 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
+          "km": 1,
           "desnivel": 0
         },
         "mes": {
-          "km": 0,
+          "km": 2,
           "desnivel": 0
         },
         "anio": {
-          "km": 0,
+          "km": 3,
           "desnivel": 0
         }
       },
@@ -329,16 +317,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
+          "km": 7,
           "desnivel": 0
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 8,
+          "desnivel": 2
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 77,
+          "desnivel": 3
         }
       },
       "rutasFavoritas": [],
@@ -354,16 +342,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 34,
+          "desnivel": 3
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 666,
+          "desnivel": 1
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 9999,
+          "desnivel": 8
         }
       },
       "rutasFavoritas": [],
@@ -379,16 +367,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
+          "km": 12,
           "desnivel": 0
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 13,
+          "desnivel": 1
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 41,
+          "desnivel": 3
         }
       },
       "rutasFavoritas": [],
@@ -404,16 +392,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
+          "km": 12,
           "desnivel": 0
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 32,
+          "desnivel": 3
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 34,
+          "desnivel": 2
         }
       },
       "rutasFavoritas": [],
@@ -429,16 +417,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
+          "km": 2,
           "desnivel": 0
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 3,
+          "desnivel": 3
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 4,
+          "desnivel": 2
         }
       },
       "rutasFavoritas": [],
@@ -479,16 +467,16 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 13,
+          "desnivel": 1
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 34,
+          "desnivel": 2
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 54,
+          "desnivel": 3
         }
       },
       "rutasFavoritas": [],
@@ -500,22 +488,20 @@
       "nombre": "aldo",
       "contraseña": "Le0$",
       "actividades": "running",
-      "amigosApp": [
-        3
-      ],
+      "amigosApp": [],
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
           "km": 0,
-          "desnivel": 0
+          "desnivel": 5
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 10,
+          "desnivel": 5
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 100,
+          "desnivel": 5
         }
       },
       "rutasFavoritas": [],
