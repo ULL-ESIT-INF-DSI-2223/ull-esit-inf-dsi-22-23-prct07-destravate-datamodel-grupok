@@ -1,13 +1,13 @@
-import { Ruta } from '../modelos/ruta';
-import { Coleccion } from '../interfaces/coleccion';
-import { Coordenadas } from '../interfaces/coordenadasInterface';
-import { Actividad } from '../enums/actividadEnum';
-import { Dificultad } from '../enums/dificultadEnum';
+import { Ruta } from "../modelos/ruta";
+import { Coleccion } from "../interfaces/coleccion";
+import { Coordenadas } from "../interfaces/coordenadasInterface";
+import { Actividad } from "../enums/actividadEnum";
+import { Dificultad } from "../enums/dificultadEnum";
 
 /**
  * Clase que implemente Colección y la especifica para rutas
  */
-export class ColeccionRuta implements Coleccion<Ruta>{
+export class ColeccionRuta implements Coleccion<Ruta> {
   private rutas: Map<number, Ruta>;
 
   /**
@@ -28,7 +28,7 @@ export class ColeccionRuta implements Coleccion<Ruta>{
    * Setter de las rutas (entrada en formato map)
    * @param rutas Rutas en formato map
    */
-  public setRutas( rutas : Map<number, Ruta>): void {
+  public setRutas(rutas: Map<number, Ruta>): void {
     this.rutas = rutas;
   }
 
@@ -61,26 +61,26 @@ export class ColeccionRuta implements Coleccion<Ruta>{
       throw new Error("La ruta que deseas obtener no existe.");
     }
     return ruta;
-  }  
+  }
 
   /**
    * Método que permite lista las rutas
    */
   public listar(): void {
     console.clear();
-    console.log('Listando rutas...');
+    console.log("Listando rutas...");
     for (const ruta of this.rutas.values()) {
       console.log(ruta);
     }
   }
 
- /**
+  /**
    * Método que permite insertar una ruta
    * @param ruta Ruta a añadir
    */
   public insertar(ruta: Ruta): void {
     if (this.rutas.has(ruta.getID())) {
-      throw new Error('La ruta que deseas insertar ya existe.');
+      throw new Error("La ruta que deseas insertar ya existe.");
       // console.log('La ruta ya existe insertar ruta');
       // return;
     }
@@ -91,11 +91,10 @@ export class ColeccionRuta implements Coleccion<Ruta>{
    * Método que permite insertar un reto
    * @param ruta Ruta a eliminar
    */
-  public eliminar( ruta: Ruta) {
+  public eliminar(ruta: Ruta) {
     if (this.rutas.has(ruta.getID())) {
       this.rutas.delete(ruta.getID());
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas eliminar no existe.");
       // console.log("La ruta que deseas eliminar no existe.");
     }
@@ -104,18 +103,20 @@ export class ColeccionRuta implements Coleccion<Ruta>{
   public modificarNombreRuta(ruta: Ruta, nombre: string) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setNombre(nombre);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
 
-  public modificarCoordenadasRuta(ruta: Ruta, coordenadasInicio: Coordenadas, coordenadasFin: Coordenadas) {
+  public modificarCoordenadasRuta(
+    ruta: Ruta,
+    coordenadasInicio: Coordenadas,
+    coordenadasFin: Coordenadas
+  ) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setCoordenadasInicio(coordenadasInicio);
       ruta.setCoordenadasFin(coordenadasFin);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
@@ -123,8 +124,7 @@ export class ColeccionRuta implements Coleccion<Ruta>{
   public modificarLongitudRuta(ruta: Ruta, longitud: number) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setLongitud(longitud);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
@@ -132,8 +132,7 @@ export class ColeccionRuta implements Coleccion<Ruta>{
   public modificarDesnivelRuta(ruta: Ruta, desnivel: number) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setDesnivel(desnivel);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
@@ -141,8 +140,7 @@ export class ColeccionRuta implements Coleccion<Ruta>{
   public modificarTipoActividadRuta(ruta: Ruta, tipoActividad: Actividad) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setTipoActividad(tipoActividad);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
@@ -157,8 +155,7 @@ export class ColeccionRuta implements Coleccion<Ruta>{
   public modificarDificultadRuta(ruta: Ruta, dificultad: Dificultad) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setDificultad(dificultad);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }

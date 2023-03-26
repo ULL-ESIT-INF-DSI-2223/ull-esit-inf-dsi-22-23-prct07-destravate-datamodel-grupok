@@ -66,7 +66,7 @@ export class ColeccionReto implements Coleccion<Reto> {
    */
   public listar(): void {
     console.clear();
-    console.log('Listando retos...');
+    console.log("Listando retos...");
     for (const reto of this.retos.values()) {
       console.log(reto);
     }
@@ -92,8 +92,7 @@ export class ColeccionReto implements Coleccion<Reto> {
   public eliminar(reto: Reto) {
     if (this.retos.has(reto.getID())) {
       this.retos.delete(reto.getID());
-    }
-    else {
+    } else {
       throw new Error("El reto que deseas eliminar no existe");
       // console.log("El reto que deseas eliminar no existe.");
     }
@@ -104,7 +103,7 @@ export class ColeccionReto implements Coleccion<Reto> {
    * @param reto Reto a modificar
    * @param nombre Nombre nuevo del reto
    * @returns void
-  */
+   */
   public modificarNombre(reto: Reto, nombre: string): void {
     if (this.retos.has(reto.getID())) {
       // comprobar si el nombre nuevo ya existe
@@ -112,14 +111,13 @@ export class ColeccionReto implements Coleccion<Reto> {
       const nuevoNombre = nombre;
       for (const u of this.retos.values()) {
         if (u.getNombre() === nuevoNombre) {
-          throw new Error('El reto con nombre ' + nuevoNombre + ' ya existe');
+          throw new Error("El reto con nombre " + nuevoNombre + " ya existe");
         }
       }
       reto.setNombre(nombre);
-    }
-    else {
+    } else {
       console.log("El reto que deseas modificar no existe.");
-      throw new Error('El reto que deseas modificar no existe');
+      throw new Error("El reto que deseas modificar no existe");
     }
   }
 
@@ -131,9 +129,8 @@ export class ColeccionReto implements Coleccion<Reto> {
   public addRuta(reto: Reto, ruta: number): void {
     if (this.retos.has(reto.getID())) {
       reto.addRuta(ruta);
-    }
-    else {
-      throw new Error('El reto al que deseas añadir la ruta no existe');
+    } else {
+      throw new Error("El reto al que deseas añadir la ruta no existe");
       // console.log("El reto al que deseas añadir la ruta no existe.");
     }
   }
@@ -146,9 +143,8 @@ export class ColeccionReto implements Coleccion<Reto> {
   public eraseRuta(reto: Reto, ruta: number): void {
     if (this.retos.has(reto.getID())) {
       reto.removeRuta(ruta);
-    }
-    else {
-      throw new Error('El reto del que deseas eliminar la ruta no existe');
+    } else {
+      throw new Error("El reto del que deseas eliminar la ruta no existe");
       // console.log("El reto del que deseas eliminar la ruta no existe.");
     }
   }
@@ -161,9 +157,8 @@ export class ColeccionReto implements Coleccion<Reto> {
   public modificarActividad(reto: Reto, tipo: Actividad): void {
     if (this.retos.has(reto.getID())) {
       reto.setTipoActividad(tipo);
-    }
-    else {
-      throw new Error('El reto que deseas modificar no existe');
+    } else {
+      throw new Error("El reto que deseas modificar no existe");
       // console.log("El reto que deseas modificar no existe.");
     }
   }
@@ -174,13 +169,12 @@ export class ColeccionReto implements Coleccion<Reto> {
       const usuarios = reto.getUsuarios();
       for (const u of usuarios) {
         if (u === usuario) {
-          throw new Error('El usuario ya está en el reto');
+          throw new Error("El usuario ya está en el reto");
         }
       }
       reto.addUsuario(usuario);
-    }
-    else {
-      throw new Error('El reto al que deseas añadir el usuario no existe');
+    } else {
+      throw new Error("El reto al que deseas añadir el usuario no existe");
       // console.log("El reto al que deseas añadir el usuario no existe.");
     }
   }
@@ -196,18 +190,13 @@ export class ColeccionReto implements Coleccion<Reto> {
         }
       }
       if (!encontrado) {
-        throw new Error('El usuario no está en el reto');
-      }
-      else {
+        throw new Error("El usuario no está en el reto");
+      } else {
         reto.removeUsuario(usuario);
       }
-    }
-    else {
-      throw new Error('El reto del que deseas eliminar el usuario no existe');
+    } else {
+      throw new Error("El reto del que deseas eliminar el usuario no existe");
       // console.log("El reto del que deseas eliminar el usuario no existe.");
     }
   }
 }
-
-
-  

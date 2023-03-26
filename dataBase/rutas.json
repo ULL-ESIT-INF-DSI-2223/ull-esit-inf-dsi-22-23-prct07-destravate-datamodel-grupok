@@ -37,9 +37,7 @@
       },
       "longitud": "12",
       "desnivel": "43",
-      "usuariosVisitantes": [
-        1
-      ],
+      "usuariosVisitantes": [1],
       "tipoActividad": "Ciclismo",
       "dificultad": "Fácil",
       "calificacion": 2
@@ -75,10 +73,7 @@
       },
       "longitud": "",
       "desnivel": "",
-      "usuariosVisitantes": [
-        2,
-        1
-      ],
+      "usuariosVisitantes": [2, 1],
       "tipoActividad": "Ciclismo",
       "dificultad": "Fácil",
       "calificacion": 4

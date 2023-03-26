@@ -19,29 +19,29 @@ export class Ruta implements EntidadInterface {
   tipoActividad: Actividad;
   dificultad: Dificultad;
   calificacion: number = 0;
-  
-  constructor(
-    nombre: string, 
-    coordenadasInicio: Coordenadas, 
-    coordenadasFin: Coordenadas, 
-    longitud: number, 
-    desnivel: number, 
-    tipoActividad: Actividad,
-    dificultad: Dificultad) 
-    {
-      contador_id++;
-      this.id = contador_id;
-      this.nombre = nombre;
-      this.coordenadasInicio = coordenadasInicio;
-      this.coordenadasFin = coordenadasFin;
-      this.longitud = longitud;
-      this.desnivel = desnivel;
-      this.tipoActividad = tipoActividad;
-      this.dificultad = dificultad;
 
-      // Ponemos una calificación aleatoria entre 0 y 5
-      this.calificacion = Math.floor(Math.random() * 6);
-    }    
+  constructor(
+    nombre: string,
+    coordenadasInicio: Coordenadas,
+    coordenadasFin: Coordenadas,
+    longitud: number,
+    desnivel: number,
+    tipoActividad: Actividad,
+    dificultad: Dificultad
+  ) {
+    contador_id++;
+    this.id = contador_id;
+    this.nombre = nombre;
+    this.coordenadasInicio = coordenadasInicio;
+    this.coordenadasFin = coordenadasFin;
+    this.longitud = longitud;
+    this.desnivel = desnivel;
+    this.tipoActividad = tipoActividad;
+    this.dificultad = dificultad;
+
+    // Ponemos una calificación aleatoria entre 0 y 5
+    this.calificacion = Math.floor(Math.random() * 6);
+  }
 
   /**
    * Getter del ID
@@ -53,7 +53,7 @@ export class Ruta implements EntidadInterface {
 
   /**
    * Getter del nombre
-   * @returns Nombre del user 
+   * @returns Nombre del user
    */
   getNombre(): string {
     return this.nombre;
@@ -89,7 +89,7 @@ export class Ruta implements EntidadInterface {
    */
   getDesnivel(): number {
     return this.desnivel;
-  } 
+  }
 
   /**
    * Getter de los usuarios que han hecho la ruta
@@ -129,11 +129,11 @@ export class Ruta implements EntidadInterface {
    */
   setID = (id: number): void => {
     this.id = id;
-    if ( id > contador_id ) {
+    if (id > contador_id) {
       contador_id = id;
     }
-  }
-  
+  };
+
   /**
    * Setter del nombre
    * @param nombre nuevo nombre
@@ -220,7 +220,8 @@ export class Ruta implements EntidadInterface {
    */
   removeUsuarioVisitante(idUsuario: number): void {
     // Lo borramos de usuariosVisitantes
-    this.usuariosVisitantes = this.usuariosVisitantes.filter( id => id !== idUsuario );
+    this.usuariosVisitantes = this.usuariosVisitantes.filter(
+      (id) => id !== idUsuario
+    );
   }
-  
 }
