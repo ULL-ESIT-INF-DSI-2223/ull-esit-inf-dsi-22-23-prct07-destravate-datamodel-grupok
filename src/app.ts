@@ -1409,6 +1409,9 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que permite crear un grupo
+   */
   private registrarGrupo(): void {
     console.clear();
     console.log('Registrando grupo...');
@@ -1568,6 +1571,9 @@ export class Gestor {
   ////////// Gestión de Rutas  //////////
   ///////////////////////////////////////
 
+  /**
+   * Método que despliega un menú dedicado a la gestión de rutas
+   */
   private gestionRutas(): void {
     console.clear();
     console.log('Bienvenido a gestión de rutas. ¿Qué desea hacer?');
@@ -1690,6 +1696,10 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que muestra una lista de Rutas
+   * @param callback Callback que indica a que método se debe dirigir después
+   */
   private listarRutas(callback: (i: this) => void): void {
     console.clear();
     console.log('Listado de rutas:');
@@ -1763,6 +1773,9 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que muestra la información detallada de las rutas
+   */
   private mostrarRutas(): void {
     console.clear();
     console.log('Listado de rutas:');
@@ -1773,6 +1786,9 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que despliega un menú con distintas opciones relacionadas con modificar rutas
+   */
   private modificarRuta(): void {
     console.clear();
     // Obtener el listado de rutas
@@ -2003,6 +2019,9 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que permite eliminar rutas
+   */
   private eliminarRuta(): void {
     console.clear();
     console.log('Eliminando ruta...');
@@ -2040,6 +2059,9 @@ export class Gestor {
   ////////// Gestión de Retos //////////
   //////////////////////////////////////
 
+  /**
+   * Método que despliega un menú relacionado con la gestión de retos
+   */
   public gestionRetos(): void {
     console.clear();
     console.log('Bienvenido a gestión de Retos. ¿Qué desea hacer?');
@@ -2077,6 +2099,9 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que permite registrar un nuevo reto
+   */
   private registrarReto(): void {
     console.clear();
     console.log('Registrando reto...');
@@ -2114,6 +2139,10 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que imprime la lista de retos
+   * @param callback Callback que indica a que método se va a saltar después de terminar este
+   */
   private listarRetos(callback: (i: this) => void): void {
     console.clear();
     console.log('Listando retos...');
@@ -2168,7 +2197,11 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que despliega un menú que contiene opciones relacionadas con la modificación de retos
+   */
   private modificarReto(): void {
+
     console.clear();
     // Obtener el listado de retos
     const retos = this.coleccionRetos.getRetos();
@@ -2374,6 +2407,9 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que permite eliminar retos
+   */
   private eliminarReto(): void {
     console.clear();
     // Obtener el listado de retos
@@ -2405,7 +2441,6 @@ export class Gestor {
   }
 
 }
-
 
 const gestor = new Gestor();
 gestor.consola();

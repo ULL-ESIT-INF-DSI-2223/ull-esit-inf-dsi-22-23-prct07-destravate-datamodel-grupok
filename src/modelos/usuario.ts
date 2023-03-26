@@ -10,7 +10,7 @@ export class Usuario implements EntidadInterface {
   id: number;
   nombre: string;
   contraseña: string;
-  actividades: Actividad; // deberia ser un array de actividades
+  actividades: Actividad; 
   amigosApp: number[] = [];
   amigosFrecuentes: number[] = [];
   estadisticas: EstadisticasEntrenamiento = { semana: { km: 0, desnivel: 0 }, mes: { km: 0, desnivel: 0 }, anio: { km: 0, desnivel: 0 } };
@@ -18,6 +18,12 @@ export class Usuario implements EntidadInterface {
   retosActivos: number[] = [];
   historicoRutas: { ruta: number; fecha: string; }[] = [];
   
+  /**
+   * 
+   * @param nombre Nombre del usuario
+   * @param contraseña Contraseña
+   * @param actividades Actividad que realiza
+   */
   constructor(nombre: string, contraseña: string, actividades: Actividad) {
     /// Comprobamos que el nombre no esté vacío y que la actividad sea válida
     if (nombre === '') {
