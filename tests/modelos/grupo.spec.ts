@@ -104,10 +104,6 @@ describe('Grupo', () => {
     expect(grupo.getParticipantes()).to.be.eql([2]);
   });
 
-  // eraseRutaFavorita(idRuta: number): void {
-  //   this.rutasFavoritas = this.rutasFavoritas.filter((id) => id !== idRuta);
-  // }
-
   it ('should erase a participant from the group', () => {
     grupo.setParticipantes([1,2,3]);
     grupo.eraseParticipante(2);
