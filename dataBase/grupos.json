@@ -9,19 +9,19 @@
       ],
       "estadisticasEntrenamiento": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 10,
+          "desnivel": 100
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 100,
+          "desnivel": 250
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 1000,
+          "desnivel": 300
         }
       },
-      "clasificacion": [],
+      "clasificacion": [2],
       "rutasFavoritas": [
         5,
         1
@@ -43,36 +43,24 @@
       ],
       "estadisticasEntrenamiento": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 30,
+          "desnivel": 200
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 300,
+          "desnivel": 370
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 3500,
+          "desnivel": 500 
         }
       },
-      "clasificacion": [],
-      "rutasFavoritas": [],
+      "clasificacion": [3],
+      "rutasFavoritas": [2],
       "historicoRutas": [
         {
           "ruta": 6,
           "fecha": "3/26/2023 10:43:34 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 10:59:07 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:11:12 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:13:47 AM"
         }
       ]
     },
@@ -80,47 +68,76 @@
       "id": 3,
       "nombre": "info",
       "creador": 8,
-      "participantes": [],
+      "participantes": [
+        3,
+        6,
+        11
+      ],
       "estadisticasEntrenamiento": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 50,
+          "desnivel": 300
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 500,
+          "desnivel": 500
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 5000,
+          "desnivel": 420
         }
       },
-      "clasificacion": [],
-      "rutasFavoritas": [],
-      "historicoRutas": []
+      "clasificacion": [3],
+      "rutasFavoritas": [
+        3,
+        4
+      ],
+      "historicoRutas": [
+        {
+          "ruta": 1,
+          "fecha": "3/26/2023 10:43:34 AM"
+        },
+        {
+          "ruta": 2,
+          "fecha": "3/26/2023 10:43:34 AM"
+        }
+      ]
     },
     {
       "id": 4,
       "nombre": "minecraft",
       "creador": 17,
-      "participantes": [],
+      "participantes": [
+        4,
+        3,
+        13,
+        1
+      ],
       "estadisticasEntrenamiento": {
         "semana": {
-          "km": 0,
-          "desnivel": 0
+          "km": 30,
+          "desnivel": 100
         },
         "mes": {
-          "km": 0,
-          "desnivel": 0
+          "km": 300,
+          "desnivel": 180
         },
         "anio": {
-          "km": 0,
-          "desnivel": 0
+          "km": 2700,
+          "desnivel": 300
         }
       },
-      "clasificacion": [],
-      "rutasFavoritas": [],
-      "historicoRutas": []
+      "clasificacion": [4],
+      "rutasFavoritas": [
+        3,
+        1
+      ],
+      "historicoRutas": [
+        {
+          "ruta": 2,
+          "fecha": "1/26/2023 11:43:34 AM"
+        }
+      ]
     },
     {
       "id": 5,
