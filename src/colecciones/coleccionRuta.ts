@@ -80,8 +80,9 @@ export class ColeccionRuta implements Coleccion<Ruta>{
    */
   public insertar(ruta: Ruta): void {
     if (this.rutas.has(ruta.getID())) {
-      console.log('La ruta ya existe insertar ruta');
-      return;
+      throw new Error('La ruta ya existe insertar ruta');
+      // console.log('La ruta ya existe insertar ruta');
+      // return;
     }
     this.rutas.set(ruta.getID(), ruta);
   }
