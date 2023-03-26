@@ -117,7 +117,7 @@ export class Gestor {
           this.registrarUsuario();
           break;
         case 'Log in':
-          this.listarUsuarios();
+          this.logIn();
           break;
         case 'Gestión de la información':
           this.gestionInfo();
@@ -461,7 +461,117 @@ export class Gestor {
     });
   }
 
-  
+  private logIn() {
+    console.clear();
+    console.log('Iniciando sesión...');
+    inquirer.prompt({
+      type: 'input',
+      name: 'usuario',
+      message: 'Introduce tu nombre de usuario: ',
+    }).then((respuesta) => {
+      inquirer.prompt({
+        type: 'input',
+        name: 'contraseña',
+        message: 'Introduce tu contraseña: '
+      }).then((respuesta2) => {
+        // Buscamos en la colección de usuarios el usuario que se ha logueado
+        const usuario = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
+        // const usuario = this.coleccionUsuarios.getUsuario(respuesta.usuario);
+        if ( usuario != undefined ) {
+          if ( usuario.getContraseña() === respuesta2.contraseña ) {
+            console.log('Sesión iniciada correctamente.');
+            this.menuUsuario(usuario.id);
+          } else {
+            console.log('Contraseña incorrecta.');
+            this.volver(() => this.logIn());
+          }
+        } else {
+          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+          this.volver(() => this.logIn());
+        }
+      });
+    });
+  }
+
+  private menuUsuario(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    inquirer.prompt({
+      type: 'list',
+      name: 'menu',
+      message: 'Elige una opción: ',
+      choices: ['Lista de usuarios', 'Amigos', 'Rutas', 'Grupos', 'Estadísticas', 'Retos', 'Histórico de rutas', 'Salir'],
+    }).then((respuesta) => {
+      switch (respuesta.menu) {
+        case 'Lista de usuarios':
+          console.clear();
+          this.listarUsuarios();
+        break;
+        case 'Amigos':
+          console.clear();
+          this.gestionAmigos(usuarioActual);
+        break;
+        case 'Rutas':
+          console.clear();
+          // this.gestionRutas(usuarioActual);
+        break;
+        case 'Grupos':
+          console.clear();
+          // this.gestionGrupos(usuarioActual);
+        break;
+        case 'Estadísticas':
+          console.clear();
+          // this.gestionEstadisticas(usuarioActual);
+        break;
+        case 'Retos':
+          console.clear();
+          // this.gestionRetos(usuarioActual);
+        break;
+        case 'Histórico de rutas':
+          console.clear();
+          // this.gestionHistoricoRutas(usuarioActual);
+        break;
+        case 'Salir':
+          console.clear();
+          console.log('Saliendo...');
+          this.consola();
+        break;
+        default:
+        break;
+      }
+    });
+  }
+
+  private gestionAmigos(usuarioActual: Usuario) {
+    inquirer.prompt({
+      type: 'list',
+      name: 'menu',
+      message: 'Elige una opción: ',
+      choices: ['Listar amigos', 'Añadir amigos', 'Borrar amigos', 'Volver'],
+    }).then((respuesta) => {
+      switch (respuesta.menu) {
+        case 'Listar amigos':
+          console.clear();
+          // this.listarAmigos(usuarioActual);
+        break;
+        case 'Añadir amigos':
+          console.clear();
+          // this.addAmigos(usuarioActual);
+        break;
+        case 'Borrar amigos':
+          console.clear();
+          // this.eraseAmigos(usuarioActual);
+        break;
+        case 'Volver':
+          console.clear();
+          this.menuUsuario(usuarioActual.id);
+        break;
+        default:
+        break;
+      }
+    });
+  }
 
   /**
    * Método que permite crear usuarios y añadirlos a la colección de usuarios,
