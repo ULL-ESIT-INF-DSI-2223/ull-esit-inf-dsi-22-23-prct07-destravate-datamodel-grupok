@@ -414,7 +414,21 @@ La clase contiene tambien los siguientes métodos para gestionar y modificar las
 * `modificarDificultadRuta`: Este método modifica la dificultad de una ruta del sistema, se le pasa un parámetro de tipo `Dificultad` que es la dificultad de la ruta.
 * `modificarTipoActividadRuta`: Este método modifica el tipo de actividad de una ruta del sistema, se le pasa un parámetro de tipo `Actividad` que es el tipo de actividad de la ruta.
 
+#### Colección de retos
 
+La clase `ColeccionReto` contiene los métodos necesarios para gestionar los retos del sistema. El atributo y constructor de esta clase es básicamente lo mismo que las dos anteriores, pero en este caso el atributo es un `Map` que contiene los retos del sistema, el identificador de cada reto es la clave del `Map` y el reto en si es el valor del `Map`. En el constructor se inicializa el `Map` vacío. Además la clase implementa la interfaz `Coleccion` que se ha definido en el fichero `coleccion.ts` y que contiene los métodos que se deben implementar en las colecciones. Al igual que las anteriores la clase se ha definido como iterable.
+
+Además se han implementados los setters y getters para el atributo `retos` de la clase, en este caso hay un setter cuyo parametro es un `Map` y otro setter cuyo `setRetosFromArray` que recibe un array de retos y lo convierte en un `Map` para asignarlo al atributo `retos`. También se implementó un getter `getReto` que recibe un identificador de reto y devuelve el reto correspondiente.
+
+La clase contiene tambien los siguientes métodos para gestionar y modificar los retos:
+
+* `listar`: Este método imprime por pantalla la lista de retos del sistema.
+* `insertar`: Este método inserta un reto en el sistema. Se comprueba que el reto no exista previamente en el sistema y si no existe se inserta en el sistema.
+* `eliminar`: Este método elimina un reto del sistema. Se comprueba que el reto exista previamente en el sistema y si existe se elimina del sistema.
+* `modificarNombre`: Este método modifica el nombre de un reto del sistema. Se comprueba que no haya un reto con el mismo nombre en el sistema y si no hay un reto con el mismo nombre se modifica el nombre del reto.
+* `addRuta` y `eraseRuta`: Estos métodos añaden y eliminan rutas de la lista de rutas de un reto pasado por parámetro.
+* `addUsuario` y `eraseUsuario`: Estos métodos añaden y eliminan usuarios de la lista de usuarios de un reto pasado por parámetro, se comprueba en ambos casos si el usuario está ya en la lista de usuarios del reto o no.
+* `modificarActividad`: Este método modifica el tipo de actividad de un reto del sistema, se le pasa un parámetro de tipo `Actividad` que es el tipo de actividad del reto.
 
 
 
