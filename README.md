@@ -380,9 +380,21 @@ La clase contiene tambien los siguientes métodos para gestionar y modificar los
 * `
 
 
+
+
+
 ### jsonCollection
 
 A partir de la implementación de las colecciones heredan las clases denominadas `jsonCollection`, las cuales encontramos dentro de la carpeta `jsonModifiers` en `src`. Con estas cuatro clases (una por cada colección) podremos manejar los ficheros `.json` que se encuentran en la carptea `dataBase`, que es donde se almacenarán los datos de la aplicacción.
+
+### jsonCollectionUsuario
+
+
+
+
+
+
+
 
 ## Conclusiones
 
