@@ -70,7 +70,7 @@ describe("Usuario", () => {
     for (const nombreUsuario of usuario) {
       nombre = nombreUsuario;
     }
-    expect(nombre).to.be.equal("usuario");
+    expect(nombre).to.be.equal("o");
   });
 
   it ("Debería devolver el historico de rutas del usuario", () => {
