@@ -383,6 +383,40 @@ La clase contiene tambien los siguientes métodos para gestionar y modificar los
 * `addRutaRealizada`: Este método añade una ruta a la lista de rutas realizadas por un usuario. No se implementó un metodo para eliminar rutas de la lista de rutas realizadas porque no se consideró necesario.
 * `addRetosActivos` y `eraseRetosActivos`: Estos métodos añaden y eliminan retos de la lista de retos activos de un usuario pasado por parámetro.
 
+#### Colección de rutas
+
+La clase `ColeccionRuta` contiene los métodos necesarios para gestionar las rutas del sistema. Esta clase se ha definido con el siguiente atributo y este constructor:
+
+```typescript
+class ColeccionRuta implements Coleccion<Ruta> {
+  private rutas: Map<number, Ruta>;
+
+  constructor() {
+    this.rutas = new Map();
+  }
+...
+```
+
+Esto es básicamente igual que en la clase `ColeccionUsuario` solo que en este caso el atributo de la clase es un `Map` que contiene las rutas del sistema, el identificador de cada ruta es la clave del `Map` y la ruta en si es el valor del `Map`. En el constructor se inicializa el `Map` vacío. Además la clase implementa la interfaz `Coleccion` que se ha definido en el fichero `coleccion.ts` y que contiene los métodos que se deben implementar en las colecciones.
+
+La clase es iterable pues se ha implementado el método `Symbol.iterator` al igual que en la clase `ColeccionUsuario`.
+
+Además se han implementados los setters y getters para el atributo `rutas` de la clase, en este caso hay un setter cuyo parametro es un `Map` y otro setter cuyo `setRutasFromArray` que recibe un array de rutas y lo convierte en un `Map` para asignarlo al atributo `rutas`. También se implementó un getter `getRuta` que recibe un identificador de ruta y devuelve la ruta correspondiente, y un getter `getNombreRutas` que devuelve un array con los nombres de las rutas. 
+
+La clase contiene tambien los siguientes métodos para gestionar y modificar las rutas:
+
+* `listar`: Este método imprime por pantalla la lista de rutas del sistema.
+* `insertar`: Este método inserta una ruta en el sistema. Se comprueba que la ruta no exista previamente en el sistema y si no existe se inserta en el sistema.
+* `eliminar`: Este método elimina una ruta del sistema. Se comprueba que la ruta exista previamente en el sistema y si existe se elimina del sistema.
+* `modificarNombreRuta`: Este método modifica el nombre de una ruta del sistema. Se comprueba que no haya una ruta con el mismo nombre en el sistema y si no hay una ruta con el mismo nombre se modifica el nombre de la ruta.
+* `modificarCoordenadas`: Este método modifica las coordenadas de una ruta del sistema pasada por parametros, dadas las coordenadas de inicio y de fin tambien pasadas por parámetro.
+* `modificarLongitudRuta`: Este método modifica la longitud de una ruta del sistema, comprueba si la longitud de la ruta es correcta y si es correcta modifica la longitud de la ruta.
+* `modificarDificultadRuta`: Este método modifica la dificultad de una ruta del sistema, se le pasa un parámetro de tipo `Dificultad` que es la dificultad de la ruta.
+* `modificarTipoActividadRuta`: Este método modifica el tipo de actividad de una ruta del sistema, se le pasa un parámetro de tipo `Actividad` que es el tipo de actividad de la ruta.
+
+
+
+
 
 
 
@@ -514,6 +548,385 @@ Con sus distintos métodos
 * ``` public addParticipante(grupo: Grupo, participante: number): void ``` Esta se encarga de añadir un participante a un grupo de la base de datos.
 * ``` public eraseParticipante(grupo: Grupo, participante: number): void ``` Esta se encarga de eliminar un participante a un grupo de la base de datos.
 
+### jsonCollectionRutas
+Esta colección se encarga con todo lo relacionado con la persistencia de datos de los usuarios. Esta clase hereda de la clase `jsonCollection` y se ha definido de la siguiente forma:
+
+```typescript
+export class JsonColeccionRuta extends ColeccionRuta {
+  private rutasDatabase: LowdbSync<DatabaseSchema>;
+
+  constructor() {
+    super();
+    const adapter = new FileSync<DatabaseSchema>("./dataBase/rutas.json");
+    this.rutasDatabase = lowdb(adapter);
+    this.rutasDatabase.defaults({ rutas: [] }).write();
+  }
+```
+
+Con sus distintos métodos
+
+* ```public insertarRuta(ruta: Ruta): void``` Esta se encarga de insertar una ruta en la base de datos.
+* ``` public cargarRutas(): Ruta[] ``` Esta se encarga de cargar las rutas de la base de datos. Se usa sobretodo a la hora de iniciar el programa
+* ``` public eliminarRuta(ruta: Ruta): void ``` Esta se encarga de eliminar una ruta de la base de datos.
+* ``` public modificarCoordenadasRuta(ruta: Ruta coordenadasInicio: Coordenadas,coordenadasFin: Coordenadas ): void  ``` Esta se encarga de modificar el nombre de una ruta de la base de datos.
+* ``` public modificarLongitudRuta(ruta: Ruta, nuevaLongitud: number): void  ``` Esta se encarga de modificar la longitud de una ruta de la base de datos.
+* ``` public modificarDesnivelRuta(ruta: Ruta, nuevoDesnivel: number): void  ``` Esta se encarga de modificar el desnivel de una ruta de la base de datos.
+* ``` public modificarTipoActividadRuta(ruta: Ruta nuevoTipoActividad: Actividad): void  ``` Esta se encarga de modificar el tipo de actividad de una ruta de la base de datos.
+* ``` public modificarDificultadRuta( ruta: Ruta, nuevaDificultad: Dificultad): void   ``` Esta se encarga de modificar la dificultad de una ruta de la base de datos.
+* ``` public addUsuarioVisitante(ruta: Ruta, id: Number): void  ``` Esta se encarga de añadir un usuario visitante a una ruta de la base de datos.
+
+### jsonCollectionRetos
+Esta colección se encarga con todo lo relacionado con la persistencia de datos de los usuarios. Esta clase hereda de la clase `jsonCollection` y se ha definido de la siguiente forma:
+
+```typescript
+export class JsonColeccionReto extends ColeccionReto {
+  private retosDatabase: LowdbSync<DatabaseSchema>;
+
+  constructor() {
+    super();
+    const adapter = new FileSync<DatabaseSchema>("./dataBase/reto.json");
+    this.retosDatabase = lowdb(adapter);
+    this.retosDatabase.defaults({ retos: [] }).write();
+  }
+```
+Con sus métodos
+
+* ```public registrarReto(reto: Reto): void ``` Esta se encarga de registrar un reto en la base de datos.
+* ``` public cargarRetos(): Reto[] ``` Esta se encarga de cargar los retos de la base de datos. Se usa sobretodo a la hora de iniciar el programa
+* ``` public eliminarReto(reto: Reto): void ``` Esta se encarga de eliminar un reto de la base de datos.
+* ``` public modificarNombre(reto: Reto, nombre: string): void ``` Esta se encarga de modificar el nombre de un reto de la base de datos.
+* ``` public addRuta(reto: Reto, ruta: number): void  ``` Esta se encarga de añadir una ruta a un reto de la base de datos.
+* ``` public eraseRuta(reto: Reto, ruta: number): void   ``` Esta se encarga de eliminar una ruta a un reto de la base de datos.
+* ``` public modificarActividad(reto: Reto, actividad: string): void   ``` Esta se encarga de modificar la actividad de un reto de la base de datos.
+* ``` public addUsuario(reto: Reto, id: number): void ``` Esta se encarga de añadir un usuario a un reto de la base de datos.
+* ``` public eraseUsuario(reto: Reto, usuario: number): void  ``` Esta se encarga de eliminar un usuario a un reto de la base de datos.
+
+### App 
+Esta es la clase con la que se maneja todo el sistema de menús, así como la gestión de los datos. Esta clase hereda de la clase maneja las distintas ``` colecciones ```, así como los distintos ``` modificadores ```. Se ha definido de la siguiente forma:
+
+```typescript
+export class Gestor {
+  private coleccionUsuarios: ColeccionUsuario;
+  private coleccionRutas: ColeccionRuta;
+  private coleccionGrupos: ColeccionGrupo;
+  private coleccionRetos: ColeccionReto;
+  private jsonColeccionUsuario = new JsonColeccionUsuario();
+  private jsonColeccionRuta = new JsonColeccionRuta();
+  private jsonColeccionReto = new JsonColeccionReto();
+  private jsonColeccionGrupo = new JsonColeccionGrupo();
+
+  /**
+   * Constructor de la clase gestor
+   */
+  constructor() {
+    this.coleccionUsuarios = new ColeccionUsuario();
+    this.coleccionRutas = new ColeccionRuta();
+    this.coleccionGrupos = new ColeccionGrupo();
+    this.coleccionRetos = new ColeccionReto();
+    this.coleccionUsuarios.setUsuariosFromArray(
+      this.jsonColeccionUsuario.cargarUsuarios()
+    );
+    this.coleccionRetos.setRetosFromArray(this.jsonColeccionReto.cargarRetos());
+    this.coleccionRutas.setRutasFromArray(this.jsonColeccionRuta.cargarRutas());
+    this.coleccionGrupos.setGruposFromArray(
+      this.jsonColeccionGrupo.cargarGrupos()
+    );
+  }
+```
+
+Como podemos observar, dentro del constructor cada vez que se crea una instancia de un objeto de la clase `Gestor` se cargan los datos de las distintas colecciones de la base de datos. Además, se ha definido un método para cada una de las distintas colecciones, así como un método para cada uno de los distintos modificadores. Pudiendo así mantener una base de datos que se carga cuando se inicia el programa
+
+Estos son los método más triviales: 
+* ``` public getUsuarios(): Usuario[] ``` Este método se encarga de devolver la colección de usuarios.
+* ``` public getRetos(): Reto[] ``` Este método se encarga de devolver la colección de retos.
+* ``` public getRutas(): Ruta[] ``` Este método se encarga de devolver la colección de rutas.
+* ``` public getGrupos(): Grupo[] ``` Este método se encarga de devolver la colección de grupos.
+* ``` public setUsuarios(coleccion: ColeccionUsuario) ``` Este método se encarga de modificar la colección de usuarios.
+* ``` public setRetos(coleccion: ColeccionReto) ``` Este método se encarga de modificar la colección de retos.
+* ``` public setRutas(coleccion: ColeccionRuta) ``` Este método se encarga de modificar la colección de rutas.
+* ``` public setGrupos(coleccion: ColeccionGrupo) ``` Este método se encarga de modificar la colección de grupos.
+
+#### Menú principal
+Esta es la función encargada de mostrar el menú principal del programa. Se ha definido de la siguiente forma:
+
+```typescript
+public consola(): void {
+    console.clear();
+    console.log("Bienvenido a la consola del usuario. ¿Qué desea hacer?");
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Log in",
+          "Registrarse como usuario",
+          "Gestión de la información",
+          "Salir",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Registrarse como usuario":
+            this.registrarUsuario();
+            break;
+          case "Log in":
+            this.logIn();
+            break;
+          case "Gestión de la información":
+            this.gestionInfo();
+            break;
+          case "Salir":
+            console.log("Hasta pronto");
+            break;
+          default:
+            break;
+        }
+      });
+  }
+```
+Llama a las distintas funciones para que podamos interactuar con el programa.
+
+#### Registro de usuario
+Este es el método encargado de registrar un usuario en el sistema. Se ha definido de la siguiente forma:
+
+```typescript
+private registrarUsuario(): void {
+    console.clear();
+    console.log("Registrando usuario...");
+    inquirer
+      .prompt({
+        type: "input",
+        name: "nombre",
+        message: "Introduce tu nombre de usuario: ",
+      })
+      .then((respuesta) => {
+        inquirer
+          .prompt({
+            type: "list",
+            name: "actividad",
+            message: "Elige una actividad: ",
+            choices: ["cilismo", "running"],
+          })
+          .then((respuesta2) => {
+            inquirer
+              .prompt({
+                type: "input",
+                name: "contraseña",
+                message: "Introduce tu contraseña: ",
+              })
+              .then((respuesta3) => {
+                try {
+                  let usuario = new Usuario(
+                    respuesta.nombre,
+                    respuesta3.contraseña,
+                    respuesta2.actividad
+                  );
+                  // Insertamos el usuario en la colección de usuarios
+                  this.coleccionUsuarios.insertar(usuario);
+                  // Insertamos el usuario en el json
+                  this.jsonColeccionUsuario.insertarUsuario(usuario);
+
+                  console.log("Usuario registrado con éxito:", usuario);
+                  this.volver(() => this.consola());
+                } catch (error: unknown) {
+                  if (error instanceof Error) {
+                    console.log(
+                      "\x1b[31m%s\x1b[0m",
+                      "Error al crear el usuario: ",
+                      error.message
+                    );
+                  }
+                  console.log(
+                    "Introduce un nombre de usuario válido no vacío y/o contraseña válida"
+                  );
+                  // pulsar enter para volver a introducir un nombre de usuario
+                  inquirer
+                    .prompt({
+                      type: "input",
+                      name: "volver",
+                      message:
+                        "Pulsa enter para volver a introducir un usuario",
+                    })
+                    .then(() => {
+                      this.registrarUsuario();
+                    });
+                  return;
+                }
+              });
+          });
+      });
+  }
+```
+Como podemos ver se piden los datos del usuario y se crea un objeto de la clase `Usuario` con esos datos. Después se inserta el usuario en la colección de usuarios y en el json.
+
+#### Login de usuario
+Esto es un conjunto de métodos que hemos usado para gestionar el login de los usuarios para loguearse y una vez logueados poder acceder a las distintas opciones del programa. Se ha definido de la siguiente forma:
+
+```typescript
+private logIn() {
+    console.clear();
+    console.log("Iniciando sesión...");
+    inquirer
+      .prompt({
+        type: "input",
+        name: "usuario",
+        message: "Introduce tu nombre de usuario: ",
+      })
+      .then((respuesta) => {
+        inquirer
+          .prompt({
+            type: "input",
+            name: "contraseña",
+            message: "Introduce tu contraseña: ",
+          })
+          .then((respuesta2) => {
+            // Buscamos en la colección de usuarios el usuario que se ha logueado
+            const usuario = Array.from(
+              this.coleccionUsuarios.getUsuarios().values()
+            ).find((usuario) => usuario.getNombre() === respuesta.usuario);
+            if (usuario != undefined) {
+              if (usuario.getContraseña() === respuesta2.contraseña) {
+                console.log("Sesión iniciada correctamente.");
+                this.menuUsuario(usuario.id);
+              } else {
+                console.log("Contraseña incorrecta.");
+                this.volver(() => this.logIn());
+              }
+            } else {
+              console.log(`No se encontró el usuario ${respuesta.usuario}`);
+              this.volver(() => this.logIn());
+            }
+          });
+      });
+  }
+  ```
+  Como podemos ver se piden los datos del usuario y se busca en la colección de usuarios el usuario que se ha logueado. Si el usuario existe y la contraseña es correcta se muestra el menú del usuario, si no se muestra un mensaje de error y se vuelve a mostrar el menú principal. Una vez logueado el usuario se le muestra el menú del usuario. Este menú se ha definido de la siguiente forma:
+  
+  ```typescript
+  private menuUsuario(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    inquirer
+      .prompt({
+        type: "list",
+        name: "menu",
+        message: "Elige una opción: ",
+        choices: [
+          "Lista de usuarios",
+          "Amigos",
+          "Rutas",
+          "Grupos",
+          "Estadísticas",
+          "Retos",
+          "Histórico de rutas",
+          "Salir",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.menu) {
+          case "Lista de usuarios":
+            console.clear();
+            this.listarUsuarios(() => this.volver(() => this.menuUsuario(id)));
+            break;
+          case "Amigos":
+            console.clear();
+            this.gestionAmigos(usuarioActual);
+            break;
+          case "Rutas":
+            console.clear();
+            this.gestionRutasUsuario(id);
+            break;
+          case "Grupos":
+            console.clear();
+            this.gestionGruposUsuario(id);
+            break;
+          case "Estadísticas":
+            console.clear();
+            this.listarEstadisticas(id);
+            this.volver(() => this.menuUsuario(id));
+            break;
+          case "Retos":
+            console.clear();
+            this.gestionRetosUsuario(id);
+            break;
+          case "Histórico de rutas":
+            console.clear();
+            this.listarHistoricoRutas(id);
+            this.volver(() => this.menuUsuario(id));
+            break;
+          case "Salir":
+            console.clear();
+            console.log("Saliendo...");
+            this.consola();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+  ```
+Este método se encarga de lidiar con el menú del usuario logueado, pudiendo hacer uso de los siguientes métodos de gestión:
+  - `gestionAmigos`: Gestiona los amigos del usuario logueado.
+  - `gestionRutasUsuario`: Gestiona las rutas del usuario logueado.
+  - `gestionGruposUsuario`: Gestiona los grupos del usuario logueado.
+  - `gestionRetosUsuario`: Gestiona los retos del usuario logueado.
+  - `listarEstadisticas`: Lista las estadísticas del usuario logueado.
+  - `listarHistoricoRutas`: Lista el histórico de rutas del usuario logueado.
+Se ha de recalcar que los métodos de listar estadísticas y listar histórico de rutas se han definido de tal forma que permiten listar por orden ascendente y descendente, así como por fecha y distancia.
+
+#### Gestión de información 
+Este es un método que se encarga de gestionar la información de los usuarios, rutas, grupos y retos. Se ha definido de la siguiente forma:
+
+```typescript
+public gestionInfo(): void {
+    console.clear();
+    console.log(
+      "Bienvenido a la consola de gestión de la base de datos. ¿Qué datos desea gestionar?"
+    );
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Usuario",
+          "Rutas",
+          "Grupos",
+          "Retos",
+          "Volver al menú anterior",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Usuario":
+            this.gestionUsuarios();
+            break;
+          case "Rutas":
+            this.gestionRutas();
+            break;
+          case "Grupos":
+            this.gestionGrupos();
+            break;
+          case "Retos":
+            this.gestionRetos();
+            break;
+          case "Volver al menú anterior":
+            this.consola();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+```
+
+#### Gestión de usuarios
+Este método se encarga de gestionar los usuarios, pudiendo hacer uso de los siguientes métodos de gestión:
+  - `listarUsuarios`: Lista los usuarios de la base de datos.
+  - `registrarUsuario`: Crea un usuario en la base de datos.
+  - `eliminarUsuario`: Elimina un usuario de la base de datos.
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
