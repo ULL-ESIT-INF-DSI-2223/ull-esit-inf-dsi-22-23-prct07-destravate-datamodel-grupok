@@ -66,15 +66,13 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
    */
   public insertar(grupo: Grupo): void {
     if (this.grupos.has(grupo.getID())) {
-      console.log('Existe un grupo con el mismo ID.');
-      return;
+      throw new Error('Existe un grupo con el mismo ID.');
     }
-    
     // comprobar que el nombre no existe
     const nuevoNombre = grupo.getNombre();
     for (const u of this.grupos.values()) {
       if (u.getNombre() === nuevoNombre) {
-        throw new Error('El usuario con grupo ' + nuevoNombre + ' ya existe');
+        throw new Error('El grupo con nombre ' + nuevoNombre + ' ya existe');
       }
     }
     
@@ -90,7 +88,7 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
       this.grupos.delete(grupo.getID());
     }
     else {
-      console.log("El grupo que deseas eliminar no existe.");
+      throw new Error("El grupo que deseas eliminar no existe.");
     }
   }
 

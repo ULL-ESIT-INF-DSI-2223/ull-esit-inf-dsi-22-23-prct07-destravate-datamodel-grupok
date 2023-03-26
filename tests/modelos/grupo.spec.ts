@@ -16,7 +16,7 @@ describe('Grupo', () => {
   });
 
   it('should create a new group with given name and creator', () => {
-    expect(grupo.getID()).to.be.eql(1);
+    expect(grupo.getID()).to.be.eql(8);
     expect(grupo.getNombre()).to.be.eql('Grupo de corredores');
     expect(grupo.getCreador()).to.be.eql(1);
   });
