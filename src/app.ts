@@ -426,7 +426,14 @@ export class Gestor {
                   usuarioAModificar.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
                   // Lo escribimos en el fichero
                   this.jsonColeccionUsuario.addRutaRealizada(usuarioAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
-                  return (this.volver(() => this.gestionUsuarios()));
+                  
+                  // Añadimos la ruta al usuario y viceversa
+                  const rutaParticipada = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getID() === idRuta);
+                  if (rutaParticipada !== undefined && rutaParticipada.getUsuariosVisitantes().find((id) => id === usuarioAModificar.getID()) === undefined) {
+                    rutaParticipada.addUsuarioVisitante(usuarioAModificar.getID());
+                    this.jsonColeccionRuta.addUsuarioVisitante(rutaParticipada, usuarioAModificar.getID());
+                  }
+                  this.volver(() => this.gestionUsuarios());
                 });
               break;
               case 'Añadir Retos Activos':
@@ -1169,26 +1176,32 @@ export class Gestor {
                   // Lo escribimos en el fichero
                   this.jsonColeccionGrupo.addRutaRealizada(grupoAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
 
-                  // Añadimos la ruta al creador y a los usuarios
+                  // Añadimos la ruta al creador y viceversa
                   let participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === grupoAModificar.getCreador());
-                    if (participanteRuta !== undefined) {
-                      participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
-                      this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
-                    }
+                  let rutaParticipada = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getID() === idRuta);
+                  if (participanteRuta !== undefined) {
+                    participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                    this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                  }
+                  if (rutaParticipada !== undefined  && rutaParticipada.getUsuariosVisitantes().find((id) => id === grupoAModificar.getCreador()) === undefined) {
+                    rutaParticipada.addUsuarioVisitante(grupoAModificar.getCreador());
+                    this.jsonColeccionRuta.addUsuarioVisitante(rutaParticipada, grupoAModificar.getCreador());
+                  }
 
+                  // Añadimos la ruta al usuario y viceversa
                   for (const userID of grupoAModificar.participantes) {
                     participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === userID);
+                    rutaParticipada = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getID() === idRuta);
                     if (participanteRuta !== undefined) {
                       participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
                       this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
                     }
+                    if (rutaParticipada !== undefined && rutaParticipada.getUsuariosVisitantes().find((id) => id === userID) === undefined) {
+                      rutaParticipada.addUsuarioVisitante(userID);
+                      this.jsonColeccionRuta.addUsuarioVisitante(rutaParticipada, userID);
+                    }
                   }
-                    
-
-                  
-                    
-
-                  return (this.volver(() => this.gestionGrupos()));
+                  this.volver(() => this.gestionGrupos());
                 });
                 break;
               default:

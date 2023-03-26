@@ -38,7 +38,7 @@
       "nombre": "salvameDeluxe",
       "creador": 2,
       "participantes": [
-        2
+        1
       ],
       "estadisticasEntrenamiento": {
         "semana": {
@@ -58,8 +58,20 @@
       "rutasFavoritas": [],
       "historicoRutas": [
         {
-          "ruta": 1,
-          "fecha": "3/26/2023 10:41:32 AM"
+          "ruta": 6,
+          "fecha": "3/26/2023 10:43:34 AM"
+        },
+        {
+          "ruta": 6,
+          "fecha": "3/26/2023 10:59:07 AM"
+        },
+        {
+          "ruta": 6,
+          "fecha": "3/26/2023 11:11:12 AM"
+        },
+        {
+          "ruta": 6,
+          "fecha": "3/26/2023 11:13:47 AM"
         }
       ]
     }
