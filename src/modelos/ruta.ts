@@ -109,7 +109,5 @@ export class Ruta implements EntidadInterface {
   addUsuarioVisitante(idUsuario: number): void {
     this.usuariosVisitantes.push(idUsuario);
   }
-
   
-
 }

@@ -97,4 +97,5 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   public eraseRetosActivos(usuario: Usuario, reto: number): void {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('retosActivos').remove(reto).write();
   }
+
 }

@@ -15,7 +15,7 @@ import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
 // import { JsonColeccionRuta } from './jsonModifiers/jsonColeccionRuta';
 // import { JsonColeccionGrupo } from './jsonModifiers/jsonColeccionGrupo';
 // import { JsonColeccionReto } from './jsonModifiers/jsonColeccionReto';
-import { stringToCoordenadas } from './interfaces/coordenadasInterface';
+import { checkCoordenadas, stringToCoordenadas } from './interfaces/coordenadasInterface';
 
 /**
  * Clase Gestor
@@ -773,7 +773,7 @@ export class Gestor {
       },
       {
         type: 'input',
-        name: 'coordenadasInicio',
+         name: 'coordenadasInicio',
         message: 'Coordenadas de inicio: ',
       },
       {
@@ -803,6 +803,9 @@ export class Gestor {
       },
     ]).then((respuesta: any) => {
       try {
+        checkCoordenadas(respuesta.coordenadasInicio);
+        checkCoordenadas(respuesta.coordenadasFin);
+
         const coordenadasInicio = stringToCoordenadas(respuesta.coordenadasInicio);
         const coordenadasFin = stringToCoordenadas(respuesta.coordenadasFin);
         const ruta = new Ruta(
@@ -877,8 +880,7 @@ export class Gestor {
             message: 'Elige una opción: ',
             choices: [
               'Modificar nombre de ruta',
-              'Modificar coordenadas de inicio',
-              'Modificar coordenadas de fin',
+              'Modificar coordenadas de inicio y fin',
               'Modificar longitud',
               'Modificar desnivel',
               'Modificar tipo de actividad',
@@ -915,8 +917,9 @@ export class Gestor {
                     return;
                   }
                 });
-              case 'Modificar coordenadas de inicio':
+              case 'Modificar coordenadas de inicio y fin':
                 console.clear();
+<<<<<<< HEAD
                 inquirer.prompt({
                   type: 'input',
                   name: 'coordenadasInicio',
@@ -940,12 +943,25 @@ export class Gestor {
                       this.registrarRuta();
                     });
                     return;
+=======
+                inquirer.prompt(
+                  {
+                    type: 'input',
+                    name: 'coordenadasInicio',
+                    message: 'Introduce las coordenadas de inicio: ',
+                  },
+                  {
+                    type: 'input',
+                    name: 'coordenadasFin',
+                    message: 'Introduce las coordenadas de fin: ',
+>>>>>>> a51011102bcce9ff8980cbc01716df188748be02
                   }
+                ).then((respuesta2) => {
+                  // this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
+                  // this.jsonColeccionRuta.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
+                  this.gestionInfo();
                 });
               break;
-              case 'Modificar coordenadas de fin':
-                // this.modificarCoordenadasFinRuta(rutaAModificar);
-                break;
               case 'Modificar longitud':
                 // this.modificarLongitudRuta(rutaAModificar);
                 break;

@@ -21,7 +21,8 @@ export class Grupo implements EntidadInterface {
     if (nombre === '') {
       throw new Error('Nombre de grupo vacío');
     }
-    this.id = contador_id++;
+    contador_id++;
+    this.id = contador_id;
     this.nombre = nombre;
     this.creador = creador;
   }
@@ -65,7 +66,7 @@ export class Grupo implements EntidadInterface {
   setID = (id: number): void => {
     this.id = id;
     if ( id > contador_id ) {
-      contador_id = id = 1;
+      contador_id = id;
     }
   }
 
