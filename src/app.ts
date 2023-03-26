@@ -694,6 +694,7 @@ export class Gestor {
    * Permite listar, crear, borrar y unirse a grupos
    */
   private gestionGruposUsuario(id: number) {
+    console.clear();
     console.log('Gestionando grupos...');
     inquirer.prompt({
       type: 'list',
@@ -705,7 +706,7 @@ export class Gestor {
         case 'Listar grupos':
           console.clear();
           console.log('Listando grupos...');
-          this.listarGruposUsuario();
+          this.listarGrupos(() => this.gestionGruposUsuario(id));
           this.gestionGruposUsuario(id);
         break;
         case 'Borrar':
@@ -933,7 +934,7 @@ export class Gestor {
           this.registrarGrupo();
           break;
         case 'Listar grupos':
-          this.listarGrupos();
+          this.listarGrupos(() => this.gestionGrupos());
           break;
         case 'Modificar grupos':
           this.modificarGrupo();
@@ -1204,22 +1205,13 @@ export class Gestor {
     });
   }  
 
-  private listarGrupos(): void {
+  private listarGrupos(funcionVolver: () => void): void {
     console.clear();
     console.log('Listando grupos...');
     for (const grupos of this.coleccionGrupos) {
       console.log(grupos.getNombre());
     }
-    this.volver(() => this.gestionInfo());
-  }
-
-  private listarGruposUsuario() {
-    console.clear();
-    console.log('Listando grupos...');
-    for (const grupos of this.coleccionGrupos) {
-      // console.log(grupos.getNombre());
-      console.log(grupos);
-    }
+    this.volver(funcionVolver);
   }
 
   /**
