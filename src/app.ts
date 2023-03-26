@@ -552,7 +552,7 @@ export class Gestor {
         break;
         case 'Rutas':
           console.clear();
-          this.gestionRutasUsuario();
+          this.gestionRutasUsuario(id);
         break;
         case 'Grupos':
           console.clear();
@@ -662,7 +662,8 @@ export class Gestor {
     });
   }
 
-  private gestionRutasUsuario() {
+  private gestionRutasUsuario(id: number) {
+    console.log('Gestionando rutas...');
     inquirer.prompt({
       type: 'list',
       name: 'menu',
@@ -671,18 +672,27 @@ export class Gestor {
     }).then((respuesta) => {
       switch (respuesta.menu) {
         case 'Listar rutas':
-          this.listarRutas();
+          console.clear();
+          console.log('Listando rutas...');
+          this.listarRutasUsuario();
+          this.gestionRutasUsuario(id);
         break;
         case 'Mostrar rutas':
+          console.clear();
+          console.log('Añadiendo ruta...');
           this.mostrarRutas();
+          this.gestionRutasUsuario(id);
         break;
         case 'Volver':
+          console.clear();
+          this.menuUsuario(id);
         break;
         default:
         break;
       }
     });
   }
+  
 
   /**
    * Método que permite crear usuarios y añadirlos a la colección de usuarios,
@@ -1330,7 +1340,16 @@ export class Gestor {
       // console.log(ruta.getNombre());
       console.log(ruta);
     });
-    this.volver(() => this.gestionRutas());
+  }
+
+  private listarRutasUsuario(): void {
+    console.clear();
+    console.log('Listado de rutas:');
+    const rutas = this.coleccionRutas.getRutas();
+    rutas.forEach((ruta) => {
+      console.log(ruta.getNombre());
+      // console.log(ruta);
+    });
   }
 
   private modificarRuta(): void {

@@ -59,6 +59,24 @@
       "tipoActividad": "Ciclismo",
       "dificultad": "Fácil",
       "calificacion": 1
+    },
+    {
+      "id": 6,
+      "nombre": "",
+      "coordenadasInicio": {
+        "latitud": 0,
+        "longitud": null
+      },
+      "coordenadasFin": {
+        "latitud": 0,
+        "longitud": null
+      },
+      "longitud": "",
+      "desnivel": "",
+      "usuariosVisitantes": [],
+      "tipoActividad": "Ciclismo",
+      "dificultad": "Fácil",
+      "calificacion": 4
     }
   ]
 }
