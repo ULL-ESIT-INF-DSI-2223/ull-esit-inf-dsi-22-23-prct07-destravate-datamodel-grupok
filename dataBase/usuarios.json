@@ -31,8 +31,34 @@
       "contraseña": "1Pr*",
       "actividades": "bicicleta",
       "amigosApp": [
-        1
+        1,
+        3
       ],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 3,
+      "nombre": "amigodeamigos",
+      "contraseña": "1Ab*",
+      "actividades": "running",
+      "amigosApp": [],
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
