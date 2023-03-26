@@ -364,5 +364,6 @@ Como se puede apreciar el atributo de la clase es un `Map` que contiene los usua
 
 ## Conclusiones
 
+En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto.
 ## Referencias
 
