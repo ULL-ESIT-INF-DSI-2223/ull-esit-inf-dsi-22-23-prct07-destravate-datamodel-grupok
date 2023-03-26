@@ -651,7 +651,7 @@ export class Gestor {
     this.coleccionGrupos = new ColeccionGrupo();
     this.coleccionRetos = new ColeccionReto();
     this.coleccionUsuarios.setUsuariosFromArray(
-      this.jsonColeccionUsuario.cargarUsuarios()
+      this.jsonColeccionUsuario.cargarUsuarios();
     );
     this.coleccionRetos.setRetosFromArray(this.jsonColeccionReto.cargarRetos());
     this.coleccionRutas.setRutasFromArray(this.jsonColeccionRuta.cargarRutas());
@@ -821,7 +821,7 @@ private logIn() {
                 this.volver(() => this.logIn());
               }
             } else {
-              console.log(`No se encontró el usuario ${respuesta.usuario}`);
+              console.log(`No se encontró el usuario $\{respuesta.usuario\}`);
               this.volver(() => this.logIn());
             }
           });
