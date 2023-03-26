@@ -680,7 +680,47 @@ private registrarUsuario(): void {
 ```
 Como podemos ver se piden los datos del usuario y se crea un objeto de la clase `Usuario` con esos datos. Después se inserta el usuario en la colección de usuarios y en el json.
 
+#### Login de usuario
+Esto es un conjunto de métodos que hemos usado para gestionar el login de los usuarios para loguearse y una vez logueados poder acceder a las distintas opciones del programa. Se ha definido de la siguiente forma:
 
+```typescript
+private logIn() {
+    console.clear();
+    console.log("Iniciando sesión...");
+    inquirer
+      .prompt({
+        type: "input",
+        name: "usuario",
+        message: "Introduce tu nombre de usuario: ",
+      })
+      .then((respuesta) => {
+        inquirer
+          .prompt({
+            type: "input",
+            name: "contraseña",
+            message: "Introduce tu contraseña: ",
+          })
+          .then((respuesta2) => {
+            // Buscamos en la colección de usuarios el usuario que se ha logueado
+            const usuario = Array.from(
+              this.coleccionUsuarios.getUsuarios().values()
+            ).find((usuario) => usuario.getNombre() === respuesta.usuario);
+            if (usuario != undefined) {
+              if (usuario.getContraseña() === respuesta2.contraseña) {
+                console.log("Sesión iniciada correctamente.");
+                this.menuUsuario(usuario.id);
+              } else {
+                console.log("Contraseña incorrecta.");
+                this.volver(() => this.logIn());
+              }
+            } else {
+              console.log(`No se encontró el usuario ${respuesta.usuario}`);
+              this.volver(() => this.logIn());
+            }
+          });
+      });
+  }
+  ```
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
