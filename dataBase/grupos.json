@@ -38,7 +38,8 @@
       "nombre": "salvameDeluxe",
       "creador": 2,
       "participantes": [
-        1
+        1,
+        2
       ],
       "estadisticasEntrenamiento": {
         "semana": {
