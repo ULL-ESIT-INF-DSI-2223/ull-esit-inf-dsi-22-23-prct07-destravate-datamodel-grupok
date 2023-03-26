@@ -787,8 +787,14 @@ private logIn() {
       });
   }
   ```
-  Este método se encarga de lidiar con el menú del usuario logueado, pudiendo hacer uso de los siguientes métodos de gestión:
-  
+Este método se encarga de lidiar con el menú del usuario logueado, pudiendo hacer uso de los siguientes métodos de gestión:
+  - `gestionAmigos`: Gestiona los amigos del usuario logueado.
+  - `gestionRutasUsuario`: Gestiona las rutas del usuario logueado.
+  - `gestionGruposUsuario`: Gestiona los grupos del usuario logueado.
+  - `gestionRetosUsuario`: Gestiona los retos del usuario logueado.
+  - `listarEstadisticas`: Lista las estadísticas del usuario logueado.
+  - `listarHistoricoRutas`: Lista el histórico de rutas del usuario logueado.
+Se ha de recalcar que los métodos de listar estadísticas y listar histórico de rutas se han definido de tal forma que permiten listar por orden ascendente y descendente, así como por fecha y distancia.
 
 ## Conclusiones
 
