@@ -1,6 +1,7 @@
 import 'mocha';
 import { expect } from 'chai';
 import { ColeccionGrupo } from '../../src/colecciones/coleccionGrupo';
+import { Grupo } from '../../src/modelos/grupo';
 import { EstadisticasEntrenamiento } from '../../src/interfaces/estadisticasEntrenamiento';
 
 describe('ColeccionGrupo', () => {
@@ -34,9 +35,9 @@ describe('ColeccionGrupo', () => {
     expect(coleccionGrupo.listar()).to.be.undefined;
   });
 
-  it ('should make the collection iterable', () => {
+  it('should make the collection iterable', () => {
     coleccionGrupo.setGruposFromArray([]);
-    expect(coleccionGrupo[Symbol.iterator]()).to.be.instanceOf(Map);
+    expect(coleccionGrupo[Symbol.iterator]()).to.be.an.instanceOf(Map);
   });
 
   it ('should set the groups from a map', () => {
