@@ -124,8 +124,8 @@ export class Ruta implements EntidadInterface {
   }
 
   /**
-   * Setter del ID del usuario
-   * @param id nuevo ID
+   * Propierdad que establece el ID de las rutas
+   * @param id id desde el que va a empezar a crear rutas
    */
   setID = (id: number): void => {
     this.id = id;

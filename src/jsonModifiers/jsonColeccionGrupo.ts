@@ -3,10 +3,24 @@ import { ColeccionGrupo } from "../colecciones/coleccionGrupo";
 import lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 
+/**
+ * Interfaz de la base de datos
+ * 
+ * @export
+ * @interface DatabaseSchema
+ */
 export interface DatabaseSchema{
   grupos: Grupo[];
 }
 
+/**
+ * Clase encargada de gestionar la colección de grupos
+ * 
+ * @export
+ * @class JsonColeccionGrupo
+ * @extends {ColeccionGrupo}
+ * 
+ */
 export class JsonColeccionGrupo extends ColeccionGrupo {
   private gruposDatabase: LowdbSync<DatabaseSchema>;
 
@@ -17,10 +31,22 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
     this.gruposDatabase.defaults({ grupos: [] }).write();
   }
 
+  /**
+   * Inserta un grupo en la base de datos
+   * 
+   * @param {Grupo} grupo
+   * @memberof JsonColeccionGrupo
+   */
   public insertarGrupo(grupo: Grupo): void {
     this.gruposDatabase.get('grupos').push(grupo).write();
   }
 
+  /**
+   * Carga los grupos de la base de datos
+   * 
+   * @returns {Grupo[]}
+   * @memberof JsonColeccionGrupo
+   */
   public cargarGrupos(): Grupo[] {
     const grupos_no_instancia: Grupo[] = this.gruposDatabase.get('grupos').value();
     const grupos: Grupo[] = [];
@@ -45,39 +71,93 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
     return grupos;
   }
 
+  /**
+   * Elimina un grupo de la base de datos
+   * 
+   * @param {Grupo} grupo
+   * @memberof JsonColeccionGrupo
+   * 
+   */
   public eliminarGrupo(grupo: Grupo): void {
     this.gruposDatabase.get('grupos').remove({ nombre: grupo.getNombre() }).write();
   }
 
+  /**
+   * Modifica el nombre de un grupo
+   * 
+   * @param {Grupo} grupo
+   * @param {string} nombre
+   * @memberof JsonColeccionGrupo
+   */
   public modificarNombre(grupo: Grupo, nombre: string): void {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).assign({ nombre: nombre }).write();
   }
 
+  /**
+   * 
+   * Modifica el nombre del creador
+   * 
+   * @param grupo 
+   * @param creador 
+   * 
+   * @memberof JsonColeccionGrupo
+   */
   public modificarCreador(grupo: Grupo, creador: number): void {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).assign({ creador: creador }).write();
   }
 
+  /**
+   * 
+   * Modifica la clasificación de un grupo
+   * 
+   * @param grupo 
+   * @param ruta 
+   */
   public addRutaRealizada(grupo: Grupo, ruta:{ ruta: number; fecha: string; }): void {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('historicoRutas').write();
   }
 
+  /**
+   * 
+   * Modifica la clasificación de un grupo
+   * 
+   * @param grupo 
+   * @param ruta 
+   */
   public addRutaFavorita(grupo: Grupo, ruta: number): void {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').write();
   }
 
+  /**
+   * 
+   * Borra una ruta de la lista de rutas favoritas
+   * 
+   * @param grupo 
+   * @param ruta 
+   */
   public eraseRutaFavorita(grupo: Grupo, ruta: number): void {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').write();
   }
 
+  /**
+   * Añade un participante a un grupo
+   * 
+   * @param grupo 
+   * @param participante 
+   */
   public addParticipante(grupo: Grupo, participante: number): void {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('participantes').write();
   }
 
+  /**
+   * 
+   * Borra un participante de un grupo
+   * 
+   * @param grupo 
+   * @param participante 
+   */
   public eraseParticipante(grupo: Grupo, participante: number): void {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('participantes').pull(participante).write();
   }
 
 }
-
-
-
