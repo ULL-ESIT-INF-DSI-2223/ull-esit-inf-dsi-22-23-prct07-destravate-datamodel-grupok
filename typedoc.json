@@ -1,6 +1,11 @@
 {
     "entryPoints": [
-        "./src/index.ts"
+        "./src/colecciones/*.ts",
+        "./src/enums/*.ts",
+        "./src/interfaces/*.ts",
+        "./src/jsonModifiers/*.ts",
+        "./src/modelos/*.ts",
+        "./src/app.ts",
     ],
     "out": "./docs",
 }
