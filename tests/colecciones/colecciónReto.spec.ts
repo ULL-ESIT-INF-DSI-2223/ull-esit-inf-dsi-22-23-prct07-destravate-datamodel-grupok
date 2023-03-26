@@ -179,4 +179,9 @@ describe('ColeccionReto', () => {
   it ('should throw an error if the challenge already exists', () => {
     expect(() => coleccionReto.insertar(reto1)).to.throw(Error);
   });
+
+  it ('should throw an error if the challenge does not exist', () => {
+    const reto = new Reto('Reto 4', Actividad.ciclismo);
+    expect(() => coleccionReto.eliminar(reto)).to.throw(Error);
+  });
 });

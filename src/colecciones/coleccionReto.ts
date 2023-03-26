@@ -94,7 +94,8 @@ export class ColeccionReto implements Coleccion<Reto> {
       this.retos.delete(reto.getID());
     }
     else {
-      console.log("El reto que deseas eliminar no existe.");
+      throw new Error("El reto que deseas eliminar no existe");
+      // console.log("El reto que deseas eliminar no existe.");
     }
   }
 
