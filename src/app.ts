@@ -351,6 +351,8 @@ export class Gestor {
                 reto.addUsuario(usuarioActual.getID());
                 // Insertamos el reto en el json
                 this.jsonColeccionReto.addUsuario(reto, usuarioActual.getID());
+                // Ponemos el reto como activo en el usuario
+                usuarioActual.addRetosActivos(reto.getID());
               }
             }
             this.gestionRetosUsuario(id);
