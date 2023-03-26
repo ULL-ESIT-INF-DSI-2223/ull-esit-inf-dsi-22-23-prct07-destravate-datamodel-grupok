@@ -1337,7 +1337,7 @@ export class Gestor {
           this.registrarRuta();
           break;
         case 'Listar rutas':
-          this.listarRutas();
+          this.listarRutas(() => this.gestionRutas());
           break;
         case 'Modificar rutas':
           this.modificarRuta();
@@ -1439,7 +1439,7 @@ export class Gestor {
     });
   }
 
-  private listarRutas(): void {
+  private listarRutas(funcionVolver: () => void): void {
     console.clear();
     console.log('Listado de rutas:');
     const rutas = this.coleccionRutas.getRutas();
@@ -1447,7 +1447,7 @@ export class Gestor {
       console.log(ruta.getNombre());
       // console.log(ruta);
     });
-    this.volver(() => this.gestionRutas());
+    this.volver(funcionVolver);
   }
 
   private mostrarRutas(): void {
@@ -1745,10 +1745,10 @@ export class Gestor {
       name: 'opcion',
       message: 'Elige una opción: ',
       choices: [
-        'Registrar reto',
-        'Listar retos',
-        'Modificar retos',
-        'Eliminar reto',
+        'Registrar Reto',
+        'Listar Retos',
+        'Modificar Retos',
+        'Eliminar Reto',
         'Volver al menú anterior'
       ],
     }).then((respuesta) => {
@@ -1815,27 +1815,29 @@ export class Gestor {
     console.clear();
     console.log('Listando retos...');
     const retos = this.coleccionRetos.getRetos();
-    console.table(Array.from(retos.values()).map((reto) => reto.getNombre()));
+    console.table(
+      Array.from(retos.values()).map((reto) => ({ Nombre: reto.getNombre() }))
+    );
     this.volver(() => this.gestionRetos());
   }
 
   private modificarReto(): void {
     console.clear();
-    // Obtener el listado de grupos
-    const grupos = this.coleccionGrupos.getGrupos();
-    // Pedir al usuario que seleccione el grupo a modificar
+    // Obtener el listado de retos
+    const retos = this.coleccionRetos.getRetos();
+    // Pedir al usuario que seleccione el reto a modificar
     inquirer.prompt({
       type: 'list',
-      name: 'grupo',
-      message: 'Selecciona el grupo que deseas modificar:',
-      choices: Array.from(grupos.values()).map((grupo) => grupo.getNombre()).concat('Cancelar'),
+      name: 'retos',
+      message: 'Selecciona el reto que deseas modificar:',
+      choices: Array.from(retos.values()).map((reto) => reto.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
-      if (respuesta.grupo === 'Cancelar') {
-        this.gestionGrupos();
+      if (respuesta.reto === 'Cancelar') {
+        this.gestionRetos();
       } else {
         // Buscar el grupo a modificar por su nombre y modificarlo
-        const grupoAModificar = Array.from(grupos.values()).find((grupo) => grupo.getNombre() === respuesta.grupo);
-        if (grupoAModificar) {
+        const retoAModificar = Array.from(retos.values()).find((reto) => reto.getNombre() === respuesta.reto);
+        if (retoAModificar) {
           console.clear();
           console.log('¿Qué atributo desea modificar?');
           inquirer.prompt({
@@ -1843,29 +1845,60 @@ export class Gestor {
             name: 'opcion',
             message: 'Elige una opción: ',
             choices: [
-              'Modificar Nombre de Usuario',
-              'Editar Actividad',
-              'Añadir Amigo',
-              'Borrar Amigo',
-              'Añadir Rutas Favoritas',
-              'Borrar Rutas Favoritas',
-              'Añadir Retos activos',
-              'Borrar Retos activos',
+              'Modificar Nombre de Reto',
+              'Añadir Ruta',
+              'Borrar Ruta',
+              'Añadir Usuario a Reto',
+              'Borrar Usuario de Reto',
+              'Modificar Actividad',
               'Salir',
             ],
           }).then((respuesta) => {
             switch (respuesta.opcion) {
-              case 'Modificar nombre de Usuario':
+              case 'Modificar nombre de Reto':
                 
                 break;
-              case 'Editar Actividad':
+              case 'Añadir Ruta':
+                console.clear();
+                // Obtener el listado de rutas
+                const rutas = this.coleccionRutas.getRutas();
+                // Pedir al usuario que seleccione la ruta a añadir
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'ruta',
+                  message: 'Selecciona la ruta que deseas añadir:',
+                  choices: Array.from(rutas.values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
+                }).then((respuesta) => {
+                  if (respuesta.ruta === 'Cancelar') {
+                    this.gestionRetos();
+                  } else {
+                    // Buscar la ruta a añadir por su nombre y añadirla
+                    const rutaAAñadir = Array.from(rutas.values()).find((ruta) => ruta.getNombre() === respuesta.ruta);
+                    if (rutaAAñadir) {
+                      retoAModificar.addRuta(rutaAAñadir.getID());
+                      console.log(`Ruta ${rutaAAñadir.getNombre()} añadida con éxito`);
+                      this.volver(() => this.gestionRetos());
+                    } else {
+                      console.log(`No se encontró la ruta ${respuesta.ruta}`);
+                      this.volver(() => this.gestionRetos());
+                    }
+                  }
+                });
+                break;
+              case 'Borrar Ruta':
                 
                 break;
-              case 'Añadir Amigo':
+              case 'Añadir Usuario a Reto':
                 
                 break;
-              case 'Borrar Amigo':
-                
+              case 'Borrar Usuario de Reto':
+
+                break;
+              case 'Modificar Actividad':
+
+                break;
+              case 'Salir':
+                this.gestionRetos();
                 break;
               default:
                 break;
