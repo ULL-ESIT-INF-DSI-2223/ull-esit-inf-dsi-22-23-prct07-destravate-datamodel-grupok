@@ -42,7 +42,13 @@ describe('ColeccionGrupo', () => {
   });
 
   it('should set the groups from an array', () => {
-    coleccionGrupo.setGruposFromArray([]);
+    // Creamos un array de grupos
+    const gruposArray: Grupo[] = [];
+    gruposArray.push(grupo1);
+    gruposArray.push(grupo2);
+    gruposArray.push(grupo3);
+    // Metemos los grupos en la coleccion
+    coleccionGrupo.setGruposFromArray(gruposArray);
     expect(coleccionGrupo.getGrupos()).to.be.instanceOf(Map);
   });
 
