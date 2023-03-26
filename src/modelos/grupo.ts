@@ -43,11 +43,7 @@ export class Grupo implements EntidadInterface {
     return this.participantes;
   }
 
-  getEstadisticasEntrenamiento(): {
-    semana: { km: number; desnivel: number };
-    mes: { km: number; desnivel: number };
-    anio: { km: number; desnivel: number };
-  } {
+  getEstadisticasEntrenamiento(): EstadisticasEntrenamiento {
     return this.estadisticasEntrenamiento
   }
 

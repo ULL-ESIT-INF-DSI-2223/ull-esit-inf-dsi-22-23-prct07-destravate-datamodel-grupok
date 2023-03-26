@@ -222,5 +222,5 @@ export class Ruta implements EntidadInterface {
     // Lo borramos de usuariosVisitantes
     this.usuariosVisitantes = this.usuariosVisitantes.filter( id => id !== idUsuario );
   }
-  
+
 }
