@@ -55,11 +55,11 @@ export class JsonColeccionReto extends ColeccionReto {
   }
 
   public addRuta(reto: Reto, ruta: number): void {
-    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).assign({ rutas: ruta }).write();
+    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).get('rutas').push(ruta).write();
   }
 
   public eraseRuta(reto: Reto, ruta: number): void {
-    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).assign({ rutas: ruta }).write();
+    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).get('rutas').pull(ruta).write();
   }
 
   public modificarActividad(reto: Reto, actividad: string): void {
@@ -67,10 +67,10 @@ export class JsonColeccionReto extends ColeccionReto {
   }
 
   public addUsuario(reto: Reto, usuario: number): void {
-    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).assign({ usuarios: usuario }).write();
+    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).get('usuarios').write();
   }
 
   public eraseUsuario(reto: Reto, usuario: number): void {
-    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).assign({ usuarios: usuario }).write();
+    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).get('usuarios').pull(usuario).write();
   }
 }
