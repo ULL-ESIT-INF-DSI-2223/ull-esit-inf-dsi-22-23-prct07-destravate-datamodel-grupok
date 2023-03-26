@@ -389,6 +389,15 @@ A partir de la implementación de las colecciones heredan las clases denominadas
 
 ### jsonCollectionUsuario
 
+La primera de las cuatro clases es la relacionada con los usuarios. Lo primero que encontramos en el archivo es  la interfaz `DatabaseSchema`, que sirve para definir el tipo de dato que se va a guardar mediante el módulo `Lowdb`. Esta es muy simple como podemos observar a continuación:
+
+```typescript
+export interface DatabaseSchema {
+  usuarios: Usuario[];
+}
+```
+
+
 
 
 
