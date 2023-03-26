@@ -75,6 +75,75 @@
           "fecha": "3/26/2023 11:13:47 AM"
         }
       ]
+    },
+    {
+      "id": 3,
+      "nombre": "info",
+      "creador": 8,
+      "participantes": [],
+      "estadisticasEntrenamiento": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "clasificacion": [],
+      "rutasFavoritas": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 4,
+      "nombre": "minecraft",
+      "creador": 17,
+      "participantes": [],
+      "estadisticasEntrenamiento": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "clasificacion": [],
+      "rutasFavoritas": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 5,
+      "nombre": "fifa",
+      "creador": 7,
+      "participantes": [],
+      "estadisticasEntrenamiento": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "clasificacion": [],
+      "rutasFavoritas": [],
+      "historicoRutas": []
     }
   ]
 }

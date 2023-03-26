@@ -2,9 +2,15 @@
   "rutas": [
     {
       "id": 1,
-      "nombre": "pescado rico",
-      "coordenadasInicio": "321",
-      "coordenadasFin": "123",
+      "nombre": "carne",
+      "coordenadasInicio": {
+        "latitud": null,
+        "longitud": null
+      },
+      "coordenadasFin": {
+        "latitud": 0,
+        "longitud": null
+      },
       "longitud": "12345",
       "desnivel": "12",
       "usuariosVisitantes": [],
@@ -46,14 +52,14 @@
     },
     {
       "id": 5,
-      "nombre": "ajaja",
+      "nombre": "puerto",
       "coordenadasInicio": {
-        "latitud": 0,
-        "longitud": 40
+        "latitud": null,
+        "longitud": null
       },
       "coordenadasFin": {
-        "latitud": 90,
-        "longitud": 23
+        "latitud": null,
+        "longitud": null
       },
       "longitud": "123",
       "desnivel": "43",
@@ -64,9 +70,9 @@
     },
     {
       "id": 6,
-      "nombre": "fgfgf",
+      "nombre": "queso",
       "coordenadasInicio": {
-        "latitud": 0,
+        "latitud": null,
         "longitud": null
       },
       "coordenadasFin": {
@@ -85,7 +91,7 @@
     },
     {
       "id": 7,
-      "nombre": "pescaitololo",
+      "nombre": "sc",
       "coordenadasInicio": {
         "latitud": 34,
         "longitud": 56
@@ -100,6 +106,78 @@
       "tipoActividad": "Ciclismo",
       "dificultad": "Fácil",
       "calificacion": 2
+    },
+    {
+      "id": 8,
+      "nombre": "rosario",
+      "coordenadasInicio": {
+        "latitud": null,
+        "longitud": 12
+      },
+      "coordenadasFin": {
+        "latitud": null,
+        "longitud": 65
+      },
+      "longitud": "5",
+      "desnivel": "3",
+      "usuariosVisitantes": [],
+      "tipoActividad": "Ciclismo",
+      "dificultad": "Media",
+      "calificacion": 4
+    },
+    {
+      "id": 9,
+      "nombre": "tetir",
+      "coordenadasInicio": {
+        "latitud": 34,
+        "longitud": null
+      },
+      "coordenadasFin": {
+        "latitud": null,
+        "longitud": 87
+      },
+      "longitud": "6",
+      "desnivel": "55",
+      "usuariosVisitantes": [],
+      "tipoActividad": "Running",
+      "dificultad": "Difícil",
+      "calificacion": 4
+    },
+    {
+      "id": 10,
+      "nombre": "candelaria",
+      "coordenadasInicio": {
+        "latitud": null,
+        "longitud": null
+      },
+      "coordenadasFin": {
+        "latitud": null,
+        "longitud": null
+      },
+      "longitud": "2",
+      "desnivel": "1",
+      "usuariosVisitantes": [],
+      "tipoActividad": "Ciclismo",
+      "dificultad": "Difícil",
+      "calificacion": 2
+    },
+    {
+      "id": 11,
+      "nombre": "savanna",
+      "coordenadasInicio": {
+        "latitud": null,
+        "longitud": null
+      },
+      "coordenadasFin": {
+        "latitud": null,
+        "longitud": null
+      },
+      "longitud": "200",
+      "desnivel": "22",
+      "usuariosVisitantes": [],
+      "tipoActividad": "Ciclismo",
+      "dificultad": "Media",
+      "calificacion": 1
     }
   ]
 }

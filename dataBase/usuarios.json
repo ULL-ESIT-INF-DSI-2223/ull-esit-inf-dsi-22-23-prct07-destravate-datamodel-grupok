@@ -5,20 +5,20 @@
       "nombre": "yanfris",
       "contraseña": "Dsi23*",
       "actividades": "corredor",
-      "amigosApp": [],
-      "amigosFrecuentes": [],
+      "amigosApp": [2, 5],
+      "amigosFrecuentes": [2],
       "estadisticas": {
         "semana": {
           "km": 3,
-          "desnivel": 0
+          "desnivel": 1
         },
         "mes": {
           "km": 2,
-          "desnivel": 0
+          "desnivel": 7
         },
         "anio": {
           "km": 1,
-          "desnivel": 0
+          "desnivel": 8
         }
       },
       "rutasFavoritas": [],
@@ -110,9 +110,384 @@
     },
     {
       "id": 5,
-      "nombre": "pedo",
+      "nombre": "pedro",
       "contraseña": "1Aa*",
       "actividades": "cilismo",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 6,
+      "nombre": "mario",
+      "contraseña": "Alu*4",
+      "actividades": "running",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 7,
+      "nombre": "fernando",
+      "contraseña": "Arafo3*",
+      "actividades": "ciclismo",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 8,
+      "nombre": "juanjo",
+      "contraseña": "alfA*5",
+      "actividades": "running",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 9,
+      "nombre": "cristiano",
+      "contraseña": "Cr7*",
+      "actividades": "running",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 10,
+      "nombre": "messi",
+      "contraseña": "m10L*",
+      "actividades": "ciclismo",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 11,
+      "nombre": "facu",
+      "contraseña": "alu01A*",
+      "actividades": "running",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 12,
+      "nombre": "fubito",
+      "contraseña": "Fub2$",
+      "actividades": "running",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 13,
+      "nombre": "muha",
+      "contraseña": "m4T*",
+      "actividades": "running",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 14,
+      "nombre": "adriano",
+      "contraseña": "D1_s",
+      "actividades": "running",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 15,
+      "nombre": "edu",
+      "contraseña": "Elden_Ring10",
+      "actividades": "running",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 16,
+      "nombre": "pablo",
+      "contraseña": "Gym3_4",
+      "actividades": "ciclismo",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 17,
+      "nombre": "antin",
+      "contraseña": "p_R0",
+      "actividades": "running",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 18,
+      "nombre": "cristo",
+      "contraseña": "rey10*A",
+      "actividades": "ciclismo",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 19,
+      "nombre": "alesito",
+      "contraseña": "Buen0sD1as*",
+      "actividades": "ciclismo",
+      "amigosApp": [],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 0,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 0,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 20,
+      "nombre": "aldo",
+      "contraseña": "Le0$",
+      "actividades": "running",
       "amigosApp": [],
       "amigosFrecuentes": [],
       "estadisticas": {

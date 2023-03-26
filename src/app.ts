@@ -200,7 +200,7 @@ export class Gestor {
             type: "list",
             name: "actividad",
             message: "Elige una actividad: ",
-            choices: ["cilismo", "running"],
+            choices: ["ciclismo", "running"],
           })
           .then((respuesta2) => {
             inquirer
@@ -222,7 +222,7 @@ export class Gestor {
                   this.jsonColeccionUsuario.insertarUsuario(usuario);
 
                   console.log("Usuario registrado con éxito:", usuario);
-                  this.volver(() => this.consola());
+                  this.volver(() => this.gestionUsuarios());
                 } catch (error: unknown) {
                   if (error instanceof Error) {
                     console.log(
@@ -965,7 +965,7 @@ export class Gestor {
                         type: "list",
                         name: "actividad",
                         message: "Elige una actividad: ",
-                        choices: ["cilismo", "running"],
+                        choices: ["ciclismo", "running"],
                       })
                       .then((respuesta2) => {
                         this.gestionInfo();
@@ -2476,7 +2476,7 @@ export class Gestor {
                             rutaAModificar,
                             respuesta2.nombre
                           );
-                          this.modificarRuta();
+                          this.gestionRutas();
                         } catch (error: unknown) {
                           if (error instanceof Error) {
                             console.log(
@@ -2500,6 +2500,7 @@ export class Gestor {
                           return;
                         }
                       });
+                    break;
                   case "Modificar coordenadas de inicio y fin":
                     console.clear();
                     inquirer

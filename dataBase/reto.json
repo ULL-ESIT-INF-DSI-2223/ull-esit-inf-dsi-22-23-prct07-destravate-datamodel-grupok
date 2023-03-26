@@ -15,6 +15,14 @@
       "tipoActividad": "Individual",
       "kmTotales": 0,
       "usuarios": []
+    },
+    {
+      "id": 3,
+      "nombre": "tekkentournament",
+      "rutas": [],
+      "tipoActividad": "Grupal",
+      "kmTotales": 0,
+      "usuarios": []
     }
   ]
 }
