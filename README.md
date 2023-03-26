@@ -1134,7 +1134,7 @@ Y hace uso de los siguientes métodos
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
 
 ## Errores
-Nos hemos encontrado en la tesitura de al usar sonar cloud, la plataforma da error al analizar nuestro código, por lo que no podemos ver el análisis de nuestro código. Las acciones de github se encuentran implementadas, solo haría falta añadir el secreto al repositorio y ya estaría. Por otro lado, al usar coveralls, la plataforma no nos muestra el porcentaje de cobertura de nuestro código, por lo que tampoco podemos ver el porcentaje de cobertura de nuestro código.
+Nos hemos encontrado en la tesitura de al usar sonar cloud, la plataforma da error al analizar nuestro código, por lo que no podemos ver el análisis de nuestro código. Las acciones de github se encuentran implementadas, así como el secreto. Por otro lado, al usar coveralls, la plataforma no nos muestra el porcentaje de cobertura de nuestro código, por lo que tampoco podemos ver el porcentaje de cobertura de nuestro código.
 
 Dejo abajo una captura de la consola de sonar cloud, donde se puede ver que da error al analizar nuestro código.
 ![Captura de la consola de sonar cloud](./error.jpeg)
