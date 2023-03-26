@@ -461,6 +461,31 @@ Con sus distintos métodos
 * ``` public modificarDificultadRuta( ruta: Ruta, nuevaDificultad: Dificultad): void   ``` Esta se encarga de modificar la dificultad de una ruta de la base de datos.
 * ``` public addUsuarioVisitante(ruta: Ruta, id: Number): void  ``` Esta se encarga de añadir un usuario visitante a una ruta de la base de datos.
 
+### jsonCollectionRetos
+Esta colección se encarga con todo lo relacionado con la persistencia de datos de los usuarios. Esta clase hereda de la clase `jsonCollection` y se ha definido de la siguiente forma:
+
+```typescript
+export class JsonColeccionReto extends ColeccionReto {
+  private retosDatabase: LowdbSync<DatabaseSchema>;
+
+  constructor() {
+    super();
+    const adapter = new FileSync<DatabaseSchema>("./dataBase/reto.json");
+    this.retosDatabase = lowdb(adapter);
+    this.retosDatabase.defaults({ retos: [] }).write();
+  }
+```
+Con sus métodos
+
+* ```public registrarReto(reto: Reto): void ``` Esta se encarga de registrar un reto en la base de datos.
+* ``` public cargarRetos(): Reto[] ``` Esta se encarga de cargar los retos de la base de datos. Se usa sobretodo a la hora de iniciar el programa
+* ``` public eliminarReto(reto: Reto): void ``` Esta se encarga de eliminar un reto de la base de datos.
+* ``` public modificarNombre(reto: Reto, nombre: string): void ``` Esta se encarga de modificar el nombre de un reto de la base de datos.
+* ``` public addRuta(reto: Reto, ruta: number): void  ``` Esta se encarga de añadir una ruta a un reto de la base de datos.
+* ``` public eraseRuta(reto: Reto, ruta: number): void   ``` Esta se encarga de eliminar una ruta a un reto de la base de datos.
+* ``` public modificarActividad(reto: Reto, actividad: string): void   ``` Esta se encarga de modificar la actividad de un reto de la base de datos.
+* ``` public addUsuario(reto: Reto, id: number): void ``` Esta se encarga de añadir un usuario a un reto de la base de datos.
+* ``` public eraseUsuario(reto: Reto, usuario: number): void  ``` Esta se encarga de eliminar un usuario a un reto de la base de datos.
 
 ## Conclusiones
 
