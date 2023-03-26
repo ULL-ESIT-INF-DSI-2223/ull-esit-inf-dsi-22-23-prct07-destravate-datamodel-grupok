@@ -1,6 +1,6 @@
-import { Usuario } from '../modelos/usuario';
-import { Coleccion } from '../interfaces/coleccion';
-import { Actividad } from '../enums/actividadEnum';
+import { Usuario } from "../modelos/usuario";
+import { Coleccion } from "../interfaces/coleccion";
+import { Actividad } from "../enums/actividadEnum";
 
 /**
  * Clase que implemente Colección y la especifica para usuarios
@@ -23,9 +23,9 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
   }
 
   /**
-   * Método setUsuarios, establece el valor de usuarios pero antes revisa si el usuario ya existe mediante 
+   * Método setUsuarios, establece el valor de usuarios pero antes revisa si el usuario ya existe mediante
    * el uso del id
-   * @param usuarios 
+   * @param usuarios
    */
   public setUsuarios(usuarios: Map<number, Usuario>): void {
     this.usuarios = usuarios;
@@ -41,7 +41,7 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
         this.usuarios.set(usuario.getID(), usuario);
       }
     }
-  }    
+  }
 
   /**
    * Getter de la clase usuario
@@ -56,7 +56,7 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
    */
   public listar(): void {
     console.clear();
-    console.log('Listando usuarios...');
+    console.log("Listando usuarios...");
     for (const usuario of this.usuarios.values()) {
       console.log(usuario);
     }
@@ -69,33 +69,31 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
    */
   public insertar(usuario: Usuario): void {
     if (this.usuarios.has(usuario.getID())) {
-      throw new Error('El usuario con id ' + usuario.getID() + ' ya existe');
+      throw new Error("El usuario con id " + usuario.getID() + " ya existe");
     }
-  
+
     // comprobar que el nombre no existe
     const nuevoNombre = usuario.getNombre();
     for (const u of this.usuarios.values()) {
       if (u.getNombre() === nuevoNombre) {
-        throw new Error('El usuario con nombre ' + nuevoNombre + ' ya existe');
+        throw new Error("El usuario con nombre " + nuevoNombre + " ya existe");
       }
     }
-  
+
     this.usuarios.set(usuario.getID(), usuario);
-  }  
+  }
 
   /**
    * Método que permite eliminar usuarios
    * @param usuario Usuario a eliminar
    */
-  public eliminar( usuario: Usuario) {
+  public eliminar(usuario: Usuario) {
     if (this.usuarios.has(usuario.getID())) {
       this.usuarios.delete(usuario.getID());
-    }
-    else {
-      throw new Error('El usuario que deseas eliminar no existe.');
+    } else {
+      throw new Error("El usuario que deseas eliminar no existe.");
       // console.log("El usuario que deseas eliminar no existe.");
     }
-    
   }
 
   /**
@@ -103,50 +101,53 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
    * @param usuario usuario a modificar
    * @param nombre nuevo nombre
    */
-  public modificarNombre( usuario: Usuario, nombre: string) {
+  public modificarNombre(usuario: Usuario, nombre: string) {
     // comprobar que el nombre no existe
     const nuevoNombre = nombre;
     for (const u of this.usuarios.values()) {
       if (u.getNombre() === nuevoNombre) {
-        throw new Error('El usuario con nombre ' + nuevoNombre + ' ya existe');
+        throw new Error("El usuario con nombre " + nuevoNombre + " ya existe");
       }
     }
     this.usuarios.get(usuario.getID())!.setNombre(nombre);
   }
 
-  public modificarContraseña( usuario: Usuario, contraseña: string) {
+  public modificarContraseña(usuario: Usuario, contraseña: string) {
     this.usuarios.get(usuario.getID())!.setContraseña(contraseña);
   }
 
-  public modificarActividad( usuario: Usuario, actividad: Actividad ) {
+  public modificarActividad(usuario: Usuario, actividad: Actividad) {
     this.usuarios.get(usuario.getID())!.setActividades(actividad);
   }
 
-  public addAmigo( usuario: Usuario, amigo: number) {
+  public addAmigo(usuario: Usuario, amigo: number) {
     this.usuarios.get(usuario.getID())!.addAmigoApp(amigo);
   }
 
-  public eraseAmigo( usuario: Usuario, amigo: number) {
+  public eraseAmigo(usuario: Usuario, amigo: number) {
     this.usuarios.get(usuario.getID())!.eraseAmigoApp(amigo);
   }
 
-  public addRutaFavorita( usuario: Usuario, ruta: number) {
+  public addRutaFavorita(usuario: Usuario, ruta: number) {
     this.usuarios.get(usuario.getID())!.addRutaFavorita(ruta);
   }
 
-  public eraseRutaFavorita( usuario: Usuario, ruta: number) {
+  public eraseRutaFavorita(usuario: Usuario, ruta: number) {
     this.usuarios.get(usuario.getID())!.eraseRutaFavorita(ruta);
   }
 
-  public addRutaRealizada( usuario: Usuario, ruta: { ruta: number; fecha: string; }) {
+  public addRutaRealizada(
+    usuario: Usuario,
+    ruta: { ruta: number; fecha: string }
+  ) {
     this.usuarios.get(usuario.getID())!.addRutaRealizada(ruta);
   }
 
-  public addRetosActivos( usuario: Usuario, reto: number) {
+  public addRetosActivos(usuario: Usuario, reto: number) {
     this.usuarios.get(usuario.getID())!.addRetosActivos(reto);
   }
 
-  public eraseRetosActivos( usuario: Usuario, reto: number) {
+  public eraseRetosActivos(usuario: Usuario, reto: number) {
     this.usuarios.get(usuario.getID())!.eraseRetosActivos(reto);
   }
 

@@ -1,5 +1,5 @@
-import {Grupo} from '../modelos/grupo';
-import { Coleccion } from '../interfaces/coleccion';
+import { Grupo } from "../modelos/grupo";
+import { Coleccion } from "../interfaces/coleccion";
 
 /**
  * Clase que implemente Colección y la especifica para grupos
@@ -54,7 +54,7 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
    */
   public listar(): void {
     console.clear();
-    console.log('Listando grupos...');
+    console.log("Listando grupos...");
     for (const grupo of this.grupos.values()) {
       console.log(grupo);
     }
@@ -66,16 +66,16 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
    */
   public insertar(grupo: Grupo): void {
     if (this.grupos.has(grupo.getID())) {
-      throw new Error('Existe un grupo con el mismo ID.');
+      throw new Error("Existe un grupo con el mismo ID.");
     }
     // comprobar que el nombre no existe
     const nuevoNombre = grupo.getNombre();
     for (const u of this.grupos.values()) {
       if (u.getNombre() === nuevoNombre) {
-        throw new Error('El grupo con nombre ' + nuevoNombre + ' ya existe');
+        throw new Error("El grupo con nombre " + nuevoNombre + " ya existe");
       }
     }
-    
+
     this.grupos.set(grupo.getID(), grupo);
   }
 
@@ -83,11 +83,10 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
    * Permite eliminar un grupo
    * @param grupo Grupo a eliminar
    */
-  public eliminar( grupo: Grupo ) {
+  public eliminar(grupo: Grupo) {
     if (this.grupos.has(grupo.getID())) {
       this.grupos.delete(grupo.getID());
-    }
-    else {
+    } else {
       throw new Error("El grupo que deseas eliminar no existe.");
     }
   }
@@ -97,34 +96,31 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
    * @param grupo usuario a modificar
    * @param nombre nuevo nombre
    */
-  public modificarNombre( grupo: Grupo, nombre: string) {
+  public modificarNombre(grupo: Grupo, nombre: string) {
     this.grupos.get(grupo.getID())!.setNombre(nombre);
   }
 
-  public modificarCreador( grupo: Grupo, creador: number) {
+  public modificarCreador(grupo: Grupo, creador: number) {
     this.grupos.get(grupo.getID())!.setCreador(creador);
   }
 
-  public addRutaFavorita( grupo: Grupo, ruta: number) {
+  public addRutaFavorita(grupo: Grupo, ruta: number) {
     this.grupos.get(grupo.getID())!.addRutaFavorita(ruta);
   }
 
-  public eraseRutaFavorita( grupo: Grupo, ruta: number) {
+  public eraseRutaFavorita(grupo: Grupo, ruta: number) {
     this.grupos.get(grupo.getID())!.eraseRutaFavorita(ruta);
   }
 
-  public addRutaRealizada( grupo: Grupo, ruta: { ruta: number; fecha: string; }) {
+  public addRutaRealizada(grupo: Grupo, ruta: { ruta: number; fecha: string }) {
     this.grupos.get(grupo.getID())!.addRutaRealizada(ruta);
   }
 
-  public addParticipante( grupo: Grupo, participante: number) {
+  public addParticipante(grupo: Grupo, participante: number) {
     this.grupos.get(grupo.getID())!.addParticipante(participante);
   }
 
-  public eraseParticipante( grupo: Grupo, participante: number) {
+  public eraseParticipante(grupo: Grupo, participante: number) {
     this.grupos.get(grupo.getID())!.eraseParticipante(participante);
   }
 }
-
-
-

@@ -3,7 +3,11 @@ import { Actividad } from "../enums/actividadEnum";
 import { EstadisticasEntrenamiento } from "../interfaces/estadisticasEntrenamiento";
 
 let contador_id = 0;
-const ESTADISTICASNULL = { semana: { km: 0, desnivel: 0 }, mes: { km: 0, desnivel: 0 }, anio: { km: 0, desnivel: 0 } };
+const ESTADISTICASNULL = {
+  semana: { km: 0, desnivel: 0 },
+  mes: { km: 0, desnivel: 0 },
+  anio: { km: 0, desnivel: 0 },
+};
 /**
  * Clase que representa a un usuario
  */
@@ -11,14 +15,14 @@ export class Usuario implements EntidadInterface {
   id: number;
   nombre: string;
   contraseña: string;
-  actividades: Actividad; 
+  actividades: Actividad;
   amigosApp: number[] = [];
   amigosFrecuentes: number[] = [];
   estadisticas: EstadisticasEntrenamiento = ESTADISTICASNULL;
   rutasFavoritas: number[] = [];
   retosActivos: number[] = [];
-  historicoRutas: { ruta: number; fecha: string; }[] = [];
-  
+  historicoRutas: { ruta: number; fecha: string }[] = [];
+
   /**
    * Constructor de la clase
    * @param nombre Nombre del usuario
@@ -27,11 +31,11 @@ export class Usuario implements EntidadInterface {
    */
   constructor(nombre: string, contraseña: string, actividades: Actividad) {
     /// Comprobamos que el nombre no esté vacío y que la actividad sea válida
-    if (nombre === '') {
-      throw new Error('Nombre de usuario vacío');
+    if (nombre === "") {
+      throw new Error("Nombre de usuario vacío");
     }
     if (this.isValidPassword(contraseña) === false) {
-      throw new Error('Contraseña no válida');
+      throw new Error("Contraseña no válida");
     }
     contador_id++;
     this.id = contador_id;
@@ -128,7 +132,7 @@ export class Usuario implements EntidadInterface {
    * Getter del historico de rutas
    * @returns Id de las rutas que ha recorrido junto a la fecha
    */
-  getHistoricoRutas(): { ruta: number; fecha: string; }[] {
+  getHistoricoRutas(): { ruta: number; fecha: string }[] {
     return this.historicoRutas;
   }
 
@@ -146,10 +150,10 @@ export class Usuario implements EntidadInterface {
    */
   setID = (id: number): void => {
     this.id = id;
-    if ( id > contador_id ) {
+    if (id > contador_id) {
       contador_id = id;
     }
-  }
+  };
 
   /**
    * Setter del nombre
@@ -166,7 +170,7 @@ export class Usuario implements EntidadInterface {
   setContraseña(contraseña: string): void {
     this.contraseña = contraseña;
   }
-  
+
   /**
    * Setter de las actividades
    * @param actividades Nueva actividad del user
@@ -223,10 +227,10 @@ export class Usuario implements EntidadInterface {
    * Setter del historico de rutas
    * @param rutasFavoritas Tipo de datos que contiene por un lado la ruta y por otro la fecha en la que se realizó
    */
-  setHistoricoRutas(historicoRutas: { ruta: number; fecha: string; }[]): void {
+  setHistoricoRutas(historicoRutas: { ruta: number; fecha: string }[]): void {
     this.historicoRutas = historicoRutas;
   }
-  
+
   /**
    * Método que permite añadir un amigo al usuario
    * @param idAmigo ID del amigo a añadir
@@ -234,7 +238,7 @@ export class Usuario implements EntidadInterface {
   addAmigoApp(idAmigo: number): void {
     // Compruebamos si el id del amigo ya está en la lista
     if (this.amigosApp.includes(idAmigo)) {
-      throw new Error('El amigo ya está en la lista de amigos');
+      throw new Error("El amigo ya está en la lista de amigos");
     }
     this.amigosApp.push(idAmigo);
   }
@@ -259,7 +263,7 @@ export class Usuario implements EntidadInterface {
    * Método que permite añadir una ruta realizada
    * @param idRuta ID de la ruta realizada a añadir
    */
-  addRutaRealizada(ruta: { ruta: number; fecha: string; }): void {
+  addRutaRealizada(ruta: { ruta: number; fecha: string }): void {
     this.historicoRutas.push(ruta);
   }
 
@@ -292,18 +296,18 @@ export class Usuario implements EntidadInterface {
    * @param contraseña Contraseña a validar
    */
   isValidPassword(password: string): boolean {
-    if(password.length < 4 || password.length > 30) {
+    if (password.length < 4 || password.length > 30) {
       return false;
     }
-    if(password[0] === '_' || password[password.length - 1] === '_') {
-    return false;
+    if (password[0] === "_" || password[password.length - 1] === "_") {
+      return false;
     }
-  
+
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
     const hasSpecial = /[$,-,_,*]/.test(password);
-  
+
     if (!hasUppercase || !hasLowercase || !hasNumber || !hasSpecial) {
       return false;
     }

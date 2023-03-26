@@ -15,7 +15,7 @@ export interface Coordenadas {
  * @returns Coordenadas en su formato
  */
 export function stringToCoordenadas(coordenadas: string): Coordenadas {
-  const [latitud, longitud] = coordenadas.split(' ');
+  const [latitud, longitud] = coordenadas.split(" ");
   return { latitud: Number(latitud), longitud: Number(longitud) };
 }
 /**
@@ -23,7 +23,6 @@ export function stringToCoordenadas(coordenadas: string): Coordenadas {
  * @param coordenadas Coordenadas a comprobar
  */
 export function checkCoordenadas(coordenadas: Coordenadas): void {
-
   // Comprueba si las coordenadas están dentro de los límites permitidos
   const maxLatitud = 90;
   const minLatitud = -90;
@@ -31,12 +30,17 @@ export function checkCoordenadas(coordenadas: Coordenadas): void {
   const minLongitud = -180;
 
   if (coordenadas.latitud > maxLatitud || coordenadas.latitud < minLatitud) {
-    throw new Error('Las coordenadas no son válidas tienen que ser entre -90 y 90 y se escriben así 40.4167754 -3.7037902');
-
+    throw new Error(
+      "Las coordenadas no son válidas tienen que ser entre -90 y 90 y se escriben así 40.4167754 -3.7037902"
+    );
   }
 
-  if (coordenadas.longitud > maxLongitud || coordenadas.longitud < minLongitud) {
-    throw new Error('Las coordenadas no son válidas tienen que ser entre -180 y 180 y se escriben así 40.4167754 -3.7037902');
-
+  if (
+    coordenadas.longitud > maxLongitud ||
+    coordenadas.longitud < minLongitud
+  ) {
+    throw new Error(
+      "Las coordenadas no son válidas tienen que ser entre -180 y 180 y se escriben así 40.4167754 -3.7037902"
+    );
   }
 }

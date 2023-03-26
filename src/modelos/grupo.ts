@@ -2,7 +2,11 @@ import { EntidadInterface } from "../interfaces/entidadInterface";
 import { EstadisticasEntrenamiento } from "../interfaces/estadisticasEntrenamiento";
 
 let contador_id = 0;
-const EMPTY_ESTADISTICAS_ENTRENAMIENTO: EstadisticasEntrenamiento = { semana: { km: 0, desnivel: 0 }, mes: { km: 0, desnivel: 0 }, anio: { km: 0, desnivel: 0 } };
+const EMPTY_ESTADISTICAS_ENTRENAMIENTO: EstadisticasEntrenamiento = {
+  semana: { km: 0, desnivel: 0 },
+  mes: { km: 0, desnivel: 0 },
+  anio: { km: 0, desnivel: 0 },
+};
 
 /**
  * Clase que representa a un grupo
@@ -12,10 +16,11 @@ export class Grupo implements EntidadInterface {
   nombre: string;
   creador: number;
   participantes: number[] = [];
-  estadisticasEntrenamiento: EstadisticasEntrenamiento = EMPTY_ESTADISTICAS_ENTRENAMIENTO;
+  estadisticasEntrenamiento: EstadisticasEntrenamiento =
+    EMPTY_ESTADISTICAS_ENTRENAMIENTO;
   clasificacion: { id: number; km: number; desnivel: number }[] = [];
   rutasFavoritas: number[] = [];
-  historicoRutas: { ruta: number; fecha: string; }[] = [];
+  historicoRutas: { ruta: number; fecha: string }[] = [];
 
   /**
    * Constructor del grupo
@@ -23,8 +28,8 @@ export class Grupo implements EntidadInterface {
    * @param creador Creador del grupo
    */
   constructor(nombre: string, creador: number) {
-    if (nombre === '') {
-      throw new Error('Nombre de grupo vacío');
+    if (nombre === "") {
+      throw new Error("Nombre de grupo vacío");
     }
     contador_id++;
     this.id = contador_id;
@@ -34,7 +39,7 @@ export class Grupo implements EntidadInterface {
 
   /**
    * Getter del
-   * @returns 
+   * @returns
    */
   getID(): number {
     return this.id;
@@ -64,8 +69,16 @@ export class Grupo implements EntidadInterface {
     return this.participantes;
   }
 
-  getEstadisticasEntrenamiento(): EstadisticasEntrenamiento {
-    return this.estadisticasEntrenamiento
+  /**
+   * Getter de las estadísticas
+   * @returns estadísticas
+   */
+  getEstadisticasEntrenamiento(): {
+    semana: { km: number; desnivel: number };
+    mes: { km: number; desnivel: number };
+    anio: { km: number; desnivel: number };
+  } {
+    return this.estadisticasEntrenamiento;
   }
 
   /**
@@ -88,7 +101,7 @@ export class Grupo implements EntidadInterface {
    * Getter del historico de rutas
    * @returns lista de ID que las rutas que ha recorrido el grupo
    */
-  getHistoricoRutas(): { ruta: number; fecha: string;}[] {
+  getHistoricoRutas(): { ruta: number; fecha: string }[] {
     return this.historicoRutas;
   }
 
@@ -98,10 +111,10 @@ export class Grupo implements EntidadInterface {
    */
   setID = (id: number): void => {
     this.id = id;
-    if ( id > contador_id ) {
+    if (id > contador_id) {
       contador_id = id;
     }
-  }
+  };
 
   /**
    * Setter del nombre
@@ -131,7 +144,7 @@ export class Grupo implements EntidadInterface {
    * Setter de las estadísticas del grupo
    * @param estadisticasEntrenamiento Nuevas estadísticas
    */
-  setEstadisticasEntrenamiento( estadisticasEntrenamiento: {
+  setEstadisticasEntrenamiento(estadisticasEntrenamiento: {
     semana: { km: number; desnivel: number };
     mes: { km: number; desnivel: number };
     anio: { km: number; desnivel: number };
@@ -143,7 +156,9 @@ export class Grupo implements EntidadInterface {
    * Setter de la clasifiación de usuarios
    * @param clasificacion Nueva clasificación
    */
-  setClasificacion(clasificacion: { id: number; km: number; desnivel: number }[]): void {
+  setClasificacion(
+    clasificacion: { id: number; km: number; desnivel: number }[]
+  ): void {
     this.clasificacion = clasificacion;
   }
 
@@ -159,8 +174,7 @@ export class Grupo implements EntidadInterface {
    * Setter del historico de rutas
    * @param historicoRutas id's del nuevo historico de rutas
    */
-  setHistoricoRutas(historicoRutas: {ruta: number; fecha: string;
-  }[]): void {
+  setHistoricoRutas(historicoRutas: { ruta: number; fecha: string }[]): void {
     this.historicoRutas = historicoRutas;
   }
 
@@ -176,7 +190,7 @@ export class Grupo implements EntidadInterface {
    * Método que permite añadir rutas realizadas
    * @param idRuta ruta realizada por el grupo (id + fecha)
    */
-  addRutaRealizada(ruta: { ruta: number; fecha: string; }): void {
+  addRutaRealizada(ruta: { ruta: number; fecha: string }): void {
     this.historicoRutas.push(ruta);
   }
 
@@ -201,7 +215,8 @@ export class Grupo implements EntidadInterface {
    * @param idRuta id del participante a eliminar
    */
   eraseParticipante(idParticipante: number): void {
-    this.participantes = this.participantes.filter((id) => id !== idParticipante);
+    this.participantes = this.participantes.filter(
+      (id) => id !== idParticipante
+    );
   }
-
 }
