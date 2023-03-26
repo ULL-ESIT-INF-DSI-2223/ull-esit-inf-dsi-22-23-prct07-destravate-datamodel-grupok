@@ -233,10 +233,7 @@
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -333,7 +330,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -343,8 +339,11 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -353,6 +352,13 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -362,7 +368,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -370,16 +375,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -395,7 +390,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,16 +403,16 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Ruta } from '../modelos/ruta';
-import { Coleccion } from '../interfaces/coleccion';
-import { Coordenadas } from '../interfaces/coordenadasInterface';
-import { Actividad } from '../enums/actividadEnum';
-import { Dificultad } from '../enums/dificultadEnum';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Ruta } from "../modelos/ruta";
+import { Coleccion } from "../interfaces/coleccion";
+import { Coordenadas } from "../interfaces/coordenadasInterface";
+import { Actividad } from "../enums/actividadEnum";
+import { Dificultad } from "../enums/dificultadEnum";
 &nbsp;
 /**
  * Clase que implemente Colección y la especifica para rutas
  */
-export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
+export class ColeccionRuta implements Coleccion&lt;Ruta&gt; {
   private rutas: Map&lt;number, Ruta&gt;;
 &nbsp;
   /**
@@ -439,7 +433,7 @@ export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
    * Setter de las rutas (entrada en formato map)
    * @param rutas Rutas en formato map
    */
-  public setRutas( rutas : Map&lt;number, Ruta&gt;): void {
+  public setRutas(rutas: Map&lt;number, Ruta&gt;): void {
     this.rutas = rutas;
   }
 &nbsp;
@@ -472,26 +466,26 @@ export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
       throw new Error("La ruta que deseas obtener no existe.");
     }
     return ruta;
-  }  
+  }
 &nbsp;
   /**
    * Método que permite lista las rutas
    */
   public listar(): void {
     console.clear();
-    console.log('Listando rutas...');
+    console.log("Listando rutas...");
     for (const ruta of this.rutas.values()) {
       console.log(ruta);
     }
   }
 &nbsp;
- /**
+  /**
    * Método que permite insertar una ruta
    * @param ruta Ruta a añadir
    */
   public insertar(ruta: Ruta): void {
     if (this.rutas.has(ruta.getID())) {
-      throw new Error('La ruta que deseas insertar ya existe.');
+      throw new Error("La ruta que deseas insertar ya existe.");
       // console.log('La ruta ya existe insertar ruta');
       // return;
     }
@@ -502,11 +496,10 @@ export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
    * Método que permite insertar un reto
    * @param ruta Ruta a eliminar
    */
-  public eliminar( ruta: Ruta) {
+  public eliminar(ruta: Ruta) {
     if (this.rutas.has(ruta.getID())) {
       this.rutas.delete(ruta.getID());
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas eliminar no existe.");
       // console.log("La ruta que deseas eliminar no existe.");
     }
@@ -515,18 +508,20 @@ export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
   public modificarNombreRuta(ruta: Ruta, nombre: string) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setNombre(nombre);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
 &nbsp;
-  public modificarCoordenadasRuta(ruta: Ruta, coordenadasInicio: Coordenadas, coordenadasFin: Coordenadas) {
+  public modificarCoordenadasRuta(
+    ruta: Ruta,
+    coordenadasInicio: Coordenadas,
+    coordenadasFin: Coordenadas
+  ) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setCoordenadasInicio(coordenadasInicio);
       ruta.setCoordenadasFin(coordenadasFin);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
@@ -534,8 +529,7 @@ export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
   public modificarLongitudRuta(ruta: Ruta, longitud: number) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setLongitud(longitud);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
@@ -543,8 +537,7 @@ export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
   public modificarDesnivelRuta(ruta: Ruta, desnivel: number) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setDesnivel(desnivel);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
@@ -552,8 +545,7 @@ export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
   public modificarTipoActividadRuta(ruta: Ruta, tipoActividad: Actividad) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setTipoActividad(tipoActividad);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
@@ -568,8 +560,7 @@ export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
   public modificarDificultadRuta(ruta: Ruta, dificultad: Dificultad) {
     if (this.rutas.has(ruta.getID())) {
       ruta.setDificultad(dificultad);
-    }
-    else {
+    } else {
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
@@ -589,7 +580,7 @@ export class ColeccionRuta implements Coleccion&lt;Ruta&gt;{
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-26T19:02:17.443Z
+                at 2023-03-26T19:56:42.217Z
             </div>
         <script src="../prettify.js"></script>
         <script>
