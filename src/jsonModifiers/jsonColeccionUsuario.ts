@@ -82,12 +82,16 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('amigosApp').pull(ID).write();
   }
 
-  public addRuta(usuario: Usuario, ruta: number): void {
+  public addRutaFavorita(usuario: Usuario, ruta: number): void {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('rutasFavoritas').write();
   }
 
-  public eraseRuta(usuario: Usuario, ruta: number): void {
+  public eraseRutaFavorita(usuario: Usuario, ruta: number): void {
     this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('rutasFavoritas').pull(ruta).write();
+  }
+
+  public addRutaRealizada(usuario: Usuario, ruta:{ ruta: number; fecha: string; }): void {
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('historicoRutas').write();
   }
 
   public addRetosActivos(usuario: Usuario, reto: number): void {

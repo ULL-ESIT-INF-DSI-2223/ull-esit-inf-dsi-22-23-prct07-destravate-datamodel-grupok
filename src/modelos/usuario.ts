@@ -16,7 +16,7 @@ export class Usuario implements EntidadInterface {
   estadisticas: EstadisticasEntrenamiento = { semana: { km: 0, desnivel: 0 }, mes: { km: 0, desnivel: 0 }, anio: { km: 0, desnivel: 0 } };
   rutasFavoritas: number[] = [];
   retosActivos: number[] = [];
-  historicoRutas: { ruta: number; fecha: Date; }[] = [];
+  historicoRutas: { ruta: number; fecha: string; }[] = [];
   
   constructor(nombre: string, contraseña: string, actividades: Actividad) {
     /// Comprobamos que el nombre no esté vacío y que la actividad sea válida
@@ -78,7 +78,7 @@ export class Usuario implements EntidadInterface {
     return this.retosActivos;
   }
 
-  getHistoricoRutas(): { ruta: number; fecha: Date; }[] {
+  getHistoricoRutas(): { ruta: number; fecha: string; }[] {
     return this.historicoRutas;
   }
 
@@ -126,7 +126,7 @@ export class Usuario implements EntidadInterface {
     this.retosActivos = retosActivos;
   }
 
-  setHistoricoRutas(historicoRutas: { ruta: number; fecha: Date; }[]): void {
+  setHistoricoRutas(historicoRutas: { ruta: number; fecha: string; }[]): void {
     this.historicoRutas = historicoRutas;
   }
   
@@ -144,6 +144,10 @@ export class Usuario implements EntidadInterface {
 
   addRutaFavorita(idRuta: number): void {
     this.rutasFavoritas.push(idRuta);
+  }
+
+  addRutaRealizada(ruta: { ruta: number; fecha: string; }): void {
+    this.historicoRutas.push(ruta);
   }
 
   eraseRutaFavorita(idRuta: number): void {

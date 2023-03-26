@@ -5,7 +5,7 @@
       "nombre": "secta",
       "creador": "3",
       "participantes": [
-        1
+        2
       ],
       "estadisticasEntrenamiento": {
         "semana": {
@@ -22,8 +22,15 @@
         }
       },
       "clasificacion": [],
-      "rutasFavoritas": [],
-      "historicoRutas": []
+      "rutasFavoritas": [
+        5
+      ],
+      "historicoRutas": [
+        {
+          "ruta": 4,
+          "fecha": "3/26/2023"
+        }
+      ]
     },
     {
       "id": 2,

@@ -57,11 +57,15 @@ export class JsonColeccionGrupo extends ColeccionGrupo {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).assign({ creador: creador }).write();
   }
 
-  public addRuta(grupo: Grupo, ruta: number): void {
+  public addRutaRealizada(grupo: Grupo, ruta:{ ruta: number; fecha: string; }): void {
+    this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('historicoRutas').write();
+  }
+
+  public addRutaFavorita(grupo: Grupo, ruta: number): void {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').write();
   }
 
-  public eraseRuta(grupo: Grupo, ruta: number): void {
+  public eraseRutaFavorita(grupo: Grupo, ruta: number): void {
     this.gruposDatabase.get('grupos').find({ nombre: grupo.getNombre() }).get('rutasFavoritas').write();
   }
 

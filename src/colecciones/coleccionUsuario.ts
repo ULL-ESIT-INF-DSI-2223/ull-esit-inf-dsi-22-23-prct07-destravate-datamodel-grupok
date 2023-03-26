@@ -92,7 +92,7 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
       this.usuarios.delete(usuario.getID());
     }
     else {
-      console.log("El grupo que deseas eliminar no existe.");
+      console.log("El usuario que deseas eliminar no existe.");
     }
     
   }
@@ -129,12 +129,16 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
     this.usuarios.get(usuario.getID())!.eraseAmigoApp(amigo);
   }
 
-  public addRuta( usuario: Usuario, ruta: number) {
+  public addRutaFavorita( usuario: Usuario, ruta: number) {
     this.usuarios.get(usuario.getID())!.addRutaFavorita(ruta);
   }
 
-  public eraseRuta( usuario: Usuario, ruta: number) {
+  public eraseRutaFavorita( usuario: Usuario, ruta: number) {
     this.usuarios.get(usuario.getID())!.eraseRutaFavorita(ruta);
+  }
+
+  public addRutaRealizada( usuario: Usuario, ruta: { ruta: number; fecha: string; }) {
+    this.usuarios.get(usuario.getID())!.addRutaRealizada(ruta);
   }
 
   public addRetosActivos( usuario: Usuario, reto: number) {

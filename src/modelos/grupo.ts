@@ -15,7 +15,7 @@ export class Grupo implements EntidadInterface {
   estadisticasEntrenamiento: EstadisticasEntrenamiento = EMPTY_ESTADISTICAS_ENTRENAMIENTO;
   clasificacion: { id: number; km: number; desnivel: number }[] = [];
   rutasFavoritas: number[] = [];
-  historicoRutas: { ruta: number; fecha: Date; }[] = [];
+  historicoRutas: { ruta: number; fecha: string; }[] = [];
 
   constructor(nombre: string, creador: number) {
     if (nombre === '') {
@@ -59,7 +59,7 @@ export class Grupo implements EntidadInterface {
     return this.rutasFavoritas;
   }
 
-  getHistoricoRutas(): { ruta: number; fecha: Date;}[] {
+  getHistoricoRutas(): { ruta: number; fecha: string;}[] {
     return this.historicoRutas;
   }
 
@@ -98,13 +98,17 @@ export class Grupo implements EntidadInterface {
     this.rutasFavoritas = rutasFavoritas;
   }
 
-  setHistoricoRutas(historicoRutas: {ruta: number; fecha: Date;
+  setHistoricoRutas(historicoRutas: {ruta: number; fecha: string;
   }[]): void {
     this.historicoRutas = historicoRutas;
   }
 
   addRutaFavorita(idRuta: number): void {
     this.rutasFavoritas.push(idRuta);
+  }
+
+  addRutaRealizada(ruta: { ruta: number; fecha: string; }): void {
+    this.historicoRutas.push(ruta);
   }
 
   eraseRutaFavorita(idRuta: number): void {
@@ -116,7 +120,7 @@ export class Grupo implements EntidadInterface {
   }
 
   eraseParticipante(idParticipante: number): void {
-    this.participantes = this.rutasFavoritas.filter((id) => id !== idParticipante);
+    this.participantes = this.participantes.filter((id) => id !== idParticipante);
   }
 
 }

@@ -107,12 +107,16 @@ export class ColeccionGrupo implements Coleccion<Grupo> {
     this.grupos.get(grupo.getID())!.setCreador(creador);
   }
 
-  public addRuta( grupo: Grupo, ruta: number) {
+  public addRutaFavorita( grupo: Grupo, ruta: number) {
     this.grupos.get(grupo.getID())!.addRutaFavorita(ruta);
   }
 
-  public eraseRuta( grupo: Grupo, ruta: number) {
+  public eraseRutaFavorita( grupo: Grupo, ruta: number) {
     this.grupos.get(grupo.getID())!.eraseRutaFavorita(ruta);
+  }
+
+  public addRutaRealizada( grupo: Grupo, ruta: { ruta: number; fecha: string; }) {
+    this.grupos.get(grupo.getID())!.addRutaRealizada(ruta);
   }
 
   public addParticipante( grupo: Grupo, participante: number) {
