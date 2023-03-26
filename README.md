@@ -796,6 +796,57 @@ Este método se encarga de lidiar con el menú del usuario logueado, pudiendo ha
   - `listarHistoricoRutas`: Lista el histórico de rutas del usuario logueado.
 Se ha de recalcar que los métodos de listar estadísticas y listar histórico de rutas se han definido de tal forma que permiten listar por orden ascendente y descendente, así como por fecha y distancia.
 
+#### Gestión de información 
+Este es un método que se encarga de gestionar la información de los usuarios, rutas, grupos y retos. Se ha definido de la siguiente forma:
+
+```typescript
+public gestionInfo(): void {
+    console.clear();
+    console.log(
+      "Bienvenido a la consola de gestión de la base de datos. ¿Qué datos desea gestionar?"
+    );
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Usuario",
+          "Rutas",
+          "Grupos",
+          "Retos",
+          "Volver al menú anterior",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Usuario":
+            this.gestionUsuarios();
+            break;
+          case "Rutas":
+            this.gestionRutas();
+            break;
+          case "Grupos":
+            this.gestionGrupos();
+            break;
+          case "Retos":
+            this.gestionRetos();
+            break;
+          case "Volver al menú anterior":
+            this.consola();
+            break;
+          default:
+            break;
+        }
+      });
+  }
+```
+
+#### Gestión de usuarios
+Este método se encarga de gestionar los usuarios, pudiendo hacer uso de los siguientes métodos de gestión:
+  - `listarUsuarios`: Lista los usuarios de la base de datos.
+  - `registrarUsuario`: Crea un usuario en la base de datos.
+  - `eliminarUsuario`: Elimina un usuario de la base de datos.
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
