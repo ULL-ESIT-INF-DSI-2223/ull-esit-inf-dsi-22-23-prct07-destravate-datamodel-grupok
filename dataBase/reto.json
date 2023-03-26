@@ -14,7 +14,9 @@
       "rutas": [],
       "tipoActividad": "Grupal",
       "kmTotales": 0,
-      "usuarios": []
+      "usuarios": [
+        2
+      ]
     }
   ]
 }
