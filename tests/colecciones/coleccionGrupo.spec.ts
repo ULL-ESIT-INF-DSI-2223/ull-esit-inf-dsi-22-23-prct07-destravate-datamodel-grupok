@@ -173,4 +173,16 @@ describe('ColeccionGrupo', () => {
     // Intentamos eliminar el grupo
     expect(() => coleccionGrupo.eliminar(grupo4)).to.throw('El grupo que deseas eliminar no existe.');
   });
+
+  // public addRutaRealizada( grupo: Grupo, ruta: { ruta: number; fecha: string; }) {
+  //   this.grupos.get(grupo.getID())!.addRutaRealizada(ruta);
+  // }
+  it ('should add a route to a group', () => {
+    // Creamos una ruta
+    const ruta = { ruta: 1, fecha: '2020-01-01' };
+    // Añadimos la ruta al grupo 1
+    coleccionGrupo.addRutaRealizada(grupo1, ruta);
+    // Comprobamos que la ruta esta en el grupo 1
+    expect(grupo1.getHistoricoRutas().includes(ruta)).to.be.true;
+  });
 });
