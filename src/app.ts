@@ -1116,7 +1116,6 @@ export class Gestor {
         this.volver(() => this.consola());
       }
     });
-
   }
 
   /////////////////////////////////////
