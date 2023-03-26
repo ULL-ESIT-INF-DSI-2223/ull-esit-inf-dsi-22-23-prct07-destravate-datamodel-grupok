@@ -368,7 +368,7 @@ La clase es iterable pues se ha implementado el método `Symbol.iterator` de la 
   }
 ```
 
-Además se han implementados los setters y getters para el atributo `usuarios` de la clase, en este caso hay un setter cuyo parametro es un `Map` y otro setter cuyo `setUsuariosFromArray` que recibe un array de usuarios y lo convierte en un `Map` para asignarlo al atributo `usuarios`.
+Además se han implementados los setters y getters para el atributo `usuarios` de la clase, en este caso hay un setter cuyo parametro es un `Map` y otro setter cuyo `setUsuariosFromArray` que recibe un array de usuarios y lo convierte en un `Map` para asignarlo al atributo `usuarios`. También se implementó un getter `getUsuario` que recibe un identificador de usuario y devuelve el usuario correspondiente.
 
 La clase contiene tambien los siguientes métodos para gestionar y modificar los usuarios:
 
@@ -377,8 +377,11 @@ La clase contiene tambien los siguientes métodos para gestionar y modificar los
 * `eliminar`: Este método elimina un usuario del sistema. Se comprueba que el usuario exista previamente en el sistema y si existe se elimina del sistema.
 * `modificarNombre`: Este método modifica el nombre de un usuario del sistema. Se comprueba que no haya un usuario con el mismo nombre en el sistema y si no hay un usuario con el mismo nombre se modifica el nombre del usuario.
 * `modificarContraseña`: Este método modifica la contraseña de un usuario del sistema. Se comprueba que la contraseña actual del usuario sea correcta y si es correcta se modifica la contraseña del usuario.
-* `
-
+* `modificarActividad`: Este método modifica la actividad de un usuario del sistema.
+* `addAmigo` y `eraseAmigo`: Estos métodos añaden y eliminan amigos de la lista de amigos de un usuario.
+* `addRutaFavorite` y `eraseRutaFavorite`: Estos métodos añaden y eliminan rutas de la lista de rutas favoritas de un usuario.
+* `addRutaRealizada`: Este método añade una ruta a la lista de rutas realizadas por un usuario. No se implementó un metodo para eliminar rutas de la lista de rutas realizadas porque no se consideró necesario.
+* `addRetosActivos` y `eraseRetosActivos`: Estos métodos añaden y eliminan retos de la lista de retos activos de un usuario pasado por parámetro.
 
 ### jsonCollection
 
