@@ -278,7 +278,7 @@ export class Gestor {
       switch (respuesta.menu) {
         case 'Lista de usuarios':
           console.clear();
-          this.listarUsuarios();
+          this.listarUsuarios(() => this.volver(() => this.menuUsuario(id)));
         break;
         case 'Amigos':
           console.clear();
@@ -358,8 +358,8 @@ export class Gestor {
         break;
         case 'Listar retos':
           console.clear();
-          this.listarRetos();
-          this.volver(() => this.gestionRetosUsuario(id));
+          this.listarRetos(() => this.volver(() => this.gestionRetosUsuario(id)));
+
         break;
         case 'Completar reto':
           console.clear();
@@ -524,7 +524,7 @@ export class Gestor {
         case 'Listar rutas':
           console.clear();
           console.log('Listando rutas...');
-          this.listarRutas(() => this.gestionRutasUsuario(id));
+          this.listarRutas(() => this.volver(() => this.gestionRutasUsuario(id)));
         break;
         case 'Mostrar rutas':
           console.clear();
@@ -559,8 +559,8 @@ export class Gestor {
         case 'Listar grupos':
           console.clear();
           console.log('Listando grupos...');
-          this.listarGrupos();
-          this.volver(() => this.gestionGruposUsuario(id));
+          this.listarGrupos(() => this.volver(() => this.gestionGruposUsuario(id)));
+          ;
         break;
         case 'Borrar':
           console.clear();
@@ -692,7 +692,7 @@ export class Gestor {
           this.registrarUsuario();
           break;
         case 'Listar usuarios':
-          this.listarUsuarios();
+          this.listarUsuarios(() => this.volver(() => this.gestionInfo()));
           break;
         case 'Modificar usuarios':
           this.modificarUsuario();
@@ -1007,7 +1007,7 @@ export class Gestor {
   /**
    * Método que lista a todos los usuarios
    */
-  private listarUsuarios(): void {
+  private listarUsuarios(callback: (i: this) => void): void {
     console.clear();
     console.log('Listando usuarios...');
     inquirer.prompt([
@@ -1040,37 +1040,37 @@ export class Gestor {
           for (const usuario of array) {
             console.log(usuario);
           }
-          this.volver(() => this.gestionInfo());
+          callback(this);
           break;
         case 'Cantidad de km (semanal)':
-          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().semana.km - b.getEstadisticas().semana.km)
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().semana.km - b.getEstadisticas().semana.km).map((a) => `${a.getNombre()} - Km(semana): ${a.getEstadisticas().semana.km} `)
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
           for (const usuario of array) {
             console.log(usuario);
           }
-          this.volver(() => this.gestionInfo());
+          callback(this);
           break;
         case 'Cantidad de km (mensual)':
-          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().mes.km - b.getEstadisticas().mes.km)
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().mes.km - b.getEstadisticas().mes.km).map((a) => `${a.getNombre()} - Km(mes): ${a.getEstadisticas().mes.km} `)
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
           for (const usuario of array) {
             console.log(usuario);
           }
-          this.volver(() => this.gestionInfo());
+          callback(this);
           break;
         case 'Cantidad de km (anual)':
-          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().anio.km - b.getEstadisticas().anio.km)
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().anio.km - b.getEstadisticas().anio.km).map((a) => `${a.getNombre()} - Km(año): ${a.getEstadisticas().anio.km} `)
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
           for (const usuario of array) {
             console.log(usuario);
           }
-          this.volver(() => this.gestionInfo());
+          callback(this);
           break;
       }
     });
@@ -1140,8 +1140,8 @@ export class Gestor {
           this.registrarGrupo();
           break;
         case 'Listar grupos':
-          this.listarGrupos();
-          this.volver(() => this.gestionGrupos());
+          this.listarGrupos(() => this.volver(() => this.gestionGrupos()));
+          
           break;
         case 'Modificar grupos':
           this.modificarGrupo();
@@ -1441,8 +1441,12 @@ export class Gestor {
       });
     });
   }  
-
-  private listarGrupos(): void {
+  
+  /**
+   * Método que imprime la lista de grupos
+   * @param callback Callack que indica a que menú volver
+   */
+  private listarGrupos(callback: (i: this) => void): void {
     console.clear();
     console.log('Listando grupos...');
     inquirer.prompt([
@@ -1462,6 +1466,7 @@ export class Gestor {
           'Cantidad de km (semanal)',
           'Cantidad de km (mensual)',
           'Cantidad de km (anual)',
+          'Número de miembros',
         ],
       }
     ]).then((respuesta) => {
@@ -1472,36 +1477,50 @@ export class Gestor {
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const usuario of array) {
-            console.log(usuario);
+          for (const grupos of array) {
+            console.log(grupos);
           }
+          callback(this)
           break;
         case 'Cantidad de km (semanal)':
-          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().semana.km - b.getEstadisticasEntrenamiento().semana.km)
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().semana.km - b.getEstadisticasEntrenamiento().semana.km).map((a) => `${a.getNombre()} - Km(semana): ${a.getEstadisticasEntrenamiento().semana.km} `)
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const usuario of array) {
-            console.log(usuario);
+          for (const grupos of array) {
+            console.log(grupos);
           }
+          callback(this)
           break;
         case 'Cantidad de km (mensual)':
-          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().mes.km - b.getEstadisticasEntrenamiento().mes.km)
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().mes.km - b.getEstadisticasEntrenamiento().mes.km).map((a) => `${a.getNombre()} - Km(mes): ${a.getEstadisticasEntrenamiento().mes.km} `)
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const usuario of array) {
-            console.log(usuario);
+          for (const grupos of array) {
+            console.log(grupos);
           }
+          callback(this)
           break;
         case 'Cantidad de km (anual)':
-          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().anio.km - b.getEstadisticasEntrenamiento().anio.km)
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().anio.km - b.getEstadisticasEntrenamiento().anio.km).map((a) => `${a.getNombre()} - Km(año): ${a.getEstadisticasEntrenamiento().anio.km} `)
           if (respuesta.sentido === 'Descendente') {
             array = array.reverse()
           } 
-          for (const usuario of array) {
-            console.log(usuario);
+          for (const grupos of array) {
+            console.log(grupos);
           }
+          callback(this)
+          break;
+        case 'Número de miembros':
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getParticipantes().length - b.getParticipantes().length).map((a) => `${a.getNombre()} - Miembros: ${a.getParticipantes().length +1} `)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const grupos of array) {
+            console.log(grupos);
+          }
+          callback(this)
           break;
         default:
           break
@@ -1570,7 +1589,7 @@ export class Gestor {
           this.registrarRuta();
           break;
         case 'Listar rutas':
-          this.listarRutas(() => this.gestionRutas());
+          this.listarRutas(() => this.volver(() => this.gestionRutas()));
           break;
         case 'Modificar rutas':
           this.modificarRuta();
@@ -1672,15 +1691,87 @@ export class Gestor {
     });
   }
 
-  private listarRutas(funcionVolver: () => void): void {
+  private listarRutas(callback: (i: this) => void): void {
     console.clear();
     console.log('Listado de rutas:');
     const rutas = this.coleccionRutas.getRutas();
-    rutas.forEach((ruta) => {
-      console.log(ruta.getNombre());
-      // console.log(ruta);
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'sentido',
+        choices: [
+          'Ascendente',
+          'Descendente',
+        ],
+      },
+      {
+        type: 'list',
+        name: 'ordenacion',
+        choices: [
+          'Alfabéticamente',
+          'Número de usuarios',
+          'Cantidad de km',
+          'Calificación Media',
+          'Por actividad',
+        ],
+      }
+    ]).then((respuesta) => {
+      let array
+      switch (respuesta.ordenacion) {
+        case 'Alfabéticamente':
+          array = [...this.coleccionRutas.getRutas().values()].map((a) => a.getNombre()).sort()
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const rutas of array) {
+            console.log(rutas);
+          }
+          callback(this)
+          break;
+        case 'Número de usuarios':
+          array = [...this.coleccionRutas.getRutas().values()].sort((a,b) => a.getUsuariosVisitantes().length - b.getUsuariosVisitantes().length).map((a) => `${a.getNombre()} -Usuarios: ${a.getUsuariosVisitantes().length +1} `)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const rutas of array) {
+            console.log(rutas);
+          }
+          callback(this)
+          break;
+        case 'Cantidad de km':
+          array = [...this.coleccionRutas.getRutas().values()].sort((a,b) => a.getLongitud() - b.getLongitud()).map((a) => `${a.getNombre()} - Km: ${a.getLongitud()} `)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const rutas of array) {
+            console.log(rutas);
+          }
+          callback(this)
+          break;
+        case 'Calificación Media':
+          array = [...this.coleccionRutas.getRutas().values()].sort((a,b) => a.getCalificacion() - b.getCalificacion()).map((a) => `${a.getNombre()} - Calificación: ${a.getCalificacion()} `)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const rutas of array) {
+            console.log(rutas);
+          }
+          callback(this)
+          break;
+        case 'Por actividad':
+          array = [...this.coleccionRutas.getRutas().values()].map((a) => `Actividad de ${a.getTipoActividad()}: ${a.getNombre()}`).sort()
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const rutas of array) {
+            console.log(rutas);
+          }
+          callback(this)
+          break;
+        default:
+          break
+      }
     });
-    this.volver(funcionVolver);
   }
 
   private mostrarRutas(): void {
@@ -1980,7 +2071,7 @@ export class Gestor {
           this.registrarReto();
           break;
         case 'Listar Retos':
-          this.listarRetos();
+          this.listarRetos(() => this.volver(() => this.gestionInfo()));
           break;
         case 'Modificar Retos':
           this.modificarReto();
@@ -2034,14 +2125,64 @@ export class Gestor {
     });
   }
 
-  private listarRetos(): void {
+  private listarRetos(callback: (i: this) => void): void {
     console.clear();
     console.log('Listando retos...');
-    const retos = this.coleccionRetos.getRetos();
-    // console.table(
-    //   Array.from(retos.values()).map((reto) => ({ Nombre: reto.getNombre() }))
-    // );
-    console.log(retos);
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'sentido',
+        choices: [
+          'Ascendente',
+          'Descendente',
+        ],
+      },
+      {
+        type: 'list',
+        name: 'ordenacion',
+        choices: [
+          'Alfabéticamente',
+          'Cantidad de km',
+          'Número de miembros',
+        ],
+      }
+    ]).then((respuesta) => {
+      let array
+      switch (respuesta.ordenacion) {
+        case 'Alfabéticamente':
+          array = [...this.coleccionRetos.getRetos().values()].map((a) => a.getNombre()).sort()
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const retos of array) {
+            console.log(retos);
+          }
+          callback(this)
+          break;
+        case 'Cantidad de km':
+          array = [...this.coleccionRetos.getRetos().values()].sort((a,b) => a.getKmTotales() - b.getKmTotales()).map((a) => `${a.getNombre()} - Km totales: ${a.getKmTotales()} `)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const retos of array) {
+            console.log(retos);
+          }
+          callback(this)
+          break;
+        case 'Número de miembros':
+          array = [...this.coleccionRetos.getRetos().values()].sort((a,b) => a.getUsuarios().length - b.getUsuarios().length).map((a) => `${a.getNombre()} - Miembros: ${a.getUsuarios().length} `)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          callback(this)
+          break;
+        default:
+          break
+      }
+    });
   }
 
   private modificarReto(): void {
