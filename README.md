@@ -74,6 +74,72 @@ La interfaz consta de dos atributos, el `id` y el `nombre`, que son los atributo
 Esta interfaz se utiliza para definir los métodos que se requieren para la gestión de las colecciones de las entidades (usuarios, rutas, grupos y retos). Esta interfaz contiene los siguientes métodos:
 
 ```typescript
+interface Coleccion<T> {
+  insertar(elemento: T): void;
+  eliminar(elemento: T): void;
+  listar(): void;
+}
+```
+
+La interfaz consta de tres métodos, `insertar`, `eliminar` y `listar`, que son los métodos que deben implementar las clases de las colecciones de las entidades o modelos del sistema. Estos métodos permiten añadir, eliminar y listar los elementos de la colección.
+
+#### CoordenadasInterface
+
+Esta interfaz define los atributos que debe tener un objeto que contenga las coordenadas de una ruta. Esta interfaz contiene los siguientes atributos:
+
+```typescript
+interface CoordenadasInterface {
+  latitud: number;
+  longitud: number;
+}
+```
+
+La interfaz consta de dos atributos, la `latitud` y la `longitud`, que son los atributos que se requieren para definir las coordenadas de una ruta. Por ejemplo las coordenadas de una ruta pueden ser: `{ latitud: 40.4167754, longitud: -3.7037902 }`
+
+#### EsatdisticasEntrenamientoInterface
+
+Esta interfaz define los atributos que debe tener un objeto que contenga las estadísticas de un usuario. Esta interfaz contiene los siguientes atributos:
+
+```typescript
+interface EstadisticasEntrenamiento {
+  semana: { km: number; desnivel: number };
+  mes: { km: number; desnivel: number };
+  anio: { km: number; desnivel: number };
+}
+```
+
+La interfaz consta de tres atributos, `semana`, `mes` y `anio`, que son los atributos que se requieren para definir las estadísticas de un usuario. Por ejemplo las estadísticas de un usuario pueden ser: `{ semana: { km: 10, desnivel: 100 }, mes: { km: 20, desnivel: 200 }, anio: { km: 30, desnivel: 300 } }`
+
+### Enumerados
+
+Para la implementación de los enumerados, se ha creado una carpeta llamada `enums` dentro de la carpeta `src`, en la que se encuentran los archivos de cada uno de los enumerados. Estos archivos contienen la definición de los enumerados que se utilizan en el proyecto.
+
+#### Tipo de Actividad
+
+Este enumerado define los tipos de actividad que puede tener una ruta o actiividad del sistema. Este enumerado contiene los siguientes valores:
+
+```typescript
+export enum Actividad {
+  ciclismo = 'ciclismo',
+  running = 'running',
+}
+```
+
+El enumerado consta de dos valores, `ciclismo` y `running`, que son los tipos de actividad que puede tener una ruta.
+
+#### Dificultad 
+
+Este enumerado define las dificultades que puede tener una ruta o actiividad del sistema. Este enumerado contiene los siguientes valores:
+
+```typescript
+enum Dificultad {
+  facil = 'facil',
+  media = 'media',
+  dificil = 'dificil',
+}
+```
+
+El enumerado consta de tres valores, `facil`, `media` y `dificil`, que son las posibles dificultades que puede tener una ruta. Se optó por un enumerado en vez de un alias de tipo, ya que se consideró que al ser sencillo y con valores predefinidos, era más adecuado utilizar un enumerado.
 
 ### Modelos o Entidades
 
@@ -99,6 +165,55 @@ class Usuario implements EntidadInterface {
 
 Se puede apreciar que ciertos atributos se inicializan con un valor por defecto, esto se hace porque no se pasan por parámetro en el constructor, ya que estos atributos se van modificando a lo largo de la ejecución del sistema y cuando se va agregando información a los usuarios.
 
+Cabe resaltar que la clase `Usuario` implementa la interfaz `EntidadInterface`, por lo que debe implementar los métodos que se definen en esta interfaz que comentamos previamente.
+
+El constructor de la clase es el siguiente:
+
+```typescript
+  constructor(nombre: string, contraseña: string, actividades: Actividad) {
+    /// Comprobamos que el nombre no esté vacío y que la actividad sea válida
+    if (nombre === '') {
+      throw new Error('Nombre de usuario vacío');
+    }
+    if (this.isValidPassword(contraseña) === false) {
+      throw new Error('Contraseña no válida');
+    }
+    contador_id++;
+    this.id = contador_id;
+    this.nombre = nombre;
+    this.contraseña = contraseña;
+    this.actividades = actividades;
+  }
+```
+
+En el constructor se comprueba que el nombre no esté vacío y que la contraseña tenga un formato válido, este formato se define en el método `isValidPassword` que se encuentra en la clase `Usuario` y que basicamente comprueba que la contraseña tenga al menos una letra mayúscula, una minúscula, un número y un carácter especial. Si la contraseña no tiene un formato válido se lanza una excepción. Además, se incrementa el contador de identificadores y se asigna el valor del contador al atributo `id` del usuario, esto se hace de esta forma para que al crear un usuario se le asigne un identificador único. Por último, se asignan los valores de los parámetros al resto de atributos de la clase.
+
+La clase contiene tambien getters y setters para todos los atributos de la clase, además de ciertos métodos para modificar algunos elementos de los atributos de la clase. como son:
+
+* `addAmigoApp` y `eraseAmigoApp`: Estos métodos permiten añadir y eliminar amigos de la aplicación a la lista de amigos de la aplicación del usuario.
+
+* `addRutaFavorita` y `eraseRutaFavorita`: Estos métodos permiten añadir y eliminar rutas a la lista de rutas favoritas del usuario.
+
+* `addRetoActivo` y `eraseRetoActivo`: Estos métodos permiten añadir y eliminar retos a la lista de retos activos del usuario.
+
+
+#### Rutas
+
+La clase `Ruta` contiene la información de las rutas que se pueden realizar en el sistema. Esta clase contiene los siguientes atributos:
+
+```typescript
+class Ruta implements EntidadInterface {
+  id: number;
+  nombre: string;
+  coordenadasInicio: Coordenadas;
+  coordenadasFin: Coordenadas;
+  longitud: number;
+  desnivel: number;
+  usuariosVisitantes: number[] = [];
+  tipoActividad: Actividad;
+  dificultad: Dificultad;
+  calificacion: number = 0;
+```
 
 
 ## Conclusiones
