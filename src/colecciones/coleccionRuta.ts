@@ -160,4 +160,12 @@ export class ColeccionRuta implements Coleccion<Ruta>{
       throw new Error("La ruta que deseas modificar no existe.");
     }
   }
+
+  public getNombreRutas(): string[] {
+    let nombres: string[] = [];
+    for (const ruta of this.rutas.values()) {
+      nombres.push(ruta.getNombre());
+    }
+    return nombres;
+  }
 }
