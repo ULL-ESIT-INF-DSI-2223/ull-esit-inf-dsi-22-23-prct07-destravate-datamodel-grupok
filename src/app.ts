@@ -104,8 +104,8 @@ export class Gestor {
       name: 'opcion',
       message: 'Elige una opción: ',
       choices: [
-        'Registrarse como usuario',
         'Log in',
+        'Registrarse como usuario',
         'Gestión de la información',
         'Salir',
       ],
