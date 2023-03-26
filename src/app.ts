@@ -170,9 +170,7 @@ export class Gestor {
   ////////////////////////////////////////
 
   /**
-   * Método que permite crear usuarios y añadirlos a la colección de usuarios,
-   * esto lo hace preguntando el nombre del usuario y la actividad que realiza, 
-   * así como asignar el id del usuario como key dentro del map de ColeccionUsuario
+   * Método que despliega un menú que permite registrar a un usuario
    */
   private registrarUsuario(): void {
     console.clear();
@@ -421,6 +419,10 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que desplega el menú gestión de rutas del usuario loggeado
+   * @param id Id del usuario
+   */
   private gestionRutasUsuario(id: number) {
     console.clear();
     console.log('Gestionando rutas...');
@@ -453,7 +455,8 @@ export class Gestor {
   }
   
   /** 
-   * Permite listar, crear, borrar y unirse a grupos
+   * Método que desplega un menú que permite listar, crear, borrar y unirse a grupos
+   * @param id ID del usuario
    */
   private gestionGruposUsuario(id: number) {
     console.clear();
@@ -578,6 +581,9 @@ export class Gestor {
   ////////// Gestión de Usuarios //////////
   /////////////////////////////////////////
 
+  /**
+   * Menú que gestiona la información de los Usuarios
+   */
   public gestionUsuarios(): void {
     console.clear();
     console.log('Bienvenido a gestión de usuarios. ¿Qué desea hacer?');
@@ -615,6 +621,9 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que despliega un menú que permite modificar la información de los usuarios
+   */
   private modificarUsuario(): void {
     console.clear();
     // Obtener el listado de usuarios
@@ -907,6 +916,9 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que lista a todos los usuarios
+   */
   private listarUsuarios(): void {
     console.clear();
     console.log('Listando usuarios...');
@@ -954,71 +966,13 @@ export class Gestor {
     });
   }
 
-  /**
-   * Eliminar un elemento de la lista con opción a cancelar
-   */
-  private eliminar(elemento: Usuario | Ruta | Reto): void {
-  // console.clear();
-  // console.log(`Eliminando ${typeof elemento === 'object' ? elemento.constructor.name.toLowerCase() : 'elemento'}...`);
-
-  // // Obtener el listado de elementos
-  // let elementos: string[];
-  // switch (typeof elemento) {
-  //   case 'object':
-  //     if (elemento instanceof Usuario) {
-  //       elementos = this.coleccionUsuarios.listar();
-  //     } else if (elemento instanceof Ruta) {
-  //       elementos = this.coleccionRutas.listar();
-  //     } else if (elemento instanceof Reto) {
-  //       elementos = this.coleccionRetos.listar();
-  //     }
-  //     break;
-  //   default:
-  //     elementos = new Map();
-  //     break;
-  // }
-
-  // // Pedir al usuario que seleccione el elemento a eliminar
-  // inquirer.prompt({
-  //   type: 'list',
-  //   name: 'elemento',
-  //   message: `Selecciona el ${typeof elemento === 'object' ? elemento.constructor.name.toLowerCase() : 'elemento'} que deseas eliminar:`,
-  //   choices: Array.from(elementos.values()).map((elemento) => elemento.getNombre()).concat('Cancelar'),
-  // }).then((respuesta) => {
-  //   if (respuesta.elemento === 'Cancelar') {
-  //     this.volverConsola();
-  //   } else {
-  //     // Buscar el elemento a eliminar por su nombre y eliminarlo
-  //     const elementoAEliminar = Array.from(elementos.values()).find((elemento) => elemento.getNombre() === respuesta.elemento);
-  //     if (elementoAEliminar) {
-  //       // Lo eliminamos del json
-  //       switch (typeof elemento) {
-  //         case 'object':
-  //           if (elemento instanceof Usuario) {
-  //             this.jsonColeccionUsuario.eliminarUsuario(elementoAEliminar);
-  //           } else if (elemento instanceof Ruta) {
-  //             this.jsonColeccionRuta.eliminarRuta(elementoAEliminar);
-  //           } else if (elemento instanceof Reto) {
-  //             this.jsonColeccionReto.eliminarReto(elementoAEliminar);
-  //           }
-  //           break;
-  //       }
-  //       // Lo eliminamos del map de elementos
-  //       elementos.delete(elementoAEliminar.getID());
-  //       console.log(`${typeof elemento === 'object' ? elemento.constructor.name : 'Elemento'} ${elementoAEliminar.getNombre()} eliminado con éxito`);
-
-  //     } else {
-  //       console.log(`No se encontró el ${typeof elemento === 'object' ? elemento.constructor.name.toLowerCase() : 'elemento'} ${respuesta.elemento}`);
-  //     }
-  //     this.volverConsola();
-  //   }
-  // });
-  }
-
   ///////////////////////////////////////
   ////////// Gestión de Grupos //////////
   ///////////////////////////////////////
 
+  /**
+   * Método que despliega un menú que gestiona la información de los grupos
+   */
   public gestionGrupos(): void {
     console.clear();
     console.log('Bienvenido a gestión de grupos. ¿Qué desea hacer?');
@@ -1057,6 +1011,9 @@ export class Gestor {
     });
   }
 
+  /**
+   * Método que despliega un menú que permite modificar la información de un grupo
+   */
   private modificarGrupo(): void {
     console.clear();
     // Obtener el listado de grupos
