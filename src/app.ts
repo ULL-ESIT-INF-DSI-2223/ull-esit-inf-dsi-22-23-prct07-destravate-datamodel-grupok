@@ -87,9 +87,6 @@ export class Gestor {
     });
   }
 
-  ////////////////////////////////////////////////////////////////////////////// Poner eliminar, listar y blabla con funciones genéricas
-
-
   ////////////////////////////////////
   ////////// Menú Principal //////////
   ////////////////////////////////////
@@ -556,7 +553,7 @@ export class Gestor {
         break;
         case 'Grupos':
           console.clear();
-          // this.gestionGrupos(usuarioActual);
+          this.gestionGruposUsuario(id);
         break;
         case 'Estadísticas':
           console.clear();
@@ -693,6 +690,63 @@ export class Gestor {
     });
   }
   
+  /** 
+   * Permite listar, crear, borrar y unirse a grupos
+   */
+  private gestionGruposUsuario(id: number) {
+    console.log('Gestionando grupos...');
+    inquirer.prompt({
+      type: 'list',
+      name: 'menu',
+      message: 'Elige una opción: ',
+      choices: ['Listar grupos', 'Borrar', 'Unirse', 'Volver'],
+    }).then((respuesta) => {
+      switch (respuesta.menu) {
+        case 'Listar grupos':
+          console.clear();
+          console.log('Listando grupos...');
+          this.listarGruposUsuario();
+          this.gestionGruposUsuario(id);
+        break;
+        case 'Borrar':
+          console.clear();
+          console.log('Borrando grupo...');
+          // Hacemos que el usuario elija el grupo que quiere borrar de los cuales es administrador
+          inquirer.prompt({
+            type: 'list',
+            name: 'nombre',
+            // Ponemos como choices solo aquellos grupos de los cuales el usuario con id es administrador
+            choices: Array.from(this.coleccionGrupos.getGrupos().values()).filter((grupo) => grupo.getCreador() === id).map((grupo) => grupo.getNombre()).concat('Cancelar'),
+          }).then((respuesta2) => {
+            // Obtenemos el nombre del grupo que queremos borrar 
+            const grupoBorrar = Array.from(this.coleccionGrupos.getGrupos().values()).find((grupo) => grupo.getNombre() === respuesta2.nombre);
+            
+            // Comprobamos que el grupo exista
+            if ( grupoBorrar == undefined ) {
+              throw new Error (`No se ha encontrado ningún grupo con el nombre ${respuesta2.nombre}.`);
+            }
+            // Borramos el grupo de la lista de grupos del usuario actual
+            this.coleccionGrupos.eliminar(grupoBorrar);
+            // Lo escribimos en el fichero
+            this.jsonColeccionGrupo.eliminarGrupo(grupoBorrar);
+            return (this.volver(() => this.gestionGruposUsuario(id)));
+          });
+        break;
+        case 'Unirse':
+          console.clear();
+          console.log('Uniendo grupo...');
+          // this.unirseGrupos();
+          this.gestionGruposUsuario(id);
+        break;
+        case 'Volver':
+          console.clear();
+          this.menuUsuario(id);
+        break;
+        default:
+        break;
+      }
+    });
+  }
 
   /**
    * Método que permite crear usuarios y añadirlos a la colección de usuarios,
@@ -1153,9 +1207,18 @@ export class Gestor {
     console.clear();
     console.log('Listando grupos...');
     for (const grupos of this.coleccionGrupos) {
-      console.log(grupos);
+      console.log(grupos.getNombre());
     }
     this.volver(() => this.gestionInfo());
+  }
+
+  private listarGruposUsuario() {
+    console.clear();
+    console.log('Listando grupos...');
+    for (const grupos of this.coleccionGrupos) {
+      // console.log(grupos.getNombre());
+      console.log(grupos);
+    }
   }
 
   /**
