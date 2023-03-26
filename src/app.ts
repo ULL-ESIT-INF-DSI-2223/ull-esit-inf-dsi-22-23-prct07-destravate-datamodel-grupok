@@ -735,8 +735,27 @@ export class Gestor {
         case 'Unirse':
           console.clear();
           console.log('Uniendo grupo...');
-          // this.unirseGrupos();
-          this.gestionGruposUsuario(id);
+          // Hacemos que el usuario seleccione uno de los grupos disponibles de los cuales no es participante
+          inquirer.prompt({
+            type: 'list',
+            name: 'nombre',
+            // Ponemos como choices solo aquellos grupos de los cuales el usuario con id no es participante
+            message: 'Elige un grupo: ',
+            choices: Array.from(this.coleccionGrupos.getGrupos().values()).filter((grupo) => !new Set(grupo.getParticipantes()).has(id)).map((grupo) => grupo.getNombre()).concat('Cancelar'),
+          }).then((respuesta2) => {
+            // Obtenemos el nombre del grupo que queremos borrar 
+            const grupoUnirse = Array.from(this.coleccionGrupos.getGrupos().values()).find((grupo) => grupo.getNombre() === respuesta2.nombre);
+            
+            // Comprobamos que el grupo exista
+            if ( grupoUnirse == undefined ) {
+              throw new Error (`No se ha encontrado ningún grupo con el nombre ${respuesta2.nombre}.`);
+            }
+            // Añadimos el usuario al grupo
+            grupoUnirse.addParticipante(id);
+            // Lo escribimos en el fichero
+            this.jsonColeccionGrupo.addParticipante(grupoUnirse, id);
+            return (this.volver(() => this.gestionGruposUsuario(id)));
+          });
         break;
         case 'Volver':
           console.clear();
