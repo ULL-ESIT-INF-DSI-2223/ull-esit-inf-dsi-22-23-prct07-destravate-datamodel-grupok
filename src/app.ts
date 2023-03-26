@@ -923,11 +923,42 @@ export class Gestor {
   private listarUsuarios(): void {
     console.clear();
     console.log('Listando usuarios...');
-    for (const usuario of this.coleccionUsuarios) {
-      // console.log(usuario.getNombre());
-      console.log(usuario);
-    }
-    this.volver(() => this.gestionInfo());
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'sentido',
+        choices: [
+          'Ascendente',
+          'Descendente',
+        ],
+      },
+      {
+        type: 'list',
+        name: 'ordenacion',
+        choices: [
+          'Alfabéticamente',
+          'Cantidad de km (semanal)',
+          'Cantidad de km (mensual)',
+          'Cantidad de km (anual)',
+        ],
+      }
+    ]).then((respuesta) => {
+      let array
+      switch (respuesta.ordenacion) {
+        case 'Alfabéticamente':
+          array = [...this.coleccionUsuarios.getUsuarios().values()].map((a) => a.getNombre()).sort()
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          this.volver(() => this.gestionInfo());
+          break;
+      }
+    });
+    
+    
   }
 
   /**
