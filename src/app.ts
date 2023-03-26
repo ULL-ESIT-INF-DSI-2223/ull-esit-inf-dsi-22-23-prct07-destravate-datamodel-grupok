@@ -747,8 +747,8 @@ export class Gestor {
         case 'Modificar rutas':
           this.modificarRuta();
           break;
-        case 'Eliminar rutas':
-          // this.eliminarRuta();
+        case 'Eliminar ruta':
+          this.eliminarRuta();
           break;
         case 'Volver al menú anterior':
           this.gestionInfo()
@@ -987,19 +987,91 @@ export class Gestor {
                 });
                 break;
               case 'Modificar desnivel':
-                // this.modificarDesnivelRuta(rutaAModificar);
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'desnivel',
+                  message: 'Introduce el desnivel de la ruta: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarDesnivelRuta(rutaAModificar, respuesta2.desnivel)
+                    this.coleccionRutas.modificarDesnivelRuta(rutaAModificar, respuesta2.desnivel)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce un desnivel de ruta nuevo');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menu',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
+                });
                 break;
               case 'Modificar tipo de actividad':
-                // this.modificarTipoActividadRuta(rutaAModificar);
+                console.clear();
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'tipoActividad',
+                  choices: [ 'Ciclismo', 'Running' ],
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarTipoActividadRuta(rutaAModificar, respuesta2.tipoActividad)
+                    this.coleccionRutas.modificarTipoActividadRuta(rutaAModificar, respuesta2.tipoActividad)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce un tipo de actividad de ruta nuevo');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menu',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
+                });
                 break;
               case 'Modificar dificultad':
-                // this.modificarDificultadRuta(rutaAModificar);
-                break;
-              case 'Modificar calificación':
-                // this.modificarCalificacionRuta(rutaAModificar);
+                console.clear();
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'dificultad',
+                  choices: [ 'Fácil', 'Media', 'Difícil' ]
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarDificultadRuta(rutaAModificar, respuesta2.dificultad)
+                    this.coleccionRutas.modificarDificultadRuta(rutaAModificar, respuesta2.dificultad)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce una dificultad de ruta nueva');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menu',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
+                });
                 break;
               case 'Salir':
-                this.gestionRutas();
+                this.gestionInfo();
                 break;
               default:
                 break;
@@ -1011,6 +1083,40 @@ export class Gestor {
         }
       }
     });
+  }
+
+  private eliminarRuta(): void {
+    console.clear();
+    console.log('Eliminando ruta...');
+
+    // Obtener el listado de rutas
+    const rutas = this.coleccionRutas.getRutas();
+      
+    // Pedir al usuario que seleccione la ruta a eliminar
+    inquirer.prompt({
+      type: 'list',
+      name: 'ruta',
+      message: 'Selecciona la ruta que deseas eliminar:',
+      choices: Array.from(rutas.values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.ruta === 'Cancelar') {
+        this.consola();
+      } else {
+        // Buscar la ruta a eliminar por su nombre y eliminarla
+        const rutaAEliminar = Array.from(rutas.values()).find((ruta) => ruta.getNombre() === respuesta.ruta);
+        if (rutaAEliminar) {
+          // Eliminamos la ruta del JSON
+          this.jsonColeccionRuta.eliminarRuta(rutaAEliminar);
+          // Eliminamos la ruta del Map de rutas
+          rutas.delete(rutaAEliminar.getID());
+          console.log(`ruta ${rutaAEliminar.getNombre()} eliminada con éxito`);
+        } else {
+          console.log(`No se encontró la ruta ${respuesta.ruta}`);
+        }
+        this.volver(() => this.consola());
+      }
+    });
+
   }
 
   /////////////////////////////////////
