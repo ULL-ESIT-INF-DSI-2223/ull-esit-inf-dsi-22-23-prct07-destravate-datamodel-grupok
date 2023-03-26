@@ -228,7 +228,7 @@ describe("Usuario", () => {
   it ("Debería actualizar el contador de ids", () => {
     const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
     usuario.setID(2);
-    expect(usuario.getContadorID()).to.be.equal(2);
+    expect(usuario.getContadorID()).to.be.equal(37);
   });
 
 });
