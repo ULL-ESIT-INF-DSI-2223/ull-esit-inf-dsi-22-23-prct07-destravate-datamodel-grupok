@@ -919,20 +919,42 @@ export class Gestor {
                 });
               case 'Modificar coordenadas de inicio y fin':
                 console.clear();
-                inquirer.prompt(
+                inquirer.prompt([
                   {
                     type: 'input',
-                    name: 'coordenadasInicio',
-                    message: 'Introduce las coordenadas de inicio: ',
+                     name: 'coordenadasInicio',
+                    message: 'Coordenadas de inicio: ',
                   },
                   {
                     type: 'input',
                     name: 'coordenadasFin',
-                    message: 'Introduce las coordenadas de fin: ',
+                    message: 'Coordenadas de fin: ',
                   }
-                ).then((respuesta2) => {
-                  // this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
-                  // this.jsonColeccionRuta.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
+                ]).then((respuesta: any) => {
+                  try { 
+                    checkCoordenadas(respuesta.coordenadasInicio);
+                    checkCoordenadas(respuesta.coordenadasFin);
+            
+                    const coordenadasInicio = stringToCoordenadas(respuesta.coordenadasInicio);
+                    const coordenadasFin = stringToCoordenadas(respuesta.coordenadasFin);
+                    
+                    this.jsonColeccionRuta.modificarCoordenadasRuta(rutaAModificar, coordenadasInicio, coordenadasFin);
+                    this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, coordenadasInicio, coordenadasFin);
+                    this.gestionInfo();
+                  } catch (error: any) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar la ruta: ', error.message);
+                    }
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menú',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
                   this.gestionInfo();
                 });
               break;
