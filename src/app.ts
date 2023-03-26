@@ -469,8 +469,8 @@ export class Gestor {
         case 'Listar grupos':
           console.clear();
           console.log('Listando grupos...');
-          this.listarGrupos(() => this.gestionGruposUsuario(id));
-          this.gestionGruposUsuario(id);
+          this.listarGrupos();
+          this.volver(() => this.gestionGruposUsuario(id));
         break;
         case 'Borrar':
           console.clear();
@@ -1040,7 +1040,8 @@ export class Gestor {
           this.registrarGrupo();
           break;
         case 'Listar grupos':
-          this.listarGrupos(() => this.gestionGrupos());
+          this.listarGrupos();
+          this.volver(() => this.gestionGrupos());
           break;
         case 'Modificar grupos':
           this.modificarGrupo();
@@ -1338,13 +1339,13 @@ export class Gestor {
     });
   }  
 
-  private listarGrupos(funcionVolver: () => void): void {
+  private listarGrupos(/*funcionVolver: () => void*/): void {
     console.clear();
     console.log('Listando grupos...');
     for (const grupos of this.coleccionGrupos) {
       console.log(grupos.getNombre());
     }
-    this.volver(funcionVolver);
+    // this.volver(funcionVolver);
   }
 
   /**

@@ -23,28 +23,7 @@
       },
       "rutasFavoritas": [],
       "retosActivos": [],
-      "historicoRutas": [
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 10:43:34 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 10:59:07 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:11:12 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:13:47 AM"
-        },
-        {
-          "ruta": 4,
-          "fecha": "3/26/2023 11:21:23 AM"
-        }
-      ]
+      "historicoRutas": []
     },
     {
       "id": 2,
@@ -73,28 +52,7 @@
         4
       ],
       "retosActivos": [],
-      "historicoRutas": [
-        {
-          "ruta": 2,
-          "fecha": "3/26/2023 3:00:46 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 10:43:34 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 10:59:07 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:11:12 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:13:47 AM"
-        }
-      ]
+      "historicoRutas": []
     }
   ]
 }
