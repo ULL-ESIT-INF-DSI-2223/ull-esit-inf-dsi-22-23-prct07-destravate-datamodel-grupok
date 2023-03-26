@@ -1691,7 +1691,7 @@ export class Gestor {
   }
 
   /////////////////////////////////////
-  ////////// Gestión de Reto //////////
+  ////////// Gestión de Retos //////////
   /////////////////////////////////////
 
   public gestionRetos(): void {
@@ -1711,16 +1711,16 @@ export class Gestor {
     }).then((respuesta) => {
       switch (respuesta.opcion) {
         case 'Registrar Reto':
-          this.registrarUsuario();
+          this.registrarReto();
           break;
         case 'Listar Retos':
-          // //this.listarRetos();
+          this.listarRetos();
           break;
         case 'Modificar Retos':
           this.modificarReto();
           break;
         case 'Eliminar Retos':
-          // //this.eliminarReto(); 
+          this.eliminarReto(); 
           break;
         case 'Volver al menú anterior':
           this.gestionInfo();
@@ -1729,6 +1729,51 @@ export class Gestor {
           break;
       }
     });
+  }
+
+  private registrarReto(): void {
+    console.clear();
+    console.log('Registrando reto...');
+    inquirer.prompt([{
+      type: 'input',
+      name: 'nombre',
+      message: 'Introduce el nombre del reto: ',
+    }, {
+      type: 'list',
+      name: 'tipo',
+      message: 'Seleccione el tipo de actividad del reto: ',
+      choices: [ 'Individual', 'Grupal' ]
+    }
+    ]).then((respuesta) => {
+      try {
+        const reto = new Reto(respuesta.nombre, respuesta.tipo);
+        this.coleccionRetos.insertar(reto);
+        this.jsonColeccionReto.registrarReto(reto);
+        console.log(`Reto ${reto.getNombre()} registrado con éxito`);
+        this.volver(() => this.gestionRetos());
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.log('\x1b[31m%s\x1b[0m', 'Error al registrar el reto: ', error.message);
+        }
+        console.log('Introduce un nombre de reto válido');
+        // pulsar enter para volver a introducir un nombre de reto
+        inquirer.prompt({
+          type: 'input',
+          name: 'volver',
+          message: 'Pulsa enter para volver al menu',
+        }).then(() => {
+          this.gestionRetos();
+        });
+      }
+    });
+  }
+
+  private listarRetos(): void {
+    console.clear();
+    console.log('Listando retos...');
+    const retos = this.coleccionRetos.getRetos();
+    console.table(Array.from(retos.values()).map((reto) => reto.getNombre()));
+    this.volver(() => this.gestionRetos());
   }
 
   private modificarReto(): void {
@@ -1787,6 +1832,36 @@ export class Gestor {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
           this.volver(() => this.gestionUsuarios());
         }
+      }
+    });
+  }
+
+  private eliminarReto(): void {
+    console.clear();
+    // Obtener el listado de retos
+    const retos = this.coleccionRetos.getRetos();
+    // Pedir al usuario que seleccione el reto a eliminar
+    inquirer.prompt({
+      type: 'list',
+      name: 'reto',
+      message: 'Selecciona el reto que deseas eliminar:',
+      choices: Array.from(retos.values()).map((reto) => reto.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.reto === 'Cancelar') {
+        this.gestionRetos();
+      } else {
+        // Buscar el reto a eliminar por su nombre y eliminarlo
+        const retoAEliminar = Array.from(retos.values()).find((reto) => reto.getNombre() === respuesta.reto);
+        if (retoAEliminar) {
+          // Eliminamos el reto del JSON
+          this.jsonColeccionReto.eliminarReto(retoAEliminar);
+          // Eliminamos el reto del Map de usuarios
+          retos.delete(retoAEliminar.getID());
+          console.log(`Reto ${retoAEliminar.getNombre()} eliminado con éxito`);
+        } else {
+          console.log(`No se encontró el reto ${respuesta.reto}`);
+        }
+        this.volver(() => this.gestionRetos());
       }
     });
   }

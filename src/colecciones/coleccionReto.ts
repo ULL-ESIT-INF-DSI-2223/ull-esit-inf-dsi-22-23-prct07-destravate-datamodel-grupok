@@ -1,3 +1,4 @@
+import { Actividad } from "../enums/actividadEnum";
 import { Coleccion } from "../interfaces/coleccion";
 import { Reto } from "../modelos/reto";
 
@@ -96,7 +97,107 @@ export class ColeccionReto implements Coleccion<Reto> {
     }
   }
 
-  
+  /**
+   * Método que permite modificar el nombre de un reto
+   * @param reto Reto a modificar
+   * @param nombre Nombre nuevo del reto
+   * @returns void
+  */
+  public modificarNombre(reto: Reto, nombre: string): void {
+    if (this.retos.has(reto.getID())) {
+      // comprobar si el nombre nuevo ya existe
+      const nuevoNombre = reto.getNombre();
+      for (const u of this.retos.values()) {
+        if (u.getNombre() === nuevoNombre) {
+          throw new Error('El reto con nombre ' + nuevoNombre + ' ya existe');
+        }
+      }
+      reto.setNombre(nombre);
+    }
+    else {
+      console.log("El reto que deseas modificar no existe.");
+    }
+  }
+
+  /**
+   * Método que permite añadir una ruta a un reto
+   * @param reto Reto al que añadir la ruta
+   * @param ruta Ruta a añadir
+   */
+  public addRuta(reto: Reto, ruta: number): void {
+    if (this.retos.has(reto.getID())) {
+      reto.addRuta(ruta);
+    }
+    else {
+      console.log("El reto al que deseas añadir la ruta no existe.");
+    }
+  }
+
+  /**
+   * Método que permite eliminar una ruta de un reto
+   * @param reto Reto del que eliminar la ruta
+   * @param ruta Ruta a eliminar
+   */
+  public eraseRuta(reto: Reto, ruta: number): void {
+    if (this.retos.has(reto.getID())) {
+      reto.removeRuta(ruta);
+    }
+    else {
+      console.log("El reto del que deseas eliminar la ruta no existe.");
+    }
+  }
+
+  /**
+   * Método que permite modificar el tipo de actividad de un reto
+   * @param reto Reto a modificar
+   * @param tipo Tipo de actividad nuevo del reto
+   */
+  public modificarActividad(reto: Reto, tipo: Actividad): void {
+    if (this.retos.has(reto.getID())) {
+      reto.setTipoActividad(tipo);
+    }
+    else {
+      console.log("El reto que deseas modificar no existe.");
+    }
+  }
+
+  public addUsuario(reto: Reto, usuario: number): void {
+    if (this.retos.has(reto.getID())) {
+      // comprobar que el usuario no está ya en el reto
+      const usuarios = reto.getUsuarios();
+      for (const u of usuarios) {
+        if (u === usuario) {
+          throw new Error('El usuario ya está en el reto');
+        }
+      }
+      reto.addUsuario(usuario);
+    }
+    else {
+      console.log("El reto al que deseas añadir el usuario no existe.");
+    }
+  }
+
+  public eraseUsuario(reto: Reto, usuario: number): void {
+    if (this.retos.has(reto.getID())) {
+      // comprobar que el usuario está en el reto
+      const usuarios = reto.getUsuarios();
+      let encontrado = false;
+      for (const u of usuarios) {
+        if (u === usuario) {
+          encontrado = true;
+        }
+      }
+      if (!encontrado) {
+        throw new Error('El usuario no está en el reto');
+      }
+      else {
+        reto.removeUsuario(usuario);
+      }
+    }
+    else {
+      console.log("El reto del que deseas eliminar el usuario no existe.");
+    }
+  }
 }
 
 

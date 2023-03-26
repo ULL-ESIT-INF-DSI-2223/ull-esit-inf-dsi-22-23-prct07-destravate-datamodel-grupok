@@ -6,17 +6,15 @@ let contador_id = 0;
 export class Reto implements EntidadInterface {
     id: number;
     nombre: string;
-    rutas: number[];
+    rutas: number[] = [];
     tipoActividad: Actividad;
-    kmTotales: number;
+    kmTotales: number = 0;
     usuarios: number[] = [];
   
-    constructor(nombre: string, rutas: number[], tipoActividad: Actividad, kmTotales: number) {
+    constructor(nombre: string, tipoActividad: Actividad) {
       this.id = contador_id++;
       this.nombre = nombre;
-      this.rutas = rutas;
       this.tipoActividad = tipoActividad;
-      this.kmTotales = kmTotales;
     }
   
     // Métodos para acceder a los atributos de la clase
