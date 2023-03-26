@@ -180,4 +180,17 @@ describe('ColeccionRuta', () => {
     expect(() => coleccionRuta.insertar(ruta1)).to.throw('La ruta que deseas insertar ya existe.');
   })
 
+  it ('should throw an error if the route does not exist', () => {
+    expect(() => coleccionRuta.getRuta(4)).to.throw('La ruta que deseas obtener no existe.');
+  });
+
+  it ('should throw an error if the route does exist', () => {
+    expect(() => coleccionRuta.addRuta(ruta1)).to.throw('La ruta que deseas insertar ya existe.');
+  });
+  
+  it ('should insert a route', () => {
+    const ruta4 = new Ruta('Ruta 4', coordenadas, coordenadas, 13, 321, Actividad.ciclismo, Dificultad.dificil);
+    coleccionRuta.addRuta(ruta4);
+    expect(coleccionRuta.getRuta(ruta4.getID())).to.be.eql(ruta4);
+  });
 });
