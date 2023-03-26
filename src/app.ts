@@ -160,7 +160,7 @@ export class Gestor {
           this.gestionGrupos();
           break;
         case 'Retos':
-          this.gestionGrupos();
+          this.gestionRetos();
           break;
         case 'Volver al menú anterior':
           this.consola()
