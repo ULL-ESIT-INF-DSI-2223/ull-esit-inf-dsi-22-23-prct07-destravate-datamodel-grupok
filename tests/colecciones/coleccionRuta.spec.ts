@@ -43,8 +43,18 @@ describe('ColeccionRuta', () => {
     rutasArray.push(ruta2);
     rutasArray.push(ruta3);
 
-    coleccionRuta.setRutasFromArray(rutasArray);
-    expect(coleccionRuta.getRutas()).to.be.instanceOf(Map);
+    let coleccionRuta2: ColeccionRuta;
+    // creamos un nuevo map
+    const rutasMap: Map<number, Ruta> = new Map();
+    rutasMap.set(ruta1.getID(), ruta1);
+    rutasMap.set(ruta2.getID(), ruta2);
+    rutasMap.set(ruta3.getID(), ruta3);
+    // Creamos una nueva colección
+    coleccionRuta2 = new ColeccionRuta();
+    // Asignamos el map
+    coleccionRuta2.setRutas(rutasMap);
+    coleccionRuta2.setRutasFromArray(rutasArray);
+    expect(coleccionRuta.getRutas()).to.be.eql(coleccionRuta2.getRutas());
   });
 
   it('should list the routes', () => {
@@ -56,13 +66,6 @@ describe('ColeccionRuta', () => {
   //   expect(coleccionRuta.getIterator()).to.be.instanceOf(Map);
   // });
 
-//   /**
-//    * Setter de las rutas (entrada en formato map)
-//    * @param rutas Rutas en formato map
-//    */
-//   public setRutas( rutas : Map<number, Ruta>): void {
-//     this.rutas = rutas;
-//   }
   it ('should return a route from its id', () => {
     expect(coleccionRuta.getRuta(ruta1.getID())).to.be.eql(ruta1);
   });
