@@ -75,8 +75,24 @@ describe('ColeccionGrupo', () => {
   });
 
   it ('should set the groups from an array', () => {
-    coleccionGrupo.setGruposFromArray([]);
-    expect(coleccionGrupo.getGrupos()).to.be.instanceOf(Map);
+    const gruposArray: Grupo[] = [];
+    gruposArray.push(grupo1);
+    gruposArray.push(grupo2);
+    gruposArray.push(grupo3);
+    
+    let coleccionGrupo2: ColeccionGrupo;
+    // creamos un nuevo map
+    const gruposMap: Map<number, Grupo> = new Map();
+    gruposMap.set(grupo1.getID(), grupo1);
+    gruposMap.set(grupo2.getID(), grupo2);
+    gruposMap.set(grupo3.getID(), grupo3);
+    // Creamos una nueva colección
+    coleccionGrupo2 = new ColeccionGrupo();
+    // Asignamos el map
+    coleccionGrupo2.setGrupos(gruposMap);
+    coleccionGrupo2.setGruposFromArray(gruposArray);
+
+    expect(coleccionGrupo.getGrupos()).to.be.eql(coleccionGrupo2.getGrupos());
   });
 
   it ('should get the groups', () => {

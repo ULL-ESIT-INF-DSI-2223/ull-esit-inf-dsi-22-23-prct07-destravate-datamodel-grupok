@@ -62,16 +62,6 @@ describe('ColeccionReto', () => {
     expect(coleccionReto.getReto(reto1.getID())).to.be.eql(reto1);
   });
 
-  // /**
-  //  * Método que permite lista los retos
-  //  */
-  // public listar(): void {
-  //   console.clear();
-  //   console.log('Listando retos...');
-  //   for (const reto of this.retos.values()) {
-  //     console.log(reto);
-  //   }
-  // }
   it ('should list the challenges', () => {
     expect(coleccionReto.listar()).to.be.undefined;
   });
@@ -89,13 +79,7 @@ describe('ColeccionReto', () => {
   });
 
   it ('should modify the name of a challenge', () => {
-    const nuevoNombre = 'patata';
-    console.log ('---------------------------------------------');
-    console.log ('---------------------------------------------');
-    console.log ('---------------------------------------------');
-    console.log ('---------------------------------------------');
-    console.log(coleccionReto);
-    
+    const nuevoNombre = 'patata'; 
     coleccionReto.modificarNombre(reto1, nuevoNombre);
     expect(coleccionReto.getReto(reto1.getID()).getNombre()).to.be.eql(nuevoNombre);
   });

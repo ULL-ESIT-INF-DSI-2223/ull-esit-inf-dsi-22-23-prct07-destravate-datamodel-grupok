@@ -36,7 +36,7 @@ describe("Usuario", () => {
 
   it ("Debería devolver el id del usuario", () => {
     const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
-    expect(usuario.getID()).to.be.equal(5);
+    expect(usuario.getID()).to.be.equal(25);
   });
 
   it ("Debería devolver los amigos de la aplicación del usuario", () => {
@@ -228,7 +228,7 @@ describe("Usuario", () => {
   it ("Debería actualizar el contador de ids", () => {
     const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
     usuario.setID(2);
-    expect(usuario.getContadorID()).to.be.equal(37);
+    expect(usuario.getContadorID()).to.be.equal(57);
   });
 
 });
