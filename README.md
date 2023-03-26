@@ -487,6 +487,40 @@ Con sus métodos
 * ``` public addUsuario(reto: Reto, id: number): void ``` Esta se encarga de añadir un usuario a un reto de la base de datos.
 * ``` public eraseUsuario(reto: Reto, usuario: number): void  ``` Esta se encarga de eliminar un usuario a un reto de la base de datos.
 
+### App 
+Esta es la clase con la que se maneja todo el sistema de menús, así como la gestión de los datos. Esta clase hereda de la clase maneja las distintas ``` colecciones ```, así como los distintos ``` modificadores ```. Se ha definido de la siguiente forma:
+
+```typescript
+export class Gestor {
+  private coleccionUsuarios: ColeccionUsuario;
+  private coleccionRutas: ColeccionRuta;
+  private coleccionGrupos: ColeccionGrupo;
+  private coleccionRetos: ColeccionReto;
+  private jsonColeccionUsuario = new JsonColeccionUsuario();
+  private jsonColeccionRuta = new JsonColeccionRuta();
+  private jsonColeccionReto = new JsonColeccionReto();
+  private jsonColeccionGrupo = new JsonColeccionGrupo();
+
+  /**
+   * Constructor de la clase gestor
+   */
+  constructor() {
+    this.coleccionUsuarios = new ColeccionUsuario();
+    this.coleccionRutas = new ColeccionRuta();
+    this.coleccionGrupos = new ColeccionGrupo();
+    this.coleccionRetos = new ColeccionReto();
+    this.coleccionUsuarios.setUsuariosFromArray(
+      this.jsonColeccionUsuario.cargarUsuarios()
+    );
+    this.coleccionRetos.setRetosFromArray(this.jsonColeccionReto.cargarRetos());
+    this.coleccionRutas.setRutasFromArray(this.jsonColeccionRuta.cargarRutas());
+    this.coleccionGrupos.setGruposFromArray(
+      this.jsonColeccionGrupo.cargarGrupos()
+    );
+  }
+```
+
+Como podemos observar, dentro del constructor 
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
