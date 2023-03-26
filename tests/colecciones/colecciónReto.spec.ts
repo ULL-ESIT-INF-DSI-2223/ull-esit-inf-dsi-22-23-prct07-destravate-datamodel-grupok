@@ -147,4 +147,36 @@ describe('ColeccionReto', () => {
     const ruta = 1;
     expect(() => coleccionReto.addRuta(reto, ruta)).to.throw(Error);
   });
+
+  it ('should throw an error if the challenge does not exist', () => {
+    const reto = new Reto('Reto 4', Actividad.ciclismo);
+    const usuario = 1;
+    expect(() => coleccionReto.addUsuario(reto, usuario)).to.throw(Error);
+  });
+
+  it ('should throw an error', () => {
+    const reto = new Reto('Reto 4', Actividad.ciclismo);
+    const ruta = 1;
+    expect(() => coleccionReto.eraseRuta(reto, ruta)).to.throw(Error);
+  });
+
+  it ('should throw an error', () => {
+    const reto = new Reto('Reto 4', Actividad.ciclismo);
+    const usuario = 1;
+    expect(() => coleccionReto.eraseUsuario(reto, usuario)).to.throw(Error);
+  });
+
+  it ('should throw an error due to missing user', () => {
+    const usuario = 1;
+    expect(() => coleccionReto.eraseUsuario(reto1, usuario)).to.throw(Error);
+  });
+
+  it ('should throw an error due to missing challenge', () => {
+    const id = 99;
+    expect(() => coleccionReto.getReto(id)).to.throw(Error);
+  });
+
+  it ('should throw an error if the challenge already exists', () => {
+    expect(() => coleccionReto.insertar(reto1)).to.throw(Error);
+  });
 });

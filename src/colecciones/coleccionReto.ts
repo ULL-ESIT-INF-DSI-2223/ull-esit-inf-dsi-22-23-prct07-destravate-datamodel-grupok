@@ -78,8 +78,9 @@ export class ColeccionReto implements Coleccion<Reto> {
    */
   public insertar(reto: Reto): void {
     if (this.retos.has(reto.getID())) {
-      console.log('El reto ya existe');
-      return;
+      throw new Error("El reto ya existe");
+      // console.log('El reto ya existe');
+      // return;
     }
     this.retos.set(reto.getID(), reto);
   }
@@ -146,7 +147,8 @@ export class ColeccionReto implements Coleccion<Reto> {
       reto.removeRuta(ruta);
     }
     else {
-      console.log("El reto del que deseas eliminar la ruta no existe.");
+      throw new Error('El reto del que deseas eliminar la ruta no existe');
+      // console.log("El reto del que deseas eliminar la ruta no existe.");
     }
   }
 
@@ -160,7 +162,8 @@ export class ColeccionReto implements Coleccion<Reto> {
       reto.setTipoActividad(tipo);
     }
     else {
-      console.log("El reto que deseas modificar no existe.");
+      throw new Error('El reto que deseas modificar no existe');
+      // console.log("El reto que deseas modificar no existe.");
     }
   }
 
@@ -176,7 +179,8 @@ export class ColeccionReto implements Coleccion<Reto> {
       reto.addUsuario(usuario);
     }
     else {
-      console.log("El reto al que deseas añadir el usuario no existe.");
+      throw new Error('El reto al que deseas añadir el usuario no existe');
+      // console.log("El reto al que deseas añadir el usuario no existe.");
     }
   }
 
@@ -198,7 +202,8 @@ export class ColeccionReto implements Coleccion<Reto> {
       }
     }
     else {
-      console.log("El reto del que deseas eliminar el usuario no existe.");
+      throw new Error('El reto del que deseas eliminar el usuario no existe');
+      // console.log("El reto del que deseas eliminar el usuario no existe.");
     }
   }
 }
