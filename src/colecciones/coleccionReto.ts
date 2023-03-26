@@ -106,7 +106,8 @@ export class ColeccionReto implements Coleccion<Reto> {
   public modificarNombre(reto: Reto, nombre: string): void {
     if (this.retos.has(reto.getID())) {
       // comprobar si el nombre nuevo ya existe
-      const nuevoNombre = reto.getNombre();
+      // const nuevoNombre = reto.getNombre();
+      const nuevoNombre = nombre;
       for (const u of this.retos.values()) {
         if (u.getNombre() === nuevoNombre) {
           throw new Error('El reto con nombre ' + nuevoNombre + ' ya existe');
