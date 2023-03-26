@@ -2065,7 +2065,7 @@ export class Gestor {
         case 'Modificar Retos':
           this.modificarReto();
           break;
-        case 'Eliminar Retos':
+        case 'Eliminar Reto':
           this.eliminarReto(); 
           break;
         case 'Volver al menú anterior':
