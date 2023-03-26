@@ -3,7 +3,7 @@ import { ColeccionReto } from '../colecciones/coleccionReto';
 import lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 
-interface DatabaseSchema {
+export interface DatabaseSchema {
   retos: Reto[];
 }
 

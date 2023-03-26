@@ -3,7 +3,7 @@ import { ColeccionGrupo } from "../colecciones/coleccionGrupo";
 import lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 
-interface DatabaseSchema{
+export interface DatabaseSchema{
   grupos: Grupo[];
 }
 

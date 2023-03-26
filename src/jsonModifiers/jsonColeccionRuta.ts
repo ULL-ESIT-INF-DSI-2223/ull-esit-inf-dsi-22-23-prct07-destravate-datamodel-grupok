@@ -6,7 +6,7 @@ import { Dificultad } from '../enums/dificultadEnum';
 import { Actividad } from '../enums/actividadEnum';
 import { Coordenadas } from '../interfaces/coordenadasInterface';
 
-interface DatabaseSchema {
+export interface DatabaseSchema {
   rutas: Ruta[];
 }
 
