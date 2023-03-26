@@ -360,7 +360,24 @@ export class ColeccionUsuario implements Coleccion<Usuario> {
 
 Como se puede apreciar el atributo de la clase es un `Map` que contiene los usuarios del sistema, el identificador de cada usuario es la clave del `Map` y el usuario en si es el valor del `Map`. En el constructor se inicializa el `Map` vacío. Además la clase implementa la interfaz `Coleccion` que se ha definido en el fichero `colecciones.ts` y que contiene los métodos que se deben implementar en las colecciones.
 
+La clase es iterable pues se ha implementado el método `Symbol.iterator` de la siguiente forma:
 
+```typescript
+  [Symbol.iterator]() {
+    return this.usuarios.values();
+  }
+```
+
+Además se han implementados los setters y getters para el atributo `usuarios` de la clase, en este caso hay un setter cuyo parametro es un `Map` y otro setter cuyo `setUsuariosFromArray` que recibe un array de usuarios y lo convierte en un `Map` para asignarlo al atributo `usuarios`.
+
+La clase contiene tambien los siguientes métodos para gestionar y modificar los usuarios:
+
+* `listar`: Este método imprime por pantalla la lista de usuarios del sistema.
+* `insertar: Este método inserta un usuario en el sistema. Se comprueba que el usuario no exista previamente en el sistema y si no existe se inserta en el sistema.
+* `eliminar`: Este método elimina un usuario del sistema. Se comprueba que el usuario exista previamente en el sistema y si existe se elimina del sistema.
+* `modificarNombre`: Este método modifica el nombre de un usuario del sistema. Se comprueba que no haya un usuario con el mismo nombre en el sistema y si no hay un usuario con el mismo nombre se modifica el nombre del usuario.
+* `modificarContraseña`: Este método modifica la contraseña de un usuario del sistema. Se comprueba que la contraseña actual del usuario sea correcta y si es correcta se modifica la contraseña del usuario.
+* `
 
 ## Conclusiones
 
