@@ -422,6 +422,7 @@ export class Gestor {
   }
 
   private gestionRutasUsuario(id: number) {
+    console.clear();
     console.log('Gestionando rutas...');
     inquirer.prompt({
       type: 'list',
@@ -434,13 +435,13 @@ export class Gestor {
           console.clear();
           console.log('Listando rutas...');
           this.listarRutasUsuario();
-          this.gestionRutasUsuario(id);
+          this.volver(() => this.gestionRutasUsuario(id));
         break;
         case 'Mostrar rutas':
           console.clear();
           console.log('Añadiendo ruta...');
           this.mostrarRutas();
-          this.gestionRutasUsuario(id);
+          this .volver(() => this.gestionRutasUsuario(id));
         break;
         case 'Volver':
           console.clear();
