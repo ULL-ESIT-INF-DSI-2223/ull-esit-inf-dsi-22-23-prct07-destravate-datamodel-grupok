@@ -140,8 +140,8 @@ export class Gestor {
       name: 'opcion',
       message: 'Elige una opción: ',
       choices: [
-        'Registrarse como usuario',
         'Log in',
+        'Registrarse como usuario',
         'Gestión de la información',
         'Salir',
       ],
@@ -303,7 +303,7 @@ export class Gestor {
         break;
         case 'Histórico de rutas':
           console.clear();
-          // this.gestionHistoricoRutas(usuarioActual);
+          this.listarHistoricoRutas(id);
         break;
         case 'Salir':
           console.clear();
@@ -325,7 +325,15 @@ export class Gestor {
     // Cogemos el usuario de la colección de usuarios
     const usuarioActual = this.coleccionUsuarios.getUsuario(id);
     // Listamos sus estadísticas 
-    console.log(usuarioActual.getEstadisticas())
+    console.log(usuarioActual.getEstadisticas());
+  }
+
+  private listarHistoricoRutas(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    // Listamos sus estadísticas 
+    console.log(usuarioActual.getHistoricoRutas());
   }
 
   /**
