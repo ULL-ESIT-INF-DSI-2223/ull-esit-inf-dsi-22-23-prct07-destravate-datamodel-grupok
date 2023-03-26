@@ -1503,6 +1503,8 @@ export class Gestor {
             console.log(usuario);
           }
           break;
+        default:
+          break
       }
     });
   }
