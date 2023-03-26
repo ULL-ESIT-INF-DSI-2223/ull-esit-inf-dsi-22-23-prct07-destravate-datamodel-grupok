@@ -110,18 +110,20 @@ describe('Grupo', () => {
     expect(grupo.getParticipantes()).to.be.eql([1,3]);
   });
 
-  // it ('should add a new route to the historical routes list', () => {
-  //   const fecha = new Date();
-  //   grupo.addHistoricoRuta(1, fecha);
-  //   expect(grupo.getHistoricoRutas()).to.be.eql([{ruta: 1, fecha}]);
-  // });
+  it ('Should update the group training statistics', () => {
+    grupo.setEstadisticasEntrenamiento(estadisticasEntrenamiento);
+    expect(grupo.getEstadisticasEntrenamiento()).to.be.eql(estadisticasEntrenamiento);
+  });
 
-
-  // it ('should erase a route from the historical routes list', () => {
-  //   const fecha = new Date();
-  //   grupo.setHistoricoRutas([{ruta: 1, fecha}, {ruta: 2, fecha}]);
-  //   grupo.eraseHistoricoRuta(2);
-  //   expect(grupo.getHistoricoRutas()).to.be.eql([{ruta: 1, fecha}]);
-  // });
+  it ('should update the group classification', () => {
+    grupo.setClasificacion([
+      { id: 1, km: 100, desnivel: 1000 },
+      { id: 2, km: 50, desnivel: 500 },
+    ]);
+    expect(grupo.getClasificacion()).to.be.eql([
+      { id: 1, km: 100, desnivel: 1000 },
+      { id: 2, km: 50, desnivel: 500 },
+    ]);
+  });
 
 });
