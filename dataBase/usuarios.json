@@ -2,9 +2,9 @@
   "usuarios": [
     {
       "id": 1,
-      "nombre": "yanfri2",
+      "nombre": "yanfris",
       "contraseña": "Dsi23*",
-      "actividades": "corredor",
+      "actividades": "running",
       "amigosApp": [],
       "amigosFrecuentes": [],
       "estadisticas": {
@@ -23,78 +23,7 @@
       },
       "rutasFavoritas": [],
       "retosActivos": [],
-      "historicoRutas": [
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 10:43:34 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 10:59:07 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:11:12 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:13:47 AM"
-        },
-        {
-          "ruta": 4,
-          "fecha": "3/26/2023 11:21:23 AM"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "nombre": "sergio",
-      "contraseña": "1Pr*",
-      "actividades": "bicicleta",
-      "amigosApp": [
-        1
-      ],
-      "amigosFrecuentes": [],
-      "estadisticas": {
-        "semana": {
-          "km": 0,
-          "desnivel": 0
-        },
-        "mes": {
-          "km": 0,
-          "desnivel": 0
-        },
-        "anio": {
-          "km": 0,
-          "desnivel": 0
-        }
-      },
-      "rutasFavoritas": [
-        4
-      ],
-      "retosActivos": [],
-      "historicoRutas": [
-        {
-          "ruta": 2,
-          "fecha": "3/26/2023 3:00:46 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 10:43:34 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 10:59:07 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:11:12 AM"
-        },
-        {
-          "ruta": 6,
-          "fecha": "3/26/2023 11:13:47 AM"
-        }
-      ]
+      "historicoRutas": []
     }
   ]
 }

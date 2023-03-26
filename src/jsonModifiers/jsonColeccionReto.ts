@@ -33,7 +33,7 @@ export class JsonColeccionReto extends ColeccionReto {
     const retos: Reto[] = [];
     for (const reto of retos_no_instancia) {
       let retoAux = new Reto(reto.nombre, reto.tipoActividad);
-      retoAux.setID(reto.getID());
+      retoAux.setID(reto.id);
       retoAux.setUsuarios(reto.usuarios);
       retos.push(retoAux);
     }
