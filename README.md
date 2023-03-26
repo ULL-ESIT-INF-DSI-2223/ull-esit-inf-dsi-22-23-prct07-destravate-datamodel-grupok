@@ -570,7 +570,117 @@ Estos son los método más triviales:
 Esta es la función encargada de mostrar el menú principal del programa. Se ha definido de la siguiente forma:
 
 ```typescript
+public consola(): void {
+    console.clear();
+    console.log("Bienvenido a la consola del usuario. ¿Qué desea hacer?");
+    inquirer
+      .prompt({
+        type: "list",
+        name: "opcion",
+        message: "Elige una opción: ",
+        choices: [
+          "Log in",
+          "Registrarse como usuario",
+          "Gestión de la información",
+          "Salir",
+        ],
+      })
+      .then((respuesta) => {
+        switch (respuesta.opcion) {
+          case "Registrarse como usuario":
+            this.registrarUsuario();
+            break;
+          case "Log in":
+            this.logIn();
+            break;
+          case "Gestión de la información":
+            this.gestionInfo();
+            break;
+          case "Salir":
+            console.log("Hasta pronto");
+            break;
+          default:
+            break;
+        }
+      });
+  }
 ```
+Llama a las distintas funciones para que podamos interactuar con el programa.
+
+#### Registro de usuario
+Este es el método encargado de registrar un usuario en el sistema. Se ha definido de la siguiente forma:
+
+```typescript
+private registrarUsuario(): void {
+    console.clear();
+    console.log("Registrando usuario...");
+    inquirer
+      .prompt({
+        type: "input",
+        name: "nombre",
+        message: "Introduce tu nombre de usuario: ",
+      })
+      .then((respuesta) => {
+        inquirer
+          .prompt({
+            type: "list",
+            name: "actividad",
+            message: "Elige una actividad: ",
+            choices: ["cilismo", "running"],
+          })
+          .then((respuesta2) => {
+            inquirer
+              .prompt({
+                type: "input",
+                name: "contraseña",
+                message: "Introduce tu contraseña: ",
+              })
+              .then((respuesta3) => {
+                try {
+                  let usuario = new Usuario(
+                    respuesta.nombre,
+                    respuesta3.contraseña,
+                    respuesta2.actividad
+                  );
+                  // Insertamos el usuario en la colección de usuarios
+                  this.coleccionUsuarios.insertar(usuario);
+                  // Insertamos el usuario en el json
+                  this.jsonColeccionUsuario.insertarUsuario(usuario);
+
+                  console.log("Usuario registrado con éxito:", usuario);
+                  this.volver(() => this.consola());
+                } catch (error: unknown) {
+                  if (error instanceof Error) {
+                    console.log(
+                      "\x1b[31m%s\x1b[0m",
+                      "Error al crear el usuario: ",
+                      error.message
+                    );
+                  }
+                  console.log(
+                    "Introduce un nombre de usuario válido no vacío y/o contraseña válida"
+                  );
+                  // pulsar enter para volver a introducir un nombre de usuario
+                  inquirer
+                    .prompt({
+                      type: "input",
+                      name: "volver",
+                      message:
+                        "Pulsa enter para volver a introducir un usuario",
+                    })
+                    .then(() => {
+                      this.registrarUsuario();
+                    });
+                  return;
+                }
+              });
+          });
+      });
+  }
+```
+Como podemos ver se piden los datos del usuario y se crea un objeto de la clase `Usuario` con esos datos. Después se inserta el usuario en la colección de usuarios y en el json.
+
+
 ## Conclusiones
 
 En este proyecto se ha podido ver como se puede crear un sistema de gestión de rutas de ciclismo y running, además de poder crear grupos y retos para realizar rutas. Se ha podido ver como se puede crear un sistema de gestión de usuarios, rutas, grupos y retos, además de poder crear un sistema de login y registro de usuarios. Al haber hecho esta práctica en grupo hemos aprendido a usar GitHub para trabajar en equipo, además de aprender a usar las herramientas de desarrollo que se han usado en este proyecto (GitHub Actions, SonarCloud, Coveralls, etc.)
