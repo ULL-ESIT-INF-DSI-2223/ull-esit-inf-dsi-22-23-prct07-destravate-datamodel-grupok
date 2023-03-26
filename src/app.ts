@@ -919,31 +919,6 @@ export class Gestor {
                 });
               case 'Modificar coordenadas de inicio y fin':
                 console.clear();
-<<<<<<< HEAD
-                inquirer.prompt({
-                  type: 'input',
-                  name: 'coordenadasInicio',
-                  message: 'Introduce las coordenadas de inicio: ',
-                }).then((respuesta2) => {
-                  try {
-                    //this.jsonColeccionRuta.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
-                    //this.coleccionRutas.modificarCoordenadasInicioRuta(rutaAModificar, respuesta2.coordenadasInicio)
-                    this.gestionInfo();
-                  } catch (error: unknown) {
-                    if (error instanceof Error) {
-                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
-                    }
-                    console.log('Introduce un nombre de ruta nuevo');
-                    // pulsar enter para volver a introducir un nombre de Ruta
-                    inquirer.prompt({
-                      type: 'input',
-                      name: 'volver',
-                      message: 'Pulsa enter para volver a introducir un ruta',
-                    }).then(() => {
-                      this.registrarRuta();
-                    });
-                    return;
-=======
                 inquirer.prompt(
                   {
                     type: 'input',
@@ -954,7 +929,6 @@ export class Gestor {
                     type: 'input',
                     name: 'coordenadasFin',
                     message: 'Introduce las coordenadas de fin: ',
->>>>>>> a51011102bcce9ff8980cbc01716df188748be02
                   }
                 ).then((respuesta2) => {
                   // this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
@@ -992,9 +966,9 @@ export class Gestor {
     });
   }
 
-    ///////////////////////////////////////
+  /////////////////////////////////////
   ////////// Gestión de Reto //////////
-  ///////////////////////////////////////
+  /////////////////////////////////////
 
   public gestionRetos(): void {
     console.clear();
