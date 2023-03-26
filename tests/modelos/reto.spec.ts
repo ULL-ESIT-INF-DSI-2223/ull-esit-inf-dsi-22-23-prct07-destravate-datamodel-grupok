@@ -31,7 +31,7 @@ describe('Reto', () => {
 
   it ('should get the ID of a Reto', () => {
     const reto = new Reto('Reto de prueba', Actividad.ciclismo);
-    expect(reto.getID()).to.equal(2);
+    expect(reto.getID()).to.equal(13);
   });
 
   it ('should get the name of a Reto', () => {

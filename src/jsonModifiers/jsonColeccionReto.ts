@@ -34,6 +34,7 @@ export class JsonColeccionReto extends ColeccionReto {
     for (const reto of retos_no_instancia) {
       let retoAux = new Reto(reto.nombre, reto.tipoActividad);
       retoAux.setID(reto.id);
+      retoAux.setRutas(reto.rutas);
       retoAux.setUsuarios(reto.usuarios);
       retos.push(retoAux);
     }
@@ -55,11 +56,11 @@ export class JsonColeccionReto extends ColeccionReto {
   }
 
   public addRuta(reto: Reto, ruta: number): void {
-    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).get('rutas').push(ruta).write();
+    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).get('rutas').write();
   }
 
   public eraseRuta(reto: Reto, ruta: number): void {
-    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).get('rutas').pull(ruta).write();
+    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).get('rutas').write();
   }
 
   public modificarActividad(reto: Reto, actividad: string): void {
