@@ -83,19 +83,19 @@ export class JsonColeccionUsuario extends ColeccionUsuario {
   }
 
   public addRuta(usuario: Usuario, ruta: number): void {
-    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('rutasFavoritas').push(ruta).write();
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('rutasFavoritas').write();
   }
 
   public eraseRuta(usuario: Usuario, ruta: number): void {
-    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('rutasFavoritas').remove(ruta).write();
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('rutasFavoritas').pull(ruta).write();
   }
 
   public addRetosActivos(usuario: Usuario, reto: number): void {
-    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('retosActivos').push(reto).write();
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('retosActivos').write();
   }
 
   public eraseRetosActivos(usuario: Usuario, reto: number): void {
-    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('retosActivos').remove(reto).write();
+    this.usuariosDatabase.get('usuarios').find({ nombre: usuario.getNombre() }).get('retosActivos').pull(reto).write();
   }
 
 }

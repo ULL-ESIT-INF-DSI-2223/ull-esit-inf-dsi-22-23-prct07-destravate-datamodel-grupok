@@ -15,10 +15,6 @@ export function stringToCoordenadas(coordenadas: string): Coordenadas {
 }
 
 export function checkCoordenadas(coordenadas: Coordenadas): void {
-  // Comprueba si las coordenadas son números válidos
-  if (isNaN(coordenadas.latitud) || isNaN(coordenadas.longitud)) {
-    throw new Error('Las coordenadas no son válidas');
-  }
 
   // Comprueba si las coordenadas están dentro de los límites permitidos
   const maxLatitud = 90;
@@ -27,12 +23,12 @@ export function checkCoordenadas(coordenadas: Coordenadas): void {
   const minLongitud = -180;
 
   if (coordenadas.latitud > maxLatitud || coordenadas.latitud < minLatitud) {
-    throw new Error('Las coordenadas no son válidas');
+    throw new Error('Las coordenadas no son válidas tienen que ser entre -90 y 90 y se escriben así 40.4167754 -3.7037902');
 
   }
 
   if (coordenadas.longitud > maxLongitud || coordenadas.longitud < minLongitud) {
-    throw new Error('Las coordenadas no son válidas');
+    throw new Error('Las coordenadas no son válidas tienen que ser entre -180 y 180 y se escriben así 40.4167754 -3.7037902');
 
   }
 }

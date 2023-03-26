@@ -5,7 +5,7 @@ import { Reto } from "../modelos/reto";
  * Clase que implemente Colección y la especifica para retos
  */
 export class ColeccionReto implements Coleccion<Reto> {
-  private retos: Map<number, Reto>;
+  private retos: Map<number, Reto> = new Map();
 
   /**
    * Constructor de la clase
@@ -47,6 +47,17 @@ export class ColeccionReto implements Coleccion<Reto> {
    */
   public getRetos(): Map<number, Reto> {
     return this.retos;
+  }
+
+  /**
+   * Metodo para obtener un reto por su id
+   */
+  public getReto(id: number): Reto {
+    const reto = this.retos.get(id);
+    if (reto == undefined) {
+      throw new Error("El reto no existe");
+    }
+    return reto;
   }
 
   /**

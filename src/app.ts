@@ -345,7 +345,6 @@ export class Gestor {
                   // Comprobamos que el usuario exista
                   if ( idUsuarioBorrar == undefined ) {
                     throw new Error (`No se ha encontrado ningún usuario con el nombre ${respuesta2.nombre}.`);
-                    return (this.volver(() => this.gestionUsuarios()));
                   }
                   // Borramos el usuario de la lista de amigos del usuario actual
                   usuarioAModificar.eraseAmigoApp(idUsuarioBorrar);
@@ -354,6 +353,102 @@ export class Gestor {
                   return (this.volver(() => this.gestionUsuarios()));
                 });
               break;
+              case 'Añadir Rutas Favoritas':
+                console.clear();
+                console.log('Añadiendo ruta favorita...');
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'nombre',
+                  choices: Array.from(this.coleccionRutas.getRutas().values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
+                }).then((respuesta2) => {
+                  // Obtenemos el id de la ruta que queremos añadir
+                  const idRuta = Array.from(this.coleccionRutas.getRutas().values()).find((ruta) => ruta.getNombre() === respuesta2.nombre)?.getID();
+                  // Comprobamos que la ruta exista
+                  if ( idRuta == undefined ) {
+                    throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                  }
+                  // Añadimos la ruta a la lista de rutas favoritas del usuario actual
+                  usuarioAModificar.addRutaFavorita(idRuta);
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.addRuta(usuarioAModificar, idRuta);
+                  return (this.volver(() => this.gestionUsuarios()));
+                });
+              break;
+              case 'Borrar Rutas Favoritas':
+                const rutasFavoritas = Array.from(usuarioAModificar.getRutasFavoritas().values()).map((id) => this.coleccionRutas.getRuta(id).getNombre());
+                if ( rutasFavoritas.length === 0 ) {
+                  console.log('No tienes rutas favoritas.');
+                  return (this.volver(() => this.gestionUsuarios()));
+                }
+                console.clear();
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'nombre',
+                  choices: rutasFavoritas.concat('Cancelar'),
+                }).then((respuesta2) => {
+                  // Obtenemos el id de la ruta que queremos borrar
+                  const idRuta = Array.from(usuarioAModificar.getRutasFavoritas().values()).find((id) => this.coleccionRutas.getRuta(id).getNombre() === respuesta2.nombre);
+                  // Comprobamos que la ruta exista
+                  if ( idRuta == undefined ) {
+                    throw new Error (`No se ha encontrado ninguna ruta con el nombre ${respuesta2.nombre}.`);
+                  }
+                  // Borramos la ruta de la lista de rutas favoritas del usuario actual
+                  usuarioAModificar.eraseRutaFavorita(idRuta);
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.eraseRuta(usuarioAModificar, idRuta);
+                  return (this.volver(() => this.gestionUsuarios()));
+                });
+              break;
+              case 'Añadir Retos Activos':
+                console.clear();
+                console.log('Añadiendo reto activo...');
+                const retosActivos = Array.from(this.coleccionRetos.getRetos().values()).map((reto) => reto.getNombre()).concat('Cancelar');
+                if ( retosActivos.length === 0 ) {
+                  console.log('No hay retos disponibles.');
+                  return (this.volver(() => this.gestionUsuarios()));
+                }
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'nombre',
+                  choices: retosActivos.concat('Cancelar'),
+                }).then((respuesta2) => {
+                  // Obtenemos el id del reto que queremos añadir
+                  const idReto = Array.from(this.coleccionRetos.getRetos().values()).find((reto) => reto.getNombre() === respuesta2.nombre)?.getID();
+                  // Comprobamos que el reto exista
+                  if ( idReto == undefined ) {
+                    throw new Error (`No se ha encontrado ningún reto con el nombre ${respuesta2.nombre}.`);
+                  }
+                  // Añadimos el reto a la lista de retos activos del usuario actual
+                  usuarioAModificar.addRetosActivos(idReto);
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.addRetosActivos(usuarioAModificar, idReto);
+                  return (this.volver(() => this.gestionUsuarios()));
+                });
+              break;
+              case 'Borrar Retos Activos':
+                const retosActivosUsuario = Array.from(usuarioAModificar.getRetosActivos().values()).map((id) => this.coleccionRetos.getReto(id).getNombre());
+                if ( retosActivosUsuario.length === 0 ) {
+                  console.log('No tienes retos activos.');
+                  return (this.volver(() => this.gestionUsuarios()));
+                }
+                console.clear();
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'nombre',
+                  choices: retosActivosUsuario.concat('Cancelar'),
+                }).then((respuesta2) => {
+                  // Obtenemos el id del reto que queremos borrar
+                  const idReto = Array.from(usuarioAModificar.getRetosActivos().values()).find((id) => this.coleccionRetos.getReto(id).getNombre() === respuesta2.nombre);
+                  // Comprobamos que el reto exista
+                  if ( idReto == undefined ) {
+                    throw new Error (`No se ha encontrado ningún reto con el nombre ${respuesta2.nombre}.`);
+                  }
+                  // Borramos el reto de la lista de retos activos del usuario actual
+                  usuarioAModificar.eraseRetosActivos(idReto);
+                  // Lo escribimos en el fichero
+                  this.jsonColeccionUsuario.eraseRetosActivos(usuarioAModificar, idReto);
+                  return (this.volver(() => this.gestionUsuarios()));
+                });
               default:
               break;
             }
@@ -823,8 +918,8 @@ export class Gestor {
         case 'Modificar rutas':
           this.modificarRuta();
           break;
-        case 'Eliminar rutas':
-          // this.eliminarRuta();
+        case 'Eliminar ruta':
+          this.eliminarRuta();
           break;
         case 'Volver al menú anterior':
           this.gestionInfo()
@@ -995,40 +1090,159 @@ export class Gestor {
                 });
               case 'Modificar coordenadas de inicio y fin':
                 console.clear();
-                inquirer.prompt(
+                inquirer.prompt([
                   {
                     type: 'input',
-                    name: 'coordenadasInicio',
-                    message: 'Introduce las coordenadas de inicio: ',
+                     name: 'coordenadasInicio',
+                    message: 'Coordenadas de inicio: ',
                   },
                   {
                     type: 'input',
                     name: 'coordenadasFin',
-                    message: 'Introduce las coordenadas de fin: ',
+                    message: 'Coordenadas de fin: ',
                   }
-                ).then((respuesta2) => {
-                  // this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
-                  // this.jsonColeccionRuta.modificarCoordenadasRuta(rutaAModificar, respuesta2.coordenadasInicio, respuesta2.coordenadasFin);
+                ]).then((respuesta: any) => {
+                  try { 
+                    checkCoordenadas(respuesta.coordenadasInicio);
+                    checkCoordenadas(respuesta.coordenadasFin);
+            
+                    const coordenadasInicio = stringToCoordenadas(respuesta.coordenadasInicio);
+                    const coordenadasFin = stringToCoordenadas(respuesta.coordenadasFin);
+                    
+                    this.jsonColeccionRuta.modificarCoordenadasRuta(rutaAModificar, coordenadasInicio, coordenadasFin);
+                    this.coleccionRutas.modificarCoordenadasRuta(rutaAModificar, coordenadasInicio, coordenadasFin);
+                    this.gestionInfo();
+                  } catch (error: any) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar la ruta: ', error.message);
+                    }
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menú',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
                   this.gestionInfo();
                 });
               break;
               case 'Modificar longitud':
-                // this.modificarLongitudRuta(rutaAModificar);
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'longitud',
+                  message: 'Introduce la longitud de la ruta: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarLongitudRuta(rutaAModificar, respuesta2.longitud)
+                    this.coleccionRutas.modificarLongitudRuta(rutaAModificar, respuesta2.longitud)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce una longitud de ruta nueva');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menu',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
+                });
                 break;
               case 'Modificar desnivel':
-                // this.modificarDesnivelRuta(rutaAModificar);
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'desnivel',
+                  message: 'Introduce el desnivel de la ruta: ',
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarDesnivelRuta(rutaAModificar, respuesta2.desnivel)
+                    this.coleccionRutas.modificarDesnivelRuta(rutaAModificar, respuesta2.desnivel)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce un desnivel de ruta nuevo');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menu',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
+                });
                 break;
               case 'Modificar tipo de actividad':
-                // this.modificarTipoActividadRuta(rutaAModificar);
+                console.clear();
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'tipoActividad',
+                  choices: [ 'Ciclismo', 'Running' ],
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarTipoActividadRuta(rutaAModificar, respuesta2.tipoActividad)
+                    this.coleccionRutas.modificarTipoActividadRuta(rutaAModificar, respuesta2.tipoActividad)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce un tipo de actividad de ruta nuevo');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menu',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
+                });
                 break;
               case 'Modificar dificultad':
-                // this.modificarDificultadRuta(rutaAModificar);
-                break;
-              case 'Modificar calificación':
-                // this.modificarCalificacionRuta(rutaAModificar);
+                console.clear();
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'dificultad',
+                  choices: [ 'Fácil', 'Media', 'Difícil' ]
+                }).then((respuesta2) => {
+                  try {
+                    this.jsonColeccionRuta.modificarDificultadRuta(rutaAModificar, respuesta2.dificultad)
+                    this.coleccionRutas.modificarDificultadRuta(rutaAModificar, respuesta2.dificultad)
+                    this.gestionInfo();
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el ruta: ', error.message);
+                    }
+                    console.log('Introduce una dificultad de ruta nueva');
+                    // pulsar enter para volver a introducir un nombre de Ruta
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menu',
+                    }).then(() => {
+                      this.gestionInfo();
+                    });
+                    return;
+                  }
+                });
                 break;
               case 'Salir':
-                this.gestionRutas();
+                this.gestionInfo();
                 break;
               default:
                 break;
@@ -1038,6 +1252,39 @@ export class Gestor {
           console.log(`No se encontró el usuario ${respuesta.usuario}`);
           this.volver(() => this.gestionUsuarios());
         }
+      }
+    });
+  }
+
+  private eliminarRuta(): void {
+    console.clear();
+    console.log('Eliminando ruta...');
+
+    // Obtener el listado de rutas
+    const rutas = this.coleccionRutas.getRutas();
+      
+    // Pedir al usuario que seleccione la ruta a eliminar
+    inquirer.prompt({
+      type: 'list',
+      name: 'ruta',
+      message: 'Selecciona la ruta que deseas eliminar:',
+      choices: Array.from(rutas.values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
+    }).then((respuesta) => {
+      if (respuesta.ruta === 'Cancelar') {
+        this.consola();
+      } else {
+        // Buscar la ruta a eliminar por su nombre y eliminarla
+        const rutaAEliminar = Array.from(rutas.values()).find((ruta) => ruta.getNombre() === respuesta.ruta);
+        if (rutaAEliminar) {
+          // Eliminamos la ruta del JSON
+          this.jsonColeccionRuta.eliminarRuta(rutaAEliminar);
+          // Eliminamos la ruta del Map de rutas
+          rutas.delete(rutaAEliminar.getID());
+          console.log(`ruta ${rutaAEliminar.getNombre()} eliminada con éxito`);
+        } else {
+          console.log(`No se encontró la ruta ${respuesta.ruta}`);
+        }
+        this.volver(() => this.consola());
       }
     });
   }
