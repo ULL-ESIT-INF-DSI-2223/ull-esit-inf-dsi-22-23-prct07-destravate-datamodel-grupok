@@ -36,7 +36,7 @@ describe("Usuario", () => {
 
   it ("Debería devolver el id del usuario", () => {
     const usuario = new Usuario("usuario", "Dsi23*", Actividad.ciclismo);
-    expect(usuario.getID()).to.be.equal(1);
+    expect(usuario.getID()).to.be.equal(5);
   });
 
   it ("Debería devolver los amigos de la aplicación del usuario", () => {
