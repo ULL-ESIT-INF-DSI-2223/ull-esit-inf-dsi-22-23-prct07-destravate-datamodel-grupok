@@ -141,8 +141,8 @@ export class Usuario implements EntidadInterface {
   }
 
   /**
-   * Setter del ID
-   * @param id Nuevo ID del user
+   * Propierdad que establece el ID de los usuarios
+   * @param id id desde el que va a empezar a crear usuarios
    */
   setID = (id: number): void => {
     this.id = id;
