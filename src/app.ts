@@ -1165,8 +1165,19 @@ export class Gestor {
                   }
                   // Añadimos la ruta a la lista de rutas realizadas del grupo actual
                   grupoAModificar.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                  
                   // Lo escribimos en el fichero
                   this.jsonColeccionGrupo.addRutaRealizada(grupoAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+
+                  // Añadimos la ruta a los usuarios
+                  for (const userID of grupoAModificar.participantes) {
+                    const participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === userID);
+                    participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+
+                    this.jsonColeccionGrupo.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+
+                  }
+
                   return (this.volver(() => this.gestionGrupos()));
                 });
                 break;
