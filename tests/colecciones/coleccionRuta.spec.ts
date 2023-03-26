@@ -176,4 +176,8 @@ describe('ColeccionRuta', () => {
     expect(() => coleccionRuta.eliminar(ruta4)).to.throw('La ruta que deseas eliminar no existe.');
   })
 
+  it ('should throw an error if the route does exist', () => {
+    expect(() => coleccionRuta.insertar(ruta1)).to.throw('La ruta que deseas insertar ya existe.');
+  })
+
 });

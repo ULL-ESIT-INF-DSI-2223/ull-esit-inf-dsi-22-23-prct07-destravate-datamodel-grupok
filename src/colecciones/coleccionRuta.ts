@@ -80,7 +80,7 @@ export class ColeccionRuta implements Coleccion<Ruta>{
    */
   public insertar(ruta: Ruta): void {
     if (this.rutas.has(ruta.getID())) {
-      throw new Error('La ruta ya existe insertar ruta');
+      throw new Error('La ruta que deseas insertar ya existe.');
       // console.log('La ruta ya existe insertar ruta');
       // return;
     }
@@ -96,7 +96,8 @@ export class ColeccionRuta implements Coleccion<Ruta>{
       this.rutas.delete(ruta.getID());
     }
     else {
-      console.log("La ruta que deseas eliminar no existe.");
+      throw new Error("La ruta que deseas eliminar no existe.");
+      // console.log("La ruta que deseas eliminar no existe.");
     }
   }
 
