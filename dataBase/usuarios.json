@@ -9,15 +9,15 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
-          "km": 0,
+          "km": 3,
           "desnivel": 0
         },
         "mes": {
-          "km": 0,
+          "km": 2,
           "desnivel": 0
         },
         "anio": {
-          "km": 0,
+          "km": 1,
           "desnivel": 0
         }
       },
@@ -36,15 +36,44 @@
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
+          "km": 1,
+          "desnivel": 0
+        },
+        "mes": {
+          "km": 2,
+          "desnivel": 0
+        },
+        "anio": {
+          "km": 3,
+          "desnivel": 0
+        }
+      },
+      "rutasFavoritas": [
+        4
+      ],
+      "retosActivos": [],
+      "historicoRutas": []
+    },
+    {
+      "id": 3,
+      "nombre": "adaycho",
+      "contraseña": "37Ie*",
+      "actividades": "bicicleta",
+      "amigosApp": [
+        1
+      ],
+      "amigosFrecuentes": [],
+      "estadisticas": {
+        "semana": {
           "km": 0,
           "desnivel": 0
         },
         "mes": {
-          "km": 0,
+          "km": 5,
           "desnivel": 0
         },
         "anio": {
-          "km": 0,
+          "km": 2,
           "desnivel": 0
         }
       },

@@ -1044,10 +1044,38 @@ export class Gestor {
           }
           this.volver(() => this.gestionInfo());
           break;
+        case 'Cantidad de km (semanal)':
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().semana.km - b.getEstadisticas().semana.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          this.volver(() => this.gestionInfo());
+          break;
+        case 'Cantidad de km (mensual)':
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().mes.km - b.getEstadisticas().mes.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          this.volver(() => this.gestionInfo());
+          break;
+        case 'Cantidad de km (anual)':
+          array = [...this.coleccionUsuarios.getUsuarios().values()].sort((a,b) => a.getEstadisticas().anio.km - b.getEstadisticas().anio.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          this.volver(() => this.gestionInfo());
+          break;
       }
     });
-    
-    
   }
 
   /**
@@ -1416,13 +1444,71 @@ export class Gestor {
     });
   }  
 
-  private listarGrupos(/*funcionVolver: () => void*/): void {
+  private listarGrupos(): void {
     console.clear();
     console.log('Listando grupos...');
-    for (const grupos of this.coleccionGrupos) {
-      console.log(grupos.getNombre());
-    }
-    // this.volver(funcionVolver);
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'sentido',
+        choices: [
+          'Ascendente',
+          'Descendente',
+        ],
+      },
+      {
+        type: 'list',
+        name: 'ordenacion',
+        choices: [
+          'Alfabéticamente',
+          'Cantidad de km (semanal)',
+          'Cantidad de km (mensual)',
+          'Cantidad de km (anual)',
+        ],
+      }
+    ]).then((respuesta) => {
+      let array
+      switch (respuesta.ordenacion) {
+        case 'Alfabéticamente':
+          array = [...this.coleccionGrupos.getGrupos().values()].map((a) => a.getNombre()).sort()
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          break;
+        case 'Cantidad de km (semanal)':
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().semana.km - b.getEstadisticasEntrenamiento().semana.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          break;
+        case 'Cantidad de km (mensual)':
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().mes.km - b.getEstadisticasEntrenamiento().mes.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          break;
+        case 'Cantidad de km (anual)':
+          array = [...this.coleccionGrupos.getGrupos().values()].sort((a,b) => a.getEstadisticasEntrenamiento().anio.km - b.getEstadisticasEntrenamiento().anio.km)
+          if (respuesta.sentido === 'Descendente') {
+            array = array.reverse()
+          } 
+          for (const usuario of array) {
+            console.log(usuario);
+          }
+          break;
+        default:
+          break
+      }
+    });
   }
 
   /**
@@ -1832,7 +1918,7 @@ export class Gestor {
             }
           });
         } else {
-          console.log(`No se encontró el usuario ${respuesta.usuario}`);
+          console.log(`No se encontró la ruta ${respuesta.usuario}`);
           this.volver(() => this.gestionUsuarios());
         }
       }
@@ -1967,7 +2053,7 @@ export class Gestor {
     // Pedir al usuario que seleccione el reto a modificar
     inquirer.prompt({
       type: 'list',
-      name: 'retos',
+      name: 'reto',
       message: 'Selecciona el reto que deseas modificar:',
       choices: Array.from(retos.values()).map((reto) => reto.getNombre()).concat('Cancelar'),
     }).then((respuesta) => {
@@ -1994,8 +2080,33 @@ export class Gestor {
             ],
           }).then((respuesta) => {
             switch (respuesta.opcion) {
-              case 'Modificar nombre de Reto':
-                
+              case 'Modificar Nombre de Reto':
+                console.clear();
+                inquirer.prompt({
+                  type: 'input',
+                  name: 'nombre',
+                  message: 'Introduce el nuevo nombre del reto: ',
+                }).then((respuesta) => {
+                  try {
+                    retoAModificar.setNombre(respuesta.nombre);
+                    this.jsonColeccionReto.modificarNombre(retoAModificar, respuesta.nombre)
+                    console.log(`Reto ${retoAModificar.getNombre()} modificado con éxito`);
+                    this.volver(() => this.modificarReto());
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.log('\x1b[31m%s\x1b[0m', 'Error al modificar el reto: ', error.message);
+                    }
+                    console.log('Introduce un nombre de reto válido');
+                    // pulsar enter para volver a introducir un nombre de reto
+                    inquirer.prompt({
+                      type: 'input',
+                      name: 'volver',
+                      message: 'Pulsa enter para volver al menu',
+                    }).then(() => {
+                      this.modificarReto();
+                    });
+                  }
+                });
                 break;
               case 'Añadir Ruta':
                 console.clear();
@@ -2009,13 +2120,43 @@ export class Gestor {
                   choices: Array.from(rutas.values()).map((ruta) => ruta.getNombre()).concat('Cancelar'),
                 }).then((respuesta) => {
                   if (respuesta.ruta === 'Cancelar') {
-                    this.gestionRetos();
+                    this.modificarReto();
                   } else {
                     // Buscar la ruta a añadir por su nombre y añadirla
                     const rutaAAñadir = Array.from(rutas.values()).find((ruta) => ruta.getNombre() === respuesta.ruta);
                     if (rutaAAñadir) {
                       retoAModificar.addRuta(rutaAAñadir.getID());
+                      this.jsonColeccionReto.addRuta(retoAModificar, rutaAAñadir.getID());
                       console.log(`Ruta ${rutaAAñadir.getNombre()} añadida con éxito`);
+                      this.volver(() => this.modificarReto());
+                    } else {
+                      console.log(`No se encontró la ruta ${respuesta.ruta}`);
+                      this.volver(() => this.modificarReto());
+                    }
+                  }
+                });
+                break;
+              case 'Borrar Ruta':
+                console.clear();
+                // Obtener el listado de rutas del reto
+                const rutaslist = Array.from(retoAModificar.getRutas().values()).map((id) => this.coleccionRutas.getRuta(id).getNombre());
+                // Pedir al usuario que seleccione la ruta a borrar
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'ruta',
+                  message: 'Selecciona la ruta que deseas borrar:',
+                  choices: rutaslist.concat('Cancelar'),
+                }).then((respuesta) => {
+                  if (respuesta.ruta === 'Cancelar') {
+                    this.gestionRetos();
+                  } else {
+                    // Buscar la ruta a borrar por su nombre y borrarla
+                    const rutaABorrar = Array.from(retoAModificar.getRutas().values()).find((id) => this.coleccionRutas.getRuta(id).getNombre() === respuesta.ruta);
+                    if (rutaABorrar) {
+                      this.jsonColeccionReto.eraseRuta(retoAModificar, rutaABorrar);
+                      retoAModificar.removeRuta(rutaABorrar);
+                      console.log(retoAModificar.getNombre());
+                      console.log(`Ruta borrada con éxito`);
                       this.volver(() => this.gestionRetos());
                     } else {
                       console.log(`No se encontró la ruta ${respuesta.ruta}`);
@@ -2024,17 +2165,77 @@ export class Gestor {
                   }
                 });
                 break;
-              case 'Borrar Ruta':
-                
-                break;
               case 'Añadir Usuario a Reto':
-                
+                console.clear();
+                // Obtener el listado de usuarios
+                const usuarios = this.coleccionUsuarios.getUsuarios();
+                // Pedir al usuario que seleccione el usuario a añadir
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'usuario',
+                  message: 'Selecciona el usuario que deseas añadir:',
+                  choices: Array.from(usuarios.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
+                }).then((respuesta) => {
+                  if (respuesta.usuario === 'Cancelar') {
+                    this.gestionRetos();
+                  } else {
+                    // Buscar el usuario a añadir por su nombre y añadirlo
+                    const usuarioAAñadir = Array.from(usuarios.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
+                    if (usuarioAAñadir) {
+                      retoAModificar.addUsuario(usuarioAAñadir.getID());
+                      this.jsonColeccionReto.addUsuario(retoAModificar, usuarioAAñadir.getID());
+                      console.log(`Usuario ${usuarioAAñadir.getNombre()} añadido con éxito`);
+                      this.volver(() => this.gestionRetos());
+                    } else {
+                      console.log(`No se encontró el usuario ${respuesta.usuario}`);
+                      this.volver(() => this.gestionRetos());
+                    }
+                  }
+                });
                 break;
               case 'Borrar Usuario de Reto':
-
+                console.clear();
+                // Obtener el listado de usuarios
+                const usuarioslist = Array.from(retoAModificar.getUsuarios().values()).map((id) => this.coleccionUsuarios.getUsuario(id));
+                // Pedir al usuario que seleccione el usuario a borrar
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'usuario',
+                  message: 'Selecciona el usuario que deseas borrar:',
+                  choices: Array.from(usuarioslist.values()).map((usuario) => usuario.getNombre()).concat('Cancelar'),
+                }).then((respuesta) => {
+                  if (respuesta.usuario === 'Cancelar') {
+                    this.gestionRetos();
+                  } else {
+                    // Buscar el usuario a borrar por su nombre y borrarlo
+                    const usuarioABorrar = Array.from(usuarioslist.values()).find((usuario) => usuario.getNombre() === respuesta.usuario);
+                    if (usuarioABorrar) {
+                      retoAModificar.removeUsuario(usuarioABorrar.getID());
+                      this.jsonColeccionReto.eraseUsuario(retoAModificar, usuarioABorrar.getID());
+                      console.log(`Usuario ${usuarioABorrar.getNombre()} borrado con éxito`);
+                      this.volver(() => this.gestionRetos());
+                    } else {
+                      console.log(`No se encontró el usuario ${respuesta.usuario}`);
+                      this.volver(() => this.gestionRetos());
+                    }
+                  }
+                });
                 break;
               case 'Modificar Actividad':
-
+                console.clear();
+                // Pedir al usuario que seleccione la actividad a modificar
+                inquirer.prompt({
+                  type: 'list',
+                  name: 'actividad',
+                  message: 'Selecciona la actividad que deseas modificar:',
+                  choices: ['Ciclismo', 'Running'],
+                }).then((respuesta) => {
+                  // set actividad
+                  this.jsonColeccionReto.modificarActividad(retoAModificar, respuesta.actividad);
+                  this.coleccionRetos.modificarActividad(retoAModificar, respuesta.actividad);
+                  console.log(`Actividad modificada con éxito`);
+                  this.volver(() => this.gestionRetos());
+                });
                 break;
               case 'Salir':
                 this.gestionRetos();
@@ -2044,8 +2245,8 @@ export class Gestor {
             }
           });
         } else {
-          console.log(`No se encontró el usuario ${respuesta.usuario}`);
-          this.volver(() => this.gestionUsuarios());
+          console.log(`No se encontró el reto ${respuesta.reto}`);
+          this.volver(() => this.gestionRetos());
         }
       }
     });
