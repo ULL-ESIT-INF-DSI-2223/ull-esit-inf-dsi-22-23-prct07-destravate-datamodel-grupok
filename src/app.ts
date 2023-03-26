@@ -293,15 +293,16 @@ export class Gestor {
         case 'Estadísticas':
           console.clear();
           this.listarEstadisticas(id);
-          this.menuUsuario(id)
+          this.volver(() => this.menuUsuario(id));
         break;
         case 'Retos':
           console.clear();
-          // this.gestionRetos(usuarioActual);
+          this.volver(() => this.menuUsuario(id));
         break;
         case 'Histórico de rutas':
           console.clear();
           this.listarHistoricoRutas(id);
+          this.volver(() => this.menuUsuario(id));
         break;
         case 'Salir':
           console.clear();
