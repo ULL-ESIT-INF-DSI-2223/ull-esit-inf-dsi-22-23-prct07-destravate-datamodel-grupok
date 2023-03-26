@@ -9,11 +9,19 @@ export interface Coordenadas {
   longitud: number;
 }
 
+/**
+ * Función que permite transformas una string con coordenadas a una instancia de al propia clase
+ * @param coordenadas Coordenadas en formato string
+ * @returns Coordenadas en su formato
+ */
 export function stringToCoordenadas(coordenadas: string): Coordenadas {
   const [latitud, longitud] = coordenadas.split(' ');
   return { latitud: Number(latitud), longitud: Number(longitud) };
 }
-
+/**
+ * Función que realiza comprobaciones sobre las coordenadas
+ * @param coordenadas Coordenadas a comprobar
+ */
 export function checkCoordenadas(coordenadas: Coordenadas): void {
 
   // Comprueba si las coordenadas están dentro de los límites permitidos
