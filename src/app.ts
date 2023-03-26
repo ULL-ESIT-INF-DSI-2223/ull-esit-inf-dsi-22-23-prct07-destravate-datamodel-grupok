@@ -1169,14 +1169,24 @@ export class Gestor {
                   // Lo escribimos en el fichero
                   this.jsonColeccionGrupo.addRutaRealizada(grupoAModificar, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
 
-                  // Añadimos la ruta a los usuarios
+                  // Añadimos la ruta al creador y a los usuarios
+                  let participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === grupoAModificar.getCreador());
+                    if (participanteRuta !== undefined) {
+                      participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                      this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                    }
+
                   for (const userID of grupoAModificar.participantes) {
-                    const participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === userID);
-                    participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
-
-                    this.jsonColeccionGrupo.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
-
+                    participanteRuta = Array.from(this.coleccionUsuarios.getUsuarios().values()).find((usuario) => usuario.getID() === userID);
+                    if (participanteRuta !== undefined) {
+                      participanteRuta.addRutaRealizada({ ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                      this.jsonColeccionUsuario.addRutaRealizada(participanteRuta, { ruta: idRuta, fecha: new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString()});
+                    }
                   }
+                    
+
+                  
+                    
 
                   return (this.volver(() => this.gestionGrupos()));
                 });
