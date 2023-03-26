@@ -300,7 +300,6 @@ export class Gestor {
         case 'Retos':
           console.clear();
           this.gestionRetosUsuario(id);
-          this.volver(() => this.menuUsuario(id));
         break;
         case 'Histórico de rutas':
           console.clear();
@@ -323,6 +322,7 @@ export class Gestor {
    */
   private gestionRetosUsuario(id: number) {
     console.clear();
+    console.log('Gestión de retos');
     // Cogemos el usuario de la colección de usuarios
     const usuarioActual = this.coleccionUsuarios.getUsuario(id);
     // Preguntamos al usuario si quiere unirse a un reto, listar los retos y completar un reto
@@ -352,25 +352,40 @@ export class Gestor {
                 // Insertamos el reto en el json
                 this.jsonColeccionReto.addUsuario(reto, usuarioActual.getID());
               }
-              // Añadimos el reto al usuario
-              usuarioActual.addRetosActivos(reto.id);
-              // Lo escribimos el en json
-              this.jsonColeccionUsuario.insertarUsuario(usuarioActual);
             }
             this.gestionRetosUsuario(id);
           });
-
-          // this.volver(() => this.gestionRetosUsuario(id));
         break;
         case 'Listar retos':
           console.clear();
+          this.listarRetos();
           this.volver(() => this.gestionRetosUsuario(id));
           // this.listarRetos(id);
         break;
         case 'Completar reto':
           console.clear();
-          // this.completarReto(id);
-          this.volver(() => this.gestionRetosUsuario(id));
+          // Hacemos que el usuario seleccione un reto en el que no sea participante ya
+          inquirer.prompt({
+            type: 'list',
+            name: 'reto',
+            message: 'Elige un reto: ',
+            // Hacemos que los choices sean los nombres de los retos en los que participa
+            choices: Array.from(this.coleccionRetos.getRetos().values()).filter((reto) => reto.getUsuarios().includes(usuarioActual.getID())).map((reto) => reto.getNombre()),
+          }).then((respuesta2) => {
+            // Cogemos el reto seleccionado
+            const reto = Array.from(this.coleccionRetos.getRetos().values()).find((reto) => reto.getNombre() === respuesta2.reto);
+            
+            // Comprobamos que el reto no sea undefined
+            if ( reto != undefined ) {
+              // Borramos el id del reto de la lista de retos del usuario
+              usuarioActual.eraseRetosActivos(reto.getID());
+              // Borramos el id del usuario de la lista de usuarios del reto
+              reto.removeUsuario(usuarioActual.getID());
+            } else {
+              // throw new Error(`El reto no existe - línea ${new Error().stack.split('\n')[1].trim().substr(3)}`);
+            }
+            this.gestionRetosUsuario(id);
+          });
         break;
         case 'Volver':
           console.clear();
@@ -1936,9 +1951,9 @@ export class Gestor {
     console.clear();
     console.log('Listando retos...');
     const retos = this.coleccionRetos.getRetos();
-    console.table(
-      Array.from(retos.values()).map((reto) => ({ Nombre: reto.getNombre() }))
-    );
+    // console.table(
+    //   Array.from(retos.values()).map((reto) => ({ Nombre: reto.getNombre() }))
+    // );
     this.volver(() => this.gestionRetos());
   }
 

@@ -66,8 +66,9 @@ export class JsonColeccionReto extends ColeccionReto {
     this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).assign({ tipoActividad: actividad }).write();
   }
 
-  public addUsuario(reto: Reto, usuario: number): void {
-    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).assign({ usuarios: usuario }).write();
+  public addUsuario(reto: Reto, id: number): void {
+    // Buscamos el reto en función del ID, luego añadimos el usuario a la lista de usuarios
+    this.retosDatabase.get('retos').find({ nombre: reto.getNombre() }).get('usuarios').write();
   }
 
   public eraseUsuario(reto: Reto, usuario: number): void {
