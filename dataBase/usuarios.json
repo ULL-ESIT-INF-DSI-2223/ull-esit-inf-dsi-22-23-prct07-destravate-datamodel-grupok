@@ -5,20 +5,25 @@
       "nombre": "yanfris",
       "contraseña": "Dsi23*",
       "actividades": "corredor",
-      "amigosApp": [2, 5],
-      "amigosFrecuentes": [2],
+      "amigosApp": [
+        2,
+        5
+      ],
+      "amigosFrecuentes": [
+        2
+      ],
       "estadisticas": {
         "semana": {
           "km": 3,
-          "desnivel": 1
+          "desnivel": 0
         },
         "mes": {
           "km": 2,
-          "desnivel": 7
+          "desnivel": 0
         },
         "anio": {
           "km": 1,
-          "desnivel": 8
+          "desnivel": 0
         }
       },
       "rutasFavoritas": [],
@@ -104,7 +109,9 @@
           "desnivel": 0
         }
       },
-      "rutasFavoritas": [],
+      "rutasFavoritas": [
+        5
+      ],
       "retosActivos": [],
       "historicoRutas": []
     },
@@ -488,7 +495,9 @@
       "nombre": "aldo",
       "contraseña": "Le0$",
       "actividades": "running",
-      "amigosApp": [],
+      "amigosApp": [
+        3
+      ],
       "amigosFrecuentes": [],
       "estadisticas": {
         "semana": {
