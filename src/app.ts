@@ -552,7 +552,7 @@ export class Gestor {
         break;
         case 'Rutas':
           console.clear();
-          // this.gestionRutas(usuarioActual);
+          this.gestionRutasUsuario();
         break;
         case 'Grupos':
           console.clear();
@@ -655,6 +655,28 @@ export class Gestor {
         case 'Volver':
           console.clear();
           this.menuUsuario(usuarioActual.id);
+        break;
+        default:
+        break;
+      }
+    });
+  }
+
+  private gestionRutasUsuario() {
+    inquirer.prompt({
+      type: 'list',
+      name: 'menu',
+      message: 'Elige una opción: ',
+      choices: ['Listar rutas', 'Mostrar rutas', 'Volver'],
+    }).then((respuesta) => {
+      switch (respuesta.menu) {
+        case 'Listar rutas':
+          this.listarRutas();
+        break;
+        case 'Mostrar rutas':
+          this.mostrarRutas();
+        break;
+        case 'Volver':
         break;
         default:
         break;
@@ -1290,6 +1312,17 @@ export class Gestor {
   }
 
   private listarRutas(): void {
+    console.clear();
+    console.log('Listado de rutas:');
+    const rutas = this.coleccionRutas.getRutas();
+    rutas.forEach((ruta) => {
+      console.log(ruta.getNombre());
+      // console.log(ruta);
+    });
+    this.volver(() => this.gestionRutas());
+  }
+
+  private mostrarRutas(): void {
     console.clear();
     console.log('Listado de rutas:');
     const rutas = this.coleccionRutas.getRutas();
