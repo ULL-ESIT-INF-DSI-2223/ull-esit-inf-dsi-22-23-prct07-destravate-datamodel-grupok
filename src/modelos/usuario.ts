@@ -82,6 +82,10 @@ export class Usuario implements EntidadInterface {
     return this.historicoRutas;
   }
 
+  getContadorID(): number {
+    return contador_id;
+  }
+
   setID = (id: number): void => {
     this.id = id;
     if ( id > contador_id ) {

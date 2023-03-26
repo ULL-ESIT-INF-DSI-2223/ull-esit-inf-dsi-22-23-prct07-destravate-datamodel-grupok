@@ -564,7 +564,8 @@ export class Gestor {
         break;
         case 'Estadísticas':
           console.clear();
-          // this.gestionEstadisticas(usuarioActual);
+          this.listarEstadisticas(id);
+          this.menuUsuario(id)
         break;
         case 'Retos':
           console.clear();
@@ -583,6 +584,14 @@ export class Gestor {
         break;
       }
     });
+  }
+
+  private listarEstadisticas(id: number) {
+    console.clear();
+    // Cogemos el usuario de la colección de usuarios
+    const usuarioActual = this.coleccionUsuarios.getUsuario(id);
+    // Listamos sus estadísticas 
+    console.log(usuarioActual.getEstadisticas())
   }
 
   private gestionAmigos(usuarioActual: Usuario) {

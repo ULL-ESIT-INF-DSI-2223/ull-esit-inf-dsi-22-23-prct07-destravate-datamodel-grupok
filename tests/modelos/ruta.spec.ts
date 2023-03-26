@@ -123,5 +123,12 @@ describe('Ruta', () => {
     expect(ruta.getID()).to.be.a('number');
   });
 
+  it ('Should set the id of the Ruta', () => {
+    const ruta = new Ruta('Ruta de prueba', coordenadasInicio, coordenadasFin, longitud, desnivel, tipoActividad, dificultad);
+    const id = 1;
+    ruta.setID(id);
+    expect(ruta.getID()).to.equal(id);
+  });
+
 });
 
