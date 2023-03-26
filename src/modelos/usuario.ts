@@ -92,7 +92,7 @@ export class Usuario implements EntidadInterface {
   getContadorID(): number {
     return contador_id;
   }
-
+  
   setID = (id: number): void => {
     this.id = id;
     if ( id > contador_id ) {
