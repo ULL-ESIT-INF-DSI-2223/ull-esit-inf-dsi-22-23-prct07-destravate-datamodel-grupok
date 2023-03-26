@@ -348,11 +348,14 @@ export class Gestor {
             if ( reto != undefined ) {
               // Si el usuario no es participante del reto, lo añadimos a la lista de participantes del reto
               if ( !reto.getUsuarios().includes(usuarioActual.getID()) ) {
+                // Ponemos el reto como activo en el usuario
+                usuarioActual.addRetosActivos(reto.getID());
+                // Escribimos en el json del usuario
+                this.jsonColeccionUsuario.addRetosActivos(usuarioActual, reto.getID());
+                // Insertamos el usuario en el reto
                 reto.addUsuario(usuarioActual.getID());
                 // Insertamos el reto en el json
                 this.jsonColeccionReto.addUsuario(reto, usuarioActual.getID());
-                // Ponemos el reto como activo en el usuario
-                usuarioActual.addRetosActivos(reto.getID());
               }
             }
             this.gestionRetosUsuario(id);
@@ -380,6 +383,8 @@ export class Gestor {
             if ( reto != undefined ) {
               // Borramos el id del reto de la lista de retos del usuario
               usuarioActual.eraseRetosActivos(reto.getID());
+              // Lo escribimos en el json
+              this.jsonColeccionUsuario.eraseRetosActivos(usuarioActual, reto.getID());
               // Borramos el id del usuario de la lista de usuarios del reto
               reto.removeUsuario(usuarioActual.getID());
               // Lo escribimos en el json
